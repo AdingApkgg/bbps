@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% set current_page = page | default(value=section) %} {% set lang =
+current_page.lang | default(value=config.default_language) %}
+
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {{ current_page.title | default(value=config.title) }} | {{ config.title
+      }}
+    </title>
+    <meta
+      name="description"
+      content="{{ current_page.description | default(value=config.description) }}"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="{{ config.extra.logo }}" alt="Logo" />
+      </div>
+      <nav>
+        <a href="{% if lang == 'zh' %}/{% else %}/en/{% endif %}"
+          >{% if lang == 'zh' %}首页{% else %}Home{% endif %}</a
+        >
+        <a
+          href="{% if lang == 'zh' %}/download{% else %}/en/download{% endif %}"
+          >{% if lang == 'zh' %}下载{% else %}Download{% endif %}</a
+        >
+
+        {% set target_lang = "en" if lang == "zh" else "zh" %}
+{% set target_prefix = "/" ~ target_lang ~ "/" %}
+{% set current_path = current_page.permalink | trim_start_matches(pat=config.base_url) %}
+
+{% set new_path = current_path
+    | replace(from="/zh/", to="/en/")
+    | replace(from="/en/", to="/zh/") %}
+
+<a href="{{ new_path }}">
+  {% if target_lang == "en" %}English{% else %}简体中文{% endif %}
+</a>
+
+      </nav>
+    </header>
+    <main>
+      {% block content %} {{ current_page.content | safe }} {% endblock %}
+    </main>
+    <footer>
+      <p>
+        {% if lang == "zh" %}© 2025 海岛奇兵私服. 未经 Supercell 赞助或授权。{%
+        else %}© 2025 Boom Beach Private Server. Not affiliated with
+        Supercell.{% endif %}
+      </p>
+    </footer>
+  </body>
+</html>

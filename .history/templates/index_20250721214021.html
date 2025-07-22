@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %} {{ page.content | safe }}
+<section class="features">
+  <h2>
+    {{ if lang == "zh" }}为什么选择我们？{{ else }}Why Choose Us?{{ endif }}
+  </h2>
+  <div class="feature-grid">
+    <div class="feature">
+      <h3>
+        {{ if lang == "zh" }}无限资源{{ else }}Unlimited Resources{{ endif }}
+      </h3>
+      <p>
+        {{ if lang == "zh" }}享受无限宝石、金币和木材，快速升级你的基地！{{ else
+        }}Enjoy unlimited gems, gold, and wood to upgrade your base instantly!{{
+        endif }}
+      </p>
+    </div>
+    <div class="feature">
+      <h3>
+        {{ if lang == "zh" }}活跃社区{{ else }}Active Community{{ endif }}
+      </h3>
+      <p>
+        {{ if lang == "zh" }}加入部落，与全球玩家一起参与活动和排名。{{ else
+        }}Join clans and compete with players worldwide in events and
+        rankings.{{ endif }}
+      </p>
+    </div>
+    <div class="feature">
+      <h3>{{ if lang == "zh" }}定期更新{{ else }}Regular Updates{{ endif }}</h3>
+      <p>
+        {{ if lang == "zh" }}始终与最新版《海岛奇兵》同步，体验最新内容。{{ else
+        }}Always synced with the latest Boom Beach version for new content.{{
+        endif }}
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

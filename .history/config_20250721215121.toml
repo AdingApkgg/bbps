@@ -1,0 +1,18 @@
+base_url = "https://30hb.cn"
+default_language = "zh"
+compile_sass = true
+minify_html = true
+generate_feeds = true
+feed_filenames = ["atom.xml", "rss.xml"]
+author = "Asuna"
+
+[extra]
+logo = "/images/logo.png"
+
+[languages.zh]
+title = "蚕豆海岛奇兵私服"
+description = "加入我们的海岛奇兵私服，畅享无限资源和独特游戏体验！"
+
+[languages.en]
+title = "Broad Bean Boom Beach Private Server"
+description = "Join our Boom Beach private server for unlimited resources and an enhanced gaming experience!"

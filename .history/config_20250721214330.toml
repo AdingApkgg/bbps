@@ -1,0 +1,22 @@
+base_url = "https://30hb.cn"
+title = "蚕豆私服"
+default_language = "zh"
+compile_sass = true
+build_search_index = true
+
+[markdown]
+highlight_code = true
+
+[extra]
+logo = "/images/logo.png"
+
+[languages.zh]
+title = "蚕豆海岛奇兵私服"
+description = "加入我们的海岛奇兵私服，畅享无限资源和独特游戏体验！"
+
+[languages.en]
+title = "Broad Bean Boom Beach Private Server"
+description = "Join our Boom Beach private server for unlimited resources and an enhanced gaming experience!"
+
+[taxonomies]
+categories = ["en", "zh"]
