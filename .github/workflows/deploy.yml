@@ -38,38 +38,39 @@ jobs:
             echo "Error: public directory not found after zola build"
             exit 1
           fi
-          ls -la public/ # Log contents of public directory for debugging
+          ls -la public/ # Log contents for debugging
         env:
-          BASE_URL: ${{ secrets.BASE_URL || 'https://<your-username>.github.io/<your-repo>' }}
+          BASE_URL: ${{ secrets.BASE_URL || 'https://AdingApkgg.github.io/bbps' }}
 
       - name: Setup Git
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          git config --global init.defaultBranch main
 
-      - name: Initialize gh-pages branch if not exists
+      - name: Initialize or Update gh-pages
         run: |
           git fetch origin
           if ! git show-ref --quiet refs/remotes/origin/gh-pages; then
             echo "Creating gh-pages branch..."
             git checkout --orphan gh-pages
             git rm -rf .
-            git commit --allow-empty -m "Initial gh-pages commit"
+            touch .nojekyll # Add .nojekyll to disable Jekyll processing
+            git add .nojekyll
+            git commit -m "Initial gh-pages commit"
             git push origin gh-pages
-            git checkout main
           else
-            echo "gh-pages branch already exists"
+            echo "gh-pages branch exists, checking out..."
+            git checkout -B gh-pages origin/gh-pages
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push to gh-pages
+      - name: Deploy to gh-pages
         run: |
-          git worktree add gh-pages origin/gh-pages
-          rm -rf gh-pages/*
-          cp -r public/* gh-pages/ || { echo "Error: Failed to copy public/* to gh-pages"; exit 1; }
-          cd gh-pages
-          ls -la # Log contents of gh-pages for debugging
+          rm -rf ./*
+          cp -r public/. ./
+          ls -la # Log contents for debugging
           git add .
           git commit -m "Deploy to gh-pages" || echo "No changes to commit"
           git push origin gh-pages
