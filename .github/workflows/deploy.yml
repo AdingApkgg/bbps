@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # 需要 write 权限以推送至 gh-pages 分支
+  contents: write
   pages: write
   id-token: write
 
@@ -24,6 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          fetch-depth: 0 # Fetch all history for branch operations
 
       - name: Install Zola
         run: |
@@ -40,10 +41,25 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
 
-      - name: Push to gh-pages
+      - name: Initialize gh-pages branch if not exists
         run: |
           git fetch origin
-          git worktree add gh-pages gh-pages || git worktree add gh-pages origin/gh-pages
+          if ! git show-ref --quiet refs/remotes/origin/gh-pages; then
+            echo "gh-pages branch does not exist, creating it..."
+            git checkout --orphan gh-pages
+            git rm -rf .
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+            git checkout main
+          else
+            echo "gh-pages branch already exists"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to gh-pages
+        run: |
+          git worktree add gh-pages origin/gh-pages
           rm -rf gh-pages/*
           cp -r public/* gh-pages/
           cd gh-pages
