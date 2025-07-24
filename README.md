@@ -1,3 +1,5 @@
-# Broad Bean Private Server
+# 蚕豆私服
 
-海岛奇兵蚕豆私服网站
+最新网址：https://30hb.cn/
+
+站长邮箱：[i@saop.cc](mailto:i@saop.cc)

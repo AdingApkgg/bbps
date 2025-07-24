@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+em,
+i {
+    font-style: normal
+}
+
+li {
+    list-style: none
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+button {
+    cursor: pointer;
+}
+
+h1,
+h2,
+p {
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+input {
+    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+    color: #666;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 6px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, .75);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.big-box {
+    width: 100%;
+    height: 100vh;
+}
+
+.home .video_body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    display: flex;
+    margin-top: -100vh;
+}
+
+.aside {
+    width: 280px;
+}
+
+.text {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+.content {
+    background: black;
+}
+
+.neirong {
+    margin-bottom: 400px;
+}
+
+.wrap {
+    width: auto;
+    height: 90vh;
+    margin-left: 20px;
+    margin-right: 10px;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+}
+
+.nav {
+    width: auto;
+    height: 96vh;
+    margin-top: 15px;
+    background-color: rgba(18, 18, 18, 0.5);
+    border-radius: 10px;
+    overflow-y: auto;
+}
