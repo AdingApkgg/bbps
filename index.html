@@ -9,17 +9,34 @@
       content="Boom Beach 私服 - 无限资源，永久免费！立即加入！"
     />
     <link rel="canonical" href="https://30hb.cn/" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://registry.npmmirror.com/tailwindcss/2.2.19/files/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://registry.npmmirror.com/@waline/client/latest/files/dist/waline.css"
+    />
+    <style>
+      #waline {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      @media (max-width: 840px) {
+        #waline {
+          max-width: 100%;
+          padding: 0 12px;
+        }
+      }
+    </style>
   </head>
   <body class="bg-gray-50 text-gray-800 font-sans">
     <nav class="bg-white shadow-md fixed top-0 inset-x-0 z-50">
       <div
         class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"
       >
-        <!-- Logo -->
         <a href="/" class="text-pink-600 font-bold text-lg">蚕豆私服</a>
-
-        <!-- Hamburger (mobile) -->
         <button
           id="menu-toggle"
           class="md:hidden text-gray-700 focus:outline-none"
@@ -37,8 +54,6 @@
             <path d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-
-        <!-- Desktop Menu -->
         <div id="desktop-menu" class="hidden md:flex space-x-4">
           <a
             href="https://webapi.30hb.cn/basebuilder/Layout-Builder.htm"
@@ -54,8 +69,8 @@
           >
           <a
             href="https://blog.30hb.cn/"
-            class="text-sm hover:text-pink-600"
             target="_blank"
+            class="text-sm hover:text-pink-600"
             >博客</a
           >
           <a
@@ -72,8 +87,8 @@
           >
           <a
             href="https://drive.30hb.cn/"
-            class="text-sm hover:text-pink-600"
             target="_blank"
+            class="text-sm hover:text-pink-600"
             >网盘</a
           >
           <a
@@ -84,8 +99,6 @@
           >
         </div>
       </div>
-
-      <!-- Mobile Menu -->
       <div id="mobile-menu" class="md:hidden hidden px-4 pb-3 space-y-2">
         <a
           href="https://webapi.30hb.cn/basebuilder/Layout-Builder.htm"
@@ -132,7 +145,6 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
     <header
       class="pt-20 pb-12 bg-gradient-to-b from-pink-100 to-white text-center"
     >
@@ -143,9 +155,9 @@
         <video
           src="https://r2.30hb.cn/hero.mp4"
           controls
-          autoplay
           loop
           class="w-full rounded-lg shadow-lg mb-6"
+          loading="lazy"
         ></video>
         <div class="space-y-3">
           <a
@@ -168,7 +180,6 @@
       </div>
     </header>
 
-    <!-- Stats Section -->
     <section class="text-center py-12 bg-white">
       <h2 class="text-xl font-semibold text-gray-700 mb-3">当前在线玩家</h2>
       <p class="text-2xl font-bold text-pink-600" id="online-player-count">
@@ -189,7 +200,6 @@
       </p>
     </section>
 
-    <!-- Community Section -->
     <section class="bg-gray-100 py-16 text-center">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">
         加入我们的私服社区！
@@ -206,7 +216,8 @@
       >
     </section>
 
-    <!-- Footer -->
+    <div id="waline"></div>
+
     <footer class="text-center py-6 text-sm text-gray-500 bg-white border-t">
       <p>
         访问量：<span id="busuanzi_value_site_pv">-</span>，访客数：<span
@@ -225,17 +236,44 @@
       </p>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-      document
-        .getElementById("menu-toggle")
-        .addEventListener("click", function () {
-          const mobileMenu = document.getElementById("mobile-menu");
-          mobileMenu.classList.toggle("hidden");
-        });
+    <script type="module">
+      import { init } from "https://registry.npmmirror.com/@waline/client/latest/files/dist/waline.js";
+      init({
+        el: "#waline",
+        serverURL: "https://waline.saop.cc",
+        path: "disk.saop.cc",
+        pageview: false,
+        locale: {
+          nick: "昵称(可选)",
+          mail: "邮箱(可选)",
+          link: "网址(可选)",
+          placeholder: "填写 QQ 号或邮箱可获取头像",
+          requiredMeta: [],
+          sofa: "评论区空空如也~",
+          anonymous: "匿名的野猫",
+          login: "登录(可选)",
+        },
+        emoji: [
+          "//registry.npmmirror.com/@waline/emojis/latest/files/alus",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/bilibili",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/bmoji",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/qq",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/tieba",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/tw",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/weibo",
+          "//registry.npmmirror.com/@waline/emojis/latest/files/soul-emoji",
+        ],
+        reaction: true,
+      });
+
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      menuToggle.addEventListener("click", () =>
+        mobileMenu.classList.toggle("hidden")
+      );
 
       async function fetchStats() {
-        const el = {
+        const elements = {
           player: document.getElementById("player-count"),
           replay: document.getElementById("replay-count"),
           online: document.getElementById("online-player-count"),
@@ -243,7 +281,10 @@
         };
 
         try {
-          const res = await fetch("https://webapi.30hb.cn");
+          const res = await fetch("https://webapi.30hb.cn", {
+            cache: "no-store",
+          });
+          if (!res.ok) throw new Error("网络错误");
           const html = await res.text();
           const match = html.match(
             /<script[^>]*id=["']server-data["'][^>]*>([\s\S]*?)<\/script>/i
@@ -251,9 +292,9 @@
           if (!match) throw new Error("数据未找到");
           const data = JSON.parse(match[1]);
 
-          el.player.textContent = data.registeredPlayers || "无";
-          el.replay.textContent = data.replayCount || "无";
-          el.online.textContent = data.onlinePlayers || "无";
+          elements.player.textContent = data.registeredPlayers ?? "无";
+          elements.replay.textContent = data.replayCount ?? "无";
+          elements.online.textContent = data.onlinePlayers ?? "无";
 
           const list = Array.isArray(data.onlinePlayerList)
             ? data.onlinePlayerList
@@ -262,16 +303,16 @@
                 .map((t) => t.trim())
                 .filter(Boolean);
 
-          el.list.innerHTML = list.length
+          elements.list.innerHTML = list.length
             ? list.map((name) => `<li>${name}</li>`).join("")
             : "<li>无在线玩家</li>";
         } catch (e) {
-          el.player.textContent =
-            el.replay.textContent =
-            el.online.textContent =
+          elements.player.textContent =
+            elements.replay.textContent =
+            elements.online.textContent =
               "错误";
-          el.list.innerHTML = `<li>${e.message}</li>`;
-          console.error(e);
+          elements.list.innerHTML = `<li>${e.message}</li>`;
+          console.error("Fetch stats error:", e);
         }
       }
 
