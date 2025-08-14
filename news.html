@@ -1,0 +1,1116 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>指令工具</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 自定义样式，用于隐藏滚动条，因为 Tailwind CSS 默认不提供此功能 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-sans">
+
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- 选项卡容器 -->
+    <div id="tab-container" class="no-scrollbar overflow-x-auto whitespace-nowrap border-b border-gray-200">
+      <div class="inline-flex p-1">
+        <button class="tab-btn active" data-tab="common">常用命令</button>
+        <button class="tab-btn" data-tab="troop">部队命令</button>
+        <button class="tab-btn" data-tab="building">建筑命令</button>
+        <button class="tab-btn" data-tab="Trophy">奖杯</button>
+        <button class="tab-btn" data-tab="Skin">皮肤</button>
+        <button class="tab-btn" data-tab="warshipSkill">战舰技能</button>
+        <button class="tab-btn" data-tab="colorfulText">彩色字体</button>
+        <button class="tab-btn" data-tab="calculator">螃蟹甲板</button>
+      </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="p-5">
+      <!-- 所有选择器的容器 -->
+      <div id="select-container">
+        <!-- 常用命令选择器 -->
+        <select class="select-box" data-content="common">
+          <option value="">请选择常用命令</option>
+          <option value="/layout playerbase_rushmore">英雄玩家岛</option>
+          <option value="/layout playerbase_dieselpunk">工业玩家岛</option>
+          <option value="/layout playerbase_liberty">自由玩家岛</option>
+          <option value="/layout playerbase_Cthulhu">克苏鲁玩家岛</option>
+          <option value="/layout playerbase_Mexican">墨西哥群岛</option>
+          <option value="/layout k2_skin01_shark">国服机械鲨岛</option>
+          <option value="/layout playerbase_Pirate">海盗岛</option>
+          <option value="/layout enemybase">恐怖博士的火山岛</option>
+          <option value="/layout small_a">袖珍岛</option>
+          <option value="/layout small_b">摩斯海德岛</option>
+          <option value="/layout mainland_a">绝岭雄风海湾</option>
+          <option value="/layout mainland_b">帕彻斯奥半岛</option>
+          <option value="/layout med_a">双子珊瑚岛</option>
+          <option value="/layout turtlebase">超级海龟</option>
+          <option value="/layout warship">战斗母舰</option>
+          <option value="/layout octobase">超级螃蟹</option>
+          <option value="/layout factory">工厂任务基地</option>
+          <option value="/layout harbor">港口任务基地</option>
+          <option value="/layout playerbase">玩家默认岛屿</option>
+          <option value="/findaccount <玩家ID>">找回账号</option>
+          <option value="/tsarbomba">只保留大本营</option>
+          <option value="/removeobstacles">移除树木石头</option>
+          <option value="/removestatue">移除神庙里的雕像</option>
+          <option value="/upgrade">所有建筑满级</option>
+          <option value="/easy">满级基地</option>
+          <option value="/atkp">自己攻击自己</option>
+          <option value="/atkp <id>">攻击玩家</option>
+          <option value="/basebuilder <基地名>">攻击基地编辑器制作的地图</option>
+          <option value="/bb <基地名>">攻击基地编辑器制作的地图(简写)</option>
+          <option value="/basebuilder2 <基地名>">侦查基地编辑器制作的地图</option>
+          <option value="/bb2 <基地名>">侦查基地编辑器制作的地图(简写)</option>
+          <option value="/visitplayer <id>">侦查玩家</option>
+          <option value="/atkp2 <id>">侦查玩家(另一种写法)</option>
+          <option value="/newge">进攻随机基地</option>
+          <option value="/defense">防守哈莫曼</option>
+          <option value="/replay <回放ID>">战斗回放</option>
+          <option value="/replay count">获取全服回放数量</option>
+          <option value="/replay last">播放自己的上一个回放</option>
+          <option value="/replay random">随机播放回放</option>
+          <option value="/rename <名字>">更改名字</option>
+          <option value="/trophy 数量">更改奖杯</option>
+          <option value="/experience 90">设置等级</option>
+          <option value="/xp 90">设置等级(简写)</option>
+          <option value="/troopcount 数量">更改登陆艇部队数量</option>
+          <option value="/maxlevel">研究所所有东西满级</option>
+          <option value="/clearlevel">研究所所有东西1级</option>
+          <option value="/hq <司令部等级>">快速变成指定等级基地(1 - 22级)</option>
+          <option value="/crab <阶段数>">修改自己的超级螃蟹阶段数</option>
+          <option value="/isonline <玩家ID>">判断玩家是否在线</option>
+          <option value="/olp">全服在线玩家</option>
+          <option value="/getstatue 46 8 999">能量雕像999(可以改数值)</option>
+          <option value="/getstatue 43 6 999">红攻雕像999(可以改数值)</option>
+          <option value="/getstatue 43 4 999">红防雕像999(可以改数值)</option>
+          <option value="/getstatue 40 7 999">蓝攻雕像999(可以改数值)</option>
+          <option value="/getstatue 40 5 999">蓝防雕像999(可以改数值)</option>
+          <option value="/getstatue 40 7 1000100">负数的神像效果！(不直接支持，但是1000000%一百万 ~ 1000100%一百万零一百 ==> -0% ~ -100%)这里只是举例子</option>
+          <option value="/atkran playerbase 10000 1000">攻击生成玩家默认岛屿(数字可改)</option>
+          <option value="/atkran harbor 10000 1000">攻击生成港口任务基地(数字可改)</option>
+          <option value="/atkran factory 10000 1000">攻击生成工厂任务基地(数字可改)</option>
+          <option value="/invadingmodifier set <modifier_name> <amount>">设置进攻时指定战斗加成的值（(modifier_name) 需为存在的加成名称，(amount)为数值）</option>
+          <option value="/invadingmodifier reset">清空并重置所有进攻时的战斗加成</option>
+          <option value="/defendingmodifier set <modifier_name> <amount>">设置防御时指定战斗加成的值（(modifier_name) 需为存在的加成名称，(amount)为数值）</option>
+          <option value="/defendingmodifier reset">清空并重置所有防御时的战斗加成</option>
+          <option value="/coop set <base_index> <name>">用命令/coop设定自己显示的任务基地，设置特遣队任务中指定索引基地的来源名称（(base_index) 为 0 到 7 之间的整数，(name)为来源名称字符串）</option>
+          <option value="/coop set <base_index>">设置特遣队任务中指定索引基地的来源名称为 “0”（(base_index) 为 0 到 7 之间的整数）</option>
+          <option value="/coop reset <base_index>">重置特遣队任务中指定索引基地的持久化破坏数据（(base_index) 为 0 到 7 之间的整数）</option>
+          <option value="/turtle">在沙滩上有更多海龟！</option>
+        </select>
+
+        <!-- 部队命令选择器 -->
+        <select class="select-box hidden" data-content="troop">
+          <option value="">请选择部队命令</option>
+          <option value="/setboat 1 4000000 1">步枪手(Rifleman)</option>
+          <option value="/setboat 1 4000001 1">重机枪手(Heavy)</option>
+          <option value="/setboat 1 4000002 1">火箭筒手(Zooka)</option>
+          <option value="/setboat 1 4000003 1">勇士(Warrior)</option>
+          <option value="/setboat 1 4000004 1">坦克(Tank)</option>
+          <option value="/setboat 1 4000005 1">AI单位(AI Units)</option>
+          <option value="/setboat 1 4000006 1">医疗兵(Healer)</option>
+          <option value="/setboat 1 4000007 1">掷弹兵(Grenadier)</option>
+          <option value="/setboat 1 4000008 1">火焰喷射兵(Flamer)</option>
+          <option value="/setboat 1 4000009 1">无人机(Drone)</option>
+          <option value="/setboat 1 4000010 1">步行机甲(Walker)</option>
+          <option value="/setboat 1 4000011 1">中士(Sergeant)</option>
+          <option value="/setboat 1 4000012 1">冰冻兵(Freezer)</option>
+          <option value="/setboat 1 4000013 1">蝙蝠无人机(DroneBat)</option>
+          <option value="/setboat 1 4000014 1">英雄教官(HeroDrillSergeant)</option>
+          <option value="/setboat 1 4000015 1">英雄机械师(HeroMechromancer)</option>
+          <option value="/setboat 1 4000016 1">超级步枪手(SuperRifleman)</option>
+          <option value="/setboat 1 4000017 1">超级医疗兵(SuperMedic)</option>
+          <option value="/setboat 1 4000018 1">超级勇士(SuperWarrior)</option>
+          <option value="/setboat 1 4000019 1">超级重机枪手(SuperHeavy)</option>
+          <option value="/setboat 1 4000020 1">超级无人机(SuperDrone)</option>
+          <option value="/setboat 1 4000021 1">超级掷弹兵(SuperGrenadier)</option>
+          <option value="/setboat 1 4000022 1">英雄巫医(HeroWitchDoctor)</option>
+          <option value="/setboat 1 4000023 1">巫医无人机(WitchDoctorDrone)</option>
+          <option value="/setboat 1 4000024 1">炮塔(Turret)</option>
+          <option value="/setboat 1 4000025 1">英雄狂战士(HeroBerserker)</option>
+          <option value="/setboat 1 4000026 1">爆破无人机(ExplosiveDrone)</option>
+          <option value="/setboat 1 4000027 1">迫击炮坦克(MortarTank)</option>
+          <option value="/setboat 1 4000028 1">生物迫击炮坦克(CritterMortarTank)</option>
+          <option value="/setboat 1 4000029 1">激光坦克(LaserTank)</option>
+          <option value="/setboat 1 4000030 1">重型狙击手(HeavySniper)</option>
+          <option value="/setboat 1 4000031 1">投弹兵(Bombardier)</option>
+          <option value="/setboat 1 4000032 1">侦察机(Seeker)</option>
+          <option value="/setboat 1 4000033 1">突击直升机(AssaultHelicopter)</option>
+          <option value="/setboat 1 4000034 1">坦克直升机(TankHelicopter)</option>
+          <option value="/setboat 1 4000035 1">投弹兵2号(Bombardier2)</option>
+          <option value="/setboat 1 4000036 1">机甲(Mech)</option>
+          <option value="/setboat 1 4000037 1">克隆步枪手1倍(Rifleman_Clone1x)</option>
+          <option value="/setboat 1 4000038 1">克隆步枪手2倍(Rifleman_Clone2x)</option>
+          <option value="/setboat 1 4000039 1">克隆步枪手3倍(Rifleman_Clone3x)</option>
+          <option value="/setboat 1 4000040 1">冰冻坦克(CryoTank)</option>
+          <option value="/setboat 1 4000041 1">卧底步枪手(Rifleman_Undercover)</option>
+          <option value="/setboat 1 4000042 1">维生素医生(护盾型)(Healer_DrVitamin_DamageShield)</option>
+          <option value="/setboat 1 4000043 1">冰冻投弹兵(Bombardier_Freeze)</option>
+          <option value="/setboat 1 4000044 1">电击兵(Shockaneer)</option>
+          <option value="/setboat 1 4000045 1">防护医疗兵(Healer_Protector)</option>
+          <option value="/setboat 1 4000046 1">工程医疗兵(Healer_Engineer)</option>
+          <option value="/setboat 1 4000047 1">工程炮塔(Turret_Engineer)</option>
+          <option value="/setboat 1 4000048 1">西瓜投弹兵(Bombardier_Melons)</option>
+          <option value="/setboat 1 4000049 1">焚化火焰兵(Flamer_Incinerator)</option>
+          <option value="/setboat 1 4000050 1">护盾火箭筒手(Zooka_Shield)</option>
+          <option value="/setboat 1 4000051 1">突击直升机2号(AssaultHelicopter2)</option>
+          <option value="/setboat 1 4000052 1">坦克直升机2号(TankHelicopter2)</option>
+          <option value="/setboat 1 4000053 1">卧底重机枪手(Heavy_Undercover)</option>
+          <option value="/setboat 1 4000054 1">维生素医生(射速型)(Healer_DrVitamin_SpeedFiringRate)</option>
+          <option value="/setboat 1 4000055 1">僵尸步枪手1号(Rifleman_Zombie1)</option>
+          <option value="/setboat 1 4000056 1">僵尸步枪手2号(Rifleman_Zombie2)</option>
+          <option value="/setboat 1 4000057 1">维生素医生(攻防型)(Healer_DrVitamin_HealthAttack)</option>
+          <option value="/setboat 1 4000058 1">维生素医生(速血型)(Healer_DrVitamin_SpeedHealth)</option>
+          <option value="/setboat 1 4000059 1">生物工程师(Engineer_Critters)</option>
+          <option value="/setboat 1 4000060 1">吸血鬼火箭筒手(VampireZooka)</option>
+          <option value="/setboat 1 4000061 1">隐藏勇士(HiddenWarrior)</option>
+          <option value="/setboat 1 4000062 1">眩晕掷弹兵(StunGrenadier)</option>
+          <option value="/setboat 1 4000063 1">激光射手(LaserRanger)</option>
+          <option value="/setboat 1 4000064 1">英雄喷气背包兵(HeroJetPack)</option>
+          <option value="/setboat 1 4000065 1">飞行无人机(FlyingDrone)</option>
+          <option value="/setboat 1 4000066 1">地雷重机枪手(HeavyOfcMine)</option>
+          <option value="/setboat 1 4000067 1">齐射重机枪手(HeavyOfcVolley)</option>
+          <option value="/setboat 1 4000068 1">坦克重机枪手(HeavyOfcTank)</option>
+          <option value="/setboat 1 4000069 1">占位符69(Placeholder69)</option>
+          <option value="/setboat 1 4000070 1">占位符70(Placeholder70)</option>
+          <option value="/setboat 1 4000071 1">占位符71(Placeholder71)</option>
+          <option value="/setboat 1 4000072 1">占位符72(Placeholder72)</option>
+          <option value="/setboat 1 4000073 1">占位符73(Placeholder73)</option>
+          <option value="/setboat 1 4000074 1">占位符74(Placeholder74)</option>
+          <option value="/setboat 1 4000075 1">占位符75(Placeholder75)</option>
+          <option value="/setboat 1 4000076 1">占位符76(Placeholder76)</option>
+          <option value="/setboat 1 4000077 1">占位符77(Placeholder77)</option>
+          <option value="/setboat 1 4000078 1">占位符78(Placeholder78)</option>
+          <option value="/setboat 1 4000079 1">占位符79(Placeholder79)</option>
+          <option value="/setboat 1 4000080 1">占位符80(Placeholder80)</option>
+          <option value="/setboat 1 4000081 1">英雄坦克直升机(HeroTankHelicopter)</option>
+          <option value="/setboat 1 4000082 1">绿色坦克(Green_Tank)</option>
+          <option value="/setboat 1 4000083 1">特殊重机枪手(Heavy_SB)</option>
+          <option value="/setboat 1 4000084 1">特殊医疗兵(Medic_SB)</option>
+          <option value="/setboat 1 4000085 1">强化喷火器(Scorcher_Fortified)</option>
+          <option value="/setboat 1 4000086 1">谢尔曼坦克(Tank_Sherman)</option>
+          <option value="/setboat 1 4000087 1">守卫塔(Guard Tower)</option>
+          <option value="/setboat 1 4000088 1">迫击炮(Mortar)</option>
+          <option value="/setboat 1 4000089 1">机枪巢(Machine Gun Nest)</option>
+          <option value="/setboat 1 4000090 1">导弹发射器(Missile Launcher)</option>
+          <option value="/setboat 1 4000091 1">火焰喷射器(Flame Thrower)</option>
+          <option value="/setboat 1 4000092 1">加农炮(Cannon)</option>
+          <option value="/setboat 1 4000093 1">大白鲨(Big Bertha)</option>
+          <option value="/setboat 1 4000094 1">Boss机枪(Boss Machine Gun)</option>
+          <option value="/setboat 1 4000095 1">Boss迫击炮(Boss Mortar)</option>
+          <option value="/setboat 1 4000096 1">电击发射器(Shock Launcher)</option>
+          <option value="/setboat 1 4000097 1">3级电击塔(ShockTurret3)</option>
+          <option value="/setboat 1 4000098 1">3级激光塔(Laser3)</option>
+          <option value="/setboat 1 4000099 1">3级末日加农炮(DoomCannon3)</option>
+          <option value="/setboat 1 4000100 1">3级鱼叉炮(Harpoon3)</option>
+          <option value="/setboat 1 4000101 1">3级火焰陷阱(FlameSurprise3)</option>
+          <option value="/setboat 1 4000102 1">恐怖迫击炮(Scary Mortar)</option>
+          <option value="/setboat 1 4000103 1">3级红外狙击塔(IRSniper3)</option>
+          <option value="/setboat 1 4000104 1">3级爆炸陷阱(BoomSurprise3)</option>
+          <option value="/setboat 1 4000105 1">3级微波塔(Microwave Tower 3)</option>
+          <option value="/setboat 1 4000106 1">3级炸弹塔(Bomb Tower 3)</option>
+          <option value="/setboat 1 4000107 1">生物发射器(Critter Launcher)</option>
+          <option value="/setboat 1 4000108 1">地堡(Bunker)</option>
+          <option value="/setboat 1 4000109 1">超级勇士2级(SuperWarrior_lvl2)</option>
+          <option value="/setboat 1 4000110 1">超级勇士3级(SuperWarrior_lvl3)</option>
+          <option value="/setboat 1 4000111 1">超级勇士4级(SuperWarrior_lvl4)</option>
+          <option value="/setboat 1 4000112 1">超级勇士5级(SuperWarrior_lvl5)</option>
+          <option value="/setboat 1 4000113 1">超级勇士6级(SuperWarrior_lvl6)</option>
+          <option value="/setboat 1 4000114 1">超级勇士7级(SuperWarrior_lvl7)</option>
+          <option value="/setboat 1 4000115 1">超级勇士8级(SuperWarrior_lvl8)</option>
+          <option value="/setboat 1 4000116 1">超级勇士9级(SuperWarrior_lvl9)</option>
+          <option value="/setboat 1 4000117 1">超级勇士10级(SuperWarrior_lvl10)</option>
+          <option value="/setboat 1 4000118 1">超级勇士11级(SuperWarrior_lvl11)</option>
+          <option value="/setboat 1 4000119 1">超级勇士12级(SuperWarrior_lvl12)</option>
+          <option value="/setboat 1 4000120 1">超级勇士13级(SuperWarrior_lvl13)</option>
+          <option value="/setboat 1 4000121 1">超级勇士14级(SuperWarrior_lvl14)</option>
+          <option value="/setboat 1 4000122 1">超级勇士15级(SuperWarrior_lvl15)</option>
+          <option value="/setboat 1 4000123 1">超级勇士16级(SuperWarrior_lvl16)</option>
+          <option value="/setboat 1 4000124 1">超级勇士17级(SuperWarrior_lvl17)</option>
+          <option value="/setboat 1 4000125 1">超级勇士18级(SuperWarrior_lvl18)</option>
+          <option value="/setboat 1 4000126 1">超级勇士19级(SuperWarrior_lvl19)</option>
+          <option value="/setboat 1 4000127 1">2级炮塔(Turret_lvl2)</option>
+          <option value="/setboat 1 4000128 1">3级炮塔(Turret_lvl3)</option>
+          <option value="/setboat 1 4000129 1">4级炮塔(Turret_lvl4)</option>
+          <option value="/setboat 1 4000130 1">5级炮塔(Turret_lvl5)</option>
+          <option value="/setboat 1 4000131 1">6级炮塔(Turret_lvl6)</option>
+          <option value="/setboat 1 4000132 1">7级炮塔(Turret_lvl7)</option>
+          <option value="/setboat 1 4000133 1">8级炮塔(Turret_lvl8)</option>
+          <option value="/setboat 1 4000134 1">9级炮塔(Turret_lvl9)</option>
+          <option value="/setboat 1 4000135 1">10级炮塔(Turret_lvl10)</option>
+          <option value="/setboat 1 4000136 1">11级炮塔(Turret_lvl11)</option>
+          <option value="/setboat 1 4000137 1">12级炮塔(Turret_lvl12)</option>
+          <option value="/setboat 1 4000138 1">13级炮塔(Turret_lvl13)</option>
+          <option value="/setboat 1 4000139 1">14级炮塔(Turret_lvl14)</option>
+          <option value="/setboat 1 4000140 1">15级炮塔(Turret_lvl15)</option>
+          <option value="/setboat 1 4000141 1">16级炮塔(Turret_lvl16)</option>
+          <option value="/setboat 1 4000142 1">17级炮塔(Turret_lvl17)</option>
+          <option value="/setboat 1 4000143 1">18级炮塔(Turret_lvl18)</option>
+          <option value="/setboat 1 4000144 1">19级炮塔(Turret_lvl19)</option>
+          <option value="/setboat 1 4000145 1">2级爆破无人机(ExplosiveDrone_lvl2)</option>
+          <option value="/setboat 1 4000146 1">3级爆破无人机(ExplosiveDrone_lvl3)</option>
+          <option value="/setboat 1 4000147 1">4级爆破无人机(ExplosiveDrone_lvl4)</option>
+          <option value="/setboat 1 4000148 1">5级爆破无人机(ExplosiveDrone_lvl5)</option>
+          <option value="/setboat 1 4000149 1">6级爆破无人机(ExplosiveDrone_lvl6)</option>
+          <option value="/setboat 1 4000150 1">7级爆破无人机(ExplosiveDrone_lvl7)</option>
+          <option value="/setboat 1 4000151 1">8级爆破无人机(ExplosiveDrone_lvl8)</option>
+          <option value="/setboat 1 4000152 1">9级爆破无人机(ExplosiveDrone_lvl9)</option>
+          <option value="/setboat 1 4000153 1">10级爆破无人机(ExplosiveDrone_lvl10)</option>
+          <option value="/setboat 1 4000154 1">11级爆破无人机(ExplosiveDrone_lvl11)</option>
+          <option value="/setboat 1 4000155 1">12级爆破无人机(ExplosiveDrone_lvl12)</option>
+          <option value="/setboat 1 4000156 1">13级爆破无人机(ExplosiveDrone_lvl13)</option>
+          <option value="/setboat 1 4000157 1">14级爆破无人机(ExplosiveDrone_lvl14)</option>
+          <option value="/setboat 1 4000158 1">15级爆破无人机(ExplosiveDrone_lvl15)</option>
+          <option value="/setboat 1 4000159 1">16级爆破无人机(ExplosiveDrone_lvl16)</option>
+          <option value="/setboat 1 4000160 1">17级爆破无人机(ExplosiveDrone_lvl17)</option>
+          <option value="/setboat 1 4000161 1">18级爆破无人机(ExplosiveDrone_lvl18)</option>
+          <option value="/setboat 1 4000162 1">19级爆破无人机(ExplosiveDrone_lvl19)</option>
+          <option value="/setboat 1 4000163 1">2级侦察机(Seeker_lvl2)</option>
+          <option value="/setboat 1 4000164 1">3级侦察机(Seeker_lvl3)</option>
+          <option value="/setboat 1 4000165 1">4级侦察机(Seeker_lvl4)</option>
+          <option value="/setboat 1 4000166 1">5级侦察机(Seeker_lvl5)</option>
+          <option value="/setboat 1 4000167 1">6级侦察机(Seeker_lvl6)</option>
+        </select>
+
+        <!-- 建筑命令选择器 -->
+        <select class="select-box hidden" data-content="building">
+          <option value="">请选择建筑命令</option>
+          <option value="/place 1 1 1000000 1">司令部(Headquarters)</option>
+          <option value="/place 1 1 1000001 1">民房(Supply Depot)</option>
+          <option value="/place 1 1 1000002 1">锯木厂(Sawmill)</option>
+          <option value="/place 1 1 1000003 1">采石场(Stone Quarry)</option>
+          <option value="/place 1 1 1000004 1">铁矿(Iron Mine)</option>
+          <option value="/place 1 1 1000005 1">金库(Coin Vault)</option>
+          <option value="/place 1 1 1000006 1">木材库(Wood Storage)</option>
+          <option value="/place 1 1 1000007 1">石材库(Stone Storage)</option>
+          <option value="/place 1 1 1000008 1">钢材库(Steel Storage)</option>
+          <option value="/place 1 1 1000009 1">保险库(Safe)</option>
+          <option value="/place 1 1 1000010 1">雷达(Radar)</option>
+          <option value="/place 1 1 1000011 1">神庙(Temple)</option>
+          <option value="/place 1 1 1000012 1">小巧神像(Small Statue)</option>
+          <option value="/place 1 1 1000013 1">精良神像(Good Statue)</option>
+          <option value="/place 1 1 1000014 1">极品神像(Great Statue)</option>
+          <option value="/place 1 1 1000015 1">战舰(Battleship)</option>
+          <option value="/place 1 1 1000016 1">补给(Supply Drop)</option>
+          <option value="/place 1 1 1000017 1">登陆艇(Boat Dock)</option>
+          <option value="/place 1 1 1000018 1">研究所(Research Lab)</option>
+          <option value="/place 1 1 1000019 1">城墙(Walls)</option>
+          <option value="/place 1 1 1000020 1">狙击塔(Sniper Tower)</option>
+          <option value="/place 1 1 1000021 1">迫击炮(Mortar)</option>
+          <option value="/place 1 1 1000022 1">重机枪(Machine Gun)</option>
+          <option value="/place 1 1 1000023 1">火箭发射器(Rocket Launcher)</option>
+          <option value="/place 1 1 1000024 1">火焰喷射器(Flamethrower)</option>
+          <option value="/place 1 1 1000025 1">分基地(Outpost)</option>
+          <option value="/place 1 1 1000026 1">加农炮(Cannon)</option>
+          <option value="/place 1 1 1000027 1">教程司令部(Tutorial HQ)</option>
+          <option value="/place 1 1 1000028 1">巨型加农炮(Giant Cannon)</option>
+          <option value="/place 1 1 1000029 1">MMG 9000(MMG 9000)</option>
+          <option value="/place 1 1 1000030 1">SM 3000(SM 3000)</option>
+          <option value="/place 1 1 1000031 1">地堡(Bunker)</option>
+          <option value="/place 1 1 1000032 1">补给1(Supply Drop 1)</option>
+          <option value="/place 1 1 1000033 1">补给2(Supply Drop 2)</option>
+          <option value="/place 1 1 1000034 1">补给3(Supply Drop 3)</option>
+          <option value="/place 1 1 1000035 1">补给4(Supply Drop 4)</option>
+          <option value="/place 1 1 1000036 1">补给5(Supply Drop 5)</option>
+          <option value="/place 1 1 1000037 1">水晶溶液(Crystal Solution)</option>
+          <option value="/place 1 1 1000038 1">邪恶的计划(Evil Plan)</option>
+          <option value="/place 1 1 1000039 1">蓝小巧神像(Blue Small Statue)</option>
+          <option value="/place 1 1 1000040 1">蓝精良神像(Blue Good Statue)</option>
+          <option value="/place 1 1 1000041 1">蓝极品神像(Blue Great Statue)</option>
+          <option value="/place 1 1 1000042 1">红小巧神像(Red Small Statue)</option>
+          <option value="/place 1 1 1000043 1">红精良神像(Red Good Statue)</option>
+          <option value="/place 1 1 1000044 1">红极品神像(Red Great Statue)</option>
+          <option value="/place 1 1 1000045 1">紫小巧神像(Purple Small Statue)</option>
+          <option value="/place 1 1 1000046 1">紫精良神像(Purple Good Statue)</option>
+          <option value="/place 1 1 1000047 1">紫极品神像(Purple Great Statue)</option>
+          <option value="/place 1 1 1000048 1">潜水艇(Submarine)</option>
+          <option value="/place 1 1 1000049 1">震爆发射器(Shock Launcher)</option>
+          <option value="/place 1 1 1000050 1">死亡神器(Doom Device)</option>
+          <option value="/place 1 1 1000051 1">蓄电池(Battery)</option>
+          <option value="/place 1 1 1000052 1">能量中心(Energy Core)</option>
+          <option value="/place 1 1 1000053 1">工厂补给(Factory Supply)</option>
+          <option value="/place 1 1 1000054 1">震爆器I(Shocker I)</option>
+          <option value="/place 1 1 1000055 1">震爆器II(Shocker II)</option>
+          <option value="/place 1 1 1000056 1">震爆器III(Shocker III)</option>
+          <option value="/place 1 1 1000057 1">激光I(Laser I)</option>
+          <option value="/place 1 1 1000058 1">激光II(Laser II)</option>
+          <option value="/place 1 1 1000059 1">激光III(Laser III)</option>
+          <option value="/place 1 1 1000060 1">伤害放大器I(Damage Amplifier I)</option>
+          <option value="/place 1 1 1000061 1">伤害放大器II(Damage Amplifier II)</option>
+          <option value="/place 1 1 1000062 1">伤害放大器III(Damage Amplifier III)</option>
+          <option value="/place 1 1 1000063 1">毁灭加农炮I(Destroyer Cannon I)</option>
+          <option value="/place 1 1 1000064 1">毁灭加农炮II(Destroyer Cannon II)</option>
+          <option value="/place 1 1 1000065 1">毁灭加农炮III(Destroyer Cannon III)</option>
+          <option value="/place 1 1 1000066 1">武器实验室(Weapons Lab)</option>
+          <option value="/place 1 1 1000067 1">护盾发生器I(Shield Generator I)</option>
+          <option value="/place 1 1 1000068 1">护盾发生器II(Shield Generator II)</option>
+          <option value="/place 1 1 1000069 1">护盾发生器III(Shield Generator III)</option>
+          <option value="/place 1 1 1000070 1">超级核心(Super Core)</option>
+          <option value="/place 1 1 1000071 1">博士补给1(Dr. Tako Supply 1)</option>
+          <option value="/place 1 1 1000072 1">博士补给2(Dr. Tako Supply 2)</option>
+          <option value="/place 1 1 1000073 1">博士补给3(Dr. Tako Supply 3)</option>
+          <option value="/place 1 1 1000074 1">机器小怪监狱(Machine Cub Prison)</option>
+          <option value="/place 1 1 1000075 1">神像仓库(Statue Storage)</option>
+          <option value="/place 1 1 1000076 1">冷冻炸弹(Freeze Bomb)</option>
+          <option value="/place 1 1 1000077 1">Disruptor(Disruptor)</option>
+          <option value="/place 1 1 1000078 1">WalkingTurret(Walking Turret)</option>
+          <option value="/place 1 1 1000079 1">哈莫曼雕像(Hammy Statue)</option>
+          <option value="/place 1 1 1000080 1">加速血清(Speed Serum)</option>
+          <option value="/place 1 1 1000081 1">机械飞爪I(Mechanical Claw I)</option>
+          <option value="/place 1 1 1000082 1">机械飞爪II(Mechanical Claw II)</option>
+          <option value="/place 1 1 1000083 1">机械飞爪III(Mechanical Claw III)</option>
+          <option value="/place 1 1 1000084 1">高压喷火器I(High-Pressure Flamer I)</option>
+          <option value="/place 1 1 1000085 1">高压喷火器II(High-Pressure Flamer II)</option>
+          <option value="/place 1 1 1000086 1">高压喷火器III(High-Pressure Flamer III)</option>
+          <option value="/place 1 1 1000087 1">疯狂南瓜炮(Crazy Pumpkin Cannon)</option>
+          <option value="/place 1 1 1000088 1">瓜田(Pumpkin Field)</option>
+          <option value="/place 1 1 1000089 1">蝙蝠小怪监狱(Bat Cub Prison)</option>
+          <option value="/place 1 1 1000090 1">10级博士岛司令部(Dr. Tako Island HQ Lv.10)</option>
+          <option value="/place 1 1 1000091 1">20级博士岛司令部(Dr. Tako Island HQ Lv.20)</option>
+          <option value="/place 1 1 1000092 1">45级战争工厂司令部(War Factory HQ Lv.45)</option>
+          <option value="/place 1 1 1000093 1">哈莫曼的司令部(Hammy's HQ)</option>
+          <option value="/place 1 1 1000094 1">铁丝网(顶点)(Barbed Wire Vertex)</option>
+          <option value="/place 1 1 1000095 1">铁丝网1b(↘)(Barbed Wire 1b)</option>
+          <option value="/place 1 1 1000096 1">铁丝网2b(↗)(Barbed Wire 2b)</option>
+          <option value="/place 1 1 1000097 1">铁丝网3(\/)(Barbed Wire 3)</option>
+          <option value="/place 1 1 1000098 1">铁丝网1a(↘+顶点)(Barbed Wire 1a)</option>
+          <option value="/place 1 1 1000099 1">铁丝网2a(顶点+↗)(Barbed Wire 2a)</option>
+          <option value="/place 1 1 1000100 1">博士雕像(Dr. Tako Statue)</option>
+          <option value="/place 1 1 1000101 1">克隆岛司令部(Clone Island HQ)</option>
+          <option value="/place 1 1 1000102 1">英雄小屋(Hero Hut)</option>
+          <option value="/place 1 1 1000103 1">超级步兵(Super Troop)</option>
+          <option value="/place 1 1 1000104 1">超级医生(Super Medic)</option>
+          <option value="/place 1 1 1000105 1">超级土著勇士(Super Warrior)</option>
+          <option value="/place 1 1 1000106 1">超级重机枪手(Super Heavy)</option>
+          <option value="/place 1 1 1000107 1">超级机器小怪(Super Machine Cub)</option>
+          <option value="/place 1 1 1000108 1">超级投弹兵(Super Grenadier)</option>
+          <option value="/place 1 1 1000109 1">防空护盾I(Anti-Air Shield I)</option>
+          <option value="/place 1 1 1000110 1">防空护盾II(Anti-Air Shield II)</option>
+          <option value="/place 1 1 1000111 1">防空护盾III(Anti-Air Shield III)</option>
+          <option value="/place 1 1 1000112 1">西蒙狙击塔I(Simon's Sniper Tower I)</option>
+          <option value="/place 1 1 1000113 1">西蒙狙击塔II(Simon's Sniper Tower II)</option>
+          <option value="/place 1 1 1000114 1">西蒙狙击塔III(Simon's Sniper Tower III)</option>
+          <option value="/place 1 1 1000115 1">惊喜双管炮I(Surprise Double Cannon I)</option>
+          <option value="/place 1 1 1000116 1">惊喜双管炮II(Surprise Double Cannon II)</option>
+          <option value="/place 1 1 1000117 1">惊喜双管炮III(Surprise Double Cannon III)</option>
+          <option value="/place 1 1 1000118 1">微波炉I(Microwave Tower I)</option>
+          <option value="/place 1 1 1000119 1">微波炉II(Microwave Tower II)</option>
+          <option value="/place 1 1 1000120 1">微波炉III(Microwave Tower III)</option>
+          <option value="/place 1 1 1000121 1">鱼雷I(Torpedo Launcher I)</option>
+          <option value="/place 1 1 1000122 1">鱼雷II(Torpedo Launcher II)</option>
+          <option value="/place 1 1 1000123 1">鱼雷III(Torpedo Launcher III)</option>
+          <option value="/place 1 1 1000124 1">引擎室(Engine Room)</option>
+          <option value="/place 1 1 1000125 1">烈焰碰口(Flaming Vent)</option>
+          <option value="/place 1 1 1000126 1">音响(Sound System)</option>
+          <option value="/place 1 1 1000127 1">小怪发射器(Cub Launcher)</option>
+          <option value="/place 1 1 1000128 1">神秘纪念碑(Mystery Monument)</option>
+          <option value="/place 1 1 1000201 1">分基地司令部(Outpost HQ)</option>
+          <option value="/place 1 1 1000202 1">恐怖博士司令部(Dr. Terror's HQ)</option>
+          <option value="/place 1 1 1000203 1">吉尔哈特司令部(Gilhart's HQ)</option>
+          <option value="/place 1 1 1000204 1">喷火器I(Flamethrower I)</option>
+          <option value="/place 1 1 1000205 1">喷火器II(Flamethrower II)</option>
+          <option value="/place 1 1 1000206 1">喷火器III(Flamethrower III)</option>
+          <option value="/place 1 1 1000207 1">火炮发射器I(Artillery Launcher I)</option>
+          <option value="/place 1 1 1000208 1">火炮发射器II(Artillery Launcher II)</option>
+          <option value="/place 1 1 1000209 1">火炮发射器III(Artillery Launcher III)</option>
+          <option value="/place 1 1 1000210 1">多管火箭炮发射器I(MRL Launcher I)</option>
+          <option value="/place 1 1 1000211 1">多管火箭炮发射器II(MRL Launcher II)</option>
+          <option value="/place 1 1 1000212 1">多管火箭炮发射器III(MRL Launcher III)</option>
+          <option value="/place 1 1 1000213 1">猪猪炸弹(Pig Bomb)</option>
+          <option value="/place 1 1 1000214 1">冷冻迫击炮(Freeze Mortar)</option>
+          <option value="/place 1 1 1000215 1">超级疯狂南瓜炮(Super Crazy Pumpkin Cannon)</option>
+          <option value="/place 1 1 1000216 1">CritterCritterPrison(Critter Prison)</option>
+          <option value="/place 1 1 1000217 1">英雄教官容器(Hero Container Drill Sergeant)</option>
+          <option value="/place 1 1 1000218 1">英雄机械师容器(Hero Container Mechromancer)</option>
+          <option value="/place 1 1 1000219 1">英雄巫医容器(Hero Container Witch Doctor)</option>
+          <option value="/place 1 1 1000220 1">英雄狂战士容器(Hero Container Berserker)</option>
+          <option value="/place 1 1 1000221 1">红树(Mangrove Tree)</option>
+          <option value="/place 1 1 1000222 1">成年红树(Adult Mangrove)</option>
+          <option value="/place 1 1 1000223 1">红树丛(Mangrove Grove)</option>
+          <option value="/place 1 1 1000224 1">红树林(Mangrove Forest)</option>
+          <option value="/place 1 1 1000225 1">石头(Rock)</option>
+          <option value="/place 1 1 1000226 1">巨石(Boulder)</option>
+          <option value="/place 1 1 1000227 1">红树苗(Mangrove Sapling)</option>
+          <option value="/place 1 1 1000228 1">厚实红树(Thick Mangrove)</option>
+          <option value="/place 1 1 1000229 1">古老红树(Ancient Mangrove)</option>
+          <option value="/shovel">用信息按钮快速移除建筑！！！！</option>
+        </select>
+
+        <!-- 奖杯选择器 -->
+        <select class="select-box hidden" data-content="Trophy">
+          <option value="">请选择奖杯命令</option>
+          <option value="/place 0 0 18000000">装饰(默认)</option>
+          <option value="/place 0 0 18000001">Cage奴隶监狱</option>
+          <option value="/place 0 0 18000002">Old Native Hut河姆渡人小屋</option>
+          <option value="/place 0 0 18000003">New Native Hut1原著居民小屋2</option>
+          <option value="/place 0 0 18000004">New Native Hut2原著居民小屋3</option>
+          <option value="/place 0 0 18000005">New Native Hut3原著居民小屋4</option>
+          <option value="/place 0 0 18000006">Burned Hut残破的房子</option>
+          <option value="/place 0 0 18000007">Campfire篝火</option>
+          <option value="/place 0 0 18000008">Debris2占位符电池</option>
+          <option value="/place 0 0 18000009">Debris3</option>
+          <option value="/place 0 0 18000010">Debris4</option>
+          <option value="/place 0 0 18000011">Debris5</option>
+          <option value="/place 0 0 18000012">Megacrab Standard超级螃蟹</option>
+          <option value="/place 0 0 18000013">Christmas_Tree圣诞树</option>
+          <option value="/place 0 0 18000014">No_Decos一个问号</option>
+          <option value="/place 0 0 18000015">Megacrab Birthday 1周年火炮</option>
+          <option value="/place 0 0 18000016">Megacrab Birthday 2</option>
+          <option value="/place 0 0 18000017">Megacrab Birthday 3</option>
+          <option value="/place 0 0 18000018">Megacrab Birthday 4</option>
+          <option value="/place 0 0 18000019">Megacrab Hasty 1极速战靴</option>
+          <option value="/place 0 0 18000020">Megacrab Hasty 2</option>
+          <option value="/place 0 0 18000021">Megacrab Hasty 3</option>
+          <option value="/place 0 0 18000022">Megacrab Hasty 4</option>
+          <option value="/place 0 0 18000023">Megacrab Jungle 1野人雕像</option>
+          <option value="/place 0 0 18000024">Megacrab Jungle 2</option>
+          <option value="/place 0 0 18000025">Megacrab Jungle 3</option>
+          <option value="/place 0 0 18000026">Megacrab Jungle 4</option>
+          <option value="/place 0 0 18000027">Megacrab Ice 1雪花雕像</option>
+          <option value="/place 0 0 18000028">Megacrab Ice 2</option>
+          <option value="/place 0 0 18000029">Megacrab Ice 3</option>
+          <option value="/place 0 0 18000030">Megacrab Ice 4</option>
+          <option value="/place 0 0 18000031">Megacrab Flaming 1烈焰雕像</option>
+          <option value="/place 0 0 18000032">Megacrab Flaming 2</option>
+          <option value="/place 0 0 18000033">Megacrab Flaming 3</option>
+          <option value="/place 0 0 18000034">Megacrab Flaming 4</option>
+          <option value="/place 0 0 18000035">Megacrab Death 1周年螃蟹</option>
+          <option value="/place 0 0 18000036">Megacrab Death 2</option>
+          <option value="/place 0 0 18000037">Megacrab Death 3</option>
+          <option value="/place 0 0 18000038">Megacrab Death 4</option>
+          <option value="/place 0 0 18000039">Megacrab Energy 1船</option>
+          <option value="/place 0 0 18000040">Megacrab Energy 2</option>
+          <option value="/place 0 0 18000041">Megacrab Energy 3</option>
+          <option value="/place 0 0 18000042">Megacrab Energy 4</option>
+          <option value="/place 0 0 18000043">Megacrab Halloween 1万圣节南瓜</option>
+          <option value="/place 0 0 18000044">Megacrab Halloween 2</option>
+          <option value="/place 0 0 18000045">Megacrab Halloween 3</option>
+          <option value="/place 0 0 18000046">Megacrab Halloween 4</option>
+          <option value="/place 0 0 18000047">Megacrab Proto 1原型奖杯</option>
+          <option value="/place 0 0 18000048">Megacrab Proto 2</option>
+          <option value="/place 0 0 18000049">Megacrab Proto 3</option>
+          <option value="/place 0 0 18000050">Megacrab Proto 4</option>
+          <option value="/place 0 0 18000051">Megacrab Newyear 1 2019新年奖杯</option>
+          <option value="/place 0 0 18000052">Megacrab Newyear 2</option>
+          <option value="/place 0 0 18000053">Megacrab Newyear 3</option>
+          <option value="/place 0 0 18000054">Megacrab Newyear 4</option>
+          <option value="/place 0 0 18000055">Megacrab Lifesteal 1吸血鬼</option>
+          <option value="/place 0 0 18000056">Megacrab Lifesteal 2</option>
+          <option value="/place 0 0 18000057">Megacrab Lifesteal 3</option>
+          <option value="/place 0 0 18000058">Megacrab Lifesteal 4</option>
+          <option value="/place 0 0 18000059">Megacrab Year of Pig 1猪猪奖杯</option>
+          <option value="/place 0 0 18000060">Megacrab Year of Pig 2</option>
+          <option value="/place 0 0 18000061">Megacrab Year of Pig 3</option>
+          <option value="/place 0 0 18000062">Megacrab Year of Pig 4</option>
+          <option value="/place 0 0 18000063">Megacrab Buildings 1</option>
+          <option value="/place 0 0 18000064">Megacrab Buildings 2</option>
+          <option value="/place 0 0 18000065">Megacrab Buildings 3</option>
+          <option value="/place 0 0 18000066">Megacrab Buildings 4</option>
+          <option value="/place 0 0 18000067">Megacrab Lunar New Year 1新年灯笼奖杯</option>
+          <option value="/place 0 0 18000068">Megacrab Lunar New Year 2</option>
+          <option value="/place 0 0 18000069">Megacrab Lunar New Year 3</option>
+          <option value="/place 0 0 18000070">Megacrab Lunar New Year 4</option>
+          <option value="/place 0 0 18000071">Megacrab Lunar New Year 5</option>
+          <option value="/place 0 0 18000072">Megacrab Lunar New Year 6</option>
+          <option value="/place 0 0 18000073">Megacrab Lunar New Year 7</option>
+          <option value="/place 0 0 18000074">Megacrab Lunar New Year 8</option>
+          <option value="/place 0 0 18000075">Megacrab Lunar New Year 9</option>
+          <option value="/place 0 0 18000076">Megacrab Lunar New Year 10</option>
+          <option value="/place 0 0 18000077">Megacrab Lunar New Year 11</option>
+          <option value="/place 0 0 18000078">Megacrab Lunar New Year 12</option>
+          <option value="/place 0 0 18000079">Megacrab Lunar New Year 13</option>
+          <option value="/place 0 0 18000080">Megacrab Lunar New Year 14</option>
+          <option value="/place 0 0 18000081">Megacrab Lunar New Year 15</option>
+          <option value="/place 0 0 18000082">Megacrab Lunar New Year 16</option>
+          <option value="/place 0 0 18000083">Megacrab Fireworks 1新年火箭奖杯</option>
+          <option value="/place 0 0 18000084">Megacrab Fireworks 2</option>
+          <option value="/place 0 0 18000085">Megacrab Fireworks 3</option>
+          <option value="/place 0 0 18000086">Megacrab Fireworks 4</option>
+          <option value="/place 0 0 18000087">Megacrab Fireworks 5</option>
+          <option value="/place 0 0 18000088">Megacrab Fireworks 6</option>
+          <option value="/place 0 0 18000089">Megacrab Fireworks 7</option>
+          <option value="/place 0 0 18000090">Megacrab Fireworks 8</option>
+          <option value="/place 0 0 18000091">Megacrab Fireworks 9</option>
+          <option value="/place 0 0 18000092">Megacrab Fireworks 10</option>
+          <option value="/place 0 0 18000093">Megacrab Fireworks 11</option>
+          <option value="/place 0 0 18000094">Megacrab Fireworks 12</option>
+          <option value="/place 0 0 18000095">Megacrab Fireworks 13</option>
+          <option value="/place 0 0 18000096">Megacrab Fireworks 14</option>
+          <option value="/place 0 0 18000097">Megacrab Fireworks 15</option>
+          <option value="/place 0 0 18000098">Megacrab Fireworks 16</option>
+          <option value="/place 0 0 18000099">Megacrab Birthday 5传奇火炮新年奖杯</option>
+          <option value="/place 0 0 18000100">Megacrab Birthday 6</option>
+          <option value="/place 0 0 18000101">Megacrab Birthday 7</option>
+          <option value="/place 0 0 18000102">Megacrab Birthday 8</option>
+          <option value="/place 0 0 18000103">Megacrab Birthday 9</option>
+          <option value="/place 0 0 18000104">Megacrab Birthday 10</option>
+          <option value="/place 0 0 18000105">Megacrab Birthday 11</option>
+          <option value="/place 0 0 18000106">Megacrab Birthday 12</option>
+          <option value="/place 0 0 18000107">Megacrab Birthday 13</option>
+          <option value="/place 0 0 18000108">Megacrab Birthday 14</option>
+          <option value="/place 0 0 18000109">Megacrab Birthday 15</option>
+          <option value="/place 0 0 18000110">Megacrab Birthday 16</option>
+          <option value="/place 0 0 18000111">Megacrab Hasty 5传奇极速战靴</option>
+          <option value="/place 0 0 18000112">Megacrab Hasty 6</option>
+          <option value="/place 0 0 18000113">Megacrab Hasty 7</option>
+          <option value="/place 0 0 18000114">Megacrab Hasty 8</option>
+          <option value="/place 0 0 18000115">Megacrab Hasty 9</option>
+          <option value="/place 0 0 18000116">Megacrab Hasty 10</option>
+          <option value="/place 0 0 18000117">Megacrab Hasty 11</option>
+          <option value="/place 0 0 18000118">Megacrab Hasty 12</option>
+          <option value="/place 0 0 18000119">Megacrab Hasty 13</option>
+          <option value="/place 0 0 18000120">Megacrab Hasty 14</option>
+          <option value="/place 0 0 18000121">Megacrab Hasty 15</option>
+          <option value="/place 0 0 18000122">Megacrab Hasty 16</option>
+          <option value="/place 0 0 18000123">Megacrab Jungle 5传奇野人</option>
+          <option value="/place 0 0 18000124">Megacrab Jungle 6</option>
+          <option value="/place 0 0 18000125">Megacrab Jungle 7</option>
+          <option value="/place 0 0 18000126">Megacrab Jungle 8</option>
+          <option value="/place 0 0 18000127">Megacrab Jungle 9</option>
+          <option value="/place 0 0 18000128">Megacrab Jungle 10</option>
+          <option value="/place 0 0 18000129">Megacrab Jungle 11</option>
+          <option value="/place 0 0 18000130">Megacrab Jungle 12</option>
+          <option value="/place 0 0 18000131">Megacrab Jungle 13</option>
+          <option value="/place 0 0 18000132">Megacrab Jungle 14</option>
+          <option value="/place 0 0 18000133">Megacrab Jungle 15</option>
+          <option value="/place 0 0 18000134">Megacrab Jungle 16</option>
+          <option value="/place 0 0 18000135">Megacrab Ice 5传奇雪花雕像</option>
+          <option value="/place 0 0 18000136">Megacrab Ice 6</option>
+          <option value="/place 0 0 18000137">Megacrab Ice 7</option>
+          <option value="/place 0 0 18000138">Megacrab Ice 8</option>
+          <option value="/place 0 0 18000139">Megacrab Ice 9</option>
+          <option value="/place 0 0 18000140">Megacrab Ice 10</option>
+          <option value="/place 0 0 18000141">Megacrab Ice 11</option>
+          <option value="/place 0 0 18000142">Megacrab Ice 12</option>
+          <option value="/place 0 0 18000143">Megacrab Ice 13</option>
+          <option value="/place 0 0 18000144">Megacrab Ice 14</option>
+          <option value="/place 0 0 18000145">Megacrab Ice 15</option>
+          <option value="/place 0 0 18000146">Megacrab Ice 16</option>
+          <option value="/place 0 0 18000147">Megacrab Flaming 5传奇烈焰奖杯</option>
+          <option value="/place 0 0 18000148">Megacrab Flaming 6</option>
+          <option value="/place 0 0 18000149">Megacrab Flaming 7</option>
+          <option value="/place 0 0 18000150">Megacrab Flaming 8</option>
+          <option value="/place 0 0 18000151">Megacrab Flaming 9</option>
+          <option value="/place 0 0 18000152">Megacrab Flaming 10</option>
+          <option value="/place 0 0 18000153">Megacrab Flaming 11</option>
+          <option value="/place 0 0 18000154">Megacrab Flaming 12</option>
+          <option value="/place 0 0 18000155">Megacrab Flaming 13</option>
+          <option value="/place 0 0 18000156">Megacrab Flaming 14</option>
+          <option value="/place 0 0 18000157">Megacrab Flaming 15</option>
+          <option value="/place 0 0 18000158">Megacrab Flaming 16</option>
+          <option value="/place 0 0 18000159">Megacrab Death 5传奇周年螃蟹</option>
+          <option value="/place 0 0 18000160">Megacrab Death 6</option>
+          <option value="/place 0 0 18000161">Megacrab Death 7</option>
+          <option value="/place 0 0 18000162">Megacrab Death 8</option>
+          <option value="/place 0 0 18000163">Megacrab Death 9</option>
+          <option value="/place 0 0 18000164">Megacrab Death 10</option>
+          <option value="/place 0 0 18000165">Megacrab Death 11</option>
+          <option value="/place 0 0 18000166">Megacrab Death 12</option>
+          <option value="/place 0 0 18000167">Megacrab Death 13</option>
+          <option value="/place 0 0 18000168">Megacrab Death 14</option>
+          <option value="/place 0 0 18000169">Megacrab Death 15</option>
+          <option value="/place 0 0 18000170">Megacrab Death 16</option>
+          <option value="/place 0 0 18000171">Megacrab Energy 5传奇战舰奖杯</option>
+          <option value="/place 0 0 18000172">Megacrab Energy 6</option>
+          <option value="/place 0 0 18000173">Megacrab Energy 7</option>
+          <option value="/place 0 0 18000174">Megacrab Energy 8</option>
+          <option value="/place 0 0 18000175">Megacrab Energy 9</option>
+          <option value="/place 0 0 18000176">Megacrab Energy 10</option>
+          <option value="/place 0 0 18000177">Megacrab Energy 11</option>
+          <option value="/place 0 0 18000178">Megacrab Energy 12</option>
+          <option value="/place 0 0 18000179">Megacrab Energy 13</option>
+          <option value="/place 0 0 18000180">Megacrab Energy 14</option>
+          <option value="/place 0 0 18000181">Megacrab Energy 15</option>
+          <option value="/place 0 0 18000182">Megacrab Energy 16</option>
+          <option value="/place 0 0 18000183">Megacrab Halloween 5传奇万圣节南瓜奖杯</option>
+          <option value="/place 0 0 18000184">Megacrab Halloween 6</option>
+          <option value="/place 0 0 18000185">Megacrab Halloween 7</option>
+          <option value="/place 0 0 18000186">Megacrab Halloween 8</option>
+          <option value="/place 0 0 18000187">Megacrab Halloween 9</option>
+          <option value="/place 0 0 18000188">Megacrab Halloween 10</option>
+          <option value="/place 0 0 18000189">Megacrab Halloween 11</option>
+          <option value="/place 0 0 18000190">Megacrab Halloween 12</option>
+          <option value="/place 0 0 18000191">Megacrab Halloween 13</option>
+          <option value="/place 0 0 18000192">Megacrab Halloween 14</option>
+          <option value="/place 0 0 18000193">Megacrab Halloween 15</option>
+          <option value="/place 0 0 18000194">Megacrab Halloween 16</option>
+          <option value="/place 0 0 18000195">Megacrab Proto 5传奇原型奖杯</option>
+          <option value="/place 0 0 18000196">Megacrab Proto 6</option>
+          <option value="/place 0 0 18000197">Megacrab Proto 7</option>
+          <option value="/place 0 0 18000198">Megacrab Proto 8</option>
+          <option value="/place 0 0 18000199">Megacrab Proto 9</option>
+          <option value="/place 0 0 18000200">Megacrab Proto 10</option>
+          <option value="/place 0 0 18000201">Megacrab Proto 11</option>
+          <option value="/place 0 0 18000202">Megacrab Proto 12</option>
+          <option value="/place 0 0 18000203">Megacrab Proto 13</option>
+          <option value="/place 0 0 18000204">Megacrab Proto 14</option>
+          <option value="/place 0 0 18000205">Megacrab Proto 15</option>
+          <option value="/place 0 0 18000206">Megacrab Proto 16</option>
+          <option value="/place 0 0 18000207">Megacrab Lifesteal 5吸血鬼奖杯</option>
+          <option value="/place 0 0 18000208">Megacrab Lifesteal 6</option>
+          <option value="/place 0 0 18000209">Megacrab Lifesteal 7</option>
+          <option value="/place 0 0 18000210">Megacrab Lifesteal 8</option>
+          <option value="/place 0 0 18000211">Megacrab Lifesteal 9</option>
+          <option value="/place 0 0 18000212">Megacrab Lifesteal 10</option>
+          <option value="/place 0 0 18000213">Megacrab Lifesteal 11</option>
+          <option value="/place 0 0 18000214">Megacrab Lifesteal 12</option>
+          <option value="/place 0 0 18000215">Megacrab Lifesteal 13</option>
+          <option value="/place 0 0 18000216">Megacrab Lifesteal 14</option>
+          <option value="/place 0 0 18000217">Megacrab Lifesteal 15</option>
+          <option value="/place 0 0 18000218">Megacrab Lifesteal 16</option>
+          <option value="/place 0 0 18000219">Warship Trophy 1石材航母奖杯</option>
+          <option value="/place 0 0 18000220">Warship Trophy 2青铜</option>
+          <option value="/place 0 0 18000221">Warship Trophy 3黄金</option>
+          <option value="/place 0 0 18000222">Warship Trophy 4钻石</option>
+          <option value="/place 0 0 18000223">Warship Trophy 5传奇</option>
+          <option value="/place 0 0 18000224">Warship Rank 500 Trophy世界五百强</option>
+          <option value="/place 0 0 18000225">Warship Rank 50 Trophy世界50强</option>
+          <option value="/place 0 0 18000226">Warship Rank 5 Trophy世界前五</option>
+          <option value="/place 0 0 18000227">Warship Rank 1 Trophy海岛世界第一奖杯</option>
+          <option value="/place 0 0 18000228">Speaker海岛大音响</option>
+          <option value="/place 0 0 18000229">Scid Statue Supercell 金鸡奖杯</option>
+          <option value="/place 0 0 18000230">Turtle Statue海龟博士雕像(终于被你找到了)</option>
+          <option value="/place 0 0 18000231">Megaturtle 1石质海龟奖杯</option>
+          <option value="/place 0 0 18000232">Megaturtle 2海龟奖杯</option>
+          <option value="/place 0 0 18000233">Megaturtle 3</option>
+          <option value="/place 0 0 18000234">Megaturtle 4</option>
+          <option value="/place 0 0 18000235">Megaturtle 5</option>
+          <option value="/place 0 0 18000236">Lazor Ball ---闪电雷达发射器奖杯</option>
+          <option value="/place 0 0 18000237">Megaturtle 6</option>
+          <option value="/place 0 0 18000238">Megaturtle 7</option>
+          <option value="/place 0 0 18000239">Megaturtle 8</option>
+          <option value="/place 0 0 18000240">Megaturtle 9</option>
+          <option value="/place 0 0 18000241">Megaturtle 10</option>
+          <option value="/place 0 0 18000242">Megaturtle 11</option>
+          <option value="/place 0 0 18000243">Megaturtle 12</option>
+          <option value="/place 0 0 18000244">Megaturtle 13</option>
+          <option value="/place 0 0 18000245">Megaturtle 14</option>
+          <option value="/place 0 0 18000246">Megaturtle 15</option>
+          <option value="/place 0 0 18000247">Megacrab Rider 1 步兵抱蛋糕周年奖杯</option>
+          <option value="/place 0 0 18000248">Megacrab Rider 2</option>
+          <option value="/place 0 0 18000249">Megacrab Rider 3</option>
+          <option value="/place 0 0 18000250">Megacrab Rider 4</option>
+          <option value="/place 0 0 18000251">Megacrab Rider 5</option>
+          <option value="/place 0 0 18000252">Megacrab Rider 6</option>
+          <option value="/place 0 0 18000253">Megacrab Rider 7</option>
+          <option value="/place 0 0 18000254">Megacrab Rider 8</option>
+          <option value="/place 0 0 18000255">Megacrab Rider 9</option>
+          <option value="/place 0 0 18000256">Megacrab Rider 10</option>
+          <option value="/place 0 0 18000257">Megacrab Rider 11</option>
+          <option value="/place 0 0 18000258">Megacrab Rider 12</option>
+          <option value="/place 0 0 18000259">Megacrab Rider 13</option>
+          <option value="/place 0 0 18000260">Megacrab Rider 14</option>
+          <option value="/place 0 0 18000261">Megacrab Rider 15</option>
+          <option value="/place 0 0 18000262">Megacrab Rider 16</option>
+        </select>
+        
+        <!-- 彩色字体选择器 -->
+        <select class="select-box hidden" data-content="colorfulText">
+          <option value="">请选择彩色字体命令</option>
+          <option value="<c8B0016>深暗红</c>" style="color:#8B0016">深暗红(8B0016)</option>
+          <option value="<cB2001F>艳暗红</c>" style="color:#B2001F">艳暗红(B2001F)</option>
+          <option value="<cC50023>亮暗红</c>" style="color:#C50023">亮暗红(C50023)</option>
+          <option value="<cDF0029>纯红</c>" style="color:#DF0029">纯红(DF0029)</option>
+          <option value="<cE54646>淡粉红</c>" style="color:#E54646">淡粉红(E54646)</option>
+          <option value="<cEE7C6B>橙红色</c>" style="color:#EE7C6B">橙红色(EE7C6B)</option>
+          <option value="<cF5A89A>浅橙红</c>" style="color:#F5A89A">浅橙红(F5A89A)</option>
+          <option value="<cFCDAD5>极浅红</c>" style="color:#FCDAD5">极浅红(FCDAD5)</option>
+          <option value="<c8E1E20>深橙红</c>" style="color:#8E1E20">深橙红(8E1E20)</option>
+          <option value="<cB6292B>艳橙红</c>" style="color:#B6292B">艳橙红(B6292B)</option>
+          <option value="<cC82E31>亮橙红</c>" style="color:#C82E31">亮橙红(C82E31)</option>
+          <option value="<cE33539>纯橙红</c>" style="color:#E33539">纯橙红(E33539)</option>
+          <option value="<cEB7153>淡橙红</c>" style="color:#EB7153">淡橙红(EB7153)</option>
+          <option value="<cF19373>浅橙红</c>" style="color:#F19373">浅橙红(F19373)</option>
+          <option value="<cF6B297>极浅橙红</c>" style="color:#F6B297">极浅橙红(F6B297)</option>
+          <option value="<cFCD9C4>肉色</c>" style="color:#FCD9C4">肉色(FCD9C4)</option>
+          <option value="<c945305>深橙黄</c>" style="color:#945305">深橙黄(945305)</option>
+          <option value="<cBD6B09>艳橙黄</c>" style="color:#BD6B09">艳橙黄(BD6B09)</option>
+          <option value="<cD0770B>亮橙黄</c>" style="color:#D0770B">亮橙黄(D0770B)</option>
+          <option value="<cEC870E>纯橙黄</c>" style="color:#EC870E">纯橙黄(EC870E)</option>
+          <option value="<cF09C42>淡橙黄</c>" style="color:#F09C42">淡橙黄(F09C42)</option>
+          <option value="<cF5B16D>浅橙黄</c>" style="color:#F5B16D">浅橙黄(F5B16D)</option>
+          <option value="<cFCE0A6>极浅橙黄</c>" style="color:#FCE0A6">极浅橙黄(FCE0A6)</option>
+          <option value="<cFDE2CA>米黄</c>" style="color:#FDE2CA">米黄(FDE2CA)</option>
+          <option value="<c976D00>深黄</c>" style="color:#976D00">深黄(976D00)</option>
+          <option value="<cC18C00>艳黄</c>" style="color:#C18C00">艳黄(C18C00)</option>
+          <option value="<cD59B00>亮黄</c>" style="color:#D59B00">亮黄(D59B00)</option>
+          <option value="<cF1AF00>纯黄</c>" style="color:#F1AF00">纯黄(F1AF00)</option>
+          <option value="<cF3C246>淡黄</c>" style="color:#F3C246">淡黄(F3C246)</option>
+          <option value="<cF9CC76>浅黄</c>" style="color:#F9CC76">浅黄(F9CC76)</option>
+          <option value="<cFCE0A6>极浅黄</c>" style="color:#FCE0A6">极浅黄(FCE0A6)</option>
+          <option value="<cFEEBD0>奶黄</c>" style="color:#FEEBD0">奶黄(FEEBD0)</option>
+          <option value="<c367517>深绿</c>" style="color:#367517">深绿(367517)</option>
+          <option value="<c489620>艳绿</c>" style="color:#489620">艳绿(489620)</option>
+          <option value="<c50A625>亮绿</c>" style="color:#50A625">亮绿(50A625)</option>
+          <option value="<c5BBD2B>纯绿</c>" style="color:#5BBD2B">纯绿(5BBD2B)</option>
+          <option value="<c83C75D>淡绿</c>" style="color:#83C75D">淡绿(83C75D)</option>
+          <option value="<cAFD788>浅绿</c>" style="color:#AFD788">浅绿(AFD788)</option>
+          <option value="<cC8E2B1>极浅绿</c>" style="color:#C8E2B1">极浅绿(C8E2B1)</option>
+          <option value="<cE6F1D8>豆绿</c>" style="color:#E6F1D8">豆绿(E6F1D8)</option>
+          <option value="<c006241>深青绿</c>" style="color:#006241">深青绿(006241)</option>
+          <option value="<c007F54>艳青绿</c>" style="color:#007F54">艳青绿(007F54)</option>
+          <option value="<c008C5E>亮青绿</c>" style="color:#008C5E">亮青绿(008C5E)</option>
+          <option value="<c00A06B>纯青绿</c>" style="color:#00A06B">纯青绿(00A06B)</option>
+          <option value="<c00AE72>淡青绿</c>" style="color:#00AE72">淡青绿(00AE72)</option>
+          <option value="<c67BF7F>浅青绿</c>" style="color:#67BF7F">浅青绿(67BF7F)</option>
+          <option value="<c98D0B9>极浅青绿</c>" style="color:#98D0B9">极浅青绿(98D0B9)</option>
+          <option value="<cC9E4D6>水绿</c>" style="color:#C9E4D6">水绿(C9E4D6)</option>
+          <option value="<c00676B>深青蓝</c>" style="color:#00676B">深青蓝(00676B)</option>
+          <option value="<c008489>艳青蓝</c>" style="color:#008489">艳青蓝(008489)</option>
+          <option value="<c009298>亮青蓝</c>" style="color:#009298">亮青蓝(009298)</option>
+          <option value="<c00A6AD>纯青蓝</c>" style="color:#00A6AD">纯青蓝(00A6AD)</option>
+          <option value="<c00B2BF>淡青蓝</c>" style="color:#00B2BF">淡青蓝(00B2BF)</option>
+          <option value="<c6EC3C9>浅青蓝</c>" style="color:#6EC3C9">浅青蓝(6EC3C9)</option>
+          <option value="<c99D1D3>极浅青蓝</c>" style="color:#99D1D3">极浅青蓝(99D1D3)</option>
+          <option value="<cCAE5E8>天蓝</c>" style="color:#CAE5E8">天蓝(CAE5E8)</option>
+          <option value="<c184785>深蓝</c>" style="color:#184785">深蓝(184785)</option>
+          <option value="<c205AA7>艳蓝</c>" style="color:#205AA7">艳蓝(205AA7)</option>
+          <option value="<c426EB4>亮蓝</c>" style="color:#426EB4">亮蓝(426EB4)</option>
+          <option value="<c7388C1>纯蓝</c>" style="color:#7388C1">纯蓝(7388C1)</option>
+          <option value="<c94AAD6>淡蓝</c>" style="color:#94AAD6">淡蓝(94AAD6)</option>
+          <option value="<cBFCAE6>浅蓝</c>" style="color:#BFCAE6">浅蓝(BFCAE6)</option>
+          <option value="<c211551>靛蓝</c>" style="color:#211551">靛蓝(211551)</option>
+          <option value="<c2D1E69>藏蓝</c>" style="color:#2D1E69">藏蓝(2D1E69)</option>
+          <option value="<c38044B>深紫</c>" style="color:#38044B">深紫(38044B)</option>
+          <option value="<c5D0C7B>艳紫</c>" style="color:#5D0C7B">艳紫(5D0C7B)</option>
+          <option value="<c79378B>亮紫</c>" style="color:#79378B">亮紫(79378B)</option>
+          <option value="<c8C63A4>纯紫</c>" style="color:#8C63A4">纯紫(8C63A4)</option>
+          <option value="<cAA87B8>淡紫</c>" style="color:#AA87B8">淡紫(AA87B8)</option>
+          <option value="<cC9B5D4>浅紫</c>" style="color:#C9B5D4">浅紫(C9B5D4)</option>
+          <option value="<c64004B>暗紫</c>" style="color:#64004B">暗紫(64004B)</option>
+          <option value="<cA2007C>绛紫</c>" style="color:#A2007C">绛紫(A2007C)</option>
+          <option value="<c363636>深灰</c>" style="color:#363636">深灰(363636)</option>
+          <option value="<c555555>中灰</c>" style="color:#555555">中灰(555555)</option>
+          <option value="<c707070>浅灰</c>" style="color:#707070">浅灰(707070)</option>
+          <option value="<c898989>淡灰</c>" style="color:#898989">淡灰(898989)</option>
+          <option value="<cA0A0A0>银灰</c>" style="color:#A0A0A0">银灰(A0A0A0)</option>
+          <option value="<cB7B7B7>亮灰</c>" style="color:#B7B7B7">亮灰(B7B7B7)</option>
+          <option value="<cD7D7D7>极浅灰</c>" style="color:#D7D7D7">极浅灰(D7D7D7)</option>
+          <option value="<cECECEC>近白</c>" style="color:#ECECEC">近白(ECECEC)</option>
+          <option value="<c000000>纯黑</c>" style="color:#000000">纯黑(000000)</option>
+        </select>
+        
+        <!-- 皮肤选择器 -->
+        <select class="select-box hidden" data-content="Skin">
+          <option value="">请选择皮肤命令</option>
+          <option value="/skin add Green_Tank">绿色坦克(Green_Tank)</option>
+          <option value="/skin add HQ_Diesel">柴油风格司令部(HQ_Diesel)</option>
+          <option value="/skin add Residence_Diesel">柴油风格住宅(Residence_Diesel)</option>
+          <option value="/skin add Gunboat_Diesel">柴油风格战舰(Gunboat_Diesel)</option>
+          <option value="/skin add Heavy_SB">特殊重型机枪手(Heavy_SB)</option>
+          <option value="/skin add Medic_SB">特殊医疗兵(Medic_SB)</option>
+          <option value="/skin add Scorcher_Fortified">强化喷火兵(Scorcher_Fortified)</option>
+          <option value="/skin add Tank_Sherman">谢尔曼坦克(Tank_Sherman)</option>
+          <option value="/skin add Gunboat_Iowa">爱荷华号战舰(Gunboat_Iowa)</option>
+          <option value="/skin add GoldStorage_FortKnox">诺克斯堡风格金库(GoldStorage_FortKnox)</option>
+          <option value="/skin add HQ_Pentagon">五角大楼风格司令部(HQ_Pentagon)</option>
+          <option value="/skin add Gunboat_Ghost">幽灵战舰(Gunboat_Ghost)</option>
+          <option value="/skin add Assault_Troop_Ghost">幽灵突击部队(Assault_Troop_Ghost)</option>
+          <option value="/skin add Bombardier_Santa">圣诞老人投弹手(Bombardier_Santa)</option>
+          <option value="/skin add HQ_Lunar">月球风格司令部(HQ_Lunar)</option>
+          <option value="/skin add HeroHut_NewYear">新年风格英雄小屋(HeroHut_NewYear)</option>
+          <option value="/skin add Residence_Gingerbread">姜饼屋风格住宅(Residence_Gingerbread)</option>
+          <option value="/skin add Vault_BoxOfChocolate">巧克力盒风格保险箱(Vault_BoxOfChocolate)</option>
+          <option value="/skin add Gunboat_Swan">天鹅战舰(Gunboat_Swan)</option>
+          <option value="/skin add Grenadier_Chef">厨师手榴弹兵(Grenadier_Chef)</option>
+          <option value="/skin add Radar_Disco">迪斯科风格雷达(Radar_Disco)</option>
+          <option value="/skin add HQ_Palace">宫殿风格司令部(HQ_Palace)</option>
+          <option value="/skin add Radar_Aztec">阿兹特克风格雷达(Radar_Aztec)</option>
+          <option value="/skin add Heavy_Luchador">墨西哥摔角手重型机枪手(Heavy_Luchador)</option>
+          <option value="/skin add Residence_Mexico">墨西哥风格住宅(Residence_Mexico)</option>
+          <option value="/skin add Zooka_Pirate">海盗火箭妹子(Zooka_Pirate)</option>
+          <option value="/skin add Native_Warrior_Pirate">海盗土著勇士(Native_Warrior_Pirate)</option>
+          <option value="/skin add HeroHut_Pirate">海盗英雄小屋(HeroHut_Pirate)</option>
+          <option value="/skin list">列出当前已启用的所有皮肤</option>
+          <option value="/skin remove skin remove">移除指定名称的皮肤</option>
+          <option value="/skin reset">清空所有已添加的皮肤</option>
+        </select>
+
+        <!-- 战舰技能选择器 -->
+        <select class="select-box hidden" data-content="warshipSkill">
+          <option value="">请选择战舰技能命令</option>
+          <option value="/spell add 00">导弹(Artillery)</option>
+          <option value="/spell add 01">信号弹(Flare)</option>
+          <option value="/spell add 02">医疗包(Medkit)</option>
+          <option value="/spell add 03">眩晕弹(Stun)</option>
+          <option value="/spell add 04">空袭(Airstrike)</option>
+          <option value="/spell add 05">烟雾弹(Smoke)</option>
+          <option value="/spell add 06">无人机(Drone)</option>
+          <option value="/spell add 07">英雄速度伤害(HeroSpeedDamage)</option>
+          <option value="/spell add 08">英雄伤害抗性(HeroDamageResistance)</option>
+          <option value="/spell add 09">英雄机械师(HeroMechanic)</option>
+          <option value="/spell add 10">英雄机械群(HeroMechanicSwarm)</option>
+          <option value="/spell add 11">英雄巫医群(HeroWitchDoctorSwarm)</option>
+          <option value="/spell add 12">英雄护盾部队(HeroShieldTroops)</option>
+          <option value="/spell add 13">英雄巫医除颤(HeroWitchDoctorDefib)</option>
+          <option value="/spell add 14">超级部队(SuperTroop)</option>
+          <option value="/spell add 15">炮塔箱(TurretBox)</option>
+          <option value="/spell add 16">加速血清(SpeedSerum)</option>
+          <option value="/spell add 17">治疗生物(HealingCritters)</option>
+          <option value="/spell add 18">冷冻炸弹(CryoBomb)</option>
+          <option value="/spell add 19">黑客攻击(Hack)</option>
+          <option value="/spell add 20">小型眩晕弹(TinyStun)</option>
+          <option value="/spell add 21">自爆无人机(ExplosiveDrone)</option>
+          <option value="/spell add 22">水晶护盾(CrystalShield)</option>
+          <option value="/spell add 23">复活(Resurrect)</option>
+          <option value="/spell add 24">装甲运兵车小队(APCSquad)</option>
+          <option value="/spell add 25">生物迫击炮无人机(CritterMortarDrone)</option>
+          <option value="/spell add 26">眩晕手雷(StunGrenade)</option>
+          <option value="/spell add 27">英雄冷冻炸弹(HeroCryoBomb)</option>
+          <option value="/spell add 28">英雄飞行机械群(HeroFlyingMechanicSwarm)</option>
+          <option value="/spell add 29">投掷追踪器(CastSeekers)</option>
+          <option value="/spell add 41">步枪兵(Rifleman)</option>
+          <option value="/spell add 42">重型机枪手(Heavy)</option>
+          <option value="/spell add 43">火箭炮手(Zooka)</option>
+          <option value="/spell add 44">战士(Warrior)</option>
+        </select>
+        
+        <!-- 计算器 -->
+        <div class="hidden" data-content="calculator">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">螃蟹甲板开关计算器</h3>
+            <div class="flex items-center gap-2 mb-3">
+                <select id="deckSelector" class="select-box !mb-0 flex-grow">
+                    <option value="">选择甲板值 (0-16)</option>
+                    <!-- Options will be generated by JS -->
+                </select>
+                <button id="addBtn" class="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-colors">添加</button>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg min-h-[4rem] mb-3">
+                <p id="selectedList" class="text-sm text-gray-600">已选择: 无</p>
+            </div>
+            <div class="flex gap-2 mb-4">
+                <button id="generateBtn" class="flex-1 py-2.5 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition-colors">生成指令</button>
+                <button id="clearBtn" class="flex-1 py-2.5 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition-colors">清空</button>
+            </div>
+            <div class="space-y-2 text-sm">
+                <div id="calculatorResult" class="p-2 border border-gray-200 rounded bg-gray-50"></div>
+                <div id="calculatorCode" class="p-2 border border-gray-200 rounded bg-gray-50 font-mono"></div>
+            </div>
+             <img src="https://i.imgur.com/kxo2y3a.png" alt="螃蟹分区参考图" class="w-full mt-4 rounded-lg" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- 指令输出框 -->
+      <textarea id="output" class="w-full h-12 p-3 mt-4 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="这里会显示生成的指令..."></textarea>
+
+      <!-- 操作按钮 -->
+      <div class="mt-4">
+        <button id="copyBtn" class="w-full py-3 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-transform transform hover:-translate-y-0.5">
+          复制指令
+        </button>
+      </div>
+       <!-- 提示消息 -->
+      <div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-xl transition-opacity duration-300 opacity-0">
+        指令已复制!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- DOM Element References ---
+      const tabContainer = document.getElementById('tab-container');
+      const selectContainer = document.getElementById('select-container');
+      const output = document.getElementById('output');
+      const copyBtn = document.getElementById('copyBtn');
+      const toast = document.getElementById('toast');
+      
+      // Calculator specific elements
+      const deckSelector = document.getElementById('deckSelector');
+      const addBtn = document.getElementById('addBtn');
+      const generateBtn = document.getElementById('generateBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const selectedList = document.getElementById('selectedList');
+      const calculatorResult = document.getElementById('calculatorResult');
+      const calculatorCode = document.getElementById('calculatorCode');
+
+      let selectedDecks = [];
+      let activeTab = 'common';
+
+      // --- Functions ---
+
+      /**
+       * Updates the display to show the content for the selected tab.
+       * @param {string} tabName - The data-tab attribute of the selected tab.
+       */
+      const switchTab = (tabName) => {
+        activeTab = tabName;
+        // Update active button style
+        tabContainer.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.tab === tabName);
+        });
+
+        // Show/hide content sections
+        selectContainer.querySelectorAll('[data-content]').forEach(content => {
+          content.classList.toggle('hidden', content.dataset.content !== tabName);
+        });
+        
+        // Reset output and update based on current selection
+        updateOutput();
+      };
+
+      /**
+       * Updates the output textarea based on the currently active tab and its selected value.
+       */
+      const updateOutput = () => {
+          const activeContent = selectContainer.querySelector(`[data-content="${activeTab}"]:not(.hidden)`);
+          if (activeContent) {
+              if (activeTab === 'calculator') {
+                  output.value = calculatorCode.textContent || '';
+              } else if (activeContent.tagName === 'SELECT') {
+                  output.value = activeContent.value || '';
+              }
+          } else {
+              output.value = '';
+          }
+      };
+      
+      /**
+       * Copies the content of the output textarea to the clipboard and shows a toast message.
+       */
+      const copyCode = () => {
+        if (!output.value.trim()) {
+           showToast('请先选择或生成指令', true);
+           return;
+        }
+        // Use the Clipboard API for modern browsers, with a fallback
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(output.value).then(() => {
+                showToast('指令已复制!');
+            }).catch(err => {
+                console.error('Clipboard API failed:', err);
+                fallbackCopy(); // Use fallback if API fails
+            });
+        } else {
+            fallbackCopy();
+        }
+      };
+      
+      /**
+       * Fallback method for copying text for older browsers.
+       */
+      const fallbackCopy = () => {
+          output.select();
+          document.execCommand('copy');
+          showToast('指令已复制!');
+      };
+
+      /**
+       * Displays a toast message.
+       * @param {string} message - The message to display.
+       * @param {boolean} isError - If true, displays a red error toast.
+       */
+      const showToast = (message, isError = false) => {
+          toast.textContent = message;
+          toast.classList.remove('bg-green-500', 'bg-red-500', 'opacity-0');
+          toast.classList.add(isError ? 'bg-red-500' : 'bg-green-500');
+          toast.classList.add('opacity-100');
+          setTimeout(() => {
+              toast.classList.remove('opacity-100');
+              toast.classList.add('opacity-0');
+          }, 2000);
+      };
+
+      // --- Calculator Logic ---
+      const updateSelectedDecksDisplay = () => {
+        selectedList.textContent = selectedDecks.length > 0 ? `已选择: ${selectedDecks.sort((a, b) => a - b).join(', ')}` : '已选择: 无';
+      };
+
+      const handleAddDeck = () => {
+        const value = parseInt(deckSelector.value, 10);
+        if (isNaN(value)) {
+          showToast('请选择一个有效的甲板值', true);
+          return;
+        }
+        if (!selectedDecks.includes(value)) {
+          selectedDecks.push(value);
+          updateSelectedDecksDisplay();
+        } else {
+          showToast('该甲板值已被选择', true);
+        }
+        deckSelector.value = '';
+      };
+
+      const handleGenerateCommand = () => {
+        if (selectedDecks.length === 0) {
+          showToast('请先添加甲板值', true);
+          return;
+        }
+        const sum = selectedDecks.reduce((acc, val) => acc + Math.pow(2, val), 0);
+        const command = `/blockingmask ${sum}`;
+        calculatorResult.textContent = `计算总和: ${sum}`;
+        calculatorCode.textContent = command;
+        updateOutput();
+      };
+      
+      const handleClearDecks = () => {
+        selectedDecks = [];
+        updateSelectedDecksDisplay();
+        calculatorResult.textContent = '';
+        calculatorCode.textContent = '';
+        updateOutput();
+      };
+      
+      // --- Event Listeners ---
+
+      // Use event delegation for tab clicks
+      tabContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-btn')) {
+          switchTab(e.target.dataset.tab);
+        }
+      });
+
+      // Use event delegation for select box changes
+      selectContainer.addEventListener('change', (e) => {
+        if (e.target.tagName === 'SELECT') {
+          updateOutput();
+        }
+      });
+      
+      copyBtn.addEventListener('click', copyCode);
+
+      // Calculator event listeners
+      addBtn.addEventListener('click', handleAddDeck);
+      generateBtn.addEventListener('click', handleGenerateCommand);
+      clearBtn.addEventListener('click', handleClearDecks);
+
+      // --- Initialization ---
+      
+      // Populate calculator deck selector
+      for (let i = 0; i <= 16; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = i;
+          deckSelector.appendChild(option);
+      }
+      
+      // Apply Tailwind classes dynamically for cleaner HTML
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.className = 'tab-btn px-4 py-3 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-300 focus:outline-none transition-colors duration-200';
+          if (btn.classList.contains('active')) {
+              btn.classList.add('text-blue-600', 'border-blue-600');
+          }
+      });
+      document.querySelectorAll('.select-box').forEach(sel => {
+          sel.className = 'select-box w-full p-3 border border-gray-300 rounded-lg text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow';
+      });
+      
+      // Initial setup
+      switchTab('common');
+    });
+  </script>
+</body>
+</html>
