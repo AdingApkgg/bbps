@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh">
   <head>
     <meta charset="UTF-8" />
@@ -24,9 +24,13 @@
           <button class="tab-btn active" data-tab="common">常用命令</button>
           <button class="tab-btn" data-tab="troop">部队命令</button>
           <button class="tab-btn" data-tab="building">建筑命令</button>
-          <button class="tab-btn" data-tab="Trophy">奖杯</button>
-          <button class="tab-btn" data-tab="Skin">皮肤</button>
-          <button class="tab-btn" data-tab="warshipSkill">战舰技能</button>
+          <button class="tab-btn" data-tab="地雷">地雷命令</button>
+          <button class="tab-btn" data-tab="障碍物">放置树/石头命令</button>
+          <button class="tab-btn" data-tab="资源">获取资源指令</button>
+          <button class="tab-btn" data-tab="全部">全部指令</button>
+          <!--<button class="tab-btn" data-tab="Trophy">奖杯</button>-->
+          <!--<button class="tab-btn" data-tab="Skin">皮肤</button>-->
+          <!--<button class="tab-btn" data-tab="warshipSkill">战舰技能</button>-->
           <button class="tab-btn" data-tab="colorfulText">彩色字体</button>
           <button class="tab-btn" data-tab="calculator">螃蟹甲板</button>
         </div>
@@ -38,37 +42,24 @@
         <div id="select-container">
           <!-- 常用命令选择器 -->
           <select class="select-box" data-content="common">
-            <option value="">请选择常用命令</option>
-            <option value="/layout playerbase_rushmore">英雄玩家岛</option>
-            <option value="/layout playerbase_dieselpunk">工业玩家岛</option>
-            <option value="/layout playerbase_liberty">自由玩家岛</option>
-            <option value="/layout playerbase_Cthulhu">克苏鲁玩家岛</option>
-            <option value="/layout playerbase_Mexican">墨西哥群岛</option>
-            <option value="/layout k2_skin01_shark">国服机械鲨岛</option>
-            <option value="/layout playerbase_Pirate">海盗岛</option>
-            <option value="/layout enemybase">恐怖博士的火山岛</option>
-            <option value="/layout small_a">袖珍岛</option>
-            <option value="/layout small_b">摩斯海德岛</option>
-            <option value="/layout mainland_a">绝岭雄风海湾</option>
-            <option value="/layout mainland_b">帕彻斯奥半岛</option>
-            <option value="/layout med_a">双子珊瑚岛</option>
-            <option value="/layout turtlebase">超级海龟</option>
-            <option value="/layout warship">战斗母舰</option>
-            <option value="/layout octobase">超级螃蟹</option>
-            <option value="/layout factory">工厂任务基地</option>
-            <option value="/layout harbor">港口任务基地</option>
-            <option value="/layout playerbase">玩家默认岛屿</option>
+            <option value="">请选择常用命令（不要加<>）</option>
+            <option value="/rename <名字>">更改名字</option>
+            <option value="/layout playerbase">将你岛屿变为玩家默认岛屿</option>
             <option value="/findaccount <玩家ID>">找回账号</option>
-            <option value="/tsarbomba">只保留大本营</option>
-            <option value="/removeobstacles">移除树木石头</option>
-            <option value="/removestatue">移除神庙里的雕像</option>
-            <option value="/upgrade">所有建筑满级</option>
+            <option value="/upgrade">升级所有建筑至满级，仅可以主基地使用</option>
+            <option value="/research <大本等级>">将科技升级到大本等级（暂时不包括英雄技能）</option>
             <option value="/easy">满级基地</option>
+            <option value="点击游戏界面debug按钮里的解锁科技">研究所科技所有东西满级</option>
+            <option value="/clearlevel">研究所科技所有东西1级</option>
+            <option value="/visitplayer <id>">侦查玩家</option>
             <option value="/atkp">自己攻击自己</option>
             <option value="/atkp <id>">攻击玩家</option>
-            <option value="/basebuilder <基地名>">
-              攻击基地编辑器制作的地图
-            </option>
+            <option value="/tag2id <tag>">玩家标签转换为玩家ID，注意要以 # 开头</option>
+            <option value="/id2tag <id>">玩家ID转换为玩家标签</option>
+            <option value="/attackwarship <玩家ID>或<玩家标签>">进攻玩家战斗母舰基地（留空则攻击自己，/attackw /atkw 等同于 /attackwarship）</option>
+            <option value="/visitwarship <玩家ID>或<玩家标签>">访问玩家战斗母舰基地（留空则攻击自己，/visitw 等同于 /visitwarship）</option>
+            <option value="/warship item fill">添加所有战斗母舰物品</option>
+            <option value="/warship item clear">移除所有战斗母舰物品</option>
             <option value="/bb <基地名>">攻击基地编辑器制作的地图(简写)</option>
             <option value="/basebuilder2 <基地名>">
               侦查基地编辑器制作的地图
@@ -76,26 +67,26 @@
             <option value="/bb2 <基地名>">
               侦查基地编辑器制作的地图(简写)
             </option>
-            <option value="/visitplayer <id>">侦查玩家</option>
-            <option value="/atkp2 <id>">侦查玩家(另一种写法)</option>
-            <option value="/newge">进攻随机基地</option>
-            <option value="/defense">防守哈莫曼</option>
-            <option value="/replay <回放ID>">战斗回放</option>
-            <option value="/replay count">获取全服回放数量</option>
+            <option value="/attackbuilding <建筑ID>">生成铺满同种建筑的特遣队任务基地（/atkbd 等同于 /attackbuilding）</option>
+            <option value="/map clear">重置地图探索，只剩下初始区域</option>
+            <option value="/map npc <tile_index>">在地图指定位置添加随机NPC</option>
+            <option value="/map free <tile_index>">解放指定位置的岛屿。注意：请不要用于boss基地、自己的基地、超级螃蟹等，仅适用于普通NPC和玩家岛。</option>
+            <option value="/visitlevel <layout> <文件路径>">访问指定JSON文件基地（示例：/visitlevel playerbase Gamefiles/playerbase.json，/scoutlevel 等同于 /visitlevel）</option>
+            <option value="/attacklevel <layout> <文件路径>">进攻指定JSON文件基地（示例：/atklvl playerbase Gamefiles/playerbase.json，/atklvl 等同于 /attacklevel）</option>
+            <option value="/newge [<难度>]">用新基地生成器生成随机基地（用于进攻）</option>
+            <option value="/newge2 [<难度>]">用新基地生成器生成随机基地（用于侦察）</option>
+            <option value="/editor <不含后缀的文件名>">读取xlsx文件基地（用于进攻，示例：/editor small_b 读取Config/xlsx/small_b.xlsx）</option>
+            <option value="/editor2 <不含后缀的文件名>">读取xlsx文件基地（用于侦察）</option>
+            <option value="/log attack clear">清空进攻日志（查看日志闪退时使用，需重进）</option>
+            <option value="/log activity clear">清空活动日志（查看日志闪退时使用，需重进）</option>
+            <option value="/log notice clear">清空邮箱日志</option>
             <option value="/replay last">播放自己的上一个回放</option>
+            <option value="/replay <回放ID>">输入战斗回放ID进行播放</option>
             <option value="/replay random">随机播放回放</option>
-            <option value="/rename <名字>">更改名字</option>
-            <option value="/trophy 数量">更改奖杯</option>
-            <option value="/experience 90">设置等级</option>
+            <option value="/replay count">获取全服回放数量</option>
+            <option value="/replay [<回放ID>|count|last|random]">播放指定回放（未指定则播放Config/replay.json）</option>
+            <option value="/experience <等级> <剩余经验>">设置经验等级和剩余经验值</option>
             <option value="/xp 90">设置等级(简写)</option>
-            <option value="/troopcount 数量">更改登陆艇部队数量</option>
-            <option value="/maxlevel">研究所所有东西满级</option>
-            <option value="/clearlevel">研究所所有东西1级</option>
-            <option value="/hq <司令部等级>">
-              快速变成指定等级基地(1 - 22级)
-            </option>
-            <option value="/crab <阶段数>">修改自己的超级螃蟹阶段数</option>
-            <option value="/isonline <玩家ID>">判断玩家是否在线</option>
             <option value="/olp">全服在线玩家</option>
             <option value="/getstatue 46 8 999">能量雕像999(可以改数值)</option>
             <option value="/getstatue 43 6 999">红攻雕像999(可以改数值)</option>
@@ -106,47 +97,43 @@
               负数的神像效果！(不直接支持，但是1000000%一百万 ~
               1000100%一百万零一百 ==> -0% ~ -100%)这里只是举例子
             </option>
-            <option value="/atkran playerbase 10000 1000">
-              攻击生成玩家默认岛屿(数字可改)
-            </option>
-            <option value="/atkran harbor 10000 1000">
-              攻击生成港口任务基地(数字可改)
-            </option>
-            <option value="/atkran factory 10000 1000">
-              攻击生成工厂任务基地(数字可改)
-            </option>
-            <option value="/invadingmodifier set <modifier_name> <amount>">
-              设置进攻时指定战斗加成的值（(modifier_name)
-              需为存在的加成名称，(amount)为数值）
-            </option>
-            <option value="/invadingmodifier reset">
-              清空并重置所有进攻时的战斗加成
-            </option>
-            <option value="/defendingmodifier set <modifier_name> <amount>">
-              设置防御时指定战斗加成的值（(modifier_name)
-              需为存在的加成名称，(amount)为数值）
-            </option>
-            <option value="/defendingmodifier reset">
-              清空并重置所有防御时的战斗加成
-            </option>
-            <option value="/coop set <base_index> <name>">
-              用命令/coop设定自己显示的任务基地，设置特遣队任务中指定索引基地的来源名称（(base_index)
-              为 0 到 7 之间的整数，(name)为来源名称字符串）
-            </option>
-            <option value="/coop set <base_index>">
-              设置特遣队任务中指定索引基地的来源名称为 “0”（(base_index) 为 0 到
-              7 之间的整数）
-            </option>
-            <option value="/coop reset <base_index>">
-              重置特遣队任务中指定索引基地的持久化破坏数据（(base_index) 为 0 到
-              7 之间的整数）
-            </option>
-            <option value="/turtle">在沙滩上有更多海龟！</option>
+            <option value="/skin fill">添加所有皮肤</option>
+            <option value="/skin clear">移除所有皮肤</option>
+            <option value="/officer fill">解锁全部小队长</option>
+            <option value="/officer clear">移除所有小队长</option>
+            <option value="/engraving fill">全部雕刻升至满级和满品质</option>
+            <option value="/engraving clear">降级全部雕刻，清空品质</option>
+            <option value="/engraving level <雕刻> <等级>">设置雕刻的等级</option>
+            <option value="/engraving quality <雕刻> <品质>">设置雕刻的品质</option>
+            <option value="/engraving select <雕刻>">强行启用雕刻，不受数量限制</option>
+            <option value="/prototroop fill">添加所有原型部队</option>
+            <option value="/prototroop clear">移除所有原型部队</option>
+            <option value="/cleartroops">清空登陆艇</option>
+            <option value="/troopcount 数量">更改登陆艇部队数量（最大100）</option><option value="/getplayer <players>">获取玩家账号（最多20条）</option>
+            <option value="/getdata <data>">获取一条csv记录</option>
+            <option value="/datatable <type_id>">获取一个csv表的全部ID和名称清单</option>
+            <option value="/tag2id <tag>">玩家标签转换为玩家ID（需以#开头）</option>
+            <option value="/id2tag <id>">玩家ID转换为玩家标签</option>
+            <option value="/outsy">强制服务端与客户端不同步</option>
+            <option value="/serr">强制让客户端收到服务端错误</option>
+            <option value="/disconnect">强制自己断开连接</option>
+            <option value="/recalcexp">重新计算经验值（仅生成计算报告，不更改等级和经验）</option>
+            <option value="/calctime">计算全部建筑建造时间+全部研究所科技升级时间</option>
+            <option value="/gomgr">显示游戏对象管理器调试信息</option>
+            <option value="/stats [<player>]">获取指定玩家统计信息（默认自己）</option>
+            <option value="/testbase">访问测试基地（Gamefiles/level/test.json）</option>
+            <option value="/debugmap">搜索所有boss基地的TileIndex</option>
+            <option value="/maxid">获取本服ID最大的玩家和回放记录</option>
+            <option value="/time">获取当前时间</option>
+            <option value="/value <JSON>">使用数值提供器</option>
+            <option value="/provider">数值提供器（等同于/value）</option>
+            <option value="/startinghome">将您的岛屿重置为初始账号</option>
           </select>
 
           <!-- 部队命令选择器 -->
           <select class="select-box hidden" data-content="troop">
             <option value="">请选择部队命令</option>
+            <option value="/setboat 1(第几条船) 4000000(部队ID) 1(数量)">点我查看举例指令>>>></option>
             <option value="/setboat 1 4000000 1">步枪手(Rifleman)</option>
             <option value="/setboat 1 4000001 1">重机枪手(Heavy)</option>
             <option value="/setboat 1 4000002 1">火箭筒手(Zooka)</option>
@@ -536,6 +523,7 @@
           <!-- 建筑命令选择器 -->
           <select class="select-box hidden" data-content="building">
             <option value="">请选择建筑命令</option>
+            <option value="/place 1(x坐标) 1(y坐标) 1000000(建筑ID) 1(我是多余的，不要加我，不然无法执行指令)">点我查看举例指令>>>></option>
             <option value="/place 1 1 1000000 1">司令部(Headquarters)</option>
             <option value="/place 1 1 1000001 1">民房(Supply Depot)</option>
             <option value="/place 1 1 1000002 1">锯木厂(Sawmill)</option>
@@ -871,31 +859,281 @@
             <option value="/place 1 1 1000220 1">
               英雄狂战士容器(Hero Container Berserker)
             </option>
-            <option value="/place 1 1 1000221 1">红树(Mangrove Tree)</option>
-            <option value="/place 1 1 1000222 1">
-              成年红树(Adult Mangrove)
-            </option>
-            <option value="/place 1 1 1000223 1">红树丛(Mangrove Grove)</option>
-            <option value="/place 1 1 1000224 1">
-              红树林(Mangrove Forest)
-            </option>
-            <option value="/place 1 1 1000225 1">石头(Rock)</option>
-            <option value="/place 1 1 1000226 1">巨石(Boulder)</option>
-            <option value="/place 1 1 1000227 1">
-              红树苗(Mangrove Sapling)
-            </option>
-            <option value="/place 1 1 1000228 1">
-              厚实红树(Thick Mangrove)
-            </option>
-            <option value="/place 1 1 1000229 1">
-              古老红树(Ancient Mangrove)
-            </option>
-            <option value="/shovel">用信息按钮快速移除建筑！！！！</option>
           </select>
+
+<select class="select-box hidden" data-content="地雷">
+  <option value="">请选择放置地雷指令</option>
+  <!-- 👇 这里添加你需要的具体选项（示例选项，可自定义） -->
+  <option value="/place 1(x坐标)1(y坐标)12000000(陷阱ID)">点我查看举例指令>>>></option>
+  <option value="/place 1 1 12000000">地雷</option>
+  <option value="/place 1 1 12000001">高爆地雷</option>
+  <option value="/place 1 1 12000002">震爆地雷</option>
+</select>
+
+
+<select class="select-box hidden" data-content="障碍物">
+  <option value="">请选择放置树/石头指令</option>
+  <!-- 👇 这里添加你需要的具体选项（示例选项，可自定义） -->
+  <option value="/place 1(x坐标)1(y坐标)8000000(障碍物ID)">点我查看举例指令>>>></option>
+  <option value="/place 1 1 8000000">红树</option>
+  <option value="/place 1 1 8000001">成年红树</option>
+  <option value="/place 1 1 8000002">红树从</option>
+  <option value="/place 1 1 8000003">红树林</option>
+  <option value="/place 1 1 8000004">石头</option>
+  <option value="/place 1 1 8000005">巨石</option>
+  <option value="/place 1 1 8000006">红树苗</option>
+  <option value="/place 1 1 8000007">厚实红树</option>
+  <option value="/place 1 1 8000008">古老红树</option>
+</select>
+
+<select class="select-box hidden" data-content="资源">
+  <option value="">请选择你要获取的资源</option>
+  <!-- 👇 这里添加你需要的具体选项（示例选项，可自定义） -->
+            <option value="/resource 0<资源数据> 9999999<数量>">点我查看举例指令>>>></option>
+            <option value="/resource clear">清空资源</option>
+            <option value="/resource 0 9999999">获取9百万钻石</option>
+            <option value="/resource 1 9999999">获取9百万金币</option>
+            <option value="/resource 2 9999999">获取9百万木材</option>
+            <option value="/resource 3 9999999">获取9百万钢材</option>
+            <option value="/resource 4 9999999">获取9百万石材</option>
+            <option value="/resource 5 9999999">获取9百万绿小水晶</option>
+<option value="/resource 6 9999999">获取9百万绿中水晶</option>
+<option value="/resource 7 9999999">获取9百万绿大水晶</option>
+<option value="/resource 8 9999999">获取9百万蓝小水晶</option>
+<option value="/resource 9 9999999">获取9百万蓝中水晶</option>
+<option value="/resource 10 9999999">获取9百万蓝大水晶</option>
+<option value="/resource 11 9999999">获取9百万红小水晶</option>
+<option value="/resource 12 9999999">获取9百万红中水晶</option>
+<option value="/resource 13 9999999">获取9百万红大水晶</option>
+<option value="/resource 14 9999999">获取9百万紫小水晶</option>
+<option value="/resource 15 9999999">获取9百万紫中水晶</option>
+<option value="/resource 16 9999999">获取9百万紫大水晶</option>
+<option value="/resource 17 9999999">获取9百万能量粉末</option>
+<option value="/resource 18 9999999">获取9百万临界熔断器</option>
+<option value="/resource 19 9999999">获取9百万复合齿轮</option>
+<option value="/resource 20 9999999">获取9百万动力杆</option>
+<option value="/resource 21 9999999">获取9百万场电容器</option>
+<option value="/resource 22 9999999">获取9百万英雄劵</option>
+<option value="/resource 23 9999999">获取9百万商人劵</option>
+<option value="/resource 24 9999999">获取9百万部族水晶矿</option>
+<option value="/resource 25 9999999">获取9百万航母升级币</option>
+<option value="/resource 26 9999999">获取9百万航母解锁币</option>
+<option value="/resource 27 9999999">获取9百万原型币</option>
+<option value="/resource 28 9999999">获取9百万战备档案</option>
+<option value="/resource 29 9999999">获取9百万建筑蓝图</option>
+<option value="/resource 30 9999999">获取9百万黄金保险库</option>
+<option value="/resource 31 9999999">获取9百万木材保险库</option>
+<option value="/resource 32 9999999">获取9百万石材保险库</option>
+<option value="/resource 33 9999999">获取9百万钢材保险库</option>
+<option value="/resource 34 9999999">获取9百万省时劵</option>
+<option value="/resource 35 9999999">获取9百万已弃用（不要点我）</option>
+<option value="/resource 36 9999999">获取9百万建筑加速器</option>
+<option value="/resource 37 9999999">获取9百万升级加速器</option>
+<option value="/resource 38 9999999">获取9百万神庙加速器</option>
+<option value="/resource 39 9999999">获取9百万建筑币</option>
+<option value="/resource 40 9999999">获取9百万神庙栏位</option>
+<option value="/resource 41 9999999">获取9百万研究币</option>
+<option value="/resource 42 9999999">获取9百万材料回收</option>
+<option value="/resource 43 9999999">获取9百万海岛战令币</option>
+<option value="/resource 44 9999999">获取9百万T_经验药水（不要选我）</option>
+<option value="/resource 45 9999999">获取9百万迷彩劵</option>
+<option value="/resource 46 9999999">获取9百万邪恶币</option>
+<option value="/resource 47 9999999">获取9百万深水炸弹</option>
+<option value="/resource 48 9999999">获取9百万集束深水炸弹</option>
+<option value="/resource 49 9999999">获取9百万声呐币</option>
+</select>
+
+<select class="select-box hidden" data-content="全部">
+  <option value="">全部指令（有很多没有公布出来的）</option>
+  <!-- 👇 这里添加你需要的具体选项（示例选项，可自定义） -->
+     <option value="/Bebean">介绍本服机器人</option>
+  <option value="/UTC">协调世界时（用于时间相关操作）</option>
+  <option value="/atkbd">攻击建筑（简写，对应attackbuilding）</option>
+  <option value="/atklvl">攻击等级（简写，对应attacklevel）</option>
+  <option value="/atkp">攻击玩家（简写，对应attackplayer）</option>
+  <option value="/atkw">攻击战舰（简写，对应attackwarship）</option>
+  <option value="/attackbuilding <building>">攻击建筑 <建筑></option>
+  <option value="/attacklevel <layout> <filepath>">攻击等级 <布局> <文件路径></option>
+  <option value="/attack">攻击</option>
+  <option value="/attackp">攻击玩家（简写，对应attackplayer）</option>
+  <option value="/attackplayer">攻击玩家</option>
+  <option value="/attackw">攻击战舰（简写，对应attackwarship）</option>
+  <option value="/attackwarship <player>">攻击战舰 <玩家></option>
+  <option value="/badword get <index>">获取违禁词 <索引></option>
+  <option value="/badword search <pattern>">搜索违禁词 <模式></option>
+  <option value="/badword test <source>">测试违禁词 <来源></option>
+  <option value="/ban">封禁</option>
+  <option value="/ban <player>">封禁 <玩家></option>
+  <option value="/ban <player> <reason> <duration_seconds>">封禁 <玩家> <原因> <时长（秒）></option>
+  <option value="/basebuilder <name>">基地建造者 <名称></option>
+  <option value="/basebuilder2 <name>">基地建造者2 <名称></option>
+  <option value="/bb">基地建造者（简写，对应basebuilder）</option>
+  <option value="/bb2">基地建造者2（简写，对应basebuilder2）</option>
+  <option value="/bebean">（同前，可能为游戏内特定功能指令）</option>
+  <option value="/blockingmask">遮挡掩码</option>
+  <option value="/blockingmask island <island_mask>">岛屿遮挡掩码 <岛屿掩码></option>
+  <option value="/blockingmask warship <warship_mask>">战舰遮挡掩码 <战舰掩码></option>
+  <option value="/bot">机器人</option>
+  <option value="/broadcast">广播（简写，对应say）</option>
+  <option value="/calctime">计算时间</option>
+  <option value="/clearlevel">清除等级</option>
+  <option value="/clearobstacles">清除障碍物</option>
+  <option value="/clearstream">清除流（可能为游戏内资源流等）</option>
+  <option value="/cleartroops">清除部队</option>
+  <option value="/crab <stage>">螃蟹 <阶段></option>
+  <option value="/datatable <type>">数据表 <类型></option>
+  <option value="/debugmap">调试地图</option>
+  <option value="/defend">防御</option>
+  <option value="/deop">撤销管理员权限</option>
+  <option value="/deop <player>">撤销 <玩家> 的管理员权限</option>
+  <option value="/disconnect">断开连接</option>
+  <option value="/easy">简单模式</option>
+  <option value="/editor <name>">编辑器 <名称></option>
+  <option value="/editor2 <name>">编辑器2 <名称></option>
+  <option value="/engraving">雕刻（可能为游戏内养成系统）</option>
+  <option value="/engraving clear">清除雕刻</option>
+  <option value="/engraving fill">填充雕刻</option>
+  <option value="/engraving level <engraving> <count>">雕刻等级 <雕刻> <数量></option>
+  <option value="/engraving quality <engraving> <count>">雕刻品质 <雕刻> <数量></option>
+  <option value="/engraving select <engraving>">选择雕刻 <雕刻></option>
+  <option value="/event">事件</option>
+  <option value="/experience">经验</option>
+  <option value="/experience <levels>">经验 <等级数></option>
+  <option value="/experience <levels> <points>">经验 <等级数> <点数></option>
+  <option value="/findacc">查找账号</option>
+  <option value="/findacc <player>">查找账号 <玩家></option>
+  <option value="/findaccount">查找账号（简写，对应findacc）</option>
+  <option value="/gbe">（可能为游戏内特定功能指令）</option>
+  <option value="/getbd">获取BD（可能为游戏内数据）</option>
+  <option value="/getbd <data>">获取BD <数据></option>
+  <option value="/getdata <data>">获取数据 <数据></option>
+  <option value="/getplayer">获取玩家</option>
+  <option value="/getplayer <players>">获取玩家 <玩家们></option>
+  <option value="/getstatue">获取雕像</option>
+  <option value="/getstatue <artifact> <bonus> <amount>">获取雕像 <神器> <增益> <数量></option>
+  <option value="/gomg">（可能为游戏内特定功能指令）</option>
+  <option value="/help">帮助</option>
+  <option value="/help <command>">帮助 <指令></option>
+  <option value="/id2tag">ID转标签</option>
+  <option value="/kick">踢出</option>
+  <option value="/kick <player>">踢出 <玩家></option>
+  <option value="/layout">布局</option>
+  <option value="/layout <name>">布局 <名称></option>
+  <option value="/log">日志</option>
+  <option value="/log activity clear">清除活动日志</option>
+  <option value="/log activity deepsea">深海活动日志</option>
+  <option value="/log activity enemy">敌方活动日志</option>
+  <option value="/log activity event">事件活动日志</option>
+  <option value="/log activity invade">入侵活动日志</option>
+  <option value="/log activity summary">活动总结日志</option>
+  <option value="/log attack clear">清除攻击日志</option>
+  <option value="/log notice chest">宝箱通知日志</option>
+  <option value="/log notice clear">清除通知日志</option>
+  <option value="/log notice custom">自定义通知日志</option>
+  <option value="/log notice <resource> <count>">资源通知日志 <资源> <数量></option>
+  <option value="/log warship">战舰日志</option>
+  <option value="/map">地图</option>
+  <option value="/map clear">清除地图</option>
+  <option value="/map free <tile_index>">释放地图格子 <格子索引></option>
+  <option value="/map npc <tile_index>">地图NPC <格子索引></option>
+  <option value="/map player <tile_index> <player>">地图玩家 <格子索引> <玩家></option>
+  <option value="/maxid">最大ID</option>
+  <option value="/me">自己</option>
+  <option value="/msg">消息</option>
+  <option value="/msg <targets>">消息 <目标们></option>
+  <option value="/msg <targets> <message>">消息 <目标们> <消息内容></option>
+  <option value="/newge">新GE（可能为游戏模式）</option>
+  <option value="/newge <difficulty>">新GE <难度></option>
+  <option value="/newge2">新GE2（可能为游戏模式）</option>
+  <option value="/newge2 <difficulty>">新GE2 <难度></option>
+  <option value="/officer">军官</option>
+  <option value="/officer clear">清除军官</option>
+  <option value="/officer fill">填充军官</option>
+  <option value="/olp">（可能为游戏内特定功能指令）</option>
+  <option value="/op">赋予管理员权限</option>
+  <option value="/op <player>">赋予 <玩家> 管理员权限</option>
+  <option value="/outsy">（可能为游戏内特定功能指令）</option>
+  <option value="/pardon">赦免（解封）</option>
+  <option value="/pardon <player>">赦免 <玩家></option>
+  <option value="/pi">玩家信息（简写，对应playerinfo）</option>
+  <option value="/place <tile_x> <tile_y> <data>">放置 <格子X> <格子Y> <数据></option>
+  <option value="/playerinfo">玩家信息</option>
+  <option value="/playerinfo <player>">玩家信息 <玩家></option>
+  <option value="/prototroop">原型部队</option>
+  <option value="/prototroop clear">清除原型部队</option>
+  <option value="/prototroop fill">填充原型部队</option>
+  <option value="/recalcexp">重新计算经验</option>
+  <option value="/rename">重命名</option>
+  <option value="/rename <name>">重命名 <名称></option>
+  <option value="/replay">回放</option>
+  <option value="/replay count">回放次数</option>
+  <option value="/replay random">随机回放</option>
+  <option value="/replay <id>">回放 <ID></option>
+  <option value="/res">资源（简写，对应resource）</option>
+  <option value="/research">研究</option>
+  <option value="/research <hq_level>">研究 <总部等级></option>
+  <option value="/resource">资源</option>
+  <option value="/resource artifact">资源神器</option>
+  <option value="/resource clear">清除资源</option>
+  <option value="/resource magic">资源魔法</option>
+  <option value="/resource proto">资源原型</option>
+  <option value="/resource <resource_data> <count>">资源 <资源数据> <数量></option>
+  <option value="/robot">机器人</option>
+  <option value="/role <role_id>">角色 <角色ID></option>
+  <option value="/say <text>">说 <文本></option>
+  <option value="/scoutlevel">侦察等级（简写，对应visiblelevel）</option>
+  <option value="/scoutp">侦察玩家（简写，对应visitplayer）</option>
+  <option value="/scout">侦察（简写，对应visitplayer）</option>
+  <option value="/scoutplayer">侦察玩家</option>
+  <option value="/scoutplayer">侦察玩家（简写，对应visitplayer）</option>
+  <option value="/serr">（可能为游戏内特定功能指令）</option>
+  <option value="/serverinfo">服务器信息</option>
+  <option value="/setboat <boat_index> <character> <count>">设置船只 <船只索引> <角色> <数量></option>
+  <option value="/skin">皮肤</option>
+  <option value="/skin clear">清除皮肤</option>
+  <option value="/skin fill">填充皮肤</option>
+  <option value="/startevent <event>">开始事件 <事件></option>
+  <option value="/startinghome">初始家园</option>
+  <option value="/stats">统计信息</option>
+  <option value="/stats <player>">统计信息 <玩家></option>
+  <option value="/statue">雕像（简写，对应getstatue）</option>
+  <option value="/tag2id">标签转ID</option>
+  <option value="/tag2id <tag>">标签转ID <标签></option>
+  <option value="/tell">告知（简写，对应msg）</option>
+  <option value="/test">测试（简写，对应msg）</option>
+  <option value="/testbase">测试基地</option>
+  <option value="/time">时间</option>
+  <option value="/troopcount <count>">部队数量 <数量></option>
+  <option value="/trophy">奖杯（简写，对应vp）</option>
+  <option value="/unban">解封（简写，对应pardon）</option>
+  <option value="/upgrade">升级</option>
+  <option value="/utc">协调世界时（同前）</option>
+  <option value="/value <provider>">数值 <提供者></option>
+  <option value="/visiblelevel <layout> <filepath>">可见等级 <布局> <文件路径></option>
+  <option value="/visitp">访问玩家（简写，对应visitplayer）</option>
+  <option value="/visit">访问（玩家）（简写，对应visitplayer）</option>
+  <option value="/visitplayer">访问玩家</option>
+  <option value="/visitplayer <player>">访问玩家 <玩家></option>
+  <option value="/visittw">访问战舰（简写，对应visitwarship）</option>
+  <option value="/visitw">访问战舰（简写，对应visitwarship）</option>
+  <option value="/visitwarship">访问战舰</option>
+  <option value="/visitwarship <player>">访问战舰 <玩家></option>
+  <option value="/vp">VP（奖杯类资源）</option>
+  <option value="/vp island <island_vp>">岛屿VP <岛屿VP></option>
+  <option value="/vp warship <warship_vp>">战舰VP <战舰VP></option>
+  <option value="/w">消息（简写，对应msg）</option>
+  <option value="/warship">战舰</option>
+  <option value="/warship item">战舰物品</option>
+  <option value="/warship item clear">清除战舰物品</option>
+  <option value="/warship item fill">填充战舰物品</option>
+  <option value="/warship tech clear">清除战舰科技</option>
+  <option value="/whoami">我是谁（查看自身信息）</option>
+  <option value="/xp">经验（简写，对应experience）</option>
+</select>
 
           <!-- 奖杯选择器 -->
           <select class="select-box hidden" data-content="Trophy">
-            <option value="">请选择奖杯命令</option>
+            <option value="">请选择奖杯命令（暂不可用）</option>
             <option value="/place 0 0 18000000">装饰(默认)</option>
             <option value="/place 0 0 18000001">Cage奴隶监狱</option>
             <option value="/place 0 0 18000002">
@@ -1515,91 +1753,14 @@
 
           <!-- 皮肤选择器 -->
           <select class="select-box hidden" data-content="Skin">
-            <option value="">请选择皮肤命令</option>
-            <option value="/skin add Green_Tank">绿色坦克(Green_Tank)</option>
-            <option value="/skin add HQ_Diesel">
-              柴油风格司令部(HQ_Diesel)
-            </option>
-            <option value="/skin add Residence_Diesel">
-              柴油风格住宅(Residence_Diesel)
-            </option>
-            <option value="/skin add Gunboat_Diesel">
-              柴油风格战舰(Gunboat_Diesel)
-            </option>
-            <option value="/skin add Heavy_SB">特殊重型机枪手(Heavy_SB)</option>
-            <option value="/skin add Medic_SB">特殊医疗兵(Medic_SB)</option>
-            <option value="/skin add Scorcher_Fortified">
-              强化喷火兵(Scorcher_Fortified)
-            </option>
-            <option value="/skin add Tank_Sherman">
-              谢尔曼坦克(Tank_Sherman)
-            </option>
-            <option value="/skin add Gunboat_Iowa">
-              爱荷华号战舰(Gunboat_Iowa)
-            </option>
-            <option value="/skin add GoldStorage_FortKnox">
-              诺克斯堡风格金库(GoldStorage_FortKnox)
-            </option>
-            <option value="/skin add HQ_Pentagon">
-              五角大楼风格司令部(HQ_Pentagon)
-            </option>
-            <option value="/skin add Gunboat_Ghost">
-              幽灵战舰(Gunboat_Ghost)
-            </option>
-            <option value="/skin add Assault_Troop_Ghost">
-              幽灵突击部队(Assault_Troop_Ghost)
-            </option>
-            <option value="/skin add Bombardier_Santa">
-              圣诞老人投弹手(Bombardier_Santa)
-            </option>
-            <option value="/skin add HQ_Lunar">月球风格司令部(HQ_Lunar)</option>
-            <option value="/skin add HeroHut_NewYear">
-              新年风格英雄小屋(HeroHut_NewYear)
-            </option>
-            <option value="/skin add Residence_Gingerbread">
-              姜饼屋风格住宅(Residence_Gingerbread)
-            </option>
-            <option value="/skin add Vault_BoxOfChocolate">
-              巧克力盒风格保险箱(Vault_BoxOfChocolate)
-            </option>
-            <option value="/skin add Gunboat_Swan">
-              天鹅战舰(Gunboat_Swan)
-            </option>
-            <option value="/skin add Grenadier_Chef">
-              厨师手榴弹兵(Grenadier_Chef)
-            </option>
-            <option value="/skin add Radar_Disco">
-              迪斯科风格雷达(Radar_Disco)
-            </option>
-            <option value="/skin add HQ_Palace">
-              宫殿风格司令部(HQ_Palace)
-            </option>
-            <option value="/skin add Radar_Aztec">
-              阿兹特克风格雷达(Radar_Aztec)
-            </option>
-            <option value="/skin add Heavy_Luchador">
-              墨西哥摔角手重型机枪手(Heavy_Luchador)
-            </option>
-            <option value="/skin add Residence_Mexico">
-              墨西哥风格住宅(Residence_Mexico)
-            </option>
-            <option value="/skin add Zooka_Pirate">
-              海盗火箭妹子(Zooka_Pirate)
-            </option>
-            <option value="/skin add Native_Warrior_Pirate">
-              海盗土著勇士(Native_Warrior_Pirate)
-            </option>
-            <option value="/skin add HeroHut_Pirate">
-              海盗英雄小屋(HeroHut_Pirate)
-            </option>
-            <option value="/skin list">列出当前已启用的所有皮肤</option>
+            <option value="">请选择皮肤命令（暂不可用）</option>
             <option value="/skin remove skin remove">移除指定名称的皮肤</option>
             <option value="/skin reset">清空所有已添加的皮肤</option>
           </select>
 
           <!-- 战舰技能选择器 -->
           <select class="select-box hidden" data-content="warshipSkill">
-            <option value="">请选择战舰技能命令</option>
+            <option value="">请选择战舰技能命令（暂不可用）</option>
             <option value="/spell add 00">导弹(Artillery)</option>
             <option value="/spell add 01">信号弹(Flare)</option>
             <option value="/spell add 02">医疗包(Medkit)</option>
@@ -1940,3 +2101,4 @@
     </script>
   </body>
 </html>
+
