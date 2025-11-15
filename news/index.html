@@ -102,11 +102,6 @@
             <option value="/skin clear">移除所有皮肤</option>
             <option value="/officer fill">解锁全部小队长</option>
             <option value="/officer clear">移除所有小队长</option>
-            <option value="/engraving fill">全部雕刻升至满级和满品质</option>
-            <option value="/engraving clear">降级全部雕刻，清空品质</option>
-            <option value="/engraving level <雕刻> <等级>">设置雕刻的等级</option>
-            <option value="/engraving quality <雕刻> <品质>">设置雕刻的品质</option>
-            <option value="/engraving select <雕刻>">强行启用雕刻，不受数量限制</option>
             <option value="/prototroop fill">添加所有原型部队</option>
             <option value="/prototroop clear">移除所有原型部队</option>
             <option value="/cleartroops">清空登陆艇</option>
@@ -889,7 +884,10 @@
 
 
 <select class="select-box hidden" data-content="雕刻">
-  <option value="">请选择升/降级你的雕刻(执行后游戏需重新加载一次即可显示)</option>
+  <option value="">请选择升/降级你的雕刻</option>
+            <option value="/engraving fill">全部雕刻升至满级和满品质</option>
+            <option value="/engraving clear">降级全部雕刻，清空品质</option>
+            <option value="/engraving select <雕刻ID>">强行启用雕刻，不受数量限制（即使没解锁也可以直接启用）</option>
             <option value="/engraving level 0(雕刻ID) 0(1级)">点我查看升级举例指令>>>></option>
             <option value="/engraving level 0 0">肾上腺素 1级</option>
             <option value="/engraving level 1 0">干扰信号 1级</option>
