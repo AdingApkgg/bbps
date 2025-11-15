@@ -26,6 +26,7 @@
           <button class="tab-btn" data-tab="building">建筑命令</button>
           <button class="tab-btn" data-tab="地雷">地雷命令</button>
           <button class="tab-btn" data-tab="障碍物">放置树/石头命令</button>
+          <button class="tab-btn" data-tab="资源">获取资源指令</button>
           <button class="tab-btn" data-tab="全部">全部指令</button>
           <!--<button class="tab-btn" data-tab="Trophy">奖杯</button>-->
           <!--<button class="tab-btn" data-tab="Skin">皮肤</button>-->
@@ -48,10 +49,8 @@
             <option value="/upgrade">升级所有建筑至满级，仅可以主基地使用</option>
             <option value="/research <大本等级>">将科技升级到大本等级（暂时不包括英雄技能）</option>
             <option value="/easy">满级基地</option>
-            <option value="/resource <资源数据> <数量>">获取指定资源</option>
-            <option value="/resource clear">清空资源</option>
-            <option value="点击游戏界面debug按钮里的解锁科技">研究所所有东西满级</option>
-            <option value="/clearlevel">研究所所有东西1级</option>
+            <option value="点击游戏界面debug按钮里的解锁科技">研究所科技所有东西满级</option>
+            <option value="/clearlevel">研究所科技所有东西1级</option>
             <option value="/visitplayer <id>">侦查玩家</option>
             <option value="/atkp">自己攻击自己</option>
             <option value="/atkp <id>">攻击玩家</option>
@@ -885,6 +884,63 @@
   <option value="/place 1 1 8000006">红树苗</option>
   <option value="/place 1 1 8000007">厚实红树</option>
   <option value="/place 1 1 8000008">古老红树</option>
+</select>
+
+<select class="select-box hidden" data-content="资源">
+  <option value="">请选择你要获取的资源</option>
+  <!-- 👇 这里添加你需要的具体选项（示例选项，可自定义） -->
+            <option value="/resource 0<资源数据> 9999999<数量>">点我查看举例指令>>>></option>
+            <option value="/resource clear">清空资源</option>
+            <option value="/resource 0 9999999">获取9百万钻石</option>
+            <option value="/resource 1 9999999">获取9百万金币</option>
+            <option value="/resource 2 9999999">获取9百万木材</option>
+            <option value="/resource 3 9999999">获取9百万钢材</option>
+            <option value="/resource 4 9999999">获取9百万石材</option>
+            <option value="/resource 5 9999999">获取9百万绿小水晶</option>
+<option value="/resource 6 9999999">获取9百万绿中水晶</option>
+<option value="/resource 7 9999999">获取9百万绿大水晶</option>
+<option value="/resource 8 9999999">获取9百万蓝小水晶</option>
+<option value="/resource 9 9999999">获取9百万蓝中水晶</option>
+<option value="/resource 10 9999999">获取9百万蓝大水晶</option>
+<option value="/resource 11 9999999">获取9百万红小水晶</option>
+<option value="/resource 12 9999999">获取9百万红中水晶</option>
+<option value="/resource 13 9999999">获取9百万红大水晶</option>
+<option value="/resource 14 9999999">获取9百万紫小水晶</option>
+<option value="/resource 15 9999999">获取9百万紫中水晶</option>
+<option value="/resource 16 9999999">获取9百万紫大水晶</option>
+<option value="/resource 17 9999999">获取9百万能量粉末</option>
+<option value="/resource 18 9999999">获取9百万临界熔断器</option>
+<option value="/resource 19 9999999">获取9百万复合齿轮</option>
+<option value="/resource 20 9999999">获取9百万动力杆</option>
+<option value="/resource 21 9999999">获取9百万场电容器</option>
+<option value="/resource 22 9999999">获取9百万英雄劵</option>
+<option value="/resource 23 9999999">获取9百万商人劵</option>
+<option value="/resource 24 9999999">获取9百万部族水晶矿</option>
+<option value="/resource 25 9999999">获取9百万航母升级币</option>
+<option value="/resource 26 9999999">获取9百万航母解锁币</option>
+<option value="/resource 27 9999999">获取9百万原型币</option>
+<option value="/resource 28 9999999">获取9百万战备档案</option>
+<option value="/resource 29 9999999">获取9百万建筑蓝图</option>
+<option value="/resource 30 9999999">获取9百万黄金保险库</option>
+<option value="/resource 31 9999999">获取9百万木材保险库</option>
+<option value="/resource 32 9999999">获取9百万石材保险库</option>
+<option value="/resource 33 9999999">获取9百万钢材保险库</option>
+<option value="/resource 34 9999999">获取9百万省时劵</option>
+<option value="/resource 35 9999999">获取9百万已弃用（不要点我）</option>
+<option value="/resource 36 9999999">获取9百万建筑加速器</option>
+<option value="/resource 37 9999999">获取9百万升级加速器</option>
+<option value="/resource 38 9999999">获取9百万神庙加速器</option>
+<option value="/resource 39 9999999">获取9百万建筑币</option>
+<option value="/resource 40 9999999">获取9百万神庙栏位</option>
+<option value="/resource 41 9999999">获取9百万研究币</option>
+<option value="/resource 42 9999999">获取9百万材料回收</option>
+<option value="/resource 43 9999999">获取9百万海岛战令币</option>
+<option value="/resource 44 9999999">获取9百万T_经验药水（不要选我）</option>
+<option value="/resource 45 9999999">获取9百万迷彩劵</option>
+<option value="/resource 46 9999999">获取9百万邪恶币</option>
+<option value="/resource 47 9999999">获取9百万深水炸弹</option>
+<option value="/resource 48 9999999">获取9百万集束深水炸弹</option>
+<option value="/resource 49 9999999">获取9百万声呐币</option>
 </select>
 
 <select class="select-box hidden" data-content="全部">
