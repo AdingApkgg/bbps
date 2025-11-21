@@ -65,7 +65,7 @@
             >编辑</a
           >
           <a
-            href="https://disk.saop.cc/%E8%9A%95%E8%B1%86%E9%AD%94%E6%94%B9%E7%A7%81%E6%9C%8D/bases"
+            href="https://drive.30hb.cn/%E8%9A%95%E8%B1%86%E6%9C%8D%E5%9C%B0%E5%9B%BE"
             target="_blank"
             class="text-sm hover:text-pink-600"
             >地图</a
@@ -102,7 +102,7 @@
           >编辑</a
         >
         <a
-          href="https://disk.saop.cc/%E8%9A%95%E8%B1%86%E9%AD%94%E6%94%B9%E7%A7%81%E6%9C%8D/bases"
+          href="https://drive.30hb.cn/%E8%9A%95%E8%B1%86%E6%9C%8D%E5%9C%B0%E5%9B%BE"
           target="_blank"
           class="block text-sm text-gray-700 hover:text-pink-600"
           >地图</a
@@ -268,30 +268,25 @@
         };
 
         try {
-          const res = await fetch("https://webapi.30hb.cn", {
+          const res = await fetch("https://vn-rank-api.adingapkgg.workers.dev/?target=https://webapi.30hb.cn/api/server", {
             cache: "no-store",
           });
           if (!res.ok) throw new Error("网络错误");
-          const html = await res.text();
-          const match = html.match(
-            /<script[^>]*id=["']server-data["'][^>]*>([\s\S]*?)<\/script>/i
-          );
-          if (!match) throw new Error("数据未找到");
-          const data = JSON.parse(match[1]);
+          const data = await res.json();
 
-          elements.player.textContent = data.registeredPlayers ?? "无";
-          elements.replay.textContent = data.replayCount ?? "无";
-          elements.online.textContent = data.onlinePlayers ?? "无";
+          if (!data.success || !data.body) throw new Error("数据格式错误");
 
-          const list = Array.isArray(data.onlinePlayerList)
-            ? data.onlinePlayerList
-            : (data.onlinePlayerList || "")
-                .split(/\n|<br\s*\/?>/)
-                .map((t) => t.trim())
-                .filter(Boolean);
+          const body = data.body;
+          elements.player.textContent = body.m_v_avatar_seed ?? "无";
+          elements.replay.textContent = body.m_v_replay_seed ?? "无";
+          elements.online.textContent = body.online_sessions ?? "无";
+
+          const list = Array.isArray(body.online_player_list)
+            ? body.online_player_list
+            : [];
 
           elements.list.innerHTML = list.length
-            ? list.map((name) => `<li>${name}</li>`).join("")
+            ? list.map((player) => `<li>${player.name}</li>`).join("")
             : "<li>无在线玩家</li>";
         } catch (e) {
           elements.player.textContent =
