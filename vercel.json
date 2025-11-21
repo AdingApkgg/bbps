@@ -1,0 +1,14 @@
+{
+  "buildCommand": "pnpm run generate",
+  "outputDirectory": ".output/public",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
+

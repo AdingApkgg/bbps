@@ -1,0 +1,45 @@
+{
+  "site": {
+    "name": "BBPS"
+  },
+  "nav": {
+    "commands": "Commands",
+    "editor": "Editor",
+    "maps": "Maps",
+    "blog": "Blog",
+    "donate": "Donate",
+    "team": "Team",
+    "toggleMenu": "Toggle Menu"
+  },
+  "hero": {
+    "title": "Boom Beach Private Server",
+    "subtitle": "Unlimited Resources, Forever Free!",
+    "download": "Download Now",
+    "moreServers": "More Servers",
+    "freeBadge": "Completely Free",
+    "noPayment": "No Payment Required"
+  },
+  "stats": {
+    "onlinePlayers": "Players Online",
+    "totalPlayers": "Total Players",
+    "totalReplays": "Total Replays",
+    "loading": "Loading...",
+    "error": "Error",
+    "noPlayers": "No players online"
+  },
+  "cta": {
+    "title": "Join Our Private Server Community!",
+    "description": "Forever free with unlimited resources. Say goodbye to the official grind and join us to experience the best Boom Beach private server!",
+    "joinQQ": "Join QQ Community"
+  },
+  "comments": {
+    "title": "Player Comments"
+  },
+  "footer": {
+    "pageviews": "Page Views",
+    "visitors": "Visitors",
+    "author": "Candou",
+    "trademark": "is a trademark of Supercell. This is an unofficial fan site."
+  }
+}
+

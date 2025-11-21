@@ -1,2 +1,34 @@
-.history/
-.vscode/
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# GitHub Actions
+.github/workflows/*.log
+
+# Node dependencies
+node_modules
+
+# pnpm
+pnpm-lock.yaml
+
+# 编辑器历史和临时文件
+.history
+.vscode-test
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example

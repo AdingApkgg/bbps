@@ -1,0 +1,19 @@
+# 依赖
+node_modules
+
+# 构建输出
+.output
+.nuxt
+dist
+
+# 缓存
+.cache
+
+# 编辑器历史
+.history
+.vscode-test
+
+# 其他
+.DS_Store
+*.log
+

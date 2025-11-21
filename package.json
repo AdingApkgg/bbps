@@ -1,0 +1,38 @@
+{
+  "name": "bbps-nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt generate",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "setup:assets": "mkdir -p public/assets/images/{logo,buildings,troops,resources,ui,backgrounds} public/assets/fonts",
+    "serve": "npx serve .output/public"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.7.0",
+    "@vueuse/core": "^10.11.0",
+    "nuxt": "^3.12.4",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.5.0",
+    "@nuxtjs/i18n": "^8.5.6",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "sass": "^1.77.8",
+    "typescript": "^5.5.3",
+    "unhead": "^2.0.19",
+    "vite": "^5.3.5"
+  }
+}
+

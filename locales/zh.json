@@ -1,0 +1,45 @@
+{
+  "site": {
+    "name": "蚕豆私服"
+  },
+  "nav": {
+    "commands": "指令",
+    "editor": "编辑",
+    "maps": "地图",
+    "blog": "博客",
+    "donate": "捐赠",
+    "team": "团队",
+    "toggleMenu": "切换菜单"
+  },
+  "hero": {
+    "title": "蚕豆海岛私服",
+    "subtitle": "无限资源，永久免费！",
+    "download": "立即下载",
+    "moreServers": "更多私服",
+    "freeBadge": "完全免费",
+    "noPayment": "无需氪金"
+  },
+  "stats": {
+    "onlinePlayers": "当前在线玩家",
+    "totalPlayers": "玩家总数",
+    "totalReplays": "回放数",
+    "loading": "加载中...",
+    "error": "错误",
+    "noPlayers": "无在线玩家"
+  },
+  "cta": {
+    "title": "加入我们的私服社区！",
+    "description": "永久免费，资源无限，告别官方摆烂体验，加入我们，一起打造最好的 Boom Beach 私服！",
+    "joinQQ": "加入 QQ 社区"
+  },
+  "comments": {
+    "title": "玩家评论"
+  },
+  "footer": {
+    "pageviews": "访问量",
+    "visitors": "访客数",
+    "author": "蚕豆",
+    "trademark": "是 Supercell 的商标。本站是非官方粉丝项目。"
+  }
+}
+

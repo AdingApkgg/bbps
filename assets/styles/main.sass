@@ -1,0 +1,194 @@
+@use 'sass:color'
+@use './variables' as *
+
+// 全局重置和基础样式
+*, *::before, *::after
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+html
+  scroll-behavior: smooth
+
+body
+  font-family: $font-family-base
+  font-size: $font-size-base
+  line-height: 1.6
+  color: $dark-gray
+  background: $off-white
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+// 游戏风格标题
+h1, h2, h3, h4, h5, h6
+  font-family: $font-family-game
+  font-weight: 900
+  line-height: 1.2
+  color: $black
+  text-transform: uppercase
+  letter-spacing: 0.05em
+
+h1
+  font-size: $font-size-4xl
+  text-shadow: 3px 3px 0 rgba($military-green-dark, 0.3)
+
+h2
+  font-size: $font-size-3xl
+  text-shadow: 2px 2px 0 rgba($military-green-dark, 0.3)
+
+h3
+  font-size: $font-size-2xl
+
+// 游戏风格按钮
+.btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  padding: $spacing-sm $spacing-lg
+  font-family: $font-family-game
+  font-size: $font-size-lg
+  font-weight: 900
+  text-transform: uppercase
+  text-decoration: none
+  border: none
+  border-radius: $radius-lg
+  cursor: pointer
+  transition: all $transition-base
+  box-shadow: $shadow-medium, inset 0 1px 0 rgba(white, 0.3)
+  position: relative
+  overflow: hidden
+  
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: -100%
+    width: 100%
+    height: 100%
+    background: linear-gradient(90deg, transparent, rgba(white, 0.3), transparent)
+    transition: left $transition-slow
+  
+  &:hover::before
+    left: 100%
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: $shadow-hard, inset 0 1px 0 rgba(white, 0.3)
+  
+  &:active
+    transform: translateY(0)
+    box-shadow: $shadow-soft, inset 0 1px 0 rgba(white, 0.3)
+
+.btn-primary
+  background: $gradient-ocean
+  color: $white
+  border-bottom: 4px solid $primary-blue-dark
+  
+  &:hover
+    filter: brightness(1.1)
+
+.btn-danger
+  background: $gradient-sunset
+  color: $white
+  border-bottom: 4px solid color.adjust($danger-red, $lightness: -10%)
+  
+  &:hover
+    filter: brightness(1.1)
+
+.btn-military
+  background: $gradient-military
+  color: $white
+  border-bottom: 4px solid $military-green-dark
+  
+  &:hover
+    filter: brightness(1.1)
+
+.btn-gold
+  background: linear-gradient(135deg, $gold 0%, color.adjust($gold, $lightness: -15%) 100%)
+  color: $military-green-dark
+  border-bottom: 4px solid color.adjust($gold, $lightness: -25%)
+  
+  &:hover
+    filter: brightness(1.1)
+
+// 游戏风格卡片
+.card
+  background: $white
+  border-radius: $radius-lg
+  box-shadow: $shadow-medium
+  border: $border-game
+  overflow: hidden
+  transition: transform $transition-base, box-shadow $transition-base
+  
+  &:hover
+    transform: translateY(-4px)
+    box-shadow: $shadow-hard
+
+.card-header
+  background: $gradient-military
+  color: $white
+  padding: $spacing-sm $spacing-md
+  font-family: $font-family-game
+  font-weight: 900
+  text-transform: uppercase
+  border-bottom: 2px solid $military-green-dark
+
+.card-body
+  padding: $spacing-md
+
+// 容器
+.container
+  width: 100%
+  max-width: 1280px
+  margin: 0 auto
+  padding: 0 $spacing-md
+
+// 游戏风格徽章
+.badge
+  display: inline-flex
+  align-items: center
+  padding: $spacing-xs $spacing-sm
+  font-size: $font-size-sm
+  font-weight: 700
+  border-radius: $radius-md
+  background: $sand-yellow
+  color: $military-green-dark
+  box-shadow: $shadow-soft
+  border: 2px solid $wood-brown
+
+// 响应式工具类
+@media (max-width: $breakpoint-md)
+  h1
+    font-size: $font-size-3xl
+  
+  h2
+    font-size: $font-size-2xl
+  
+  .btn
+    padding: $spacing-sm $spacing-md
+    font-size: $font-size-base
+
+// 加载动画
+@keyframes pulse
+  0%, 100%
+    opacity: 1
+  50%
+    opacity: 0.5
+
+.loading
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite
+
+// 木质纹理效果
+.wood-texture
+  background: linear-gradient(135deg, $wood-brown 0%, $wood-brown-dark 100%)
+  position: relative
+  
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(black, 0.03) 10px, rgba(black, 0.03) 11px)
+
