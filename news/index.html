@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh">
   <head>
     <meta charset="UTF-8" />
@@ -22,6 +22,7 @@
       >
         <div class="inline-flex p-1">
           <button class="tab-btn active" data-tab="common">常用命令</button>
+          <button class="tab-btn" data-tab="雕像">雕像命令</button>
           <button class="tab-btn" data-tab="雕刻">雕刻命令</button>
           <button class="tab-btn" data-tab="troop">部队命令</button>
           <button class="tab-btn" data-tab="building">建筑命令</button>
@@ -50,17 +51,17 @@
             <option value="/upgrade">升级所有建筑至满级，仅可以主基地使用</option>
             <option value="/research <大本等级>">将科技升级到大本等级（暂时不包括英雄技能）</option>
             <option value="/easy">满级基地</option>
-            <option value="点击游戏界面debug按钮里的解锁科技">研究所科技所有东西满级</option>
+            <option value="点击游戏初始主基地岛屿界面左侧蓝色按钮里的解锁科技">研究所科技所有东西满级</option>
             <option value="/clearlevel">研究所科技所有东西1级</option>
             <option value="/visitplayer <id>">侦查玩家</option>
             <option value="/atkp">自己攻击自己</option>
             <option value="/atkp <id>">攻击玩家</option>
-            <option value="/tag2id <tag>">玩家标签转换为玩家ID，注意要以 # 开头</option>
-            <option value="/id2tag <id>">玩家ID转换为玩家标签</option>
-            <option value="/attackwarship <玩家ID>或<玩家标签>">进攻玩家战斗母舰基地（留空则攻击自己，/attackw /atkw 等同于 /attackwarship）</option>
+                          <option value="/attackwarship <玩家ID>或<玩家标签>">进攻玩家战斗母舰基地（留空则攻击自己，/attackw /atkw 等同于 /attackwarship）</option>
             <option value="/visitwarship <玩家ID>或<玩家标签>">访问玩家战斗母舰基地（留空则攻击自己，/visitw 等同于 /visitwarship）</option>
             <option value="/warship item fill">添加所有战斗母舰物品</option>
             <option value="/warship item clear">移除所有战斗母舰物品</option>
+            <option value="/tag2id <tag>">玩家标签转换为玩家ID，注意要以 # 开头</option>
+            <option value="/id2tag <id>">玩家ID转换为玩家标签</option>
             <option value="/bb <基地名>">攻击基地编辑器制作的地图(简写)</option>
             <option value="/basebuilder2 <基地名>">
               侦查基地编辑器制作的地图
@@ -89,11 +90,6 @@
             <option value="/experience <等级> <剩余经验>">设置经验等级和剩余经验值</option>
             <option value="/xp 90">设置等级(简写)</option>
             <option value="/olp">全服在线玩家</option>
-            <option value="/getstatue 46 8 999">能量雕像999(可以改数值)</option>
-            <option value="/getstatue 43 6 999">红攻雕像999(可以改数值)</option>
-            <option value="/getstatue 43 4 999">红防雕像999(可以改数值)</option>
-            <option value="/getstatue 40 7 999">蓝攻雕像999(可以改数值)</option>
-            <option value="/getstatue 40 5 999">蓝防雕像999(可以改数值)</option>
             <option value="/getstatue 40 7 1000100">
               负数的神像效果！(不直接支持，但是1000000%一百万 ~
               1000100%一百万零一百 ==> -0% ~ -100%)这里只是举例子
@@ -125,6 +121,20 @@
             <option value="/provider">数值提供器（等同于/value）</option>
             <option value="/startinghome">将您的岛屿重置为初始账号</option>
           </select>
+
+
+<select class="select-box hidden" data-content="雕像">
+  <option value="">请选择升/降级你的雕刻</option>
+            <option value="/getstatue 46雕像品质id 8雕像属性id 999数值可改">点我查看举例指令>>>></option>
+            <option value="/getstatue 46 8 999">能量雕像999%</option>
+            <option value="/getstatue 43 6 999">红攻雕像999%</option>
+            <option value="/getstatue 43 4 999">红防雕像999%</option>
+            <option value="/getstatue 40 7 999">蓝攻雕像999%</option>
+            <option value="/getstatue 40 7 136348">最强蓝攻雕像136348%</option>
+            <option value="/getstatue 40 5 999">蓝防雕像999%</option>
+            <option value="/getstatue 40 5 7058">最强蓝防雕像7058%</option>
+</select>
+
 
           <!-- 部队命令选择器 -->
           <select class="select-box hidden" data-content="troop">
