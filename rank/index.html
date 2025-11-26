@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>海岛奇兵 全球排行榜</title>
+    <style>
+        body {
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+            background-color: #1a1a1d;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: #2c2c2e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        /* 标签页样式 */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3e3e40;
+        }
+
+        .tab-button {
+            flex-grow: 1;
+            padding: 12px 0;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #aaa;
+            border: none;
+            background: none;
+            transition: all 0.3s;
+        }
+
+        .tab-button:hover:not(.active) {
+            color: #eee;
+            background-color: #38383a;
+        }
+
+        .tab-button.active {
+            color: #ffcc00;
+            border-bottom: 3px solid #ffcc00;
+            background-color: #38383a;
+        }
+
+        /* 内容和表格样式 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #3a3a3c;
+            color: #aaa;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #38383a;
+        }
+
+        /* 排名特殊样式 */
+        .rank-1 {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .rank-2 {
+            color: #c0c0c0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .rank-3 {
+            color: #cd7f32;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .level-badge {
+            background: #444;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #333;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>海岛奇兵 全球排行榜</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" data-board="VP_GLOBAL">
+                🏆 奖牌榜
+            </button>
+            <button class="tab-button" data-board="CRAB_GLOBAL">
+                🦀 巨型螃蟹榜
+            </button>
+            <button class="tab-button" data-board="DEPLOY_STATS">💀 伤亡榜</button>
+        </div>
+
+        <div id="VP_GLOBAL_content" class="tab-content active">
+            <h2 id="vpTitle">🏆 全球奖牌榜 (VP)</h2>
+            <div id="VP_GLOBAL_error" class="error" style="display: none"></div>
+            <table id="VP_GLOBAL_table">
+                <tr>
+                    <td colspan="4" style="text-align: center">
+                        点击标签页或等待加载...
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="CRAB_GLOBAL_content" class="tab-content">
+            <h2 id="crabTitle">🦀 全球巨型螃蟹榜</h2>
+            <div id="CRAB_GLOBAL_error" class="error" style="display: none"></div>
+            <table id="CRAB_GLOBAL_table">
+                <tr>
+                    <td colspan="4" style="text-align: center">
+                        点击标签页或等待加载...
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="DEPLOY_STATS_content" class="tab-content">
+            <h2 id="deployTitle">💀 玩家伤亡榜 (已部署部队数)</h2>
+            <div id="DEPLOY_STATS_error" class="error" style="display: none"></div>
+            <table id="DEPLOY_STATS_table">
+                <tr>
+                    <td colspan="4" style="text-align: center">
+                        点击标签页或等待加载...
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 使用 Cloudflare Workers 代理解决 CORS 问题
+        const rp = "https://vn-rank-api.adingapkgg.workers.dev/?target=";
+        const apiUrl = `${rp}https://webapi.30hb.cn/api/`;
+
+        // 定义所有榜单的配置信息
+        const LEADERBOARDS = {
+            VP_GLOBAL: {
+                url: `${apiUrl}leaderboard/VP_GLOBAL`,
+                title: "🏆 全球奖牌榜 (VP)",
+                scoreLabel: "奖牌数 (VP)",
+                dataPath: "RankingEntries",
+                scoreKey: "Score",
+                levelKey: "AvatarLevel",
+                nameKey: "Name",
+                tableId: "VP_GLOBAL_table",
+                errorId: "VP_GLOBAL_error",
+            },
+            CRAB_GLOBAL: {
+                url: `${apiUrl}leaderboard/CRAB_GLOBAL`,
+                title: "🦀 全球巨型螃蟹榜",
+                scoreLabel: "螃蟹分数",
+                dataPath: "RankingEntries",
+                scoreKey: "Score",
+                levelKey: "AvatarLevel",
+                nameKey: "Name",
+                tableId: "CRAB_GLOBAL_table",
+                errorId: "CRAB_GLOBAL_error",
+            },
+            // 注意：这个接口返回的是 TaskForce 结构，数据列表在 AllianceMemberList
+            DEPLOY_STATS: {
+                url: `${apiUrl}reserved_alliance/RANK_STATS_DEPLOY`,
+                title: "💀 玩家伤亡榜 (已部署部队数)",
+                scoreLabel: "已部署部队数",
+                dataPath: "AllianceMemberList",
+                scoreKey: "VictoryPoint", // 备注：JSON中此字段名为VictoryPoint，但描述为部署部队数
+                levelKey: "Level",
+                nameKey: "PlayerName",
+                tableId: "DEPLOY_STATS_table",
+                errorId: "DEPLOY_STATS_error",
+            },
+        };
+
+        /**
+         * 解析游戏内的颜色代码 <cRRGGBB>Name</c> 为 HTML span 标签。
+         */
+        function parseGameText(text) {
+            if (!text) return "";
+
+            // 1. 基本的 HTML 转义
+            let safeText = text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // 2. 将 &lt;cHEX&gt;...&lt;/c&gt; 替换为 HTML span 标签
+            return safeText.replace(
+                /&lt;c([0-9a-fA-F]{6})&gt;(.*?)&lt;\/c&gt;/gi,
+                function (match, color, content) {
+                    // 注意：因为原始内容已经被转义，这里需要还原内容中的 < >
+                    const unescapedContent = content
+                        .replace(/&lt;/g, "<")
+                        .replace(/&gt;/g, ">");
+
+                    return `<span style="color: #${color}">${unescapedContent}</span>`;
+                }
+            );
+        }
+
+        /**
+         * 获取指定 URL 的数据并渲染到表格中。
+         * @param {Object} boardConfig - 榜单的配置对象。
+         */
+        async function fetchAndRender(boardConfig) {
+            const table = document.getElementById(boardConfig.tableId);
+            const errorDiv = document.getElementById(boardConfig.errorId);
+
+            // 初始状态
+            errorDiv.style.display = "none";
+
+            // 设置“加载中”提示
+            table.innerHTML = `<thead>
+            <tr><th>排名</th><th>等级</th><th>玩家名称</th><th>${boardConfig.scoreLabel}</th></tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="4" style="text-align:center;">正在请求 ${boardConfig.title} 数据...</td></tr>
+        </tbody>`;
+
+            try {
+                const response = await fetch(boardConfig.url);
+
+                if (!response.ok) {
+                    // 如果代理返回了非200状态码，可能是代理自身问题或目标服务不可用
+                    throw new Error(
+                        `HTTP 响应异常: ${response.status} (可能是代理或目标服务问题)`
+                    );
+                }
+
+                const json = await response.json();
+
+                // 依据配置对象获取数据列表
+                let dataList = json.body ? json.body[boardConfig.dataPath] : null;
+
+                if (!dataList || !Array.isArray(dataList)) {
+                    throw new Error("数据格式不正确，未找到排行榜条目。");
+                }
+
+                // 构建表格头部，确保 scoreLabel 是动态的
+                let tableHTML = `<thead>
+                <tr>
+                    <th width="10%">排名</th>
+                    <th width="10%">等级</th>
+                    <th width="50%">玩家名称</th>
+                    <th width="30%">${boardConfig.scoreLabel}</th>
+                </tr>
+            </thead><tbody>`;
+
+                // 渲染每一行
+                dataList.forEach((item) => {
+                    const rank = item.Order || "N/A";
+                    // 确保正确地从 CRAB_GLOBAL 和 DEPLOY_STATS 的数据中取键
+                    const level = item[boardConfig.levelKey] || "-";
+                    const name = item[boardConfig.nameKey] || "未知玩家";
+                    const score = item[boardConfig.scoreKey] || 0;
+
+                    // 处理前三名的特殊样式
+                    let rankClass = "";
+                    if (rank === 1) rankClass = "rank-1";
+                    else if (rank === 2) rankClass = "rank-2";
+                    else if (rank === 3) rankClass = "rank-3";
+
+                    // 解析带有颜色代码的名字
+                    const formattedName = parseGameText(name);
+
+                    tableHTML += `
+                    <tr>
+                        <td class="${rankClass}">#${rank}</td>
+                        <td><span class="level-badge">Lv.${level}</span></td>
+                        <td>${formattedName}</td>
+                        <td>${score.toLocaleString()}</td>
+                    </tr>
+                `;
+                });
+
+                tableHTML += "</tbody>";
+                table.innerHTML = tableHTML;
+            } catch (error) {
+                console.error(`Error fetching ${boardConfig.title}:`, error);
+                errorDiv.style.display = "block";
+                errorDiv.innerHTML = `加载失败: ${error.message}<br>
+            <small>请确认代理服务 **${rp}** 是否正常运行，或尝试使用其他 CORS 解决方案。</small>`;
+                // 清空表格并显示错误提示
+                table.innerHTML = `<thead>
+                <tr><th>排名</th><th>等级</th><th>玩家名称</th><th>${boardConfig.scoreLabel}</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="4" style="text-align:center; color:#ff6b6b;">数据加载失败</td></tr>
+            </tbody>`;
+            }
+        }
+
+        /**
+         * 切换榜单标签页
+         */
+        function switchBoard(boardKey) {
+            // 移除所有内容和按钮的 active 状态
+            document
+                .querySelectorAll(".tab-content")
+                .forEach((el) => el.classList.remove("active"));
+            document
+                .querySelectorAll(".tab-button")
+                .forEach((el) => el.classList.remove("active"));
+
+            // 激活当前内容和按钮
+            document.getElementById(boardKey + "_content").classList.add("active");
+            document
+                .querySelector(`.tab-button[data-board="${boardKey}"]`)
+                .classList.add("active");
+
+            // 检查数据是否已加载，如果表格内容包含 '加载中' 或 '等待加载' 则重新加载
+            const table = document.getElementById(boardKey + "_table");
+            if (
+                table.innerHTML.includes("等待加载") ||
+                table.innerHTML.includes("数据加载失败")
+            ) {
+                fetchAndRender(LEADERBOARDS[boardKey]);
+            }
+        }
+
+        // 绑定事件
+        document.querySelectorAll(".tab-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const boardKey = button.getAttribute("data-board");
+                switchBoard(boardKey);
+            });
+        });
+
+        // 页面加载完成后，自动加载并显示默认的奖牌榜
+        document.addEventListener("DOMContentLoaded", () => {
+            // 初始化时调用 fetchAndRender 加载默认榜单
+            switchBoard("VP_GLOBAL");
+        });
+    </script>
+</body>
+
+</html>
