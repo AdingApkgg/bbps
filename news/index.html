@@ -64,8 +64,10 @@
             <option value="点击游戏初始主基地岛屿界面左侧蓝色按钮里的解锁科技">研究所科技所有东西满级</option>
             <option value="/clearlevel">研究所科技所有东西1级</option>
             <option value="/visitplayer <id>">侦查玩家</option>
+            <option value="/visitplayer">侦查自己</option>
             <option value="/atkp">自己攻击自己</option>
             <option value="/atkp <id>">攻击玩家</option>
+            <option value="/atkpr <id>">随机攻击玩家</option>
                           <option value="/attackwarship <玩家ID>或<玩家标签>">进攻玩家战斗母舰基地（留空则攻击自己，/attackw /atkw 等同于 /attackwarship）</option>
             <option value="/visitwarship <玩家ID>或<玩家标签>">访问玩家战斗母舰基地（留空则攻击自己，/visitw 等同于 /visitwarship）</option>
             <option value="/warship item fill">添加所有战斗母舰物品</option>
@@ -80,7 +82,8 @@
               侦查基地编辑器制作的地图(简写)
             </option>
             <option value="/attackbuilding <建筑ID>">生成铺满同种建筑的特遣队任务基地（/atkbd 等同于 /attackbuilding）</option>
-            <option value="/map clear">重置地图探索，只剩下初始区域</option>
+            <option value="/map clear">重置地图云层，只剩下初始区域</option>
+            <option value="/map fill">地图全部开启云层</option>
             <option value="/map npc <tile_index>">在地图指定位置添加随机NPC</option>
             <option value="/map free <tile_index>">解放指定位置的岛屿。注意：请不要用于boss基地、自己的基地、超级螃蟹等，仅适用于普通NPC和玩家岛。</option>
             <option value="/visitlevel <layout> <文件路径>">访问指定JSON文件基地（示例：/visitlevel playerbase Gamefiles/playerbase.json，/scoutlevel 等同于 /visitlevel）</option>
@@ -134,7 +137,7 @@
 
 
 <select class="select-box hidden" data-content="雕像">
-  <option value="">请选择升/降级你的雕刻</option>
+  <option value="">点我选择指令</option>
             <option value="/getstatue 46雕像品质id 8雕像属性id 999数值可改">点我查看举例指令>>>></option>
             <option value="/getstatue 46 8 999">能量雕像999%</option>
             <option value="/getstatue 43 6 999">红攻雕像999%</option>
@@ -143,6 +146,14 @@
             <option value="/getstatue 40 7 136348">最强蓝攻雕像136348%</option>
             <option value="/getstatue 40 5 999">蓝防雕像999%</option>
             <option value="/getstatue 40 5 7058">最强蓝防雕像7058%</option>
+            <option value="/rule bonus 1 100">为战局内增加蓝防10%</option>
+            <option value="/rule bonus 2 100">为战局内增加红攻10%</option>
+            <option value="/rule bonus 3 100">为战局内增加蓝攻10%</option>
+            <option value="/rule bonus 4 100">为战局内增加红防10%</option>
+            <option value="/rule bonus 1">移除战局内额外增添的蓝防数值</option>
+            <option value="/rule bonus 2">移除战局内额外增添的红攻数值</option>
+            <option value="/rule bonus 3">移除战局内额外增添的蓝攻数值</option>
+            <option value="/rule bonus 4">移除战局内额外增添的红防数值</option>
 </select>
 
 
@@ -1055,9 +1066,11 @@
   <option value="/clearstream">清除流（可能为游戏内资源流等）</option>
   <option value="/cleartroops">清除部队</option>
   <option value="/crab <stage>">螃蟹 <阶段></option>
+  <option value="/homege2 turtlebase 数值">侦查海龟 <阶段>（玩家可用）</option>
+  <option value="/homege turtlebase 数值">进攻海龟 <阶段>（玩家可用）</option>
   <option value="/datatable <type>">数据表 <类型></option>
   <option value="/debugmap">调试地图</option>
-  <option value="/defend">防御</option>
+  <option value="/defend">防御哈莫曼</option>
   <option value="/deop">撤销管理员权限</option>
   <option value="/deop <player>">撤销 <玩家> 的管理员权限</option>
   <option value="/disconnect">断开连接</option>
@@ -1116,10 +1129,12 @@
   <option value="/msg">消息</option>
   <option value="/msg <targets>">消息 <目标们></option>
   <option value="/msg <targets> <message>">消息 <目标们> <消息内容></option>
-  <option value="/newge">新GE（可能为游戏模式）</option>
-  <option value="/newge <difficulty>">新GE <难度></option>
-  <option value="/newge2">新GE2（可能为游戏模式）</option>
-  <option value="/newge2 <difficulty>">新GE2 <难度></option>
+  <option value="/newge">基地生成器</option>
+  <option value="/newge <difficulty>">基地生成器 <难度></option>
+  <option value="/newge2">基地生成器</option>
+  <option value="/newge2 <difficulty>">基地生成器<难度></option>
+  <option value="/homege2 <布局名称> <难度>">侦查家园基地生成器2<难度></option>
+  <option value="/homege <布局名称> <难度>">进攻家园基地生成器 <难度></option>
   <option value="/officer">军官</option>
   <option value="/officer clear">清除军官</option>
   <option value="/officer fill">填充军官</option>
@@ -1946,7 +1961,7 @@
         <textarea
           id="output"
           class="w-full h-12 p-3 mt-4 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="这里会显示生成的指令..."
+          placeholder="这里会显示生成的指令...你也可以自定义修改指令中的数值😎"
         ></textarea>
 
         <!-- 操作按钮 -->
