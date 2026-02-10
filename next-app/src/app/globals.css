@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: 'Noto Sans Variable', 'Noto Sans SC Variable', system-ui, -apple-system, sans-serif;
   --radius: 0.625rem;
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

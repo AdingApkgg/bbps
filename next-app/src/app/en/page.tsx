@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { SITE_URL, SITE_NAME_EN, SITE_DESCRIPTION_EN } from '@/lib/site'
 import { HeroSection } from '@/components/hero-section'
+import { IntroTabs } from '@/components/intro-tabs'
 import { CtaSection } from '@/components/cta-section'
+import { FeaturesZigzag } from '@/components/features-zigzag'
 
 export const metadata: Metadata = {
   title: SITE_NAME_EN,
@@ -22,6 +24,8 @@ export default function EnHomePage() {
   return (
     <div className="overflow-x-hidden">
       <HeroSection />
+      <IntroTabs />
+      <FeaturesZigzag />
       <CtaSection />
     </div>
   )

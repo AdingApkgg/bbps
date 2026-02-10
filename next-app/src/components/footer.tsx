@@ -1,13 +1,16 @@
 'use client'
 
 import Link from 'next/link'
+import { Eye, FileText, Users } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
+import { useVisitorStats } from '@/hooks/use-visitor-stats'
 
 export function Footer() {
   const locale = useLocale()
   const dict = getDictionary(locale)
   const prefix = locale === 'en' ? '/en' : ''
+  const { sitePv, siteUv, pagePv } = useVisitorStats()
 
   const linkClass =
     'text-sm text-muted-foreground transition-colors hover:text-foreground'
@@ -130,6 +133,29 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+          <div className="mb-3 flex items-center justify-center gap-6">
+            <span className="inline-flex items-center gap-1.5">
+              <Eye className="h-3.5 w-3.5" />
+              <span>{dict.footer.pageviews}</span>
+              <span className="font-medium tabular-nums text-foreground">
+                {sitePv !== null ? sitePv.toLocaleString() : '-'}
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Users className="h-3.5 w-3.5" />
+              <span>{dict.footer.visitors}</span>
+              <span className="font-medium tabular-nums text-foreground">
+                {siteUv !== null ? siteUv.toLocaleString() : '-'}
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <FileText className="h-3.5 w-3.5" />
+              <span>{locale === 'zh' ? '本页访问' : 'This Page'}</span>
+              <span className="font-medium tabular-nums text-foreground">
+                {pagePv !== null ? pagePv.toLocaleString() : '-'}
+              </span>
+            </span>
+          </div>
           <p>{dict.site.copyright}</p>
           <p className="mt-1 text-xs">{dict.footer.disclaimer}</p>
         </div>

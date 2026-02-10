@@ -8,6 +8,7 @@ export interface OnlinePlayer {
 }
 
 export interface ServerStatsBody {
+  server_version: string
   m_v_avatar_seed: number
   m_v_replay_seed: number
   online_sessions: number
@@ -54,6 +55,7 @@ export function useServerStats() {
     loading,
     error,
     fetchStats,
+    serverVersion: stats?.server_version ?? '',
     onlinePlayers: stats?.online_sessions ?? 0,
     totalPlayers: stats?.m_v_avatar_seed ?? 0,
     totalReplays: stats?.m_v_replay_seed ?? 0,

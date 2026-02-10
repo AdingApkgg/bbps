@@ -1,0 +1,26 @@
+{
+  "title": "Like the Real Game, Without Limits",
+  "subtitle": "BBPS offers a complete Boom Beach experience — unlimited resources, powerful commands, and an active community, always synced to the latest version.",
+  "items": [
+    {
+      "heading": "Unlimited Resources & Diamonds",
+      "description": "Say goodbye to long waits and in-app purchases. Enjoy unlimited diamonds, gold, wood, stone, and iron to build and upgrade freely.",
+      "bullets": ["Unlimited diamonds and all resources", "Instant upgrades for all buildings", "Unlock all troops and prototypes"]
+    },
+    {
+      "heading": "Powerful Game Commands",
+      "description": "Execute complex operations through simple chat commands. Manage your base and troops with convenience features not available in the original game.",
+      "bullets": ["Quickly get resources and troops", "Attack specific or random bases", "One-click reset and account management"]
+    },
+    {
+      "heading": "Active Community",
+      "description": "Join our player community to discuss strategies, share base layouts, and compete in rankings and seasonal events.",
+      "bullets": ["Real-time chat via QQ and comments", "Player leaderboards and seasonal challenges", "Regular blog updates and guides"]
+    },
+    {
+      "heading": "Web-Based Map Editor",
+      "description": "Design your perfect base layout with our custom web editor. No downloads required — works right in your browser.",
+      "bullets": ["Visual drag-and-drop building placement", "Import and export layout data", "Supports all buildings and defenses"]
+    }
+  ]
+}

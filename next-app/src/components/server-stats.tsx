@@ -1,6 +1,6 @@
 'use client'
 
-import { Users, Trophy, Video } from 'lucide-react'
+import { Users, Trophy, Video, Server } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { useServerStats } from '@/hooks/use-server-stats'
@@ -21,6 +21,7 @@ export function ServerStats() {
   const locale = useLocale()
   const dict = getDictionary(locale)
   const {
+    serverVersion,
     onlinePlayers,
     totalPlayers,
     totalReplays,
@@ -30,6 +31,12 @@ export function ServerStats() {
   } = useServerStats()
 
   const statCards = [
+    {
+      icon: <Server className="h-4 w-4 text-muted-foreground" />,
+      label: locale === 'zh' ? '服务器版本' : 'Server Version',
+      value: serverVersion || '-',
+      raw: true
+    },
     {
       icon: <Users className="h-4 w-4 text-muted-foreground" />,
       label: dict.stats.onlinePlayers,
@@ -56,7 +63,7 @@ export function ServerStats() {
       </FadeIn>
 
       {/* Stat cards */}
-      <Stagger className="mt-10 grid gap-4 sm:grid-cols-3">
+      <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
         {statCards.map((stat) => (
           <StaggerItem key={stat.label}>
             <Card>
@@ -71,7 +78,9 @@ export function ServerStats() {
                   <Skeleton className="h-8 w-20" />
                 ) : (
                   <div className="text-2xl font-bold">
-                    {stat.value.toLocaleString()}
+                    {'raw' in stat && stat.raw
+                      ? String(stat.value)
+                      : Number(stat.value).toLocaleString()}
                   </div>
                 )}
               </CardContent>

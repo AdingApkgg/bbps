@@ -15,6 +15,7 @@ const STATIC_ROUTES = [
   '/downloads/',
   '/rank/',
   '/blog/',
+  '/teams/',
   '/privacy-policy/',
   '/server-rules/'
 ]

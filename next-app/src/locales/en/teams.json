@@ -1,0 +1,36 @@
+{
+  "title": "Our Team",
+  "subtitle": "Meet the people behind Horsebean Private Server — they make it all possible.",
+  "members": {
+    "asuna": {
+      "name": "Asuna",
+      "role": "Full Stack Web Developer",
+      "description": "Responsible for all Web development and maintenance — our Web services are all thanks to her."
+    },
+    "horsebean": {
+      "name": "Horsebean",
+      "role": "Server Developer",
+      "description": "The current server update developer, inherited the Boom-Beach-Server from Ultrapowa on GitHub in 2022."
+    },
+    "shei-bi": {
+      "name": "Shei_Bi",
+      "role": "Reverse Engineer",
+      "description": "The leading reverse engineer behind the largest Brawl Stars private server project, providing technical guidance for our team."
+    },
+    "sunflower": {
+      "name": "Sunflower",
+      "role": "Server Operations",
+      "description": "Patiently dedicated to server debugging, testing, and optimization, striving to deliver the best gaming experience."
+    },
+    "panda": {
+      "name": "Little Panda",
+      "role": "Server Operations",
+      "description": "Driven by both interest and passion, continuously learning and optimizing the server under Horsebean's guidance."
+    },
+    "goose": {
+      "name": "Goose",
+      "role": "Operations & Maintenance",
+      "description": "Handles video promotion, operations, community management, modding, full-stack maintenance, and feature development — loves creating with passion."
+    }
+  }
+}

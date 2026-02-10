@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Menu, Moon, Sun, Globe } from 'lucide-react'
-import { useLocale } from '@/contexts/locale-context'
+import { Menu, Moon, Sun, Monitor, Globe, Heart, Languages } from 'lucide-react'
+import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,41 +24,51 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 
-function getLocaleSwitchPath(
-  pathname: string,
-  currentLocale: 'zh' | 'en'
-): string {
-  if (currentLocale === 'zh') {
-    if (pathname === '/') return '/en'
-    return `/en${pathname}`
-  }
-  if (pathname === '/en') return '/'
-  if (pathname.startsWith('/en/')) return pathname.slice(3) || '/'
-  return '/'
-}
-
 function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-    >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => setTheme('light')}
+          className={cn(theme === 'light' && 'font-semibold')}
+        >
+          <Sun className="mr-2 h-4 w-4" />
+          浅色
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme('dark')}
+          className={cn(theme === 'dark' && 'font-semibold')}
+        >
+          <Moon className="mr-2 h-4 w-4" />
+          深色
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setTheme('system')}
+          className={cn(theme === 'system' && 'font-semibold')}
+        >
+          <Monitor className="mr-2 h-4 w-4" />
+          跟随系统
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 
 export function Navbar() {
   const pathname = usePathname()
   const locale = useLocale()
+  const { pref, setPref } = useLocalePref()
   const dict = getDictionary(locale)
   const [open, setOpen] = useState(false)
-  const otherLocalePath = getLocaleSwitchPath(pathname ?? '/', locale)
 
   const prefix = locale === 'en' ? '/en' : ''
 
@@ -68,6 +78,7 @@ export function Navbar() {
     { href: `${prefix}/stats`, label: dict.nav.stats },
     { href: `${prefix}/rank`, label: dict.nav.rank },
     { href: `${prefix}/blog`, label: dict.nav.blog },
+    { href: `${prefix}/teams`, label: dict.nav.team },
     { href: `${prefix}/comments`, label: dict.nav.comments }
   ]
 
@@ -134,6 +145,18 @@ export function Navbar() {
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center gap-1">
+          {/* Donate */}
+          <Button variant="ghost" size="icon" asChild>
+            <a
+              href="https://blog.30hb.cn/349/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Heart className="h-[1.2rem] w-[1.2rem] text-pink-500" />
+              <span className="sr-only">{dict.nav.donate}</span>
+            </a>
+          </Button>
+
           {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -143,15 +166,26 @@ export function Navbar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link href={locale === 'en' ? otherLocalePath : (pathname ?? '/')}>
-                  中文
-                </Link>
+              <DropdownMenuItem
+                onClick={() => setPref('zh')}
+                className={cn(pref === 'zh' && 'font-semibold')}
+              >
+                <Languages className="mr-2 h-4 w-4" />
+                中文
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={locale === 'zh' ? otherLocalePath : (pathname ?? '/en')}>
-                  English
-                </Link>
+              <DropdownMenuItem
+                onClick={() => setPref('en')}
+                className={cn(pref === 'en' && 'font-semibold')}
+              >
+                <Languages className="mr-2 h-4 w-4" />
+                English
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setPref('system')}
+                className={cn(pref === 'system' && 'font-semibold')}
+              >
+                <Monitor className="mr-2 h-4 w-4" />
+                {locale === 'zh' ? '跟随系统' : 'System'}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

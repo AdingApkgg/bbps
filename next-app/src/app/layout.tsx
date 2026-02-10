@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LocaleProvider } from '@/contexts/locale-context'
 import { Navbar } from '@/components/navbar'
@@ -12,13 +11,9 @@ import {
   SITE_LOCALE_ALT,
   SITE_LOGO
 } from '@/lib/site'
+import '@fontsource-variable/noto-sans'
+import '@fontsource-variable/noto-sans-sc'
 import '@/app/globals.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap'
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,6 +23,15 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }
+    ]
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -93,7 +97,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={SITE_NAME}
+          href={`${SITE_URL}/feed.xml`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: 'if(location.hostname!==\'localhost\'&&\'serviceWorker\'in navigator){window.addEventListener(\'load\',function(){navigator.serviceWorker.register(\'/sw.js\')})}'
+          }}
+        />
+      </head>
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

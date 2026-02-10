@@ -1,0 +1,36 @@
+{
+  "title": "团队成员",
+  "subtitle": "认识蚕豆私服背后的团队——是他们让这一切成为可能。",
+  "members": {
+    "asuna": {
+      "name": "Asuna",
+      "role": "Web 全栈开发",
+      "description": "负责所有 Web 开发与维护，我们的 Web 服务都归功于她。"
+    },
+    "horsebean": {
+      "name": "Horsebean",
+      "role": "服务端开发",
+      "description": "服务器目前更新制作者，于 2022 年继承 Github 上 Ultrapowa 的 Boom-Beach-Server。"
+    },
+    "shei-bi": {
+      "name": "Shei_Bi",
+      "role": "逆向开发",
+      "description": "荒野乱斗最大私服项目技术主导者，备受追捧的逆向工程师，为本团队提供技术指导方针。"
+    },
+    "sunflower": {
+      "name": "向日葵",
+      "role": "服务器运维",
+      "description": "耐心钻研于服务器后期的调试、试错、优化，尽自己努力给予玩家们最大的游戏体验。"
+    },
+    "panda": {
+      "name": "小熊猫不怕困难",
+      "role": "服务器运维",
+      "description": "兴趣与爱好并存，在蚕豆的带领下不断学习和优化服务器。"
+    },
+    "goose": {
+      "name": "爱吃菜叶的白鹅",
+      "role": "运营与运维",
+      "description": "负责视频宣传、运营、社区维护、魔改制作、前后端维护、功能添加，喜欢用热爱创造万物。"
+    }
+  }
+}

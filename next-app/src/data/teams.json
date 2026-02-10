@@ -1,0 +1,38 @@
+[
+  {
+    "id": "asuna",
+    "avatar": "/assets/images/team/asuna.avif",
+    "link": "https://space.bilibili.com/1198037522",
+    "platform": "bilibili"
+  },
+  {
+    "id": "horsebean",
+    "avatar": "/assets/images/team/horsebean.avif",
+    "link": "https://space.bilibili.com/87969522",
+    "platform": "bilibili"
+  },
+  {
+    "id": "shei-bi",
+    "avatar": "/assets/images/team/shei-bi.avif",
+    "link": "https://space.bilibili.com/652580862",
+    "platform": "bilibili"
+  },
+  {
+    "id": "sunflower",
+    "avatar": "/assets/images/team/sunflower.avif",
+    "link": "https://wpa.qq.com/msgrd?v=3&uin=431855815&site=qq&menu=yes",
+    "platform": "qq"
+  },
+  {
+    "id": "panda",
+    "avatar": "/assets/images/team/panda.avif",
+    "link": "https://wpa.qq.com/msgrd?v=3&uin=2750319331&site=qq&menu=yes",
+    "platform": "qq"
+  },
+  {
+    "id": "goose",
+    "avatar": "/assets/images/team/goose.avif",
+    "link": "https://space.bilibili.com/406801964",
+    "platform": "bilibili"
+  }
+]

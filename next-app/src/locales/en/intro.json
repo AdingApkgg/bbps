@@ -1,0 +1,24 @@
+{
+  "title": "Meet BBPS, the Best Boom Beach Private Server",
+  "subtitle": "Running since 2022, BBPS provides unlimited diamonds, resources, and full game features — completely free.",
+  "tabs": [
+    {
+      "label": "What is BBPS?",
+      "heading": "What is BBPS?",
+      "content": "BBPS is an unofficial Boom Beach private server that gives you unlimited diamonds and resources to freely explore every corner of the game.\nOur server stays in sync with the latest official version. Train troops, test base layouts, and challenge various gameplay modes alongside other players.",
+      "cta": "Download Now"
+    },
+    {
+      "label": "Why Choose Us?",
+      "heading": "Why Choose BBPS?",
+      "content": "BBPS is one of the most feature-complete Boom Beach private servers, offering rich in-game commands and unique features.\nWith an active community, stable servers, and continuous updates, we are the best choice for Boom Beach players. Our servers maintain 99.9% uptime, running 24/7.",
+      "cta": "View Commands"
+    },
+    {
+      "label": "How to Start?",
+      "heading": "How to Start Playing?",
+      "content": "Just three steps: download our client, install it on your phone, and start playing. Supports both Android and iOS — no root or jailbreak required.\nCompletely free. Don't hesitate — join our community now and enjoy unlimited resources with other players!",
+      "cta": "Start Playing"
+    }
+  ]
+}
