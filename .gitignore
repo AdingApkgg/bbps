@@ -1,34 +1,42 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
+# dependencies
+node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/release
+!.yarn/versions
 
-# GitHub Actions
-.github/workflows/*.log
-
-# Node dependencies
-node_modules
+# next.js
+/.next/
+/out/
 
 # pnpm
 pnpm-lock.yaml
+.pnpm-store/
 
-# 编辑器历史和临时文件
-.history
-.vscode-test
+# build
+*.tsbuildinfo
+next-env.d.ts
 
-# Logs
-logs
-*.log
-
-# Misc
-.DS_Store
-.fleet
-.idea
-
-# Local env files
+# env
 .env
 .env.*
 !.env.example
+
+# misc
+.DS_Store
+*.pem
+.vercel
+.turbo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor
+.history/
+.vscode-test/
