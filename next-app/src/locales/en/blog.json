@@ -1,0 +1,8 @@
+{
+  "title": "Blog",
+  "description": "Posts from Candou Blog",
+  "loading": "Loading…",
+  "error": "Failed to load posts",
+  "openPost": "Read more",
+  "backToBlog": "Back to blog"
+}

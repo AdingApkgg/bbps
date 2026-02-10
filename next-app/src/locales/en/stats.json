@@ -1,0 +1,8 @@
+{
+  "onlinePlayers": "Players Online",
+  "totalPlayers": "Total Players",
+  "totalReplays": "Total Replays",
+  "loading": "Loading...",
+  "error": "Failed to load",
+  "noPlayers": "No players online"
+}

@@ -1,4 +1,4 @@
-# BBPS Next.js (SSG + shadcn/ui)
+# Horsebean Private Server Next.js (SSG + shadcn/ui)
 
 蚕豆私服 **已从 Nuxt 完整迁移** 至 Next.js 静态导出版本，使用 [shadcn/ui](https://ui.shadcn.com) 组件库。
 

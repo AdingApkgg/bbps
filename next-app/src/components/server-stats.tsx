@@ -4,9 +4,18 @@ import { Users, Trophy, Video } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { useServerStats } from '@/hooks/use-server-stats'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
+import { FadeIn, Stagger, StaggerItem } from '@/components/motion'
 
 export function ServerStats() {
   const locale = useLocale()
@@ -20,142 +29,122 @@ export function ServerStats() {
     error
   } = useServerStats()
 
+  const statCards = [
+    {
+      icon: <Users className="h-4 w-4 text-muted-foreground" />,
+      label: dict.stats.onlinePlayers,
+      value: onlinePlayers
+    },
+    {
+      icon: <Trophy className="h-4 w-4 text-muted-foreground" />,
+      label: dict.stats.totalPlayers,
+      value: totalPlayers
+    },
+    {
+      icon: <Video className="h-4 w-4 text-muted-foreground" />,
+      label: dict.stats.totalReplays,
+      value: totalReplays
+    }
+  ]
+
   return (
-    <section className="container max-w-7xl space-y-8 px-4 py-12">
-      <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-        <h2 className="text-2xl font-semibold md:text-3xl">
+    <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
+      <FadeIn className="text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
           {dict.stats.onlinePlayers}
-        </h2>
-        <Badge
-          variant="secondary"
-          className={cn(
-            'gap-1.5',
-            (onlinePlayers ?? 0) > 0 && 'animate-pulse'
-          )}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          LIVE
-        </Badge>
-      </div>
+        </h1>
+      </FadeIn>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card className="transition-shadow hover:shadow-md">
-          <CardContent className="pt-6">
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Users className="h-6 w-6" />
-              </div>
-              <span
-                className={cn(
-                  'text-2xl font-bold',
-                  loading && 'animate-pulse'
+      {/* Stat cards */}
+      <Stagger className="mt-10 grid gap-4 sm:grid-cols-3">
+        {statCards.map((stat) => (
+          <StaggerItem key={stat.label}>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {stat.label}
+                </CardTitle>
+                {stat.icon}
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <Skeleton className="h-8 w-20" />
+                ) : (
+                  <div className="text-2xl font-bold">
+                    {stat.value.toLocaleString()}
+                  </div>
                 )}
-              >
-                {loading ? '...' : onlinePlayers}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {dict.stats.onlinePlayers}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="transition-shadow hover:shadow-md">
-          <CardContent className="pt-6">
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Trophy className="h-6 w-6" />
-              </div>
-              <span
-                className={cn(
-                  'text-2xl font-bold',
-                  loading && 'animate-pulse'
-                )}
-              >
-                {loading ? '...' : totalPlayers}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {dict.stats.totalPlayers}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="transition-shadow hover:shadow-md">
-          <CardContent className="pt-6">
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Video className="h-6 w-6" />
-              </div>
-              <span
-                className={cn(
-                  'text-2xl font-bold',
-                  loading && 'animate-pulse'
-                )}
-              >
-                {loading ? '...' : totalReplays}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {dict.stats.totalReplays}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+              </CardContent>
+            </Card>
+          </StaggerItem>
+        ))}
+      </Stagger>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20">
-            <Users className="h-4 w-4 text-primary" />
-          </div>
-          <span className="flex-1 font-medium">{dict.stats.onlinePlayers}</span>
-          <Badge variant="secondary">{players.length}</Badge>
-        </CardHeader>
-        <CardContent>
-          <div className="max-h-[320px] overflow-y-auto rounded-md border">
+      {/* Online players list */}
+      <FadeIn delay={0.3}>
+        <Card className="mt-6">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <CardTitle className="text-base">
+              {dict.stats.onlinePlayers}
+            </CardTitle>
+            <Badge variant="secondary">{players.length}</Badge>
+          </CardHeader>
+          <CardContent>
             {loading && (
-              <div className="flex items-center justify-center gap-2 py-8 text-muted-foreground">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
-                {dict.stats.loading}
+              <div className="space-y-3">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <Skeleton className="h-6 w-6 rounded-full" />
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="ml-auto h-4 w-16" />
+                  </div>
+                ))}
               </div>
             )}
+
             {!loading && error && (
-              <div className="py-8 text-center text-destructive">
+              <p className="py-8 text-center text-sm text-destructive">
                 {dict.stats.error}
-              </div>
+              </p>
             )}
+
             {!loading && !error && players.length === 0 && (
-              <div className="py-8 text-center text-muted-foreground">
+              <p className="py-8 text-center text-sm text-muted-foreground">
                 {dict.stats.noPlayers}
+              </p>
+            )}
+
+            {!loading && players.length > 0 && (
+              <div className="max-h-[400px] overflow-y-auto rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-12">#</TableHead>
+                      <TableHead>
+                        {locale === 'zh' ? '玩家' : 'Player'}
+                      </TableHead>
+                      <TableHead className="text-right">ID</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {players.map((player, index) => (
+                      <TableRow key={player.id}>
+                        <TableCell className="font-medium">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell>{player.name}</TableCell>
+                        <TableCell className="text-right text-muted-foreground">
+                          {player.id}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
             )}
-            {!loading &&
-              players.length > 0 &&
-              players.map((player, index) => (
-                <div
-                  key={player.id}
-                  className="flex items-center gap-3 border-b px-4 py-3 last:border-0"
-                >
-                  <div
-                    className={cn(
-                      'flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-medium',
-                      index < 3
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground'
-                    )}
-                  >
-                    {index + 1}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium">{player.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      ID: {player.id}
-                    </p>
-                  </div>
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-primary animate-pulse" />
-                </div>
-              ))}
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </FadeIn>
     </section>
   )
 }

@@ -1,5 +1,5 @@
-import zh from '@/locales/zh.json'
-import en from '@/locales/en.json'
+import zh from '@/locales/zh'
+import en from '@/locales/en'
 
 export type Locale = 'zh' | 'en'
 

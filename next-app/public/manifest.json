@@ -1,0 +1,25 @@
+{
+  "name": "蚕豆私服 | 海岛奇兵私服",
+  "short_name": "蚕豆私服",
+  "description": "非官方的海岛奇兵私服，体验无限资源和独特玩法",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/assets/images/logo/logo.avif",
+      "sizes": "512x512",
+      "type": "image/avif",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/logo/logo.avif",
+      "sizes": "512x512",
+      "type": "image/avif",
+      "purpose": "maskable"
+    }
+  ]
+}

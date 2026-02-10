@@ -1,0 +1,17 @@
+{
+  "title": "Global Rankings",
+  "subtitle": "Victory Points (VP) · Mega Crab · Casualties (troops deployed)",
+  "tabVp": "VP",
+  "tabMegaCrab": "Mega Crab",
+  "tabCasualties": "Casualties",
+  "colRank": "Rank",
+  "colLevel": "Level",
+  "colPlayer": "Player",
+  "colValue": "Value",
+  "scoreLabelVp": "VP",
+  "scoreLabelCrab": "Crab Score",
+  "scoreLabelCasualties": "Troops Deployed",
+  "noData": "No data yet",
+  "error": "Failed to load",
+  "loading": "Loading…"
+}

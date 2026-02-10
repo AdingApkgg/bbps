@@ -1,0 +1,16 @@
+{
+  "commands": "指令",
+  "stats": "在线玩家",
+  "comments": "评论",
+  "downloads": "下载",
+  "rank": "排行榜",
+  "drive": "网盘",
+  "editor": "地图编辑",
+  "maps": "地图",
+  "blog": "博客",
+  "privacyPolicy": "隐私政策",
+  "serverRules": "服务器规则",
+  "donate": "捐赠",
+  "team": "团队",
+  "toggleMenu": "切换菜单"
+}

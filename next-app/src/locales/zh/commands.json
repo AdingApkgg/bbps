@@ -1,0 +1,15 @@
+{
+  "title": "指令工具",
+  "subtitle": "选择指令类型，快速生成游戏指令",
+  "selectPlaceholder": "请选择指令（不要加<>）",
+  "outputPlaceholder": "这里会显示生成的指令...",
+  "copyButton": "复制指令",
+  "copiedButton": "指令已复制!",
+  "howToUse": "如何使用指令",
+  "step1Title": "选择指令类型",
+  "step1Desc": "从上方标签中选择您需要的指令类别",
+  "step2Title": "选择具体指令",
+  "step2Desc": "在下拉菜单中选择具体的指令",
+  "step3Title": "复制并使用",
+  "step3Desc": "点击复制按钮，在游戏聊天中粘贴使用"
+}

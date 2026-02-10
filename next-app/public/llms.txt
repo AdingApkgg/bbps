@@ -1,0 +1,37 @@
+# 蚕豆私服 (BBPS)
+
+> 非官方的海岛奇兵（Boom Beach）私服，提供无限资源与独特玩法，永久免费。
+
+## 站点信息
+
+- 名称: 蚕豆私服 / BBPS (Boom Beach Private Server)
+- 网址: https://30hb.cn
+- 语言: 中文 (zh-CN), English (en)
+- 类型: 游戏私服社区网站
+
+## 主要页面
+
+- [首页](https://30hb.cn/): 站点主页，介绍私服特色与下载入口
+- [游戏指令](https://30hb.cn/commands/): 游戏内指令大全，支持命令生成
+- [在线玩家](https://30hb.cn/stats/): 实时在线人数与服务器状态
+- [下载](https://30hb.cn/downloads/): Android 与 iOS 客户端下载
+- [排行榜](https://30hb.cn/rank/): VP、螃蟹、伤亡等排名
+- [博客](https://30hb.cn/blog/): 公告、更新日志与攻略
+- [评论](https://30hb.cn/comments/): 玩家社区评论区
+- [隐私政策](https://30hb.cn/privacy-policy/): 数据处理相关政策
+- [服务器规则](https://30hb.cn/server-rules/): 社区规则与公约
+
+## English Pages
+
+- [Home](https://30hb.cn/en/): Homepage with server introduction
+- [Commands](https://30hb.cn/en/commands/): In-game command reference
+- [Stats](https://30hb.cn/en/stats/): Real-time online players
+- [Downloads](https://30hb.cn/en/downloads/): Client downloads
+- [Rankings](https://30hb.cn/en/rank/): Player leaderboards
+- [Blog](https://30hb.cn/en/blog/): Announcements and guides
+- [Comments](https://30hb.cn/en/comments/): Community comments
+
+## 订阅
+
+- RSS: https://30hb.cn/feed.xml
+- Sitemap: https://30hb.cn/sitemap.xml

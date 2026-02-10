@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { Copy, Check } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands } from '@/lib/commands-data'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Select,
@@ -15,6 +16,7 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import { FadeIn } from '@/components/motion'
 
 export function CommandsPage() {
   const locale = useLocale()
@@ -57,107 +59,118 @@ export function CommandsPage() {
       : `Please select ${categoryName} (don't add <>)`
 
   return (
-    <div className="container max-w-4xl space-y-8 px-4 py-12">
-      <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold md:text-3xl">
+    <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
+      <FadeIn className="text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
           {dict.commands.title}
         </h1>
-        <p className="text-muted-foreground">{dict.commands.subtitle}</p>
-      </div>
+        <p className="mt-2 text-muted-foreground">{dict.commands.subtitle}</p>
+      </FadeIn>
 
-      <Card>
-        <CardHeader>
-          <Tabs
-            value={activeCategory}
-            onValueChange={setActiveCategory}
-            className="w-full"
-          >
-            <TabsList className="flex h-auto flex-wrap gap-1 bg-muted/50">
-              {categories.map((cat) => (
-                <TabsTrigger
-                  key={cat.id}
-                  value={cat.id}
-                  className="data-[state=active]:bg-background"
-                >
-                  {locale === 'en' ? cat.nameEn : cat.nameZh}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Select
-            value={selectedCommand || undefined}
-            onValueChange={handleSelectChange}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder={placeholder} />
-            </SelectTrigger>
-            <SelectContent>
-              {filteredCommands.map((cmd) => (
-                <SelectItem key={cmd.id} value={cmd.id}>
-                  {cmd.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      {/* Command generator */}
+      <FadeIn delay={0.15}>
+        <Card className="mt-10">
+          <CardHeader>
+            <Tabs
+              value={activeCategory}
+              onValueChange={setActiveCategory}
+              className="w-full"
+            >
+              <TabsList className="h-auto w-full flex-wrap">
+                {categories.map((cat) => (
+                  <TabsTrigger key={cat.id} value={cat.id}>
+                    {locale === 'en' ? cat.nameEn : cat.nameZh}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Select
+              value={selectedCommand || undefined}
+              onValueChange={handleSelectChange}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {filteredCommands.map((cmd) => (
+                  <SelectItem key={cmd.id} value={cmd.id}>
+                    {cmd.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-          <Textarea
-            readOnly
-            value={generatedCommand}
-            placeholder={dict.commands.outputPlaceholder}
-            className="min-h-[100px] font-mono resize-y"
-          />
+            <Textarea
+              readOnly
+              value={generatedCommand}
+              placeholder={dict.commands.outputPlaceholder}
+              className="min-h-[100px] resize-y font-mono text-sm"
+            />
 
-          <Button
-            onClick={handleCopy}
-            variant={copied ? 'secondary' : 'default'}
-            className="w-full"
-          >
-            {copied ? dict.commands.copiedButton : dict.commands.copyButton}
-          </Button>
-        </CardContent>
-      </Card>
+            <Button
+              onClick={handleCopy}
+              variant={copied ? 'secondary' : 'default'}
+              className="w-full"
+            >
+              {copied ? (
+                <>
+                  <Check className="mr-2 h-4 w-4" />
+                  {dict.commands.copiedButton}
+                </>
+              ) : (
+                <>
+                  <Copy className="mr-2 h-4 w-4" />
+                  {dict.commands.copyButton}
+                </>
+              )}
+            </Button>
+          </CardContent>
+        </Card>
+      </FadeIn>
 
-      <Card>
-        <CardContent className="pt-6">
-          <h2 className="mb-6 text-center text-xl font-semibold">
-            {dict.commands.howToUse}
-          </h2>
-          <div className="space-y-6">
-            {[
-              {
-                step: 1,
-                title: dict.commands.step1Title,
-                desc: dict.commands.step1Desc
-              },
-              {
-                step: 2,
-                title: dict.commands.step2Title,
-                desc: dict.commands.step2Desc
-              },
-              {
-                step: 3,
-                title: dict.commands.step3Title,
-                desc: dict.commands.step3Desc
-              }
-            ].map(({ step, title, desc }) => (
-              <div
-                key={step}
-                className="flex gap-4 md:items-start"
-              >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                  {step}
+      {/* How to use */}
+      <FadeIn delay={0.25}>
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="text-center text-lg">
+              {dict.commands.howToUse}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {[
+                {
+                  step: 1,
+                  title: dict.commands.step1Title,
+                  desc: dict.commands.step1Desc
+                },
+                {
+                  step: 2,
+                  title: dict.commands.step2Title,
+                  desc: dict.commands.step2Desc
+                },
+                {
+                  step: 3,
+                  title: dict.commands.step3Title,
+                  desc: dict.commands.step3Desc
+                }
+              ].map(({ step, title, desc }) => (
+                <div key={step} className="flex gap-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border bg-muted text-sm font-semibold">
+                    {step}
+                  </div>
+                  <div>
+                    <h3 className="font-medium">{title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium">{title}</h3>
-                  <p className="text-sm text-muted-foreground">{desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </FadeIn>
     </div>
   )
 }

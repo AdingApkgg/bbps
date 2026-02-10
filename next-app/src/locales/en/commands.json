@@ -1,0 +1,15 @@
+{
+  "title": "Command Tool",
+  "subtitle": "Select command type to quickly generate game commands",
+  "selectPlaceholder": "Please select a command (don't add <>)",
+  "outputPlaceholder": "Generated commands will appear here...",
+  "copyButton": "Copy Command",
+  "copiedButton": "Command Copied!",
+  "howToUse": "How to Use Commands",
+  "step1Title": "Select Command Type",
+  "step1Desc": "Choose the command category you need from the tabs above",
+  "step2Title": "Select Specific Command",
+  "step2Desc": "Choose a specific command from the dropdown menu",
+  "step3Title": "Copy and Use",
+  "step3Desc": "Click the copy button and paste it in the game chat"
+}

@@ -1,0 +1,8 @@
+{
+  "onlinePlayers": "在线玩家",
+  "totalPlayers": "玩家总数",
+  "totalReplays": "回放数",
+  "loading": "加载中...",
+  "error": "加载失败",
+  "noPlayers": "暂无在线玩家"
+}

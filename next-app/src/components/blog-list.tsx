@@ -21,20 +21,22 @@ interface BlogListProps {
 export function BlogList({ posts, dict, locale }: BlogListProps) {
   if (posts.length === 0) {
     return (
-      <div className="container max-w-3xl px-4 py-12 text-center text-muted-foreground">
+      <div className="container mx-auto max-w-3xl px-4 py-16 text-center text-muted-foreground">
         <p>{dict.error}</p>
       </div>
     )
   }
 
+  const blogBase = locale === 'en' ? '/en/blog' : '/blog'
+
   return (
-    <div className="container max-w-3xl space-y-6 px-4 py-8">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold tracking-tight">{dict.title}</h1>
-        <p className="text-muted-foreground">{dict.description}</p>
+    <div className="container mx-auto max-w-3xl px-4 py-16 md:py-24">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">{dict.title}</h1>
+        <p className="mt-2 text-muted-foreground">{dict.description}</p>
       </div>
 
-      <ul className="space-y-4">
+      <ul className="mt-10 space-y-4">
         {posts.map((post) => {
           const excerpt = stripHtml(post.excerpt?.rendered ?? '')
           const thumb =
@@ -42,43 +44,44 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
 
           return (
             <li key={post.id}>
-              <a
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block transition-opacity hover:opacity-90"
+              <Link
+                href={`${blogBase}/${post.id}`}
+                className="block"
               >
-                <Card className="overflow-hidden transition-shadow hover:shadow-md">
-                  {thumb && (
-                    <div className="relative h-40 w-full bg-muted">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={thumb}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
+                <Card className="overflow-hidden transition-colors hover:bg-muted/50">
+                  <div className="flex flex-col sm:flex-row">
+                    {thumb && (
+                      <div className="h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
+                        <img
+                          src={thumb}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <CardHeader className="pb-2">
+                        <h2 className="line-clamp-2 text-lg font-semibold">
+                          {stripHtml(post.title?.rendered ?? '')}
+                        </h2>
+                        <p className="text-xs text-muted-foreground">
+                          {formatDate(post.date, locale)}
+                        </p>
+                      </CardHeader>
+                      {excerpt && (
+                        <CardContent className="pt-0">
+                          <p className="line-clamp-2 text-sm text-muted-foreground">
+                            {excerpt}
+                          </p>
+                          <span className="mt-2 inline-block text-sm font-medium">
+                            {dict.openPost} &rarr;
+                          </span>
+                        </CardContent>
+                      )}
                     </div>
-                  )}
-                  <CardHeader className="pb-2">
-                    <h2 className="line-clamp-2 text-lg font-semibold">
-                      {stripHtml(post.title?.rendered ?? '')}
-                    </h2>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDate(post.date, locale)}
-                    </p>
-                  </CardHeader>
-                  {excerpt && (
-                    <CardContent className="pt-0">
-                      <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {excerpt}
-                      </p>
-                      <span className="mt-2 inline-block text-sm font-medium text-primary">
-                        {dict.openPost} →
-                      </span>
-                    </CardContent>
-                  )}
+                  </div>
                 </Card>
-              </a>
+              </Link>
             </li>
           )
         })}

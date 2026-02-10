@@ -1,0 +1,8 @@
+{
+  "title": "博客",
+  "description": "来自蚕豆博客的文章",
+  "loading": "加载中…",
+  "error": "无法加载文章列表",
+  "openPost": "阅读全文",
+  "backToBlog": "返回博客"
+}
