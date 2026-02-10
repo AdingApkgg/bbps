@@ -18,21 +18,23 @@
   "dependencies": {
     "@nuxt/image": "^1.7.0",
     "@vueuse/core": "^10.11.0",
-    "nuxt": "^3.12.4",
-    "vue": "^3.4.31",
+    "@waline/client": "^3.8.0",
+    "nuxt": "^4.2.1",
+    "vue": "^3.5.24",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
+    "@iconify-json/fa6-brands": "^1.2.6",
+    "@iconify-json/fa6-solid": "^1.2.4",
     "@nuxt/eslint": "^0.5.0",
-    "@nuxtjs/i18n": "^8.5.6",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "eslint": "^8.57.0",
+    "@nuxtjs/i18n": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@unocss/nuxt": "^66.5.9",
+    "eslint": "^9.5.0",
     "eslint-plugin-vue": "^9.27.0",
     "sass": "^1.77.8",
     "typescript": "^5.5.3",
-    "unhead": "^2.0.19",
-    "vite": "^5.3.5"
+    "vite": "^6.0.0"
   }
 }
-

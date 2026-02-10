@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="overflow-x-hidden">
     <HeroSection />
     <ServerStats />
     <CtaSection />
@@ -8,24 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-
-const { locale } = useI18n()
-
-// 设置英文语言
-locale.value = 'en'
-
-// SEO
-useHead({
+useSEO({
   title: 'BBPS - Boom Beach Private Server',
-  meta: [
-    { name: 'description', content: 'Unlimited Resources, Forever Free!' }
-  ]
+  description: 'Boom Beach Private Server - Unlimited Resources, Forever Free! Join the best Boom Beach private server now!',
+  locale: 'en_US',
+  url: 'https://30hb.cn/en'
 })
 </script>
-
-<style scoped lang="sass">
-.home-page
-  overflow-x: hidden
-</style>
-

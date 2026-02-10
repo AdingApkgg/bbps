@@ -1,8 +1,17 @@
 <template>
-  <section class="comments-section">
-    <div class="container">
-      <h2 class="section-title">{{ t('comments.title') }}</h2>
-      <div id="waline" class="waline-wrapper"/>
+  <section class="comments-game">
+    <div class="container-bb">
+      <!-- 标题 -->
+      <div class="comments-header">
+        <h2 class="comments-title">
+          {{ t('comments.title') || '玩家评论' }}
+        </h2>
+      </div>
+
+      <!-- 评论容器 -->
+      <div class="comments-container">
+        <div id="waline" />
+      </div>
     </div>
   </section>
 </template>
@@ -11,80 +20,62 @@
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 
 onMounted(async () => {
-  // 动态加载 Waline CSS
-  const walineCss = document.createElement('link')
-  walineCss.rel = 'stylesheet'
-  walineCss.href = 'https://registry.npmmirror.com/@waline/client/latest/files/dist/waline.css'
-  document.head.appendChild(walineCss)
+  try {
+    const { init } = await import('@waline/client')
+    await import('@waline/client/waline.css')
 
-  // 动态加载 Waline JS
-  const { init } = await import('https://registry.npmmirror.com/@waline/client/latest/files/dist/waline.js')
-
-  const localeConfig = locale.value === 'zh' ? {
-    nick: '昵称(可选)',
-    mail: '邮箱(可选)',
-    link: '网址(可选)',
-    placeholder: '填写 QQ 号或邮箱可获取头像',
-    requiredMeta: [],
-    sofa: '评论区空空如也~',
-    anonymous: '匿名的野猫',
-    login: '登录(可选)'
-  } : {
-    nick: 'Nickname (optional)',
-    mail: 'Email (optional)',
-    link: 'Website (optional)',
-    placeholder: 'Fill in QQ number or email to get avatar',
-    requiredMeta: [],
-    sofa: 'No comments yet~',
-    anonymous: 'Anonymous',
-    login: 'Login (optional)'
+    init({
+      el: '#waline',
+      serverURL: 'https://waline.saop.cc',
+      path: 'disk.saop.cc'
+    })
+  } catch (err) {
+    console.error('Failed to load Waline:', err)
   }
-
-  init({
-    el: '#waline',
-    serverURL: 'https://waline.saop.cc',
-    path: 'disk.saop.cc',
-    pageview: false,
-    locale: localeConfig,
-    emoji: [
-      '//registry.npmmirror.com/@waline/emojis/latest/files/alus',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/bilibili',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/bmoji',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/qq',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/tieba',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/tw',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/weibo',
-      '//registry.npmmirror.com/@waline/emojis/latest/files/soul-emoji'
-    ],
-    reaction: true
-  })
 })
 </script>
 
-<style scoped lang="sass">
-.comments-section
-  padding: $spacing-xl $spacing-md
-  background: $white
+<style scoped>
+.comments-game {
+  padding: 4rem 1rem;
+  background: rgba(255, 255, 255, 0.3);
+}
 
-.section-title
-  text-align: center
-  color: $military-green-dark
-  margin-bottom: $spacing-xl
+.comments-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
 
-.waline-wrapper
-  max-width: 800px
-  margin: 0 auto
-  padding: $spacing-lg
-  background: $off-white
-  border-radius: $radius-lg
-  box-shadow: $shadow-soft
-  border: 2px solid $sand-beige
+.comments-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #2C2416;
+  margin: 0;
+}
 
-@media (max-width: $breakpoint-md)
-  .waline-wrapper
-    padding: $spacing-md
+.comments-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+  .comments-game {
+    padding: 2rem 0.5rem;
+  }
+
+  .comments-title {
+    font-size: 2rem;
+  }
+
+  .comments-container {
+    padding: 1rem;
+  }
+}
 </style>
-

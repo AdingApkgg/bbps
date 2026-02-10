@@ -1,23 +1,60 @@
 <template>
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-stats">
-        <span>{{ t('footer.pageviews') }}: <strong id="busuanzi_value_site_pv">-</strong></span>
-        <span>{{ t('footer.visitors') }}: <strong id="busuanzi_value_site_uv">-</strong></span>
+  <footer class="footer-game">
+    <div class="container-bb">
+      <div class="footer-content">
+        <!-- Logo和描述 -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img
+              src="/assets/images/logo/logo.avif"
+              alt="海岛奇兵私服"
+              class="footer-logo-img"
+            />
+            <span class="footer-title">{{ t('site.name') }}</span>
+          </div>
+          <p class="footer-description">
+            {{ t('footer.description') || '非官方的海岛奇兵私服，体验无限资源和独特玩法' }}
+          </p>
+        </div>
+
+        <!-- 快速链接 -->
+        <div class="footer-links">
+          <h3 class="footer-heading">{{ t('footer.quickLinks') || '快速链接' }}</h3>
+          <a href="https://30hb.cn/news/" class="footer-link">{{ t('nav.commands') || '指令' }}</a>
+          <a href="https://drive.30hb.cn/" class="footer-link">{{ t('nav.drive') || '网盘' }}</a>
+          <a href="https://blog.30hb.cn/" class="footer-link">{{ t('nav.blog') || '博客' }}</a>
+          <a href="https://webapi.30hb.cn/basebuilder/Layout-Builder.htm" class="footer-link">{{ t('nav.editor') || '地图编辑' }}</a>
+        </div>
+
+        <!-- 社交媒体 -->
+        <div class="footer-social-section">
+          <h3 class="footer-heading">{{ t('footer.community') || '加入社区' }}</h3>
+          <div class="footer-social">
+            <a href="https://qm.qq.com/q/qDf9qDK8g2" target="_blank" class="footer-social-link">
+              <img
+                src="https://images.icon-icons.com/1753/PNG/96/iconfinder-social-media-applications-10qq-4102582_113820.png"
+                alt="QQ群"
+                class="footer-social-icon"
+              />
+            </a>
+            <a href="https://discord.gg/rGAGWDerzB" target="_blank" class="footer-social-link">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png"
+                alt="Discord"
+                class="footer-social-icon"
+              />
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div class="footer-copyright">
-        <p>
-          © <a
-            href="https://space.bilibili.com/87969522"
-            target="_blank"
-            class="footer-link"
-          >
-            {{ t('footer.author') }}
-          </a>
+      <!-- 底部版权 -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          {{ t('site.copyright') || '海岛奇兵 © 2025 保留所有权利' }}
         </p>
-        <p class="copyright-notice">
-          Boom Beach {{ t('footer.trademark') }}
+        <p class="footer-disclaimer">
+          {{ t('footer.disclaimer') || '本站为非官方粉丝项目，与Supercell无关' }}
         </p>
       </div>
     </div>
@@ -25,74 +62,144 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-
-onMounted(() => {
-  // 加载不蒜子统计
-  const script = document.createElement('script')
-  script.src = 'https://registry.npmmirror.com/js-asuna/latest/files/js/bsz.pure.mini.js'
-  script.async = true
-  document.body.appendChild(script)
-})
 </script>
 
-<style scoped lang="sass">
-@use 'sass:color'
+<style scoped>
+.footer-game {
+  background: rgba(26, 35, 42, 0.95);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 3rem 1rem 1.5rem;
+  border-top: 3px solid rgba(255, 255, 255, 0.1);
+}
 
-.footer
-  background: linear-gradient(135deg, $military-green-dark 0%, $black 100%)
-  color: $white
-  padding: $spacing-lg $spacing-md
-  border-top: 3px solid $sand-yellow
-  margin-top: $spacing-xl
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
 
-.footer-container
-  display: flex
-  flex-direction: column
-  align-items: center
-  gap: $spacing-sm
-  text-align: center
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-.footer-stats
-  display: flex
-  gap: $spacing-lg
-  font-size: $font-size-sm
-  color: $light-gray
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 
-  span
-    display: flex
-    align-items: center
-    gap: $spacing-xs
+.footer-logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+}
 
-  strong
-    color: $sand-yellow
-    font-weight: 700
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FFD60A;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
-.footer-copyright
-  font-size: $font-size-sm
-  color: $gray
+.footer-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
 
-.footer-link
-  color: $sand-yellow
-  text-decoration: none
-  font-weight: 600
-  transition: color $transition-base
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 
-  &:hover
-    color: color.adjust($sand-yellow, $lightness: 15%)
+.footer-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem;
+}
 
-.copyright-notice
-  margin-top: $spacing-xs
-  font-size: $font-size-xs
-  color: $gray
-  opacity: 0.8
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
 
-@media (max-width: $breakpoint-sm)
-  .footer-stats
-    flex-direction: column
-    gap: $spacing-xs
+.footer-link:hover {
+  color: #FFD60A;
+}
+
+.footer-social-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social-link {
+  transition: transform 0.2s;
+}
+
+.footer-social-link:hover {
+  transform: scale(1.1);
+}
+
+.footer-social-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-copyright {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 0.5rem;
+}
+
+.footer-disclaimer {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+@media (max-width: 968px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-game {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-logo-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer-title {
+    font-size: 1.25rem;
+  }
+}
 </style>
-

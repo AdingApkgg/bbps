@@ -1,96 +1,117 @@
 <template>
-  <section class="stats-section">
-    <div class="container">
+  <section class="stats-game">
+    <div class="container-bb">
+      <!-- 标题 -->
       <div class="stats-header">
-        <h2 class="section-title">
-          {{ t('stats.onlinePlayers') }}
+        <h2 class="stats-title">
+          {{ t('stats.onlinePlayers') || '在线玩家' }}
         </h2>
-        <div class="online-indicator" :class="{ 'online': !loading && !error }">
-          <span class="indicator-dot" />
-          <span class="indicator-text">LIVE</span>
+        <div class="stats-live-badge" :class="stats ? 'live-active' : ''">
+          <span class="live-dot" />
+          <span class="live-text">LIVE</span>
         </div>
       </div>
 
+      <!-- 统计卡片 -->
       <div class="stats-grid">
-        <!-- 在线玩家数 -->
-        <div class="stat-card card main-stat">
-          <div class="stat-icon">
-            👥
+        <!-- 在线玩家 -->
+        <div class="stats-card stats-card-blue">
+          <div class="stats-icon">
+            <div class="i-fa6-solid-users" />
           </div>
-          <div class="stat-value" :class="{ 'loading': loading }">
-            {{ loading ? t('stats.loading') : (error ? t('stats.error') : stats?.online_sessions ?? 0) }}
+          <div class="stats-number" :class="{ 'loading': !stats }">
+            {{ stats ? stats.onlinePlayers : '...' }}
           </div>
-          <div class="stat-label">
-            {{ t('stats.onlinePlayers') }}
+          <div class="stats-label">
+            {{ t('stats.onlinePlayers') || '在线玩家' }}
           </div>
         </div>
 
         <!-- 玩家总数 -->
-        <div class="stat-card card">
-          <div class="stat-icon">
-            🏆
+        <div class="stats-card stats-card-green">
+          <div class="stats-icon">
+            <div class="i-fa6-solid-trophy" />
           </div>
-          <div class="stat-value" :class="{ 'loading': loading }">
-            {{ loading ? '...' : (error ? t('stats.error') : stats?.m_v_avatar_seed?.toLocaleString() ?? 0) }}
+          <div class="stats-number" :class="{ 'loading': !stats }">
+            {{ stats ? stats.totalPlayers : '...' }}
           </div>
-          <div class="stat-label">
-            {{ t('stats.totalPlayers') }}
+          <div class="stats-label">
+            {{ t('stats.totalPlayers') || '玩家总数' }}
           </div>
         </div>
 
         <!-- 回放数 -->
-        <div class="stat-card card">
-          <div class="stat-icon">
-            📹
+        <div class="stats-card stats-card-orange">
+          <div class="stats-icon">
+            <div class="i-fa6-solid-video" />
           </div>
-          <div class="stat-value" :class="{ 'loading': loading }">
-            {{ loading ? '...' : (error ? t('stats.error') : stats?.m_v_replay_seed?.toLocaleString() ?? 0) }}
+          <div class="stats-number" :class="{ 'loading': !stats }">
+            {{ stats ? stats.totalReplays : '...' }}
           </div>
-          <div class="stat-label">
-            {{ t('stats.totalReplays') }}
+          <div class="stats-label">
+            {{ t('stats.totalReplays') || '回放数' }}
           </div>
         </div>
       </div>
 
       <!-- 在线玩家列表 -->
-      <div class="player-list card">
-        <div class="card-header">
-          <span class="header-icon">⚔️</span>
-          <span>{{ t('stats.onlinePlayers') }}</span>
+      <div class="players-list-container">
+        <div class="players-list-header">
+          <div class="players-list-icon">
+            <div class="i-fa6-solid-users" />
+          </div>
+          <span class="players-list-title">{{ t('stats.onlinePlayers') || '在线玩家' }}</span>
+          <span class="players-list-count">{{ players.length }}</span>
         </div>
-        <div class="card-body">
-          <TransitionGroup name="player-list" tag="ul" class="players">
-            <li
+
+        <div class="players-list">
+          <TransitionGroup name="list">
+            <!-- 加载状态 -->
+            <div
               v-if="loading"
               key="loading"
-              class="player-item loading"
+              class="players-list-message"
             >
-              {{ t('stats.loading') }}
-            </li>
-            <li
+              <div class="loading-spinner" />
+              <span>{{ t('stats.loading') || '加载中...' }}</span>
+            </div>
+
+            <!-- 错误状态 -->
+            <div
               v-else-if="error"
               key="error"
-              class="player-item error"
+              class="players-list-message error"
             >
-              {{ error }}
-            </li>
-            <li
-              v-else-if="!stats?.online_player_list?.length"
+              {{ t('stats.error') || '加载失败' }}
+            </div>
+
+            <!-- 空状态 -->
+            <div
+              v-else-if="!players || players.length === 0"
               key="empty"
-              class="player-item empty"
+              class="players-list-message"
             >
-              {{ t('stats.noPlayers') }}
-            </li>
-            <li
-              v-for="player in stats.online_player_list"
+              {{ t('stats.noPlayers') || '暂无在线玩家' }}
+            </div>
+
+            <!-- 玩家列表 -->
+            <div
+              v-for="(player, index) in players"
               v-else
               :key="player.id"
               class="player-item"
             >
-              <span class="player-icon">🎮</span>
-              <span class="player-name">{{ player.name }}</span>
-              <span class="player-id">#{{ player.id }}</span>
-            </li>
+              <div class="player-rank" :class="`rank-${index + 1}`">
+                {{ index + 1 }}
+              </div>
+
+              <div class="player-info">
+                <div class="player-name">{{ player.name }}</div>
+                <div class="player-id">ID: {{ player.id }}</div>
+              </div>
+
+              <div class="player-online-dot" />
+            </div>
           </TransitionGroup>
         </div>
       </div>
@@ -99,203 +120,379 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useServerStats } from '~/composables/useServerStats'
 
 const { t } = useI18n()
-const { stats, loading, error, startAutoRefresh, stopAutoRefresh } = useServerStats()
+
+interface Player {
+  id: number
+  name: string
+}
+
+interface Stats {
+  onlinePlayers: number
+  totalPlayers: number
+  totalReplays: number
+}
+
+const stats = ref<Stats | null>(null)
+const players = ref<Player[]>([])
+const loading = ref(true)
+const error = ref(false)
+
+const fetchStats = async () => {
+  try {
+    loading.value = true
+    error.value = false
+
+    const response = await fetch('https://vn-rank-api.adingapkgg.workers.dev/?target=https://webapi.30hb.cn/api/server')
+    const data = await response.json()
+
+    if (data.success && data.body) {
+      stats.value = {
+        onlinePlayers: data.body.online_sessions || 0,
+        totalPlayers: data.body.m_v_avatar_seed || 0,
+        totalReplays: data.body.m_v_replay_seed || 0
+      }
+      players.value = data.body.online_player_list || []
+    }
+  } catch (err) {
+    console.error('Failed to fetch stats:', err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
+}
 
 onMounted(() => {
-  startAutoRefresh(5000)
-})
-
-onUnmounted(() => {
-  stopAutoRefresh()
+  fetchStats()
+  setInterval(fetchStats, 30000)
 })
 </script>
 
-<style scoped lang="sass">
-@use 'sass:color'
+<style scoped>
+.stats-game {
+  padding: 4rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+}
 
-.stats-section
-  padding: $spacing-xl $spacing-md
-  background: linear-gradient(to bottom, $off-white 0%, $white 100%)
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
 
-.stats-header
-  display: flex
-  align-items: center
-  justify-content: center
-  gap: $spacing-md
-  margin-bottom: $spacing-xl
-  flex-wrap: wrap
+.stats-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #2C2416;
+  margin: 0;
+  text-align: center;
+}
 
-.section-title
-  text-align: center
-  color: $military-green-dark
-  margin: 0
+.stats-live-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(95, 184, 46, 0.1);
+  border: 2px solid #5FB82E;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #5FB82E;
+}
 
-.online-indicator
-  display: flex
-  align-items: center
-  gap: $spacing-xs
-  padding: $spacing-xs $spacing-md
-  background: $light-gray
-  border-radius: $radius-lg
-  border: 2px solid $gray
-  
-  &.online
-    background: color.adjust($military-green, $lightness: 40%)
-    border-color: $military-green
-    
-    .indicator-dot
-      background: $military-green
-      animation: pulse-dot 2s ease-in-out infinite
+.stats-live-badge.live-active {
+  animation: pulse-live 2s ease-in-out infinite;
+}
 
-.indicator-dot
-  width: 10px
-  height: 10px
-  border-radius: 50%
-  background: $gray
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #5FB82E;
+  border-radius: 50%;
+}
 
-.indicator-text
-  font-weight: 700
-  font-size: $font-size-sm
-  color: $military-green-dark
+.live-text {
+  font-weight: 700;
+}
 
-@keyframes pulse-dot
-  0%, 100%
-    box-shadow: 0 0 0 0 rgba($military-green, 0.7)
-  50%
-    box-shadow: 0 0 0 8px rgba($military-green, 0)
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
 
-.stats-grid
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
-  gap: $spacing-lg
-  margin-bottom: $spacing-xl
+.stats-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
 
-.stat-card
-  padding: $spacing-lg
-  text-align: center
-  background: $white
-  transition: all $transition-base
-  
-  &:hover
-    transform: translateY(-8px) scale(1.02)
-  
-  &.main-stat
-    background: $gradient-ocean
-    color: $white
-    
-    .stat-label
-      color: rgba(white, 0.9)
+.stats-card:hover {
+  transform: translateY(-5px);
+}
 
-.stat-icon
-  font-size: $font-size-4xl
-  margin-bottom: $spacing-sm
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2))
+.stats-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
-.stat-value
-  font-size: $font-size-3xl
-  font-weight: 900
-  font-family: $font-family-game
-  color: $military-green-dark
-  margin-bottom: $spacing-xs
-  
-  .main-stat &
-    color: $white
-    text-shadow: 2px 2px 0 rgba($black, 0.3)
-  
-  &.loading
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite
+.stats-card-blue .stats-icon {
+  background: linear-gradient(135deg, #0891D1, #3DB2E8);
+  color: white;
+}
 
-.stat-label
-  font-size: $font-size-sm
-  font-weight: 600
-  color: $dark-gray
-  text-transform: uppercase
+.stats-card-green .stats-icon {
+  background: linear-gradient(135deg, #5FB82E, #7FD14A);
+  color: white;
+}
 
-.player-list
-  max-width: 600px
-  margin: 0 auto
+.stats-card-orange .stats-icon {
+  background: linear-gradient(135deg, #FF8C00, #FFB347);
+  color: white;
+}
 
-.players
-  list-style: none
-  padding: 0
-  margin: 0
-  max-height: 400px
-  overflow-y: auto
-  
-  &::-webkit-scrollbar
-    width: 8px
-  
-  &::-webkit-scrollbar-track
-    background: $light-gray
-    border-radius: $radius-sm
-  
-  &::-webkit-scrollbar-thumb
-    background: $military-green
-    border-radius: $radius-sm
-    
-    &:hover
-      background: $military-green-dark
+.stats-number {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
 
-.player-item
-  display: flex
-  align-items: center
-  gap: $spacing-sm
-  padding: $spacing-sm $spacing-md
-  border-bottom: 1px solid $light-gray
-  transition: all $transition-fast
-  
-  &:last-child
-    border-bottom: none
-  
-  &:hover
-    background: color.adjust($primary-blue, $lightness: 45%)
-    padding-left: calc($spacing-md + 4px)
-  
-  &.loading, &.error, &.empty
-    justify-content: center
-    color: $gray
-    font-style: italic
-  
-  &.error
-    color: $danger-red
+.stats-card-blue .stats-number { color: #0891D1; }
+.stats-card-green .stats-number { color: #5FB82E; }
+.stats-card-orange .stats-number { color: #FF8C00; }
 
-.player-icon
-  font-size: $font-size-lg
+.stats-number.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
 
-.player-name
-  flex: 1
-  font-weight: 600
-  color: $military-green-dark
+.stats-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #5C5446;
+  text-transform: uppercase;
+}
 
-.player-id
-  font-size: $font-size-sm
-  color: $gray
-  font-family: monospace
+.players-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
 
-.player-list-enter-active, .player-list-leave-active
-  transition: all $transition-base
+.players-list-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #5FB82E, #7FD14A);
+  color: white;
+}
 
-.player-list-enter-from
-  opacity: 0
-  transform: translateX(-20px)
+.players-list-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
 
-.player-list-leave-to
-  opacity: 0
-  transform: translateX(20px)
+.players-list-title {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
 
-.player-list-move
-  transition: transform $transition-base
+.players-list-count {
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
 
-@media (max-width: $breakpoint-sm)
-  .stats-grid
-    grid-template-columns: 1fr
-  
-  .stat-card
-    &:hover
-      transform: translateY(-4px)
+.players-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.players-list-message {
+  padding: 2rem;
+  text-align: center;
+  color: #5C5446;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.players-list-message.error {
+  color: #E63946;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #E8E0C8;
+  border-top-color: #5FB82E;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #E8E0C8;
+  transition: background 0.2s;
+}
+
+.player-item:hover {
+  background: #F5F5DC;
+}
+
+.player-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  background: #E8E0C8;
+  color: #2C2416;
+  border: 2px solid #8B7355;
+}
+
+.player-rank.rank-1 {
+  background: linear-gradient(135deg, #FFD60A, #FFE566);
+  border-color: #CCAB08;
+}
+
+.player-rank.rank-2 {
+  background: linear-gradient(135deg, #C0C0C0, #E8E8E8);
+  border-color: #999999;
+}
+
+.player-rank.rank-3 {
+  background: linear-gradient(135deg, #CD7F32, #E89A5C);
+  border-color: #A86428;
+}
+
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-name {
+  font-weight: 700;
+  color: #2C2416;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-id {
+  font-size: 0.75rem;
+  color: #5C5446;
+}
+
+.player-online-dot {
+  width: 8px;
+  height: 8px;
+  background: #5FB82E;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulse-live {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(95, 184, 46, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(95, 184, 46, 0);
+  }
+}
+
+@media (max-width: 968px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stats-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-game {
+    padding: 2rem 0.5rem;
+  }
+
+  .stats-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .stats-title {
+    font-size: 1.75rem;
+  }
+
+  .stats-card {
+    padding: 1.5rem;
+  }
+
+  .stats-number {
+    font-size: 2.5rem;
+  }
+}
 </style>

@@ -1,28 +1,18 @@
 <template>
-  <div class="home-page">
+  <div class="overflow-x-hidden">
     <HeroSection />
-    <ServerStats />
     <CtaSection />
+    <MapsShowcase />
+    <CreativeShowcase />
+    <ServerStats />
     <CommentsSection />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
-
-// SEO
-useHead({
-  title: t('site.name') + ' - Boom Beach Private Server',
-  meta: [
-    { name: 'description', content: t('hero.subtitle') }
-  ]
+useSEO({
+  title: '蚕豆私服 - Boom Beach 最佳私人服务器',
+  description: 'Boom Beach 私服 - 无限资源，永久免费！立即加入最好的海岛奇兵私人服务器！',
+  locale: 'zh_CN'
 })
 </script>
-
-<style scoped lang="sass">
-.home-page
-  overflow-x: hidden
-</style>
-

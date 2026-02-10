@@ -1,55 +1,67 @@
 <template>
-  <section class="hero">
+  <section class="hero-game">
+    <!-- 游戏背景 -->
     <div class="hero-bg" />
-    <div class="container hero-container">
+
+    <div class="container-bb">
       <div class="hero-content">
-        <h1 class="hero-title">
-          {{ t('hero.title') }}
-        </h1>
-
-        <div class="hero-video">
-          <video
-            src="https://r2.30hb.cn/hero.mp4"
-            poster="https://r2.30hb.cn/hero.avif"
-            controls
-            loop
-            playsinline
-            class="video-player"
-          />
+        <!-- 标题 -->
+        <div class="hero-header">
+          <p class="hero-welcome">{{ t('hero.welcome') || '欢迎来到' }}</p>
+          <div class="hero-logo-container">
+            <img
+              src="/assets/images/logo/logo.avif"
+              alt="Logo"
+              class="hero-logo"
+            />
+          </div>
+          <h1 class="hero-title">{{ t('site.name') }}</h1>
         </div>
 
+        <!-- 行动按钮 -->
         <div class="hero-actions">
-          <a
-            href="https://30hb.cn/latest"
-            class="btn btn-primary btn-lg"
-          >
-            <span class="btn-icon">⚡</span>
-            {{ t('hero.download') }}
+          <a href="https://30hb.cn/latest" class="btn-game btn-green">
+            <img
+              src="http://154.21.200.80:8889/png/%E7%BB%BF%E8%89%B2%E6%8C%89%E9%92%AE.png"
+              alt=""
+              class="btn-bg"
+            />
+            <span class="btn-text">{{ t('hero.download') || '点击下载' }}</span>
           </a>
-          <a
-            href="https://drive.30hb.cn"
-            target="_blank"
-            class="btn btn-military btn-lg"
-          >
-            <span class="btn-icon">🎮</span>
-            {{ t('hero.moreServers') }}
+
+          <a href="https://drive.30hb.cn" target="_blank" class="btn-game btn-blue">
+            <img
+              src="http://154.21.200.80:8889/png/%E8%93%9D%E8%89%B2%E6%8C%89%E9%92%AE.png"
+              alt=""
+              class="btn-bg"
+            />
+            <span class="btn-text">{{ t('hero.moreServers') || '更多服务器>>' }}</span>
           </a>
         </div>
 
-        <div class="hero-badge">
-          <span class="badge badge-lg">
-            <span class="badge-icon">🎁</span>
-            <strong>{{ t('hero.freeBadge') }}</strong>{{ t('hero.noPayment') }}
-          </span>
+        <!-- 社交链接 -->
+        <div class="hero-social">
+          <a href="https://qm.qq.com/q/qDf9qDK8g2" target="_blank" class="social-link">
+            <img
+              src="https://images.icon-icons.com/1753/PNG/96/iconfinder-social-media-applications-10qq-4102582_113820.png"
+              alt="QQ群"
+              class="social-icon"
+            />
+          </a>
+          <a href="https://discord.gg/rGAGWDerzB" target="_blank" class="social-link">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png"
+              alt="Discord"
+              class="social-icon"
+            />
+          </a>
         </div>
+
+        <!-- 底部文字 -->
+        <p class="hero-footer">
+          {{ t('site.copyright') || '海岛奇兵 © 2025 保留所有权利' }}
+        </p>
       </div>
-    </div>
-
-    <!-- 装饰元素 -->
-    <div class="hero-decorations">
-      <div class="palm-tree left" />
-      <div class="palm-tree right" />
-      <div class="waves" />
     </div>
   </section>
 </template>
@@ -60,190 +72,196 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>
 
-<style scoped lang="sass">
-@use 'sass:color'
+<style scoped>
+.hero-game {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1rem 3rem;
+  overflow: hidden;
+}
 
-.hero
-  position: relative
-  min-height: 80vh
-  display: flex
-  align-items: center
-  justify-content: center
-  overflow: hidden
-  padding: $spacing-xl $spacing-md
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://r2.30hb.cn/hero.avif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
 
-.hero-bg
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background: linear-gradient(135deg, color.adjust($primary-blue, $lightness: 20%) 0%, $primary-blue 50%, $primary-blue-dark 100%)
-  
-  &::before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    background-image: radial-gradient(circle at 20% 30%, rgba(white, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(white, 0.08) 0%, transparent 50%)
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
 
-.hero-container
-  position: relative
-  z-index: 10
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-.hero-content
-  display: flex
-  flex-direction: column
-  align-items: center
-  gap: $spacing-lg
-  text-align: center
-  max-width: 900px
-  margin: 0 auto
+.hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
-.hero-title
-  color: $white
-  font-size: clamp($font-size-3xl, 5vw, $font-size-4xl)
-  text-shadow: 3px 3px 0 rgba($military-green-dark, 0.5), 0 0 20px rgba($black, 0.3)
-  animation: titleFloat 3s ease-in-out infinite
-  margin-bottom: $spacing-md
+.hero-welcome {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
 
-@keyframes titleFloat
-  0%, 100%
-    transform: translateY(0)
-  50%
-    transform: translateY(-10px)
+.hero-logo-container {
+  animation: float 3s ease-in-out infinite;
+}
 
-.hero-video
-  width: 100%
-  max-width: 700px
-  border-radius: $radius-xl
-  overflow: hidden
-  box-shadow: $shadow-hard, 0 0 40px rgba($black, 0.3), inset 0 0 0 4px rgba(white, 0.2)
-  border: 4px solid $sand-yellow
-  transform: perspective(1000px) rotateY(0deg)
-  transition: transform $transition-slow
-  
-  &:hover
-    transform: perspective(1000px) rotateY(2deg) scale(1.02)
+.hero-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
 
-.video-player
-  width: 100%
-  height: auto
-  display: block
+.hero-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #FFD60A;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.8),
+    -1px -1px 0 rgba(0, 0, 0, 0.5),
+    1px -1px 0 rgba(0, 0, 0, 0.5),
+    -1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-.hero-actions
-  display: flex
-  flex-wrap: wrap
-  gap: $spacing-md
-  justify-content: center
-  margin-top: $spacing-md
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
 
-.btn-lg
-  padding: $spacing-md $spacing-xl
-  font-size: $font-size-xl
-  
-  .btn-icon
-    margin-right: $spacing-xs
-    font-size: $font-size-2xl
+.btn-game {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  text-decoration: none;
+  transition: transform 0.2s, filter 0.2s;
+  cursor: pointer;
+}
 
-.hero-badge
-  margin-top: $spacing-md
+.btn-game:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
 
-.badge-lg
-  padding: $spacing-md $spacing-lg
-  font-size: $font-size-lg
-  box-shadow: $shadow-medium
-  border: 3px solid $wood-brown-dark
-  
-  .badge-icon
-    margin-right: $spacing-xs
-    font-size: $font-size-xl
-  
-  strong
-    color: $danger-red
-    margin-right: $spacing-xs
+.btn-game:active {
+  transform: scale(0.98);
+}
 
-.hero-decorations
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  pointer-events: none
-  z-index: 1
+.btn-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
 
-.palm-tree
-  position: absolute
-  bottom: 0
-  width: 120px
-  height: 200px
-  background: linear-gradient(to top, $wood-brown-dark 0%, $wood-brown-dark 60%, transparent 60%)
-  opacity: 0.3
-  
-  &::before
-    content: '🌴'
-    position: absolute
-    top: -20px
-    left: 50%
-    transform: translateX(-50%)
-    font-size: 80px
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))
-  
-  &.left
-    left: 5%
-    transform: rotate(-5deg)
-  
-  &.right
-    right: 5%
-    transform: rotate(5deg) scaleX(-1)
+.btn-text {
+  position: relative;
+  z-index: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  padding: 0 2rem;
+}
 
-.waves
-  position: absolute
-  bottom: 0
-  left: 0
-  width: 100%
-  height: 80px
-  background: linear-gradient(to top, rgba($primary-blue-dark, 0.6) 0%, transparent 100%)
-  
-  &::before, &::after
-    content: ''
-    position: absolute
-    bottom: 0
-    left: 0
-    width: 200%
-    height: 100%
-    background: repeating-linear-gradient(90deg, transparent 0, rgba(white, 0.1) 50px, transparent 100px)
-    animation: wave 10s linear infinite
-  
-  &::after
-    animation-duration: 15s
-    animation-direction: reverse
-    opacity: 0.5
+.hero-social {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
 
-@keyframes wave
-  0%
-    transform: translateX(0)
-  100%
-    transform: translateX(-50%)
+.social-link {
+  transition: transform 0.2s;
+}
 
-@media (max-width: $breakpoint-md)
-  .hero
-    min-height: 70vh
-    padding: $spacing-lg $spacing-md
-  
-  .hero-title
-    font-size: $font-size-2xl
-  
-  .hero-actions
-    flex-direction: column
-    width: 100%
-    
-    .btn-lg
-      width: 100%
-      max-width: 300px
-  
-  .palm-tree
-    display: none
+.social-link:hover {
+  transform: scale(1.1);
+}
+
+.social-icon {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.hero-footer {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-top: 1rem;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-game {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .hero-welcome {
+    font-size: 1.25rem;
+  }
+
+  .hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .btn-text {
+    font-size: 1rem;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
 </style>
