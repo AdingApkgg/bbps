@@ -18,121 +18,7 @@ export function Footer() {
   return (
     <footer className="border-t">
       <div className="container mx-auto max-w-screen-2xl px-4 py-8 md:py-12">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          {/* Brand */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">{dict.site.name}</h3>
-            <p className="text-sm text-muted-foreground">
-              {dict.footer.description}
-            </p>
-          </div>
-
-          {/* Pages */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">{dict.footer.quickLinks}</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href={`${prefix}/downloads`} className={linkClass}>
-                  {dict.nav.downloads}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${prefix}/commands`} className={linkClass}>
-                  {dict.nav.commands}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${prefix}/stats`} className={linkClass}>
-                  {dict.nav.stats}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${prefix}/rank`} className={linkClass}>
-                  {dict.nav.rank}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${prefix}/blog`} className={linkClass}>
-                  {dict.nav.blog}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* External */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">{dict.footer.community}</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="https://qm.qq.com/q/qDf9qDK8g2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClass}
-                >
-                  {locale === 'zh' ? 'QQ 群' : 'QQ Group'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://discord.gg/rGAGWDerzB"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClass}
-                >
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://drive.30hb.cn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClass}
-                >
-                  {dict.nav.drive}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://webapi.30hb.cn/basebuilder/Layout-Builder.htm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClass}
-                >
-                  {dict.nav.editor}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">
-              {locale === 'zh' ? '法律信息' : 'Legal'}
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href={`${prefix}/privacy-policy`}
-                  className={linkClass}
-                >
-                  {dict.nav.privacyPolicy}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`${prefix}/server-rules`}
-                  className={linkClass}
-                >
-                  {dict.nav.serverRules}
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-muted-foreground">
           <div className="mb-3 flex items-center justify-center gap-6">
             <span className="inline-flex items-center gap-1.5">
               <Eye className="h-3.5 w-3.5" />
@@ -157,7 +43,26 @@ export function Footer() {
             </span>
           </div>
           <p>{dict.site.copyright}</p>
-          <p className="mt-1 text-xs">{dict.footer.disclaimer}</p>
+          <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed">
+            {dict.footer.disclaimer}
+            {' '}
+            <a
+              href={dict.footer.fanContentPolicyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline transition-colors hover:text-foreground"
+            >
+              {dict.footer.fanContentPolicy}
+            </a>
+          </p>
+          <div className="mt-3 flex items-center justify-center gap-4">
+            <Link href={`${prefix}/privacy-policy`} className={linkClass}>
+              {dict.nav.privacyPolicy}
+            </Link>
+            <Link href={`${prefix}/server-rules`} className={linkClass}>
+              {dict.nav.serverRules}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

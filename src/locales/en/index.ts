@@ -14,6 +14,7 @@ import blog from './blog.json'
 import rank from './rank.json'
 import footer from './footer.json'
 import teams from './teams.json'
+import community from './community.json'
 
 const en = {
   site,
@@ -31,7 +32,8 @@ const en = {
   blog,
   rank,
   footer,
-  teams
+  teams,
+  community
 }
 
 export default en

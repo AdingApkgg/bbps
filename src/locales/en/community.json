@@ -1,0 +1,23 @@
+{
+  "title": "Community",
+  "subtitle": "Join our community and connect with other players",
+  "join": "Join",
+  "groups": {
+    "qqMain": {
+      "name": "QQ",
+      "desc": "蚕豆服交流主群"
+    },
+    "qqAlt": {
+      "name": "QQ Backup",
+      "desc": "海岛审判"
+    },
+    "discord": {
+      "name": "Discord",
+      "desc": "Horse bean server"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "塞尔穆布鲁克"
+    }
+  }
+}

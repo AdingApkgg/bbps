@@ -5,6 +5,7 @@
   "pageviews": "访问量",
   "visitors": "访客数",
   "author": "蚕豆",
-  "disclaimer": "本站为非官方粉丝项目，与Supercell无关",
-  "trademark": "是 Supercell 的商标。本站是非官方粉丝项目。"
+  "disclaimer": "本站内容未经 Supercell 附属、认可、赞助或特别批准，Supercell 对此不承担任何责任。",
+  "fanContentPolicy": "更多信息请参阅 Supercell 的粉丝内容政策",
+  "fanContentPolicyUrl": "https://supercell.com/en/fan-content-policy/cn/"
 }

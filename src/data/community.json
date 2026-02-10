@@ -1,0 +1,22 @@
+[
+  {
+    "id": "qqMain",
+    "platform": "qq",
+    "url": "https://qm.qq.com/q/qDf9qDK8g2"
+  },
+  {
+    "id": "qqAlt",
+    "platform": "qq",
+    "url": "https://qm.qq.com/q/ZF2qVAZne8"
+  },
+  {
+    "id": "discord",
+    "platform": "discord",
+    "url": "https://discord.gg/rGAGWDerzB"
+  },
+  {
+    "id": "telegram",
+    "platform": "telegram",
+    "url": "https://t.me/FullDiveSAO"
+  }
+]

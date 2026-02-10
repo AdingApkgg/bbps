@@ -5,12 +5,14 @@
   "downloads": "下载",
   "rank": "排行榜",
   "drive": "网盘",
-  "editor": "地图编辑",
+  "editor": "地图编辑器",
+  "browseMaps": "浏览地图",
   "maps": "地图",
   "blog": "博客",
   "privacyPolicy": "隐私政策",
   "serverRules": "服务器规则",
   "donate": "捐赠",
   "team": "团队",
+  "community": "社区",
   "toggleMenu": "切换菜单"
 }

@@ -48,7 +48,7 @@ export function CtaSection() {
         locale === 'zh'
           ? '访问网盘获取更多资源和工具'
           : 'Access the drive for more resources and tools',
-      href: 'https://drive.30hb.cn/',
+      href: 'https://disk.saop.cc/',
       external: true
     },
     {

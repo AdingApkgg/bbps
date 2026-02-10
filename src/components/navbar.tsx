@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 
-function ThemeToggle() {
+function ThemeToggle({ isEn }: { isEn: boolean }) {
   const { setTheme, theme } = useTheme()
 
   return (
@@ -42,21 +42,21 @@ function ThemeToggle() {
           className={cn(theme === 'light' && 'font-semibold')}
         >
           <Sun className="mr-2 h-4 w-4" />
-          浅色
+          {isEn ? 'Light' : '浅色'}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('dark')}
           className={cn(theme === 'dark' && 'font-semibold')}
         >
           <Moon className="mr-2 h-4 w-4" />
-          深色
+          {isEn ? 'Dark' : '深色'}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('system')}
           className={cn(theme === 'system' && 'font-semibold')}
         >
           <Monitor className="mr-2 h-4 w-4" />
-          跟随系统
+          {isEn ? 'System' : '跟随系统'}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -79,14 +79,19 @@ export function Navbar() {
     { href: `${prefix}/rank`, label: dict.nav.rank },
     { href: `${prefix}/blog`, label: dict.nav.blog },
     { href: `${prefix}/teams`, label: dict.nav.team },
+    { href: `${prefix}/community`, label: dict.nav.community },
     { href: `${prefix}/comments`, label: dict.nav.comments }
   ]
 
   const externalItems = [
-    { href: 'https://drive.30hb.cn/', label: dict.nav.drive },
+    { href: 'https://disk.saop.cc/', label: dict.nav.drive },
     {
       href: 'https://webapi.30hb.cn/basebuilder/Layout-Builder.htm',
       label: dict.nav.editor
+    },
+    {
+      href: 'https://disk.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98/%E8%9A%95%E8%B1%86%E6%9C%8D%E5%9C%B0%E5%9B%BE',
+      label: dict.nav.browseMaps
     }
   ]
 
@@ -191,7 +196,7 @@ export function Navbar() {
           </DropdownMenu>
 
           {/* Theme toggle */}
-          <ThemeToggle />
+          <ThemeToggle isEn={locale === 'en'} />
 
           {/* Mobile nav trigger */}
           <Sheet open={open} onOpenChange={setOpen}>

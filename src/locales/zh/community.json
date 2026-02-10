@@ -1,0 +1,23 @@
+{
+  "title": "社区",
+  "subtitle": "加入我们的社区，与其他玩家交流",
+  "join": "加入",
+  "groups": {
+    "qqMain": {
+      "name": "QQ",
+      "desc": "蚕豆服交流主群"
+    },
+    "qqAlt": {
+      "name": "QQ 备用",
+      "desc": "海岛审判"
+    },
+    "discord": {
+      "name": "Discord",
+      "desc": "Horse bean server"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "塞尔穆布鲁克"
+    }
+  }
+}

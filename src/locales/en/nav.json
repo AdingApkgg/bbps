@@ -6,11 +6,13 @@
   "rank": "Rankings",
   "drive": "Drive",
   "editor": "Map Editor",
+  "browseMaps": "Browse Maps",
   "maps": "Maps",
   "blog": "Blog",
   "privacyPolicy": "Privacy Policy",
   "serverRules": "Server Rules",
   "donate": "Donate",
   "team": "Team",
+  "community": "Community",
   "toggleMenu": "Toggle Menu"
 }
