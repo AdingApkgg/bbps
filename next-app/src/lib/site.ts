@@ -10,4 +10,4 @@ export const SITE_DESCRIPTION_EN =
   'Unofficial Boom Beach private server — unlimited resources, unique gameplay, forever free.'
 export const SITE_LOCALE = 'zh_CN'
 export const SITE_LOCALE_ALT = 'en_US'
-export const SITE_LOGO = '/assets/images/logo/logo.avif'
+export const SITE_LOGO = '/og-logo.png'
