@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 import { Noto_Sans_SC } from "next/font/google"
+import { LocaleProvider } from "@/contexts/locale-context"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 import "@/app/globals.css"
 
 const notoSansSC = Noto_Sans_SC({
@@ -21,7 +24,13 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body className={`${notoSansSC.variable} font-sans antialiased`}>
-        {children}
+        <LocaleProvider>
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1 pt-[70px]">{children}</main>
+            <Footer />
+          </div>
+        </LocaleProvider>
       </body>
     </html>
   )
