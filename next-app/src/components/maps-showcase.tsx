@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState, useCallback } from "react"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import { useState, useCallback } from 'react'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
 const TOTAL_MAPS = 13
 const MAPS_PER_PAGE = 12
-const ASSETS = "http://154.21.200.80:8889/png"
+const ASSETS = 'http://154.21.200.80:8889/png'
 
 export function MapsShowcase() {
   const locale = useLocale()
@@ -18,7 +18,7 @@ export function MapsShowcase() {
   const visibleIndices = Array.from({ length: end - start }, (_, i) => start + i)
 
   const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.style.display = "none"
+    e.currentTarget.style.display = 'none'
   }, [])
 
   return (

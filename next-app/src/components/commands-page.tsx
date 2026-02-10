@@ -1,33 +1,33 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
-import { categories, commands } from "@/lib/commands-data"
-import { cn } from "@/lib/utils"
+import { useState, useMemo } from 'react'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
+import { categories, commands } from '@/lib/commands-data'
+import { cn } from '@/lib/utils'
 
 export function CommandsPage() {
   const locale = useLocale()
   const dict = getDictionary(locale)
-  const [activeCategory, setActiveCategory] = useState("common")
-  const [selectedCommand, setSelectedCommand] = useState("")
-  const [generatedCommand, setGeneratedCommand] = useState("")
+  const [activeCategory, setActiveCategory] = useState('common')
+  const [selectedCommand, setSelectedCommand] = useState('')
+  const [generatedCommand, setGeneratedCommand] = useState('')
   const [copied, setCopied] = useState(false)
 
   const filteredCommands = useMemo(() => {
-    if (activeCategory === "all") return commands
+    if (activeCategory === 'all') return commands
     return commands.filter((cmd) => cmd.category === activeCategory)
   }, [activeCategory])
 
   const categoryName = useMemo(() => {
     const c = categories.find((x) => x.id === activeCategory)
-    return locale === "en" ? c?.nameEn ?? "Command" : c?.nameZh ?? "指令"
+    return locale === 'en' ? c?.nameEn ?? 'Command' : c?.nameZh ?? '指令'
   }, [activeCategory, locale])
 
   const handleSelectChange = (id: string) => {
     setSelectedCommand(id)
     const cmd = commands.find((c) => c.id === id)
-    setGeneratedCommand(cmd ? cmd.command : "")
+    setGeneratedCommand(cmd ? cmd.command : '')
   }
 
   const handleCopy = async () => {
@@ -59,13 +59,13 @@ export function CommandsPage() {
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
                 className={cn(
-                  "rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-colors",
+                  'rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-colors',
                   activeCategory === cat.id
-                    ? "border-bb-blue bg-bb-blue text-white"
-                    : "border-[#dee2e6] bg-white text-[#495057] hover:border-bb-blue hover:bg-[#f8f9fa]"
+                    ? 'border-bb-blue bg-bb-blue text-white'
+                    : 'border-[#dee2e6] bg-white text-[#495057] hover:border-bb-blue hover:bg-[#f8f9fa]'
                 )}
               >
-                {locale === "en" ? cat.nameEn : cat.nameZh}
+                {locale === 'en' ? cat.nameEn : cat.nameZh}
               </button>
             ))}
           </div>
@@ -76,7 +76,7 @@ export function CommandsPage() {
               className="w-full cursor-pointer rounded-lg border-2 border-[#dee2e6] bg-white px-4 py-3 text-base transition-colors hover:border-bb-blue focus:border-bb-blue focus:outline-none"
             >
               <option value="">
-                {locale === "zh"
+                {locale === 'zh'
                   ? `请选择${categoryName}（不要加<>）`
                   : `Please select ${categoryName} (don't add <>)`}
               </option>
@@ -96,8 +96,8 @@ export function CommandsPage() {
               type="button"
               onClick={handleCopy}
               className={cn(
-                "w-full rounded-lg border-none px-4 py-4 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(8,145,209,0.3)] active:translate-y-0",
-                copied ? "bg-bb-green" : "bg-bb-blue hover:bg-bb-blue-dark"
+                'w-full rounded-lg border-none px-4 py-4 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(8,145,209,0.3)] active:translate-y-0',
+                copied ? 'bg-bb-green' : 'bg-bb-blue hover:bg-bb-blue-dark'
               )}
             >
               {copied ? dict.commands.copiedButton : dict.commands.copyButton}

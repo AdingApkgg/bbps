@@ -1,6 +1,6 @@
 # BBPS Next.js (SSG + shadcn/ui)
 
-蚕豆私服 Next.js 静态导出版本，使用 [shadcn/ui](https://ui.shadcn.com) 组件库。
+蚕豆私服 **已从 Nuxt 完整迁移** 至 Next.js 静态导出版本，使用 [shadcn/ui](https://ui.shadcn.com) 组件库。
 
 ## 技术栈
 
@@ -46,9 +46,12 @@ pnpm build
 
 ## 目录说明
 
-- `src/app/` — App Router 页面与布局
-- `src/components/` — 业务组件；`src/components/ui/` — shadcn 组件
-- `src/lib/utils.ts` — `cn()` 等工具，shadcn 依赖
+- `src/app/` — App Router：`/`（中文首页）、`/en`（英文首页）、`/commands`、`/en/commands`
+- `src/components/` — 业务组件（Navbar、Footer、Hero、CTA、Maps、Creative、ServerStats、Comments、CommandsPage）；`src/components/ui/` — shadcn 组件（按需添加）
+- `src/contexts/locale-context.tsx` — 基于 pathname 的 locale（zh/en）
+- `src/locales/` — zh.json、en.json
+- `src/lib/` — utils、i18n、commands-data
+- `src/hooks/use-server-stats.ts` — 服务器统计轮询
 - `components.json` — shadcn CLI 配置
 
 ## 主题

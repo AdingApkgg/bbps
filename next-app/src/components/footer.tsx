@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import Image from 'next/image'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
 export function Footer() {
   const locale = useLocale()

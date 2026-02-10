@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import { useState, useEffect } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
-const ASSETS = "http://154.21.200.80:8889/png"
+const ASSETS = 'http://154.21.200.80:8889/png'
 const SLIDES = 4
 
 export function CreativeShowcase() {
@@ -21,7 +21,7 @@ export function CreativeShowcase() {
   }, [])
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.style.display = "none"
+    e.currentTarget.style.display = 'none'
   }
 
   return (

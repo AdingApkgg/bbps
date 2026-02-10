@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useEffect, useRef } from "react"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import { useEffect, useRef } from 'react'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
 export function CommentsSection() {
   const locale = useLocale()
@@ -12,13 +12,13 @@ export function CommentsSection() {
   useEffect(() => {
     if (!containerRef.current) return
     let mounted = true
-    import("@waline/client").then(({ init }) => {
+    import('@waline/client').then(({ init }) => {
       if (!mounted || !containerRef.current) return
-      import("@waline/client/waline.css")
+      import('@waline/client/style')
       init({
         el: containerRef.current,
-        serverURL: "https://waline.saop.cc",
-        path: "disk.saop.cc",
+        serverURL: 'https://waline.saop.cc',
+        path: 'disk.saop.cc'
       })
     }).catch(console.error)
     return () => {

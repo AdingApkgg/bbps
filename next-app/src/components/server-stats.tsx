@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { Users, Trophy, Video } from "lucide-react"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
-import { useServerStats } from "@/hooks/use-server-stats"
-import { cn } from "@/lib/utils"
+import { Users, Trophy, Video } from 'lucide-react'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
+import { useServerStats } from '@/hooks/use-server-stats'
+import { cn } from '@/lib/utils'
 
 export function ServerStats() {
   const locale = useLocale()
@@ -15,7 +15,7 @@ export function ServerStats() {
     totalReplays,
     players,
     loading,
-    error,
+    error
   } = useServerStats()
 
   return (
@@ -27,8 +27,8 @@ export function ServerStats() {
           </h2>
           <div
             className={cn(
-              "flex items-center gap-2 rounded-full border-2 border-bb-green px-4 py-2 text-sm font-bold text-bb-green",
-              (onlinePlayers ?? 0) > 0 && "animate-pulse"
+              'flex items-center gap-2 rounded-full border-2 border-bb-green px-4 py-2 text-sm font-bold text-bb-green',
+              (onlinePlayers ?? 0) > 0 && 'animate-pulse'
             )}
           >
             <span className="h-2 w-2 rounded-full bg-bb-green" />
@@ -43,11 +43,11 @@ export function ServerStats() {
             </div>
             <div
               className={cn(
-                "mb-2 text-3xl font-black text-bb-blue md:text-4xl",
-                loading && "animate-pulse"
+                'mb-2 text-3xl font-black text-bb-blue md:text-4xl',
+                loading && 'animate-pulse'
               )}
             >
-              {loading ? "..." : onlinePlayers}
+              {loading ? '...' : onlinePlayers}
             </div>
             <div className="text-sm font-semibold uppercase text-[#5C5446]">
               {dict.stats.onlinePlayers}
@@ -59,11 +59,11 @@ export function ServerStats() {
             </div>
             <div
               className={cn(
-                "mb-2 text-3xl font-black text-bb-green md:text-4xl",
-                loading && "animate-pulse"
+                'mb-2 text-3xl font-black text-bb-green md:text-4xl',
+                loading && 'animate-pulse'
               )}
             >
-              {loading ? "..." : totalPlayers}
+              {loading ? '...' : totalPlayers}
             </div>
             <div className="text-sm font-semibold uppercase text-[#5C5446]">
               {dict.stats.totalPlayers}
@@ -75,11 +75,11 @@ export function ServerStats() {
             </div>
             <div
               className={cn(
-                "mb-2 text-3xl font-black text-bb-orange md:text-4xl",
-                loading && "animate-pulse"
+                'mb-2 text-3xl font-black text-bb-orange md:text-4xl',
+                loading && 'animate-pulse'
               )}
             >
-              {loading ? "..." : totalReplays}
+              {loading ? '...' : totalReplays}
             </div>
             <div className="text-sm font-semibold uppercase text-[#5C5446]">
               {dict.stats.totalReplays}
@@ -120,13 +120,13 @@ export function ServerStats() {
                 >
                   <div
                     className={cn(
-                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-bb-border text-sm font-bold text-bb-text bg-bb-bg",
+                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-bb-border text-sm font-bold text-bb-text bg-bb-bg',
                       index === 0 &&
-                        "border-bb-yellow-dark bg-gradient-to-br from-bb-yellow to-bb-yellow-light",
+                        'border-bb-yellow-dark bg-gradient-to-br from-bb-yellow to-bb-yellow-light',
                       index === 1 &&
-                        "border-gray-400 bg-gradient-to-br from-gray-300 to-gray-200",
+                        'border-gray-400 bg-gradient-to-br from-gray-300 to-gray-200',
                       index === 2 &&
-                        "border-amber-700 bg-gradient-to-br from-amber-600 to-amber-400 text-white"
+                        'border-amber-700 bg-gradient-to-br from-amber-600 to-amber-400 text-white'
                     )}
                   >
                     {index + 1}

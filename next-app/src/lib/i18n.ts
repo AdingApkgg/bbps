@@ -1,7 +1,7 @@
-import zh from "@/locales/zh.json"
-import en from "@/locales/en.json"
+import zh from '@/locales/zh.json'
+import en from '@/locales/en.json'
 
-export type Locale = "zh" | "en"
+export type Locale = 'zh' | 'en'
 
 export type Dict = typeof zh
 

@@ -1,6 +1,35 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* BB 游戏色板 (Tailwind v4 @theme) */
+@theme {
+  --color-bb-blue: #0891d1;
+  --color-bb-blue-light: #3db2e8;
+  --color-bb-blue-dark: #06668f;
+  --color-bb-green: #5fb82e;
+  --color-bb-green-light: #7fd14a;
+  --color-bb-green-dark: #4a9123;
+  --color-bb-green-army: #4a6741;
+  --color-bb-orange: #ff8c00;
+  --color-bb-orange-light: #ffb347;
+  --color-bb-orange-dark: #cc7000;
+  --color-bb-red: #e63946;
+  --color-bb-red-light: #ff6b77;
+  --color-bb-red-dark: #b8212a;
+  --color-bb-yellow: #ffd60a;
+  --color-bb-yellow-light: #ffe566;
+  --color-bb-yellow-dark: #ccab08;
+  --color-bb-bg: #e8e0c8;
+  --color-bb-bg-light: #f5f5dc;
+  --color-bb-bg-dark: #c8c0a8;
+  --color-bb-border: #8b7355;
+  --color-bb-border-light: #a89070;
+  --color-bb-border-dark: #6b5535;
+  --color-bb-text: #2c2416;
+  --color-bb-text-light: #5c5446;
+  --color-bb-text-white: #ffffff;
+}
+
 /* shadcn/ui CSS 变量 */
 @layer base {
   :root {
@@ -76,13 +105,16 @@
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-bb-bg rounded;
+  background: #e8e0c8;
+  border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-bb-green rounded border-2 border-bb-bg;
+  background: #5fb82e;
+  border: 2px solid #e8e0c8;
+  border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-bb-green-dark;
+  background: #4a9123;
 }
 
 @keyframes float {

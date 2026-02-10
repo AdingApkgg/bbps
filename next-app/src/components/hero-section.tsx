@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import Image from 'next/image'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
 export function HeroSection() {
   const locale = useLocale()
@@ -12,7 +12,7 @@ export function HeroSection() {
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-12 pt-24">
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(https://r2.30hb.cn/hero.avif)" }}
+        style={{ backgroundImage: 'url(https://r2.30hb.cn/hero.avif)' }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40" />
       </div>

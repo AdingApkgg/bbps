@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { useLocale } from "@/contexts/locale-context"
-import { getDictionary } from "@/lib/i18n"
+import Link from 'next/link'
+import { useLocale } from '@/contexts/locale-context'
+import { getDictionary } from '@/lib/i18n'
 
-const ASSETS = "http://154.21.200.80:8889/png"
+const ASSETS = 'http://154.21.200.80:8889/png'
 
 export function CtaSection() {
   const locale = useLocale()
   const dict = getDictionary(locale)
-  const commandsHref = locale === "en" ? "/en/commands" : "/commands"
+  const commandsHref = locale === 'en' ? '/en/commands' : '/commands'
 
   return (
     <section className="bg-gradient-to-b from-black/5 to-black/10 px-4 py-16">

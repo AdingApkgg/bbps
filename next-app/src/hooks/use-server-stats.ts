@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect } from 'react'
 
 export interface OnlinePlayer {
   id: number
@@ -20,7 +20,7 @@ interface ApiResponse {
 }
 
 const API_URL =
-  "https://vn-rank-api.adingapkgg.workers.dev/?target=https://webapi.30hb.cn/api/server"
+  'https://vn-rank-api.adingapkgg.workers.dev/?target=https://webapi.30hb.cn/api/server'
 
 export function useServerStats() {
   const [stats, setStats] = useState<ServerStatsBody | null>(null)
@@ -31,13 +31,13 @@ export function useServerStats() {
     try {
       setLoading(true)
       setError(null)
-      const res = await fetch(API_URL, { cache: "no-store" })
-      if (!res.ok) throw new Error("Network error")
+      const res = await fetch(API_URL, { cache: 'no-store' })
+      if (!res.ok) throw new Error('Network error')
       const data: ApiResponse = await res.json()
-      if (!data.success || !data.body) throw new Error("Invalid data")
+      if (!data.success || !data.body) throw new Error('Invalid data')
       setStats(data.body)
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unknown error")
+      setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
     }
@@ -57,6 +57,6 @@ export function useServerStats() {
     onlinePlayers: stats?.online_sessions ?? 0,
     totalPlayers: stats?.m_v_avatar_seed ?? 0,
     totalReplays: stats?.m_v_replay_seed ?? 0,
-    players: stats?.online_player_list ?? [],
+    players: stats?.online_player_list ?? []
   }
 }
