@@ -2,92 +2,116 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+
+/** 当前路径切换到另一语言后的路径（不跳回首页） */
+function getLocaleSwitchPath(pathname: string, currentLocale: 'zh' | 'en'): string {
+  if (currentLocale === 'zh') {
+    if (pathname === '/') return '/en'
+    return `/en${pathname}`
+  }
+  if (pathname === '/en') return '/'
+  if (pathname.startsWith('/en/')) return pathname.slice(3) || '/'
+  return '/'
+}
 
 export function Navbar() {
+  const pathname = usePathname()
   const locale = useLocale()
   const dict = getDictionary(locale)
+  const otherLocalePath = getLocaleSwitchPath(pathname ?? '/', locale)
+
+  const navLink =
+    'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-[1000] border-b border-white/10 bg-[rgba(26,35,42,0.95)] backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-7xl items-center justify-between gap-4 px-4">
         <Link
           href={locale === 'en' ? '/en' : '/'}
-          className="flex items-center gap-3 text-inherit no-underline transition-opacity hover:opacity-80"
+          className="flex items-center gap-2 font-semibold text-primary"
         >
           <Image
             src="/assets/images/logo/logo.avif"
             alt="海岛奇兵私服"
-            width={40}
-            height={40}
-            className="rounded-lg"
+            width={32}
+            height={32}
+            className="rounded-md"
           />
-          <span className="text-xl font-bold text-[#FFD60A] drop-shadow-[2px_2px_4px_rgba(0,0,0,0.5)]">
-            {dict.site.name}
-          </span>
+          <span className="hidden sm:inline-block">{dict.site.name}</span>
         </Link>
 
-        <div className="hidden flex-1 items-center justify-center gap-8 md:flex">
-          <Link
-            href={locale === 'en' ? '/en/commands' : '/commands'}
-            className="text-[0.95rem] font-medium text-white/90 no-underline transition-colors hover:text-[#FFD60A]"
-          >
+        <nav className="hidden flex-1 items-center justify-center gap-6 md:flex">
+          <Link href={locale === 'en' ? '/en/downloads' : '/downloads'} className={navLink}>
+            {dict.nav.downloads}
+          </Link>
+          <Link href={locale === 'en' ? '/en/commands' : '/commands'} className={navLink}>
             {dict.nav.commands}
+          </Link>
+          <Link href={locale === 'en' ? '/en/stats' : '/stats'} className={navLink}>
+            {dict.nav.stats}
+          </Link>
+          <Link href={locale === 'en' ? '/en/comments' : '/comments'} className={navLink}>
+            {dict.nav.comments}
           </Link>
           <a
             href="https://drive.30hb.cn/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[0.95rem] font-medium text-white/90 no-underline transition-colors hover:text-[#FFD60A]"
+            className={navLink}
           >
             {dict.nav.drive}
           </a>
-          <a
-            href="https://blog.30hb.cn/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[0.95rem] font-medium text-white/90 no-underline transition-colors hover:text-[#FFD60A]"
-          >
+          <Link href={locale === 'en' ? '/en/blog' : '/blog'} className={navLink}>
             {dict.nav.blog}
-          </a>
+          </Link>
           <a
             href="https://webapi.30hb.cn/basebuilder/Layout-Builder.htm"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[0.95rem] font-medium text-white/90 no-underline transition-colors hover:text-[#FFD60A]"
+            className={navLink}
           >
             {dict.nav.editor}
           </a>
-        </div>
+        </nav>
 
-        <div className="flex gap-2">
-          <Link
-            href="/en"
-            className={cn(
-              'rounded-md border px-4 py-2 text-sm font-medium transition-colors',
-              locale === 'en'
-                ? 'border-white/30 bg-white/20 text-white'
-                : 'border-white/20 bg-white/10 text-white/70 hover:border-white/30 hover:bg-white/20 hover:text-white'
-            )}
+        <div className="flex items-center gap-2">
+          <a
+            href={locale === 'zh' ? 'https://qm.qq.com/q/qDf9qDK8g2' : 'https://discord.gg/rGAGWDerzB'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden opacity-80 transition-opacity hover:opacity-100 sm:block"
+            title={locale === 'zh' ? 'QQ群' : 'Discord'}
           >
-            EN
-          </Link>
-          <Link
-            href="/"
-            className={cn(
-              'rounded-md border px-4 py-2 text-sm font-medium transition-colors',
-              locale === 'zh'
-                ? 'border-white/30 bg-white/20 text-white'
-                : 'border-white/20 bg-white/10 text-white/70 hover:border-white/30 hover:bg-white/20 hover:text-white'
+            {locale === 'zh' ? (
+              <img
+                src="https://images.icon-icons.com/1753/PNG/96/iconfinder-social-media-applications-10qq-4102582_113820.png"
+                alt="QQ"
+                className="h-6 w-6"
+              />
+            ) : (
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png"
+                alt="Discord"
+                className="h-6 w-6"
+              />
             )}
-          >
-            中文
-          </Link>
+          </a>
+          <Button variant={locale === 'en' ? 'default' : 'ghost'} size="sm" asChild>
+            <Link href={locale === 'zh' ? otherLocalePath : (pathname ?? '/en')}>
+              EN
+            </Link>
+          </Button>
+          <Button variant={locale === 'zh' ? 'default' : 'ghost'} size="sm" asChild>
+            <Link href={locale === 'en' ? otherLocalePath : (pathname ?? '/')}>
+              中文
+            </Link>
+          </Button>
         </div>
       </div>
-
-    </nav>
+    </header>
   )
 }

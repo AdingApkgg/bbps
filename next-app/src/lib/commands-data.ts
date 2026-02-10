@@ -1,3 +1,5 @@
+import commandsJson from '@/data/commands.json'
+
 export interface Command {
   id: string
   name: string
@@ -5,43 +7,11 @@ export interface Command {
   category: string
 }
 
-export const categories = [
-  { id: 'common', nameZh: '常用命令', nameEn: 'Common' },
-  { id: 'statue', nameZh: '雕刻命令', nameEn: 'Statue' },
-  { id: 'troop', nameZh: '部队命令', nameEn: 'Troop' },
-  { id: 'building', nameZh: '建筑命令', nameEn: 'Building' },
-  { id: 'mine', nameZh: '地雷命令', nameEn: 'Mine' },
-  { id: 'decoration', nameZh: '放置树/石头命令', nameEn: 'Decoration' },
-  { id: 'resource', nameZh: '获取资源指令', nameEn: 'Resource' },
-  { id: 'all', nameZh: '全部指令', nameEn: 'All' },
-  { id: 'color', nameZh: '彩色字体', nameEn: 'Color' },
-  { id: 'crab', nameZh: '螃蟹甲板', nameEn: 'Crab' }
-] as const
+export interface CommandCategory {
+  id: string
+  nameZh: string
+  nameEn: string
+}
 
-export const commands: Command[] = [
-  { id: 'rename', name: '更改名字', command: '/rename <新名字>', category: 'common' },
-  { id: 'default-island', name: '将你岛屿变为玩家默认岛屿', command: '/setdefault', category: 'common' },
-  { id: 'recover', name: '找回账号', command: '/recover <玩家ID或标签>', category: 'common' },
-  { id: 'maxall', name: '升级所有建筑至满级，仅可以主基地使用', command: '/maxall', category: 'common' },
-  { id: 'maxtech', name: '将科技升级到大本等级（暂时不包括英雄技能）', command: '/maxtech', category: 'common' },
-  { id: 'maxbase', name: '满级基地', command: '/maxbase', category: 'common' },
-  { id: 'attack-self', name: '自己攻击自己', command: '/attack', category: 'common' },
-  { id: 'online', name: '全服在线玩家', command: '/online', category: 'common' },
-  { id: 'power-statue', name: '能量雕像999', command: '/statue PSC 999', category: 'statue' },
-  { id: 'red-attack', name: '红攻雕像999', command: '/statue TD 999', category: 'statue' },
-  { id: 'red-defense', name: '红防雕像999', command: '/statue TH 999', category: 'statue' },
-  { id: 'blue-attack', name: '蓝攻雕像999', command: '/statue GBE 999', category: 'statue' },
-  { id: 'blue-defense', name: '蓝防雕像999', command: '/statue RR 999', category: 'statue' },
-  { id: 'add-skins', name: '添加所有皮肤', command: '/addskins', category: 'troop' },
-  { id: 'remove-skins', name: '移除所有皮肤', command: '/removeskins', category: 'troop' },
-  { id: 'add-heroes', name: '解锁全部小队长', command: '/addheroes', category: 'troop' },
-  { id: 'remove-heroes', name: '移除所有小队长', command: '/removeheroes', category: 'troop' },
-  { id: 'add-proto', name: '添加所有原型部队', command: '/addproto', category: 'troop' },
-  { id: 'remove-proto', name: '移除所有原型部队', command: '/removeproto', category: 'troop' },
-  { id: 'clear-boats', name: '清空登陆艇', command: '/clearboats', category: 'troop' },
-  { id: 'gold', name: '获取金币', command: '/give gold <数量>', category: 'resource' },
-  { id: 'wood', name: '获取木材', command: '/give wood <数量>', category: 'resource' },
-  { id: 'stone', name: '获取石头', command: '/give stone <数量>', category: 'resource' },
-  { id: 'iron', name: '获取铁矿', command: '/give iron <数量>', category: 'resource' },
-  { id: 'diamond', name: '获取钻石', command: '/give diamonds <数量>', category: 'resource' }
-]
+export const categories: CommandCategory[] = commandsJson.categories
+export const commands: Command[] = commandsJson.commands

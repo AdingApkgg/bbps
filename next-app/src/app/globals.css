@@ -87,34 +87,31 @@
   }
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
-    background: linear-gradient(to bottom, #87ceeb 0%, #b0d8f0 50%, #e0f2ff 100%);
-    background-attachment: fixed;
+    background: hsl(var(--background));
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   ::selection {
-    background-color: #ffd60a;
-    color: #2c2416;
+    background: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
   }
 }
 
-/* 游戏风格滚动条 */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #e8e0c8;
-  border-radius: 5px;
+  background: hsl(var(--muted));
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #5fb82e;
-  border: 2px solid #e8e0c8;
-  border-radius: 5px;
+  background: hsl(var(--border));
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a9123;
+  background: hsl(var(--muted-foreground) / 0.5);
 }
 
 @keyframes float {
