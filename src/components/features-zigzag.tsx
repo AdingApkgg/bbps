@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -41,10 +42,11 @@ function FeatureRow({
           reverse ? '' : 'md:order-1'
         }`}
       >
-        <img
+        <Image
           src={image}
           alt={item.heading}
-          loading="lazy"
+          width={600}
+          height={400}
           className="mx-auto h-auto max-w-full rounded-lg shadow-lg"
         />
       </FadeIn>

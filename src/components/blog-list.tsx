@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { stripHtml, type WPPost } from '@/lib/blog'
@@ -51,11 +52,12 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
                 <Card className="overflow-hidden transition-colors hover:bg-muted/50">
                   <div className="flex flex-col sm:flex-row">
                     {thumb && (
-                      <div className="h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
-                        <img
+                      <div className="relative h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
+                        <Image
                           src={thumb}
                           alt=""
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                       </div>
                     )}

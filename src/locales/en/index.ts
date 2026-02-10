@@ -15,7 +15,7 @@ import rank from './rank.json'
 import footer from './footer.json'
 import teams from './teams.json'
 
-export default {
+const en = {
   site,
   nav,
   hero,
@@ -33,3 +33,5 @@ export default {
   footer,
   teams
 }
+
+export default en

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -41,11 +42,12 @@ export function MapsShowcase() {
           {visibleIndices.map((index) => (
             <StaggerItem key={index}>
               <div className="group overflow-hidden rounded-lg border bg-background transition-shadow hover:shadow-md">
-                <div className="aspect-square">
-                  <img
+                <div className="relative aspect-square">
+                  <Image
                     src={ASSETS.mapSlots[index]}
                     alt={`${locale === 'zh' ? '地图' : 'Map'} ${index + 1}`}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                     onError={handleImageError}
                   />
                 </div>

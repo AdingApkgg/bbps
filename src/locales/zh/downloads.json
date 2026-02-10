@@ -2,5 +2,57 @@
   "title": "下载游戏",
   "subtitle": "选择下方方式获取客户端",
   "primary": "立即下载",
-  "moreServers": "更多服务器与安装包"
+  "moreServers": "更多服务器与安装包",
+  "privateServersTitle": "更多私服",
+  "privateServersSubtitle": "其它私服客户端直接下载",
+  "downloadApk": "下载 APK",
+  "servers": {
+    "asuna": {
+      "name": "闪光服",
+      "desc": "闪光30HB.apk"
+    },
+    "xiongMao": {
+      "name": "小熊猫服",
+      "desc": "31HB熊猫服_31.146.apk"
+    },
+    "xiangRiKui": {
+      "name": "向日葵服",
+      "desc": "向日葵v31_31.146.apk"
+    },
+    "yunYan": {
+      "name": "云烟服",
+      "desc": "云烟30HB.apk"
+    }
+  },
+  "guideTitle": "安装教程",
+  "guideSubtitle": "选择你的设备平台查看对应教程",
+  "guide": {
+    "windows": {
+      "label": "Windows",
+      "steps": [
+        "下载并安装安卓模拟器（推荐 MuMu 模拟器、雷电模拟器或 BlueStacks）",
+        "启动模拟器，等待初始化完成",
+        "将下载好的 .apk 文件直接拖入模拟器窗口，或点击「安装 APK」按钮选择文件",
+        "安装完成后，在模拟器桌面点击游戏图标即可启动"
+      ]
+    },
+    "apple": {
+      "label": "iOS / macOS",
+      "steps": [
+        "iOS 和 macOS 无法直接运行 .apk，需要使用云手机服务",
+        "注册一个云手机平台账号（如红手指、多多云手机、雷电云手机等）",
+        "在云手机中上传或下载 .apk 安装包并完成安装",
+        "安装完成后即可在云手机中运行游戏，支持手机和电脑访问"
+      ]
+    },
+    "android": {
+      "label": "Android",
+      "steps": [
+        "点击下方下载按钮，将 .apk 文件保存到手机",
+        "打开文件管理器，找到下载的 .apk 文件并点击安装",
+        "如提示「未知来源」，请前往系统设置允许安装未知应用",
+        "安装完成后打开游戏即可"
+      ]
+    }
+  }
 }

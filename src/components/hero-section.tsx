@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Download, ArrowRight, Play, X, Eye, Users } from 'lucide-react'
@@ -28,9 +29,11 @@ function HeroPoster({
         onClick={onPlay}
         className="group relative block w-full overflow-hidden rounded-lg border bg-muted shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <img
+        <Image
           src={HERO_POSTER_URL}
           alt="Video preview"
+          width={1280}
+          height={720}
           className="w-full transition-transform duration-300 group-hover:scale-[1.02]"
         />
         {/* 播放图标 */}

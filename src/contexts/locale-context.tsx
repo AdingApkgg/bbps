@@ -6,7 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState
+  useSyncExternalStore
 } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
@@ -50,6 +50,31 @@ function toLocalePath(pathname: string, target: Locale): string {
   return target === 'en' ? (bare === '/' ? '/en' : `/en${bare}`) : bare
 }
 
+/* ── useSyncExternalStore 订阅 localStorage ── */
+
+let prefListeners: Array<() => void> = []
+
+function emitPrefChange() {
+  for (const fn of prefListeners) fn()
+}
+
+function subscribePref(callback: () => void) {
+  prefListeners.push(callback)
+  return () => {
+    prefListeners = prefListeners.filter((fn) => fn !== callback)
+  }
+}
+
+function getPrefSnapshot(): LocalePref {
+  const stored = localStorage.getItem(STORAGE_KEY) as LocalePref | null
+  if (stored === 'zh' || stored === 'en' || stored === 'system') return stored
+  return 'system'
+}
+
+function getPrefServerSnapshot(): LocalePref {
+  return 'system'
+}
+
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
@@ -60,32 +85,21 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     [pathname]
   )
 
-  // 从 localStorage 读取偏好，默认 system
-  const [pref, _setPref] = useState<LocalePref>('system')
-  const [hydrated, setHydrated] = useState(false)
+  // 从 localStorage 读取偏好，无 setState-in-effect
+  const pref = useSyncExternalStore(subscribePref, getPrefSnapshot, getPrefServerSnapshot)
 
-  // 客户端初始化
+  // 首次挂载：按偏好跳转
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as LocalePref | null
-    if (stored === 'zh' || stored === 'en' || stored === 'system') {
-      _setPref(stored)
-    }
-    setHydrated(true)
-  }, [])
-
-  // 偏好生效：首次 hydrate 后检查是否需要跳转
-  useEffect(() => {
-    if (!hydrated) return
     const target = pref === 'system' ? detectBrowserLocale() : pref
     if (target !== locale) {
       router.replace(toLocalePath(pathname ?? '/', target))
     }
-  }, [hydrated]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const setPref = useCallback(
     (p: LocalePref) => {
-      _setPref(p)
       localStorage.setItem(STORAGE_KEY, p)
+      emitPrefChange()
       const target = p === 'system' ? detectBrowserLocale() : p
       if (target !== locale) {
         router.push(toLocalePath(pathname ?? '/', target))

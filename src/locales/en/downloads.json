@@ -2,5 +2,57 @@
   "title": "Download",
   "subtitle": "Get the client from the options below",
   "primary": "Download Now",
-  "moreServers": "More servers & install packages"
+  "moreServers": "More servers & install packages",
+  "privateServersTitle": "Private Servers",
+  "privateServersSubtitle": "Direct APK downloads for other servers",
+  "downloadApk": "Download APK",
+  "servers": {
+    "asuna": {
+      "name": "Asuna Server",
+      "desc": "闪光30HB.apk"
+    },
+    "xiongMao": {
+      "name": "Little Panda Server",
+      "desc": "31HB熊猫服_31.146.apk"
+    },
+    "xiangRiKui": {
+      "name": "Sunflower Server",
+      "desc": "向日葵v31_31.146.apk"
+    },
+    "yunYan": {
+      "name": "Yunyan Server",
+      "desc": "云烟30HB.apk"
+    }
+  },
+  "guideTitle": "Installation Guide",
+  "guideSubtitle": "Select your platform for setup instructions",
+  "guide": {
+    "windows": {
+      "label": "Windows",
+      "steps": [
+        "Download and install an Android emulator (BlueStacks, NoxPlayer, or Google Play Games on PC recommended)",
+        "Launch the emulator and wait for initialization",
+        "Drag the downloaded .apk file into the emulator window, or click \"Install APK\" to select the file",
+        "Once installed, tap the game icon on the emulator home screen to launch"
+      ]
+    },
+    "apple": {
+      "label": "iOS / macOS",
+      "steps": [
+        "iOS and macOS cannot run .apk files directly — a cloud phone service is required",
+        "Sign up for a cloud phone platform (e.g. Genymotion Cloud, Amazon AWS Device Farm, or Redfinger)",
+        "Upload or download the .apk file in the cloud phone and install it",
+        "Once installed, you can play the game via the cloud phone from any device"
+      ]
+    },
+    "android": {
+      "label": "Android",
+      "steps": [
+        "Tap the download button below to save the .apk file to your phone",
+        "Open your file manager and locate the downloaded .apk file, then tap to install",
+        "If prompted about \"unknown sources\", go to Settings and allow installing unknown apps",
+        "Once installed, open the game and enjoy"
+      ]
+    }
+  }
 }

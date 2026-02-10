@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useCallback } from 'react'
+import Image from 'next/image'
 import { Copy, Check, Plus, X, Trash2, Calculator } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -138,10 +139,11 @@ function CrabDeckCalculator({
       )}
 
       {/* 甲板示例图 */}
-      <img
+      <Image
         src="/assets/images/game/crab-deck.avif"
         alt="螃蟹甲板开关示例"
-        loading="lazy"
+        width={600}
+        height={400}
         className="mx-auto mt-2 max-w-full rounded-lg"
       />
     </div>
