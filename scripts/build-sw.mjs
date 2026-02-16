@@ -39,6 +39,7 @@ async function main() {
     globIgnores: [
       'sw-bundle.js',
       'sw.js',
+      '_worker.js',
       '_next/static/development/**'
     ],
     maximumFileSizeToCacheInBytes: 5 * 1024 * 1024 // 5 MB
