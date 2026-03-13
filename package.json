@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint src --max-warnings 0",
     "lint:fix": "eslint src --fix",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm lint && pnpm typecheck",
     "download-assets": "node scripts/download-assets.mjs",
     "migrate-blog": "node scripts/migrate-blog.mjs"
   },
