@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { Dict } from '@/lib/i18n'
 import type { BlogPostFull } from '@/lib/blog'
-import { ArtalkComments } from '@/components/artalk-comments'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -61,11 +60,6 @@ export function BlogPost({ post, dict, locale }: BlogPostProps) {
       </p>
 
       <article className="mt-8">{post.content}</article>
-
-      <ArtalkComments
-        pageKey={`/blog/${post.slug}/`}
-        pageTitle={post.title}
-      />
     </div>
   )
 }

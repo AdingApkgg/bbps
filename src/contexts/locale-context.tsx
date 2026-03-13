@@ -88,9 +88,11 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   // 从 localStorage 读取偏好，无 setState-in-effect
   const pref = useSyncExternalStore(subscribePref, getPrefSnapshot, getPrefServerSnapshot)
 
-  // 首次挂载：按偏好跳转
+  // 首次挂载：按偏好跳转（直接读 localStorage，避免 hydration 闭包捕获到服务端快照 'system'）
   useEffect(() => {
-    const target = pref === 'system' ? detectBrowserLocale() : pref
+    const stored = localStorage.getItem(STORAGE_KEY) as LocalePref | null
+    const currentPref = stored === 'zh' || stored === 'en' || stored === 'system' ? stored : 'system'
+    const target = currentPref === 'system' ? detectBrowserLocale() : currentPref
     if (target !== locale) {
       router.replace(toLocalePath(pathname ?? '/', target))
     }
