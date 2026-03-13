@@ -1,0 +1,24 @@
+---
+title: "私服搭建《皇室战争》"
+date: "2025-09-11"
+slug: "setup-clash-royale"
+excerpt: "### 本地电脑开服  1.按win+r键打开控制台： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-145015.png) 2.输入cmd点击确定： ![](https://"
+featuredImage: "/blog/setup-clash-royale.png"
+wpId: 501
+---
+
+### 本地电脑开服
+
+1.按win+r键打开控制台： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-145015.png) 2.输入cmd点击确定： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-144951.png) 3.然后输入ipconfig按回车键查看当前电脑ip地址，每台电脑的ipv4地址都不一样，并且有些时候还会更换，我这里的是192.168.0.108 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-145514.png) 4.以上是本地私人开服私人游玩，
+
+### 全球开服教程
+
+1.如果你想让大众游玩，全球可访问，你就需要购买云服务器或者使用内网穿透服务，比如frp，樱花内网穿透，云服务器可用雨云 雨云注册网址：[登录 | 雨云](https://app.rainyun.com/auth/login) 我的雨云优惠码，可以优惠，注册用户用该网址：[https://www.rainyun.com/NTY3NjU1\_](https://www.rainyun.com/NTY3NjU1_) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-150355.png) 2.最上面选择云产品，准备购买云服务器 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151416.png) 然后点击购买云服务器： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151439.png) 区域选择一个离你近的位置，或者在节点快的地方，毕竟很多人要连接到地区选择地，偏远那肯定延迟ping高咯，配置选择最低配置或中配置即可，推荐中配置，不用担心价格问题，可以一元试用一天，再加上我的·优惠码，上面写了:) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151508.png) 先设置ip类型，ipv6下边的即可，系统选择Windows，如果你想特别节省资源，让服务器稳定，那就选最上面的紫色Debina系统，新手上手快，但如果你只用过win系统，过度一段时间就好，然而服务器作者给出的是Ubuntu系统开服教程：[retroroyale/ClashRoyale: A .NET Core Clash Royale Server](https://github.com/retroroyale/ClashRoyale) 我这里只给出Windows系统开服教程，最后点击试用： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151708.png) 一元一天，支付完成后回到总览-我的云产品，下面有你购买的服务器数量： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151719.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151822.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-151944.png) 点击管理即可，然后我们查看服务器机器的ip地址和登录账户和密码： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-153609.png) 记住你的ip，待会要用，在这个面板中你可以看到你的登录密码，接下来我们进入到我们的服务器，使用Windows系统电脑自带的桌面远程管理，手机可以还用Windows App（谷歌商店下载）去远程你的服务器： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-154001.png) 输入密码后一直点击确定即可进入服务器界面，也就是windows界面，因为刚刚你购买服务器选择的就是windows界面，然后将皇室战争服务器文件点击复制粘贴到服务器远程窗口内打开即可，你也可以去服务器里面的edge浏览器下载你的云盘服务器资源
+
+### 服务器配置
+
+接下来是服务器配置，开服前你必须给玩家准备数据库，这里推荐下载xampp：[Download XAMPP](https://www.apachefriends.org/zh_cn/download.html) 汉化地址：[echopan/XAMPP\_Control\_Panel\_for\_Windows\_Chinese: XAMPP Control Panel ( for Windows ) 图形界面中文汉化, 仅提供中文语言补丁文件, 不包含本体软件, Windows客户端可用](https://github.com/echopan/XAMPP_Control_Panel_for_Windows_Chinese) 你只需要安装好xampp打开后选择德语即可，然后关闭xampp，将汉化文件解压后全选拖动到xampp文件根目录，替换。然后打开xampp即可显示如下图： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161032.png) 这些按钮你不用管，只需要关注是否是汉化即可，MySQL是保存玩家数据的，所以你需要注意第二行的MySQL，点击启动，启动成功后点击管理，无法启动就留意xampp控制台会输出什么报错，然后问deepseek ai或者上网搜解决教程，顺便先给你的防火墙全关掉，点击管理后会跳转到一个网址界面： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161510.png) 然后点击新建数据表，输入皇室战争作者提供的玩家数据存放数据表的名称：rrdb，然后点击创建：   ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161628.png) 创建好后选中rrdb，将服务器文件夹中的该文件拖入至浏览器箭头指的空白处，导入皇室战争玩家数据的json结构： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161756.png) 之后看见成功，就代表你导入成功了！随之而然即可看到你创建的rrdb表库中多出了几个子类，这些就是玩家数据！![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161808.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250911-161837.png) 然后开服，打开游戏，即可游玩，未来我会研究使用MongoDB的玩家数据管理方式，MySQL有些麻烦，游戏连接服务器需要去配置游戏文件，就是改包，改游戏包里的链接服务器的地址,这里我不再说，教程：[蚕豆网 - 海岛奇兵私服](https://blog.30hb.cn/255/)或者[【皇室战争】CR服务器搭建-后篇 - 東方竹梅](https://blog.zw-qmq.cn/archives/86/) 包里的libg.so里面的ip地址要改为你的服务器的ip地址，这样客户端启动后就会访问到你的服务器主机里的皇室战争服务器了！ 配置好后，将安装包发给你的小伙伴一起玩耍吧！~  
+
+#### 改包教程：
+
+当你想添加新卡牌时，服务端src\\ClashRoyale\\GameAssets\\csv\_logic内的csv要同步客户端，但我发现一个问题，比如我新添加了一个皇家幽灵，但是皇家幽灵的characters.csv里他的稀有度是普通，但是在spells\_characters.csv里他的稀有度是传奇，这就导致你输入/max后发现黄嘉怡幽灵最高只能升级到5级而不是13级，所以，客户端中一个是普通一个是传奇，服务端只需更改spells\_characters.csv中皇家幽灵的传奇稀有度改为普通稀有度，这样输入/max后皇家幽灵就可以升级到13级啦

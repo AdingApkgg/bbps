@@ -1,0 +1,324 @@
+---
+title: "MongoDB数据库数据导入/出教程"
+date: "2025-01-21"
+slug: "mongodb-import-export"
+excerpt: "> **前篇提到了服务端241220的启动关联到了mongodb，也至于我没用过这玩意，搞得我一头雾水，经过了半个月的琢磨，也算是掌握了一些基本操作，接下来我将讲解一下几点，从而让我们在使用MongoDB时更加得心应手。** >  > - "
+featuredImage: "/blog/mongodb-import-export.jpg"
+wpId: 207
+---
+
+> **前篇提到了服务端241220的启动关联到了mongodb，也至于我没用过这玩意，搞得我一头雾水，经过了半个月的琢磨，也算是掌握了一些基本操作，接下来我将讲解一下几点，从而让我们在使用MongoDB时更加得心应手。**
+> 
+> -   # **[label]导入[/label]**
+>     
+> 
+> 1.  打开MongoDB的GUI面板，创建一个我们自己的数据库（面板上找到并点击localhost：27017右面的+号），名字为boombeach，集合名字为pp，然后点击create database即完成创建
+> 2.  看似空空如也，我们现在开始导入玩家数据（海岛服务端中的pp文件夹内的json数据文件），先选中集合pp文件夹，然后点击add data，然后点击import json or csv file，然后导入0.json
+> 3.  打开海岛奇兵服务端（确保不闪退，可以正常运行，如果闪退那就是0.json你没搞好，我在上一篇搭建241220服务端中提到过，你需要删除一些段落并将{}替换为[]），然后打开GUI面板，删除所有玩家数据，点垃圾桶图标即可
+> 4.  在海岛服务端面板中输入（不能有玩家在线）
+>     
+>     /mongoimportpp
+>     
+>     等待一会后便导入完成，你会在mongodb面板中的pp文件夹内看到所有玩家数据了
+> 
+> -   # [label]导出[/label]
+>     
+> 
+> 1.  安装python
+> 2.  打开cmd终端命令窗口，输入以下代码，目的是下载一个数据库
+> 
+>  pip install pymongo
+> 
+> 如果出现以下内容，那么则代表下载完毕
+
+![](https://blog.30hb.cn/wp-content/uploads/QQ20250121-121255.png)
+
+-   之后创建一个py文件，直接创建一个txt文本文件改后缀即可
+
+> 此py文件内容如下：
+> 
+> import sys
+> from pymongo import MongoClient
+> import json
+> import os
+> 
+> # 核心配置（只留必要项）
+> SAVE\_DIR = "D:/MongoDB数据库玩家json文件夹"
+> COLLECTIONS = ["pp", "level"]  # 要导出的集合
+> # 优先用数据里的唯一字段当文件名（按实际字段调整，没有则用索引）
+> FILE\_NAME\_FIELD = ["player\_id", "id", "user\_id"]  # 顺序：先找player\_id，再找id...
+> 
+> def get\_filename(data, index):
+>     """获取文件名：优先用数据里的唯一字段，没有则用索引"""
+>     for field in FILE\_NAME\_FIELD:
+>         if field in data:
+>             return f"{data[field]}.json"  # 用唯一字段当文件名（如12345.json）
+>     return f"{index}.json"  # 无唯一字段时用索引命名
+> 
+> def main():
+>     # 询问确认
+>     print(f"导出路径：{SAVE\_DIR}（不存在会自动创建）")
+>     if input("是否继续？（y=是，其他=否）：").strip().lower() != "y":
+>         print("程序退出")
+>         return
+> 
+>     # 连接数据库
+>     try:
+>         client = MongoClient('mongodb://localhost:27017/')
+>         db = client.boombeach
+>         print("MongoDB连接成功")
+>     except Exception as e:
+>         print(f"数据库连接失败：{e}")
+>         return
+> 
+>     # 创建文件夹
+>     try:
+>         for coll in COLLECTIONS:
+>             coll\_dir = os.path.join(SAVE\_DIR, coll)
+>             if not os.path.exists(coll\_dir):
+>                 os.makedirs(coll\_dir)
+>         print("文件夹创建完成")
+>     except Exception as e:
+>         print(f"文件夹创建失败：{e}")
+>         return
+> 
+>     # 导出数据（不修改原始数据，只删\_id）
+>     for coll in COLLECTIONS:
+>         print(f"\\n开始导出{coll}集合...")
+>         collection = db[coll]
+>         total = collection.count\_documents({})
+>         print(f"共{total}条数据")
+> 
+>         if total == 0:
+>             print(f"{coll}集合无数据，跳过")
+>             continue
+> 
+>         success = 0
+>         for idx, data in enumerate(collection.find()):
+>             try:
+>                 data.pop('\_id', None)  # 只移除数据库自动生成的字段，不碰原始数据
+>                 filename = get\_filename(data, idx)
+>                 file\_path = os.path.join(SAVE\_DIR, coll, filename)
+>                 # 保存原始数据（不修改任何字段和值）
+>                 with open(file\_path, 'w', encoding='utf-8') as f:
+>                     json.dump(data, f, indent=2, ensure\_ascii=False, default=str)
+>                 success += 1
+>             except Exception as e:
+>                 print(f"第{idx}条数据失败：{e}")
+> 
+>         print(f"{coll}导出完成：成功{success}条，失败{total-success}条")
+> 
+>     print(f"\\n所有导出完成，文件路径：{SAVE\_DIR}")
+>     input("按回车关闭...")
+> 
+> if \_\_name\_\_ == "\_\_main\_\_":
+>     main()
+> 
+> 我这里将导出路径设置为了MongoDB数据库玩家json文件夹的文件名，你只需要去D盘根目录创建一个「MongoDB数据库玩家json文件夹」的文件名即可，执行py后这个文件夹内自然会出现带有序号的json玩家数据，这些数据都应该存放在服务器的pp文件夹中，每一个序号代表一个玩家。
+
+  第二个是单独导出（选项性，既可以单独也可以一键导出）：
+
+import sys
+from pymongo import MongoClient
+import json
+import os
+
+# 核心配置
+SAVE\_DIR = "MongoDB 数据库玩家 json 文件夹"
+PP\_COLLECTION = "pp"          # pp集合名称
+LEVEL\_COLLECTION = "level"    # level集合名称
+PP\_MATCH\_FIELD = "PlayerID"   # pp集合查询字段（PlayerID）
+LEVEL\_MATCH\_FIELDS = ["player\_id", "id", "user\_id", "home\_id"]  # level集合与PlayerID匹配的字段（顺序匹配）
+
+def get\_filename(data, coll\_name, index=0):
+    """生成文件名：优先用匹配字段，无则用索引"""
+    if coll\_name == PP\_COLLECTION and PP\_MATCH\_FIELD in data:
+        return f"{data[PP\_MATCH\_FIELD]}.json"
+    elif coll\_name == LEVEL\_COLLECTION:
+        for field in LEVEL\_MATCH\_FIELDS:
+            if field in data:
+                return f"{data[field]}.json"
+    return f"数据\_{index}.json"
+
+def export\_specific\_player(player\_id):
+    """单独导出指定PlayerID的pp和level数据（无则忽略）"""
+    print(f"\\n🔍 正在查询 PlayerID = {player\_id} 的关联数据...")
+
+    # 连接数据库
+    try:
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.boombeach
+        print("✅ MongoDB 连接成功！")
+    except Exception as e:
+        print(f"❌ 数据库连接失败：{e}")
+        return
+
+    # 创建存储文件夹（确保目录存在）
+    pp\_dir = os.path.join(SAVE\_DIR, PP\_COLLECTION)
+    level\_dir = os.path.join(SAVE\_DIR, LEVEL\_COLLECTION)
+    for dir\_path in [pp\_dir, level\_dir]:
+        if not os.path.exists(dir\_path):
+            os.makedirs(dir\_path)
+
+    # 1. 导出pp集合数据
+    print("\\n" + "-" \* 50)
+    print(f"📤 导出 {PP\_COLLECTION} 集合数据...")
+    pp\_coll = db[PP\_COLLECTION]
+    pp\_query = {PP\_MATCH\_FIELD: player\_id}
+    pp\_data\_list = list(pp\_coll.find(pp\_query))
+
+    if pp\_data\_list:
+        print(f"✅ 找到 {len(pp\_data\_list)} 条 pp 数据")
+        for idx, data in enumerate(pp\_data\_list):
+            data.pop('\_id', None)  # 移除数据库自动字段
+            filename = get\_filename(data, PP\_COLLECTION, idx)
+            file\_path = os.path.join(pp\_dir, filename)
+            with open(file\_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure\_ascii=False, default=str)
+            print(f"   ✅ 已保存：{file\_path}")
+    else:
+        print(f"ℹ️  未找到 {PP\_COLLECTION} 集合中 PlayerID = {player\_id} 的数据（已忽略）")
+
+    # 2. 导出level集合关联数据（匹配任意字段，无则忽略）
+    print("\\n" + "-" \* 50)
+    print(f"📤 导出 {LEVEL\_COLLECTION} 集合关联数据...")
+    level\_coll = db[LEVEL\_COLLECTION]
+    level\_data\_list = []
+    matched\_field = None
+
+    # 按顺序匹配level集合的字段
+    for field in LEVEL\_MATCH\_FIELDS:
+        level\_query = {field: player\_id}
+        temp\_data = list(level\_coll.find(level\_query))
+        if temp\_data:
+            level\_data\_list = temp\_data
+            matched\_field = field
+            break
+
+    if level\_data\_list:
+        print(f"✅ 找到 {len(level\_data\_list)} 条 level 数据（匹配字段：{matched\_field}）")
+        for idx, data in enumerate(level\_data\_list):
+            data.pop('\_id', None)  # 移除数据库自动字段
+            filename = get\_filename(data, LEVEL\_COLLECTION, idx)
+            file\_path = os.path.join(level\_dir, filename)
+            with open(file\_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure\_ascii=False, default=str)
+            print(f"   ✅ 已保存：{file\_path}")
+    else:
+        print(f"ℹ️  未找到 {LEVEL\_COLLECTION} 集合中与 PlayerID = {player\_id} 匹配的数据（已忽略）")
+
+    print("\\n" + "=" \* 50)
+    print("🎉 指定玩家数据导出完成！")
+    print(f"📁 文件存储根路径：{os.path.abspath(SAVE\_DIR)}")
+    print("=" \* 50)
+
+def batch\_export\_all():
+    """全部导出pp和level集合所有数据"""
+    print(f"\\n📂 导出根路径：{os.path.abspath(SAVE\_DIR)}")
+    print(f"📊 待导出集合：{PP\_COLLECTION}、{LEVEL\_COLLECTION}")
+    print("=" \* 50)
+    if input("是否开始全部导出？（y=是，其他=否）：").strip().lower() != "y":
+        print("🚫 程序退出")
+        return
+
+    # 连接数据库
+    try:
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.boombeach
+        print("✅ MongoDB 连接成功！")
+    except Exception as e:
+        print(f"❌ 数据库连接失败：{e}")
+        return
+
+    # 创建文件夹
+    for coll in [PP\_COLLECTION, LEVEL\_COLLECTION]:
+        coll\_dir = os.path.join(SAVE\_DIR, coll)
+        if not os.path.exists(coll\_dir):
+            os.makedirs(coll\_dir)
+            print(f"✅ 已创建文件夹：{coll\_dir}")
+
+    # 批量导出每个集合
+    for coll\_name in [PP\_COLLECTION, LEVEL\_COLLECTION]:
+        print("\\n" + "=" \* 60)
+        print(f"📤 开始导出 [{coll\_name}] 集合所有数据...")
+        print("=" \* 60)
+        collection = db[coll\_name]
+        total = collection.count\_documents({})
+        print(f"ℹ️  [{coll\_name}] 集合共查询到 {total} 条数据")
+
+        if total == 0:
+            print(f"ℹ️  [{coll\_name}] 集合无数据，跳过导出")
+            continue
+
+        success = 0
+        used\_filenames = set()
+        for idx, data in enumerate(collection.find()):
+            try:
+                data.pop('\_id', None)
+                filename = get\_filename(data, coll\_name, idx)
+                # 处理文件名冲突
+                while filename in used\_filenames:
+                    filename = f"{filename[:-5]}\_重复{len(used\_filenames)}.json"
+                used\_filenames.add(filename)
+                # 保存文件
+                file\_path = os.path.join(SAVE\_DIR, coll\_name, filename)
+                with open(file\_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, indent=2, ensure\_ascii=False, default=str)
+                success += 1
+                if idx % 10 == 0:  # 每10条输出一次进度（避免刷屏）
+                    print(f"ℹ️  已导出 {success}/{total} 条数据")
+            except Exception as e:
+                print(f"❌ 第 {idx+1} 条数据导出失败：{str(e)[:50]}...")
+
+        print(f"\\n📊 [{coll\_name}] 集合导出统计：")
+        print(f"   总数据量：{total} 条")
+        print(f"   成功导出：{success} 条")
+        print("-" \* 60)
+
+    print("\\n" + "=" \* 60)
+    print("🎉 全部数据导出完成！")
+    print(f"📁 最终文件路径：{os.path.abspath(SAVE\_DIR)}")
+    print("=" \* 60)
+
+def main():
+    # 程序入口：简洁选项
+    print("=" \* 60)
+    print("          MongoDB 数据导出工具")
+    print("=" \* 60)
+    print("📌 导出选项：")
+    print("   1 - 单独导出指定玩家的数据")
+    print("   2 - 全部导出（pp + level 所有数据）")
+    print("=" \* 60)
+
+    # 选择功能（容错处理）
+    while True:
+        choice = input("请输入选择（1 或 2）：").strip()
+        if choice in ["1", "2"]:
+            break
+        print("❌ 输入无效！请仅输入 1 或 2")
+
+    if choice == "1":
+        # 单独导出：询问PlayerID
+        while True:
+            player\_id\_input = input("\\n请输出该玩家的PlayerID：").strip()
+            if player\_id\_input:
+                # 兼容数字/字符串类型的PlayerID
+                try:
+                    player\_id = int(player\_id\_input)
+                except ValueError:
+                    player\_id = player\_id\_input
+                break
+            print("❌ PlayerID不能为空，请重新输入！")
+        export\_specific\_player(player\_id)
+    else:
+        batch\_export\_all()
+
+    # 防止程序闪退
+    input("\\n按回车关闭程序...")
+
+if \_\_name\_\_ == "\_\_main\_\_":
+    main()
+
+## 搜索
+
+以{"PlayerID": 12}为例子 playerid就是大类，而12是这一类其中一个json数据的一个数值，其他搜索方法也是如此 如果我们需要查找玩家名字，通过名字来找到对方ID并实时操作 {"PlayerName": "哈哈"} {"playername": "BOSS"}

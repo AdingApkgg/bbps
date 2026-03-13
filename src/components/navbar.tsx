@@ -152,14 +152,10 @@ export function Navbar() {
         <div className="ml-auto flex items-center gap-1">
           {/* Donate */}
           <Button variant="ghost" size="icon" asChild>
-            <a
-              href="https://blog.30hb.cn/349/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href={`${prefix}/donate`}>
               <Heart className="h-[1.2rem] w-[1.2rem] text-pink-500" />
               <span className="sr-only">{dict.nav.donate}</span>
-            </a>
+            </Link>
           </Button>
 
           {/* Language switcher */}

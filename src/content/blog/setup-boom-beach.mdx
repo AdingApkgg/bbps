@@ -1,0 +1,30 @@
+---
+title: "私服搭建《海岛奇兵》"
+date: "2025-02-06"
+slug: "setup-boom-beach"
+excerpt: "### 服务器配置  服务器开源地址下载：[antzsmt/Ultrapowa-Boom-Beach-Server: An emulator for Boom Beach.](https://github.com/antzsmt/Ultra"
+featuredImage: "/blog/setup-boom-beach.png"
+wpId: 287
+---
+
+### 服务器配置
+
+服务器开源地址下载：[antzsmt/Ultrapowa-Boom-Beach-Server: An emulator for Boom Beach.](https://github.com/antzsmt/Ultrapowa-Boom-Beach-Server) 下载解压后在根目录找到Ultrapowa Projects.sln，下载visualstudio并运行sln文件，请将服务端文件放在英文路径内确保运行成功 visualstudio安装好后选择2022社区版下载，然后在vs下载面板中选择vs配置：以下这两个即可 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-005724.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-005735.png) 然后点击安装即可，也可以选择4.6.2-4.7.1版本net ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-005746.png) 安装好后双击服务端根目录sln文件，然后点击启动，出现下面这个报错代表你的游戏玩家数据没有载入，其他服务端同理，只要报错基本就是这个 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-005406.png)
+
+### 玩家数据导入
+
+然后安装xampp，启动MySQL服务，点击xampp的MySQL那一行的配置按钮 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225203.png) 之后跳转到网页，点击新建表格，名字输入为：
+
+ubsdb
+
+然后将sql拖入进去 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225151.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-005501.png)
+
+### 开服
+
+之后再次启动sln程序，用vs打开后点击绿色按钮运行： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-010543.png) 开服啦！~
+
+### 客户端配置与连接
+
+安装包下载：[https://drive.google.com/file/d/167tPdJteC7XbM8q\_6ifqc-t-Fy8zTvHt/view?usp=drive\_link](https://drive.google.com/file/d/167tPdJteC7XbM8q_6ifqc-t-Fy8zTvHt/view?usp=drive_link)
+
+然后我们需要修改apk安装包内的libg.so文件，她决定了指向你服务器的地址，这样才能客户端访问到你的服务端，你的服务端才能接收到请求~ 注意：模拟器暂时不一定能连上服务器，推荐用手机 路径在apk内/lib/armeabi-v7a/libg.so，用文本格式打开搜索127.0.0.1，可以用HEX编辑器app去打开这个libg.so，然后搜索字符串127.0.0.1，然后修改为你自己的开服电脑ip地址或者公网ip或域名，然后保存，如果有多余的字符用十六机制00（零零）代替，一组00代表字符串中的一个空格，比如127.0.0.1我要改为3.145，这个长度很短，那.0.1这几个字符怎么改呢，.和0和.和1一共四个，那就以十六进制改为四组00，然后点击保存。 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250913-011814.png) 不会的具体去这个文章：[https://blog.30hb.cn/255/](https://blog.30hb.cn/255/) 可能会提示你的NET架构版本不对，去浏览器下载安装或者直接更新 然后安装，开始游戏 ![](https://blog.30hb.cn/wp-content/uploads/Screenshot_2025-09-13-01-25-06-278_com.google.and_compressed-scaled.jpg) 下面是以前写的，就丢在这里吧~ ![](https://blog.30hb.cn/wp-content/uploads/Image_1738852300752.png)

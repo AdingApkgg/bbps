@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { stripHtml, type WPPost } from '@/lib/blog'
+import type { BlogPostMeta } from '@/lib/blog'
 import type { Dict } from '@/lib/i18n'
 
 function formatDate(iso: string, locale: string): string {
@@ -14,7 +14,7 @@ function formatDate(iso: string, locale: string): string {
 }
 
 interface BlogListProps {
-  posts: WPPost[]
+  posts: BlogPostMeta[]
   dict: Dict['blog']
   locale: 'zh' | 'en'
 }
@@ -38,55 +38,49 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
       </div>
 
       <ul className="mt-10 space-y-4">
-        {posts.map((post) => {
-          const excerpt = stripHtml(post.excerpt?.rendered ?? '')
-          const thumb =
-            post._embedded?.['wp:featuredmedia']?.[0]?.source_url
-
-          return (
-            <li key={post.id}>
-              <Link
-                href={`${blogBase}/${post.id}`}
-                className="block"
-              >
-                <Card className="overflow-hidden transition-colors hover:bg-muted/50">
-                  <div className="flex flex-col sm:flex-row">
-                    {thumb && (
-                      <div className="relative h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
-                        <Image
-                          src={thumb}
-                          alt=""
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    <div className="flex-1">
-                      <CardHeader className="pb-2">
-                        <h2 className="line-clamp-2 text-lg font-semibold">
-                          {stripHtml(post.title?.rendered ?? '')}
-                        </h2>
-                        <p className="text-xs text-muted-foreground">
-                          {formatDate(post.date, locale)}
-                        </p>
-                      </CardHeader>
-                      {excerpt && (
-                        <CardContent className="pt-0">
-                          <p className="line-clamp-2 text-sm text-muted-foreground">
-                            {excerpt}
-                          </p>
-                          <span className="mt-2 inline-block text-sm font-medium">
-                            {dict.openPost} &rarr;
-                          </span>
-                        </CardContent>
-                      )}
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <Link
+              href={`${blogBase}/${post.slug}`}
+              className="block"
+            >
+              <Card className="overflow-hidden transition-colors hover:bg-muted/50">
+                <div className="flex flex-col sm:flex-row">
+                  {post.featuredImage && (
+                    <div className="relative h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
+                      <Image
+                        src={post.featuredImage}
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
                     </div>
+                  )}
+                  <div className="flex-1">
+                    <CardHeader className="pb-2">
+                      <h2 className="line-clamp-2 text-lg font-semibold">
+                        {post.title}
+                      </h2>
+                      <p className="text-xs text-muted-foreground">
+                        {formatDate(post.date, locale)}
+                      </p>
+                    </CardHeader>
+                    {post.excerpt && (
+                      <CardContent className="pt-0">
+                        <p className="line-clamp-2 text-sm text-muted-foreground">
+                          {post.excerpt}
+                        </p>
+                        <span className="mt-2 inline-block text-sm font-medium">
+                          {dict.openPost} &rarr;
+                        </span>
+                      </CardContent>
+                    )}
                   </div>
-                </Card>
-              </Link>
-            </li>
-          )
-        })}
+                </div>
+              </Card>
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   )

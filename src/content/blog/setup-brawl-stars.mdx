@@ -1,0 +1,35 @@
+---
+title: "私服搭建《荒野乱斗》"
+date: "2025-09-12"
+slug: "setup-brawl-stars"
+excerpt: "_该服务端 来自B站Shei\_Bi开发，继承基于 XeonDev 的 RoyaleBraw： [https://www.bilibili.com/video/BV1NM4y1Q7hS/?share\_source=copy\_web&vd"
+featuredImage: "/blog/setup-brawl-stars.png"
+wpId: 559
+---
+
+_该服务端 来自B站Shei\_Bi开发，继承基于 XeonDev 的 RoyaleBraw： [https://www.bilibili.com/video/BV1NM4y1Q7hS/?share\_source=copy\_web&vd\_source=4fb7ec5c9305a5fedcd194768e2f0825](https://www.bilibili.com/video/BV1NM4y1Q7hS/?share_source=copy_web&vd_source=4fb7ec5c9305a5fedcd194768e2f0825)_
+
+### 搭建服务端
+
+最简单的,一键开服，并且是最新版本：[CrazorTheCat/BSDS-V44：荒野乱斗 V44 私人服务器 --- CrazorTheCat/BSDS-V44: Brawl Stars V44 Private Server](https://github.com/CrazorTheCat/BSDS-V44?tab=readme-ov-file) 这个我不做教学，因为只需要一个（大脑）
+
+#### 下载github开源服务端：[https://github.com/Shei-Bi/ProjectColette-public?tab=readme-ov-file](https://github.com/Shei-Bi/ProjectColette-public?tab=readme-ov-file)
+
+然后配置服务端文件：config.json，路径在ProjectColette-public-main\\Supercell.Laser.Server\\config.json 我这里将database\_name设置为bs方便一些，待会用MySQL创建数据表时名字就用bs
+
+ {
+"udp\_host": "0.0.0.0", // UDP服务监听的IP，"0.0.0.0"表示监听所有网卡
+"udp\_port": 9339, // UDP服务端口（根据项目需求填写，比如9339）
+"database\_username": "root", // MySQL数据库用户名（通常默认是root）
+"database\_password": "", // 登录MySQL的密码（必填）
+"database\_name": "bs", // 数据库名（已正确填写为bs）
+"ContentUrl": "", // 资源文件URL（暂时为空不影响数据库连接）
+"update\_sha": "", // 更新校验值（暂时为空）
+"Fingerprint": "" // 指纹信息（暂时为空）
+}
+
+然后安装xampp，安装好后点击启动，点击MySQL的配置： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225203.png) 创建bs表格： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225151.png) 将sql游戏数据表导入MySQL或拖入： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225022.png) 拖入后即可发现刚刚创建的bs表中拥有了荒野乱斗的游戏数据，之后就可以启动服务端了！根目录点击后缀为sln的Project Colette V50.sln用[**Visual Studio**](https://visualstudio.microsoft.com/zh-hans/)运行！然后点击运行按钮！ 这里要留意一下箭头指向的地方是否为：Supercell.Laser.Server，有些人打开不是， ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-230140.png) 这里点击server文件夹，然后对准该项目右键，点击设置为启动项目：：：：： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-232740.png) 然后点击运行的绿色三角，就可以了！ ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-225406.png) 可以使用Radmin VPN进行电脑通信，电脑的Radmin VPN用户只要加入一个网络都可以进行联机！ 内网穿透，云服务器开服全球联机这里不再说，前三个开服教程里写的有
+
+### 第二个服务器搭建
+
+没想到吧，我再出一章：[SparkyDev9339/BSVS-V39：皇家大乱斗-v39 --- SparkyDev9339/BSVS-V39: RoyaleBrawl-v39](https://github.com/SparkyDev9339/BSVS-V39?tab=readme-ov-file) 荒野v39版本服，开服前看一下config.json里面的MySQL数据表名称，为：alahbrawl，那么MySQL就创建表格时用alahbrawl，然后把sql丢MySQL网页界面内，VisualStudio设置启动项，启动即可开服！ ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-233538.png)

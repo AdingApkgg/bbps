@@ -1,0 +1,43 @@
+---
+title: "Supercell 贴图提取器，*_dl.sc、*_tex.sc、*.csv、*.ktx 和 *.sctx 文件中提取 png"
+date: "2025-06-18"
+slug: "supercell-texture-extractor"
+excerpt: "贴图提取器：[https://github.com/123456abcdef/cr-sc-dump#](https://github.com/123456abcdef/cr-sc-dump#) 下载完压缩包后在此文件夹根目录执行cmd 下载"
+wpId: 412
+---
+
+贴图提取器：[https://github.com/123456abcdef/cr-sc-dump#](https://github.com/123456abcdef/cr-sc-dump#) 下载完压缩包后在此文件夹根目录执行cmd 下载python依赖库,在控制台输入或粘贴：
+
+ pip install -r requirements.txt
+
+下载完成后，可以输入转换代码进行转换png，也可通过以下python代码进行批量转换，这样更方便，可以将此代码给ai优化一下格式：
+
+import os
+import subprocess
+
+sctx\_folder = "in\_sctx\_files"
+output\_folder = "out-png"
+
+for folder in [sctx\_folder, output\_folder]:
+if not os.path.exists(folder):
+os.makedirs(folder)
+
+sctx\_files = [f for f in os.listdir(sctx\_folder) if f.endswith(".sctx")]
+if not sctx\_files:
+exit()
+
+for file in sctx\_files:
+sctx\_path = os.path.join(sctx\_folder, file)
+file\_base = os.path.splitext(file)[0]
+output\_path = os.path.join(output\_folder, f"{file\_base}.png")
+try:
+subprocess.run(
+["python", "dumpsc.py", sctx\_path, "-o", output\_folder],
+check=True,
+text=True,
+capture\_output=True
+)
+except subprocess.CalledProcessError as e:
+print(f"Error processing {file}: {e.stderr}")
+except Exception as e:
+print(f"Error: {e}")

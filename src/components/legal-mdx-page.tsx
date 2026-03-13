@@ -14,9 +14,10 @@ import {
 
 const LEGAL_DIR = join(process.cwd(), 'src/content/legal')
 
-const LEGAL_KEY_TO_FILE: Record<'privacy' | 'serverRules', string> = {
+const LEGAL_KEY_TO_FILE: Record<'privacy' | 'serverRules' | 'donate', string> = {
   privacy: 'privacy',
-  serverRules: 'server-rules'
+  serverRules: 'server-rules',
+  donate: 'donate'
 }
 
 interface Frontmatter {
@@ -26,7 +27,7 @@ interface Frontmatter {
 
 interface LegalMdxPageProps {
   locale: Locale
-  legalKey: 'privacy' | 'serverRules'
+  legalKey: 'privacy' | 'serverRules' | 'donate'
 }
 
 const mdxComponents = {
@@ -47,6 +48,14 @@ const mdxComponents = {
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="leading-relaxed" {...props} />
+  ),
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a
+      className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
   )
 }
 

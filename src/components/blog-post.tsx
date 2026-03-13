@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Dict } from '@/lib/i18n'
-import type { WPPostDetail } from '@/lib/blog'
-import { stripHtml, fixWpLazyImages } from '@/lib/blog'
+import type { BlogPostFull } from '@/lib/blog'
+import { ArtalkComments } from '@/components/artalk-comments'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/breadcrumb'
 
 interface BlogPostProps {
-  post: WPPostDetail
+  post: BlogPostFull
   dict: Dict['blog']
   locale: 'zh' | 'en'
 }
@@ -28,7 +28,6 @@ function formatDate(iso: string, locale: string): string {
 
 export function BlogPost({ post, dict, locale }: BlogPostProps) {
   const blogBase = locale === 'en' ? '/en/blog' : '/blog'
-  const title = stripHtml(post.title.rendered)
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-16 md:py-24">
@@ -50,22 +49,22 @@ export function BlogPost({ post, dict, locale }: BlogPostProps) {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage className="max-w-[200px] truncate">
-              {title}
+              {post.title}
             </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="mt-8 text-3xl font-bold tracking-tight">{title}</h1>
+      <h1 className="mt-8 text-3xl font-bold tracking-tight">{post.title}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         {formatDate(post.date, locale)}
       </p>
 
-      <article
-        className="wp-content mt-8"
-        dangerouslySetInnerHTML={{
-          __html: fixWpLazyImages(post.content.rendered)
-        }}
+      <article className="mt-8">{post.content}</article>
+
+      <ArtalkComments
+        pageKey={`/blog/${post.slug}/`}
+        pageTitle={post.title}
       />
     </div>
   )

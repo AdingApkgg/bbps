@@ -1,0 +1,9 @@
+---
+title: "如何一台主机开多个sc服？"
+date: "2025-11-17"
+slug: "multi-sc-server"
+excerpt: "1：sc游戏客户端里的libg.so里搜索9339，这个是端口号，改为你需要的，然后服务端的服务器配置文件中也将9339改为你需要的，改完保存重启服务端。 2：游戏可以连接，但有些游戏服务端的网页接口可能会和你的游戏官网冲突，你做了一个游戏"
+wpId: 754
+---
+
+1：sc游戏客户端里的libg.so里搜索9339，这个是端口号，改为你需要的，然后服务端的服务器配置文件中也将9339改为你需要的，改完保存重启服务端。 2：游戏可以连接，但有些游戏服务端的网页接口可能会和你的游戏官网冲突，你做了一个游戏官网，想让别人访问，但是端口被占用等原因，这时候可能需要一些开放端口的软件，我以xampp里的apache举例：   xampp中你可以将80端口改为其他端口： 将xampp的端口设为你需要的： ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117155730.png) 打开设置 ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117155747.png) 改为你需要的保存： ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117155757.png) **配置好后，如果启动失败，点击网络信息，查看正在占用的端口和程序，程序的pid记住，在任务管理器中查看对应的pid程序正在在占用！！** 点击配置： ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117155810.png) 打开该文件： ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117155838.png) 搜索#Listen 12.34.56.78:80或者Listen 80，然后将Listen 80改为你想要的端口，同时搜索ServerName localhost，也将端口改为你需要的。 重新启动apache服务，将你的网页文件丢到xampp\\htdocs文件夹内 然后网页端输入：http或https//域名/ip:端口号/网页文件 就可以访问了： ![](https://blog.30hb.cn/wp-content/uploads/QQ截图20251117160620-1024x512.png)

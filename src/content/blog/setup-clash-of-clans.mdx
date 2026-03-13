@@ -1,0 +1,166 @@
+---
+title: "私服搭建《部落冲突》"
+date: "2025-09-12"
+slug: "setup-clash-of-clans"
+excerpt: "起初的SC游戏的服务器几乎都由Ultrapowe提供：[GhostNaix/Ultrapower-0.7.3.2：Ultrapowa 的部落冲突服务器和实用程序 SRC --- GhostNaix/Ultrapower-0.7.3.2: U"
+featuredImage: "/blog/setup-clash-of-clans.jpg"
+wpId: 542
+---
+
+起初的SC游戏的服务器几乎都由Ultrapowe提供：[GhostNaix/Ultrapower-0.7.3.2：Ultrapowa 的部落冲突服务器和实用程序 SRC --- GhostNaix/Ultrapower-0.7.3.2: Ultrapowa's Clash of clans Server and utility SRC](https://github.com/GhostNaix/Ultrapower-0.7.3.2) 后来的版本中USC项目开始上秘钥，开服需要秘钥才能游玩，由于ultrapower的官网关闭，无法获取新的秘钥，所以我就找了一个的衍生版本：[skyprolk/Clash-Of-SL：Clash of SL Server （CSS），它是完全免费的开源 clash of clans 私人服务器，它不隶属于「Supercell，Oy」。 --- skyprolk/Clash-Of-SL: Clash of SL Server (CSS) that is the fully free open source clash of clans private server and it is not affiliated to "Supercell , Oy " .](https://github.com/skyprolk/Clash-Of-SL?tab=readme-ov-file)   在[skyprolk](https://github.com/skyprolk)的youtube视频教学下，勉强摸索会了开服教程，这里讲解一下~~  
+
+### 下载服务端和客户端
+
+服务端：[https://drive.google.com/file/d/1S0vfAAzeEv3hR0hbXf1flhnG6NzQzsss/view?usp=drivesdk](https://drive.google.com/file/d/1S0vfAAzeEv3hR0hbXf1flhnG6NzQzsss/view?usp=drivesdk) 客户端：[https://www.mediafire.com/download/9elnxhv7mjowed2](https://www.mediafire.com/download/9elnxhv7mjowed2) 部落冲突服务端Redis前置服务：[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)，最好是下载zip格式，而不是msi 下载前需要网络代理加速器~ 这里我已打包好，直接下载一键开服：[https://www.123865.com/s/OlZbVv-dDGD3](https://www.123865.com/s/OlZbVv-dDGD3)
+
+### 导入存档
+
+每一个github开源服务端开服前都需要导入玩家初始存档，我们用xampp软件，安装后启动MySQL服务，点击配置跳转到网页，创建cssdb表格，记住选择utf8mb4排序规则，点击创建：![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-091502.png) 然后将CSS\\Clash Of SL Server\\Tools路径下的sql文件拖入进来，或直接在phpMyAdmin面板网页中点击导入，导入选中的sql文件即可 ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-091423.png)
+
+[collapse title="如果你的sql导入失败，不妨试试我的sql："]
+
+CREATE DATABASE IF NOT EXISTS \`cssdb\` /\*!40100 DEFAULT CHARACTER SET latin1 \*/;
+
+USE \`cssdb\`;
+
+\-- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86\_64)
+
+\--
+
+\-- Host: 192.168.1.7    Database: cssdb
+
+\-- ------------------------------------------------------
+
+\-- Server version 8.0.16
+
+/\*!40101 SET @OLD\_CHARACTER\_SET\_CLIENT=@@CHARACTER\_SET\_CLIENT \*/;
+
+/\*!40101 SET @OLD\_CHARACTER\_SET\_RESULTS=@@CHARACTER\_SET\_RESULTS \*/;
+
+/\*!40101 SET @OLD\_COLLATION\_CONNECTION=@@COLLATION\_CONNECTION \*/;
+
+ SET NAMES utf8 ;
+
+/\*!40103 SET @OLD\_TIME\_ZONE=@@TIME\_ZONE \*/;
+
+/\*!40103 SET TIME\_ZONE='+00:00' \*/;
+
+/\*!40014 SET @OLD\_UNIQUE\_CHECKS=@@UNIQUE\_CHECKS, UNIQUE\_CHECKS=0 \*/;
+
+/\*!40014 SET @OLD\_FOREIGN\_KEY\_CHECKS=@@FOREIGN\_KEY\_CHECKS, FOREIGN\_KEY\_CHECKS=0 \*/;
+
+/\*!40101 SET @OLD\_SQL\_MODE=@@SQL\_MODE, SQL\_MODE='NO\_AUTO\_VALUE\_ON\_ZERO' \*/;
+
+/\*!40111 SET @OLD\_SQL\_NOTES=@@SQL\_NOTES, SQL\_NOTES=0 \*/;
+
+\--
+
+\-- Table structure for table \`clan\`
+
+\--
+
+DROP TABLE IF EXISTS \`clan\`;
+
+/\*!40101 SET @saved\_cs\_client     = @@character\_set\_client \*/;
+
+ SET character\_set\_client = utf8mb4 ;
+
+CREATE TABLE \`clan\` (
+
+  \`ClanId\` bigint(20) NOT NULL COMMENT 'The ID of the Clan',
+
+  \`LastUpdateTime\` datetime NOT NULL COMMENT 'The last time when this clan has been loaded',
+
+  \`Data\` text CHARACTER SET utf8mb4 COLLATE utf8mb4\_general\_ci NOT NULL COMMENT 'The infos and members data of the clan',
+
+  PRIMARY KEY (\`ClanId\`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/\*!40101 SET character\_set\_client = @saved\_cs\_client \*/;
+
+\--
+
+\-- Dumping data for table \`clan\`
+
+\--
+
+\-- 移除锁表语句，避免phpMyAdmin冲突
+
+/\*!40000 ALTER TABLE \`clan\` DISABLE KEYS \*/;
+
+/\*!40000 ALTER TABLE \`clan\` ENABLE KEYS \*/;
+
+\--
+
+\-- Table structure for table \`player\`
+
+\--
+
+DROP TABLE IF EXISTS \`player\`;
+
+/\*!40101 SET @saved\_cs\_client     = @@character\_set\_client \*/;
+
+ SET character\_set\_client = utf8mb4 ;
+
+CREATE TABLE \`player\` (
+
+  \`PlayerId\` bigint(20) NOT NULL,
+
+  \`AccountStatus\` tinyint(4) NOT NULL DEFAULT '0',
+
+  \`AccountPrivileges\` tinyint(4) NOT NULL DEFAULT '0',
+
+  \`LastUpdateTime\` datetime NOT NULL DEFAULT '1970-01-01 00:00:00', -- 修复为合法日期
+
+  \`IPAddress\` varchar(255) DEFAULT NULL,
+
+  \`Avatar\` text CHARACTER SET utf8mb4 COLLATE utf8mb4\_general\_ci NOT NULL,
+
+  \`GameObjects\` text CHARACTER SET utf8mb4 COLLATE utf8mb4\_general\_ci NOT NULL,
+
+  PRIMARY KEY (\`PlayerId\`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/\*!40101 SET character\_set\_client = @saved\_cs\_client \*/;
+
+\--
+
+\-- Dumping data for table \`player\`
+
+\--
+
+\-- 移除锁表语句，避免phpMyAdmin冲突
+
+/\*!40000 ALTER TABLE \`player\` DISABLE KEYS \*/;
+
+/\*!40000 ALTER TABLE \`player\` ENABLE KEYS \*/;
+
+/\*!40103 SET TIME\_ZONE=@OLD\_TIME\_ZONE \*/;
+
+/\*!40101 SET SQL\_MODE=@OLD\_SQL\_MODE \*/;
+
+/\*!40014 SET FOREIGN\_KEY\_CHECKS=@OLD\_FOREIGN\_KEY\_CHECKS \*/;
+
+/\*!40014 SET UNIQUE\_CHECKS=@OLD\_UNIQUE\_CHECKS \*/;
+
+/\*!40101 SET CHARACTER\_SET\_CLIENT=@OLD\_CHARACTER\_SET\_CLIENT \*/;
+
+/\*!40101 SET CHARACTER\_SET\_RESULTS=@OLD\_CHARACTER\_SET\_RESULTS \*/;
+
+/\*!40101 SET COLLATION\_CONNECTION=@OLD\_COLLATION\_CONNECTION \*/;
+
+/\*!40111 SET SQL\_NOTES=@OLD\_SQL\_NOTES \*/;
+
+\-- Dump completed on 2019-05-04 19:41:31
+
+[/collapse]
+
+### 一切准备就绪，打开我们的Redis：
+
+![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-090746.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-090809.png) 启动成功后启动部落服务端： ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-090830.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-090835.png) 接下来输入秘钥：
+
+Sky Production
+
+![](https://blog.30hb.cn/wp-content/uploads/QQ20250912-090907.png) 按回车键会提示开服成功，9339就是端口，端口号被占用，关闭防火墙，打开任务管理器看进程看看谁占用了9339，命令窗口输入代码netstat -ano | findstr :9339 然后客户端里libg.so文件里找到.ddns.net，定位后将整个clashofclansb.ddns.net替换为你的ip或者域名，这样就可以开服啦~   注意：模拟器暂不支持使用

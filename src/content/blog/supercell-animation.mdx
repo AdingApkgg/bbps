@@ -1,0 +1,387 @@
+---
+title: "Supercell游戏动画文件拆解与制作"
+date: "2025-11-07"
+slug: "supercell-animation"
+excerpt: "我们都知道，supercell公司（简称sc）旗下有很多游戏，这些游戏基本都采用帧动画来呈现人物和特效，场景与ui元素，将3d模型转为2d纹理贴图，大大减少游戏的体量并提高了手机版本的兼容性。那么这个帖子就是如何制作sc的贴图并在游戏中呈现"
+featuredImage: "/blog/supercell-animation.png"
+wpId: 607
+---
+
+我们都知道，supercell公司（简称sc）旗下有很多游戏，这些游戏基本都采用帧动画来呈现人物和特效，场景与ui元素，将3d模型转为2d纹理贴图，大大减少游戏的体量并提高了手机版本的兼容性。那么这个帖子就是如何制作sc的贴图并在游戏中呈现。本次教程我们以皇室战争（2017）为例。 参考文档：[SupercellSWF-Animate/examples/Clash Royale/Character at main · sc-workshop/SupercellSWF-Animate](https://github.com/sc-workshop/SupercellSWF-Animate/tree/main/examples/Clash%20Royale/Character)
+
+## 修改/创建动画教程
+
+### 第一步：准备工具
+
+网络代理工具：[瓦特工具箱(Steam++官网) - Watt Toolkit](https://steampp.net/) 目的：用于加速一些无法访问的网页，推荐下载并全部勾选加速
+
+* * *
+
+#### ①下载An软件（**Adobe Animate**）
+
+目的：我们要使用该软件编辑人物，特效，形状，状态等。 下载破解版b站教程：[教你用GenP白嫖Adobe全家桶\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1GpGHzcER5/?vd_source=5db76d52841a00957aea1ec1cfaff7ed) 以防教程被吞，破解插件官网：[GenP Universal Patch 3.7.1 | CyberMania](https://www.cybermania.ws/apps/adobe-genp/) 第一个下载方法（推荐）：点击**Binary**下的download，解压即可使用。 第二个下载方法：点击**source**下的download： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-092642_compressed-1024x550.png) 下载后会得到zip压缩包，解压后右键bat文件以管理员身份运行： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-0926142.png) 然后提示你缺少以下插件，是否下载？我们输入y，按回车键： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed.png) 它会自动执行并将程序存放在以下文件夹内： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F800D1ABD84B_compressed.png) Adobe（An）下载：[Adobe](https://www.adobe.com/download/creative-cloud/?locale=zh-Hans) 打不开换个浏览器，比如Edge ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-092241_compressed-1024x545.png) 下载后我们放到合理的存储路径后双击打开，他会提示你登录或注册账号，我推荐第一次用Genp的朋友们注册新的账号，不管你之前是否有，这将决定你的破解流程是否可行： 创建Adobe账户：[创建帐户](https://auth.services.adobe.com/zh_CN/index.html?callback=https%3A%2F%2Fims-na1.adobelogin.com%2Fims%2Fadobeid%2FAdobeSupport1%2FAdobeID%2Ftoken%3Fredirect_uri%3Dhttps%253A%252F%252Fhelpx.adobe.com%252Fcn%252Fmanage-account%252Fkb%252Faccount-password-sign-help.html%2523old_hash%253D%2526from_ims%253Dtrue%253Fclient_id%253DAdobeSupport1%2526api%253Dauthorize%2526scope%253DAdobeID%252Copenid%252Cgnav%252Ccreative_cloud%252Cread_organizations%252Cadditional_info.projectedProductContext%252Cadditional_info.roles%252Cpps.read%252Cfirefly_api%252Caccount_cluster.read%26state%3D%257B%2522ac%2522%253A%2522AdobeSupport1%2522%252C%2522jslibver%2522%253A%2522v2-v0.48.0-1-g1e322cb%2522%252C%2522nonce%2522%253A%25227417714673439396%2522%257D%26code_challenge_method%3Dplain%26use_ms_for_expiry%3Dtrue&client_id=AdobeSupport1&scope=AdobeID%2Copenid%2Cgnav%2Ccreative_cloud%2Cread_organizations%2Cadditional_info.projectedProductContext%2Cadditional_info.roles%2Cpps.read%2Cfirefly_api%2Caccount_cluster.read&state=%7B%22ac%22%3A%22AdobeSupport1%22%2C%22jslibver%22%3A%22v2-v0.48.0-1-g1e322cb%22%2C%22nonce%22%3A%227417714673439396%22%7D&relay=c98a92e0-58c7-41c9-9ec3-812e82c8388c&locale=zh_CN&flow_type=token&idp_flow_type=login&ab_test=ie11-incompat&s_p=apple&response_type=token&code_challenge_method=plain&redirect_uri=https%3A%2F%2Fhelpx.adobe.com%2Fcn%2Fmanage-account%2Fkb%2Faccount-password-sign-help.html%23old_hash%3D%26from_ims%3Dtrue%3Fclient_id%3DAdobeSupport1%26api%3Dauthorize%26scope%3DAdobeID%2Copenid%2Cgnav%2Ccreative_cloud%2Cread_organizations%2Cadditional_info.projectedProductContext%2Cadditional_info.roles%2Cpps.read%2Cfirefly_api%2Caccount_cluster.read&use_ms_for_expiry=true#/signup) 创建好后我们在客户/网页端登录： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed-1024x533.png) 之后点击安装，并耐心等待10分钟左右： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed_compressed-1024x603.png) 进入到Adobe主菜单后我们打开我们的破解插件，点击放大镜**Search**： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed_compressed_compressed-1024x587.png) 搜索完成后点击**Patch**： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed_compressed_compressed_compressed.png) 之后我们的Adobe会自动退出，并关闭破解插件。我们再次打开Adobe后发现所有软件可以下载了： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed_compressed_compressed_compressed_compressed-1024x585.png) 下载完后**切记不要打开**，再重新启动我们的破解插件，点击**Search**： ![](https://blog.30hb.cn/wp-content/uploads/7F66067E93172E414C75F8001D1ABD84B_compressed_compressed_compressed_compressed_compressed_compressed_compressed_compressed-1024x584.png) 发现有一些可更新的。这就是我们本次要准备破解的An软件，点击**Patch**： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-102026_compressed-1024x585.png) 观察这些被勾选的框，一个个被消除掉，进度条走完，弹出该弹窗即可关闭，我们的An就可以使用了，在开始菜单栏中打开我们的An： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-102439.png) 没有提示试用即代表破解成功： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-102439_compressed-1024x587.png)   _小tip：如果你破解后发现忽然有一天不能用，那就去[GenP](https://www.cybermania.ws/apps/adobe-genp/)官网下载新版即可。_
+
+* * *
+
+#### ②下载sc动画插件（SupercellSWF-Animate）
+
+目的：在An中创建项目时须选择该插件提供的项目模板，使用该模板进行任何sc的动画编辑与创建，该插件是制作sc游戏动画的必须，同时使用该插件导出你制作的动画为SC游戏文件。 下载工具并查看该网址右下角Releases最新版本:[sc-workshop/SupercellSWF-Animate: Plugin for Adobe Animate to create new or export SC files and use in all Supercell games](https://github.com/sc-workshop/SupercellSWF-Animate) 进入该作者Ds服务器可以获取付费特定版本（你暂时可以无视）：https://discord.gg/W5X8XPcQ ![](https://blog.30hb.cn/wp-content/uploads/45adee28d49bfa9cda3b8463e8d6b5ab_compressed.png)
+
+* * *
+
+#### ③下载sc游戏贴图转换器（SC2FLA-FOSS-Edition）
+
+目的：该程序用于解压sc游戏动画文件（截止于2025.11.9日前）老版本的动画文件格式和新版本的动画文件格式，并将它们转换为fla格式（用于An打开的一种文件） 下载工具并查看该网址右下角Releases最新版本：[GenericName1911/SC2FLA-FOSS-Edition: Convert Supercell's .sc files to .fla with SC2 Downgrading, SCTX Texture Support and Spritesheet Creation](https://github.com/GenericName1911/SC2FLA-FOSS-Edition)
+
+### 第二步：部署工具
+
+安装好An，我们开始部署SupercellSWF-Animate和SC2FLA-FOSS-Edition。 下载并解压二者： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-102439_compressed_compressed.png)
+
+#### ①部署SupercellSWF-Animate
+
+首先我们安装SupercellSWF-Animate，双击install.jsfl视为安装该An插件，如果你安装完毕再次双击这个，视为卸载： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-104423.png) 双击后等待An自动弹出，点击确定： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-104454.png) 之后会有安装动画，等待出现Done即为安装完毕： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-104512-1024x555.png)
+
+#### ②部署SC2FLA-FOSS-Edition
+
+接着我们部署SC2FLA-FOSS-Edition： 下载python：[Python Releases for Windows | Python.org](https://www.python.org/downloads/windows/) 基本我们的电脑都是64位，直接点击这个即可：[64-bit](https://www.python.org/ftp/python/3.13.9/python-3.13.9-amd64.exe) 安装python时全部勾选，点击下一步安装即可： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-105848.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-110025.png) 然后回到SC2FLA-FOSS-Edition文件目录，点击路径栏，在里面输入cmd并回车运行： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-111032.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-111049.png) 弹出控制台后准备下载我们的python依赖库，复制该代码粘贴到控制台并回车： （在控制台内右键或ctrl+v即可粘贴）
+
+```bash
+pip install -r requirements.txt
+```
+
+呈现的效果是这样： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-111128.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-111138.png) 回车键输入后，出现红框中的字样后，即下载完毕： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-111138-1.png) 下载完成后，我们还需要下载 [ScDowngrade.exe](https://github.com/Daniil-SV/ScDowngrade/releases) 和 [SctxConverter.exe](https://github.com/Daniil-SV/SCTX-Converter/releases)，点击箭头所指的地方即可下载： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-112310-1024x485.png) ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-112234-1024x501.png) 将这两个文件放入到`lib` 文件夹中: ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-112418-1024x555.png) 然后回到SC2的主目录，创建一个py文件： 如何创建？鼠标在空白处右键，新建一个txt文本 ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-112234-1-1024x718.png) **然后将我的代码放进去**： [collapse title="点我展开，右上角可一键复制"]
+
+import os
+import sys
+import time
+import struct
+import shutil
+import subprocess
+import logging
+import colorama
+import importlib
+
+from lib import sc\_import
+import sys as \_sys
+\_sys.modules["sc\_import"] = sc\_import
+\_sys.modules["lib.sc\_import"] = sc\_import
+
+from sc\_compression.signatures import Signatures
+from sc\_compression import Decompressor, Compressor
+from lib.console import Console, Time
+from colorama import Fore, Style
+
+sc1\_ver = [1, 2, 3, 4]
+sc2\_ver = [5, 6]
+EXE\_PATH = os.path.relpath(os.path.join(os.path.dirname(\_\_file\_\_), "lib", "ScDowngrade.exe"))
+colorama.init()
+
+class ColorFormatter(logging.Formatter):
+    # 日志级别中文对应及颜色
+    COLORS = {
+        'DEBUG': Fore.CYAN,
+        'INFO': Fore.LIGHTMAGENTA\_EX,
+        'WARNING': Fore.YELLOW,
+        'ERROR': Fore.RED,
+        'CRITICAL': Fore.LIGHTRED\_EX,
+    }
+    # 日志级别中文翻译
+    LEVEL\_NAMES = {
+        'DEBUG': '调试',
+        'INFO': '信息',
+        'WARNING': '警告',
+        'ERROR': '错误',
+        'CRITICAL': '严重错误'
+    }
+
+    def format(self, record):
+        color = self.COLORS.get(record.levelname, Style.RESET\_ALL)
+        level\_name = self.LEVEL\_NAMES.get(record.levelname, record.levelname)
+        return f"{color}[{level\_name}] {record.getMessage()}{Style.RESET\_ALL}"
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+handler.setFormatter(ColorFormatter())
+logger.handlers = [handler]
+
+def verify\_files():
+    logger.info("正在验证文件完整性...")
+    if not os.path.exists("lib/ScDowngrade.exe"):
+        logger.warning("缺少 ScDowngrade.exe")
+    if not os.path.exists("lib/SctxConverter.exe"):
+        logger.warning("缺少 SctxConverter.exe")
+
+def sc\_file\_filter(path):
+    return path.endswith(".sc") and not path.endswith("\_tex.sc")
+
+def print\_centered(text, color\_code=""):
+    width = shutil.get\_terminal\_size().columns
+    print(f"{color\_code}{text.center(width)}{Style.RESET\_ALL}")
+
+def get\_used\_version(data):
+    if len(data) < 6 or data[:2] != b"SC":
+        return None
+    be = struct.unpack(">I", data[2:6])[0]
+    le = struct.unpack("<I", data[2:6])[0]
+    if be in sc1\_ver or be in sc2\_ver:
+        return be
+    if le in sc1\_ver or le in sc2\_ver:
+        return le
+    return None
+
+def downgrade(filepath):
+    try:
+        subprocess.run([EXE\_PATH, filepath, filepath], check=True)
+        logger.info(f"已降级: {os.path.basename(filepath)}")
+    except FileNotFoundError:
+        logger.critical(f"在路径 ~\\\\{EXE\_PATH} 找不到 ScDowngrade.exe")
+    except subprocess.CalledProcessError:
+        logger.error(f"ScDowngrade.exe 处理失败: {os.path.basename(filepath)}")
+    except Exception as e:
+        logger.error(f"意外错误: {os.path.basename(filepath)} — {e}")
+
+def process\_file(filepath, dump):
+    importlib.invalidate\_caches()
+    import lib.sc\_import as sc\_import
+    importlib.reload(sc\_import)
+    sc\_import.DUMP = dump
+    from lib import sc\_to\_fla
+
+    print("-" \* 20)
+    logger.info(f"正在处理: {os.path.basename(filepath)}")
+
+    with open(filepath, "rb") as f:
+        data = f.read()
+
+    version = get\_used\_version(data)
+    if version is None:
+        logger.critical(f"文件格式错误: {os.path.basename(filepath)}")
+        return
+
+    if version in sc1\_ver:
+        sc\_to\_fla(filepath)
+    elif version in sc2\_ver:
+        logger.info("检测到 SC2 格式文件 - 正在降级")
+        downgrade(filepath)
+
+        with open(filepath, "rb") as f:
+            data = f.read()
+        version = get\_used\_version(data)
+
+        if version is not None and version not in sc2\_ver:
+            logger.info("正在处理 SC1 格式文件")
+            sc\_to\_fla(filepath)
+        else:
+            logger.warning("处理失败! 跳过文件...")
+    else:
+        logger.critical(f"不支持的版本: {os.path.basename(filepath)}")
+
+def dump\_png():
+    # 占位符：PNG导出功能
+    logger.info("PNG导出功能已启用（开发中）")
+
+def show\_menu():
+    print("\\n" + "="\*50)
+    print\_centered("SC2FLA 工具包 菜单", Fore.GREEN)
+    print("="\*50)
+    print("1. 处理 .sc 文件或目录")
+    print("   - 所需文件: .sc、\_dl.sc、\_tex.sc、.sctx 及 \_{数字}.sc 文件")
+    print("   - 建议放入 $assets 文件夹")
+    print("2. 导出原始资源 (适用于 V4+ 版本 .sc 文件)")
+    print("   - 所需文件: V4+ 版本的 .sc 文件")
+    print("3. 导出 PNG 资源 (适用于 V5+ 版本 .sc 文件)")
+    print("   - 所需文件: V5+ 版本的 .sc 文件及配套 .sctx 纹理文件")
+    print("4. 解压 .sc 文件")
+    print("   - 所需文件: 任意版本的 .sc 压缩文件")
+    print("5. 压缩 .sc 文件 (支持 LZMA | SC | V1 格式)")
+    print("   - 所需文件: 已解压的 .sc 原始文件")
+    print("6. 启用图层排序 (处理时自动排序图层)")
+    print("7. 退出程序")
+    print("="\*50)
+
+def main():
+    verify\_files()
+    sort\_layers = False # 图层排序状态
+
+    while True:
+        show\_menu()
+        try:
+            choice = input(f"{Fore.CYAN}请输入操作序号 (1-7): {Style.RESET\_ALL}")
+
+            if choice == "1":
+                path = input(f"{Fore.CYAN}请输入文件或目录路径 (直接回车使用 $assets 文件夹): {Style.RESET\_ALL}")
+                if not path:
+                    path = "$assets"
+                path = os.path.abspath(path)
+                if os.path.isfile(path) and sc\_file\_filter(path):
+                    process\_file(path, False)
+                elif os.path.isdir(path):
+                    for name in os.listdir(path):
+                        full = os.path.join(path, name)
+                        if os.path.isfile(full) and sc\_file\_filter(full):
+                            process\_file(full, False)
+                else:
+                    logger.error("无效的文件或目录路径")
+
+            elif choice == "2":
+                path = input(f"{Fore.CYAN}请输入文件或目录路径 (直接回车使用 $assets 文件夹): {Style.RESET\_ALL}")
+                if not path:
+                    path = "$assets"
+                path = os.path.abspath(path)
+                if os.path.isfile(path) and sc\_file\_filter(path):
+                    process\_file(path, True)
+                elif os.path.isdir(path):
+                    for name in os.listdir(path):
+                        full = os.path.join(path, name)
+                        if os.path.isfile(full) and sc\_file\_filter(full):
+                            process\_file(full, True)
+                else:
+                    logger.error("无效的文件或目录路径")
+
+            elif choice == "3":
+                logger.info("已启用PNG导出功能")
+                dump\_png()
+                path = input(f"{Fore.CYAN}请输入文件或目录路径 (直接回车使用 $assets 文件夹): {Style.RESET\_ALL}")
+                if not path:
+                    path = "$assets"
+                path = os.path.abspath(path)
+                if os.path.isfile(path) and sc\_file\_filter(path):
+                    process\_file(path, False) # 实际实现需结合PNG导出逻辑
+                elif os.path.isdir(path):
+                    for name in os.listdir(path):
+                        full = os.path.join(path, name)
+                        if os.path.isfile(full) and sc\_file\_filter(full):
+                            process\_file(full, False)
+                else:
+                    logger.error("无效的文件或目录路径")
+
+            elif choice == "4":
+                path = input(f"{Fore.CYAN}请输入需要解压的 .sc 文件路径 (直接回车使用 $assets 文件夹): {Style.RESET\_ALL}")
+                if not path:
+                    path = "$assets"
+                path = os.path.abspath(path)
+
+                if os.path.isfile(path) and path.endswith(".sc"):
+                    logger.info(f"正在解压: {os.path.basename(path)}")
+                    with open(path, 'rb') as f:
+                        raw = f.read().split(b"START")[0]
+                    dec = Decompressor().decompress(raw)
+                    with open(path + ".dec", 'wb') as out:
+                        out.write(dec)
+                    logger.info(f"解压完成，保存为: {os.path.basename(path)}.dec")
+                elif os.path.isdir(path):
+                    logger.info(f"正在处理 {path} 目录下的所有 .sc 文件")
+                    for name in os.listdir(path):
+                        full = os.path.join(path, name)
+                        if os.path.isfile(full) and full.endswith(".sc"):
+                            logger.info(f"正在解压: {os.path.basename(full)}")
+                            with open(full, 'rb') as f:
+                                raw = f.read().split(b"START")[0]
+                            dec = Decompressor().decompress(raw)
+                            with open(full + ".dec", 'wb') as out:
+                                out.write(dec)
+                            logger.info(f"解压完成，保存为: {os.path.basename(full)}.dec")
+                else:
+                    logger.error("请输入有效的 .sc 文件路径或目录")
+
+            elif choice == "5":
+                path = input(f"{Fore.CYAN}请输入需要压缩的文件路径 (直接回车使用 $assets 文件夹): {Style.RESET\_ALL}")
+                if not path:
+                    path = "$assets"
+                path = os.path.abspath(path)
+
+                if os.path.isfile(path):
+                    logger.info(f"正在压缩: {os.path.basename(path)}")
+                    with open(path, 'rb') as f:
+                        raw = f.read()
+                    cmp = Compressor().compress(raw, Signatures.SC, 1)
+                    with open(path + ".cmp", 'wb') as out:
+                        out.write(cmp)
+                    logger.info(f"压缩完成，保存为: {os.path.basename(path)}.cmp")
+                elif os.path.isdir(path):
+                    logger.info(f"正在处理 {path} 目录下的所有文件")
+                    for name in os.listdir(path):
+                        full = os.path.join(path, name)
+                        if os.path.isfile(full) and not full.endswith((".sc", ".dec", ".cmp")):
+                            logger.info(f"正在压缩: {os.path.basename(full)}")
+                            with open(full, 'rb') as f:
+                                raw = f.read()
+                            cmp = Compressor().compress(raw, Signatures.SC, 1)
+                            with open(full + ".cmp", 'wb') as out:
+                                out.write(cmp)
+                            logger.info(f"压缩完成，保存为: {os.path.basename(full)}.cmp")
+                else:
+                    logger.error("请输入有效的文件路径或目录")
+
+            elif choice == "6":
+                sort\_layers = not sort\_layers
+                status = "启用" if sort\_layers else "禁用"
+                logger.info(f"图层排序已{status}")
+
+            elif choice == "7":
+                logger.info("程序已退出")
+                break
+
+            else:
+                logger.warning("请输入 1-7 之间的数字")
+
+        except Exception as e:
+            logger.error(f"操作出错: {str(e)}")
+
+        input(f"{Fore.YELLOW}按回车键返回菜单...{Style.RESET\_ALL}")
+
+if \_\_name\_\_ == "\_\_main\_\_":
+    main()
+
+[/collapse] 然后右键文件选择重命名将txt删掉再输入py即可。如果你重命名时发现该文件没有文件格式后缀的话点击查看，勾选文件扩展名。 ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-112844-1024x480.png) 改完后缀后，双击这个文件，你可以为这个文件自定义名称，但要确保这个文件是py文件： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-113738.png) 打开后出现该样式，即视为部署成功！： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251110-113827-1024x482.png)
+
+#### ③部署SC Xcoder工具：
+
+[xcoder-tool/XCoder：一款专为 Supercell 游戏设计的跨平台模组工具。 --- xcoder-tool/XCoder: A multiplatform modding tool designed for Supercell games.](https://github.com/xcoder-tool/XCoder) 注意留意网页中新版本[Release](https://github.com/xcoder-tool/XCoder/releases)下载提示。py版本需python 3.10+，在命令窗控制台输入：
+
+py \-3 \-m pip install \--upgrade pip
+
+py \-3 \-m pip install poetry
+
+安装完成上述后，下载完成Xcoder后解压，进入你的xcoder目录，在路径中输入cmd进入控制台输入：
+
+py \-3 \-m poetry install
+
+等待安装依赖完成后启动xcoder：
+
+py \-3 \-m poetry run python \-m xcoder
+
+弹出选择语言则代表部署成功！选择中文，等待一会即可，然后我们创建一个bat文件，文本内输入以下内容，目的是一键双击启动：
+
+:: 启动程序 poetry run python -m xcoder
+
+![](https://blog.30hb.cn/wp-content/uploads/3_compressed-1024x533.png) 如果你认为xcoder不需要，也可以采用该帖子方法进行csv/sc解压：[Clash of Clans(COC)资源打包相关技巧探密\_sc文件解包工具-CSDN博客](https://blog.csdn.net/lixianlin/article/details/11880821) 或参考该xcoder使用网站：[XCoder 开源项目使用教程-CSDN博客](https://blog.csdn.net/gitblog_00876/article/details/141911659?spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-141911659-blog-11880821.235%5Ev43%5Epc_blog_bottom_relevance_base8&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-141911659-blog-11880821.235%5Ev43%5Epc_blog_bottom_relevance_base8&utm_relevant_index=28)
+
+### 第三步：修改动画
+
+#### 解密CSV，定位指定sc动画文件
+
+这里我以1.9.2皇室战争为例，我们将apk安装包下载后查看内部内容（重命名将apk改为zip后解压或用mt管理器直接查看并修改，或其他方法问百度等）。 我提供apk链接，这方便你查找和修改任何版本的sc游戏：[Latest Uploads - APKMirror - Page 3](https://www.apkmirror.com/uploads/page/3/?appcategory=clash-royale) 旧版sc游戏动画文件通常是sc一代压缩（LZMA）我们以火枪手为例，如何去寻找这个动画文件？，安装包根目录文件夹assets→sc。打开sc文件夹后，里面那么多sc文件，哪个是火枪手的呢？这时候我们要去查找游戏人物名字了，assets内部中有一个CSV文件夹，这里的csv文件是游戏核心，这些文件涵盖了游戏文字内容显示和兵种，法术等一切配置。如果你打开csv显示的不是文本而是乱码，就需要用csv解压工具：SC Xcoder来解决了！例如以下图片： ![](https://blog.30hb.cn/wp-content/uploads/QQ20251201-224926_compressed.png) 启动xcoder控制面板后，将加密的csv文件放到XCoder-master\\CSV\\In-Compressed目录下，比如text.csv，然后控制台内输入21后点击键盘上的回车键，则为 解压 CSV，之后几秒内控制台会显示解压完毕，解压的文件路径：XCoder-master\\CSV\\Out-Decompressed
+
+#### 找到sc动画文件并查看
+
+查找火枪手一般都要从text.csv或某些csv文本内进行全词匹配搜索「火枪手」或英文名等其他国家语言就可以搜索到，搜索到后，我这里皇室对应的是TID\_SPELL\_MUSKETEER（卡牌\_火枪手，该文本与卡牌相绑定，卡牌中显示火枪手文字）： ![](https://blog.30hb.cn/wp-content/uploads/3_compressed-1.png) 我们可以看到搜索结果为两个，那么还有一个火枪手是TID\_CHARACTER\_MUSKETEER（火枪手兵种名字信息），这个就是兵种里所显示的火枪手文字，如果是哥布林飞桶，那么TID\_SPELL关联的是「哥布林飞桶」文字，里面的TID\_CHARACTER则显示「哥布林」等级，而不是哥布林飞桶，这样让玩家知道这个卡牌是哥布林飞桶，卡牌关联着哥布林，卡牌信息中显示「哥布林」等级的三个字。这就是spell和character的意义所在。 我们现在正在寻找火枪手的sc动画文件，所以兵种大全characters.csv就是，我们要复制TID\_CHARACTER\_MUSKETEER，并粘贴在characters.csv里搜索： ![](https://blog.30hb.cn/wp-content/uploads/3_compressed_compressed.png) 找到了！红线所标识的就是火枪手关联的动画文件：chr\_musketeer.sc 右上角点击关闭mt管理器的自动换行会方便复制~我这里推荐你使用EmEditor：[【 EmEditor 】一款强大的 CSV 表格编辑器 - 蚕豆网](https://blog.30hb.cn/598/) 可以精准定位并快捷修改csv表格,你甚至可以翻译csv为中文并修改里面的行数据，这要比WPS方便许多。 ![](https://blog.30hb.cn/wp-content/uploads/QQ20251202-110918_compressed-1024x450.png) 现在要去安装包内assets→sc文件夹中搜索此文本，找到chr\_musketeer.sc文件后将sc文件放在SC2FLA-FOSS-Edition文件夹内的根目录下。 但请注意，一代sc几乎是一个sc关联着另一个\_tex.sc文件，例如火枪手chr\_musketeer.sc就必定关联一个chr\_musketeer\_tex.sc文件，只有将这两个文件一起放在sc2fla目录下才可正常转为fla文件。 打开我们的sc2fla控制面板，选择1选项，出现返回菜单则为转换完毕。 ![](https://blog.30hb.cn/wp-content/uploads/2_compressed-1024x374.png)
+
+#### 查看sc文件的fla文件
+
+如果这个文件不能被打开，就右键该fla文件，选择打开方式为Animate.exe即可，你可以下载[Everything - voidtools](https://www.voidtools.com/zh-cn/support/everything/)打并搜索Animate.exe，不细说，网上搜哈。 打开fla后，展开export文件夹，所展现的就全是动画了，每一个动画都被称为「影片剪辑」，通过动画名字左边的小图标就可以判定和记忆。你可以尝试鼠标右键chr\_musketeer\_attack1\_1并点击「播放」，可以看到右上角的舞台开始展示火枪手的开火动画了。   ![](https://blog.30hb.cn/wp-content/uploads/QQ20251202-113510_compressed-1024x559.png) 我们需要查看export的内部结构，仔细观察，发现有多个不同的分类，比如chr\_musketeer\_attack1\_1的attack1，chr\_musketeer\_idle1\_1的idle1和chr\_musketeer\_run1\_1的run1，如果没有其他的类，我们可以继续往下看： 这三个则代表为attack（进攻），idle（待机），run（奔跑） idle1是玩家放置卡牌前的待机动画，attack1是兵种进攻的动画，run是进攻前的奔跑动画（当然是characters.csv里火枪手有移速数值的前提下，没有移动速度则默认为idle动画）。 右键第一个chr\_musketeer\_attack1\_1，点击弹出选项栏中的「编辑」，大舞台就打开了这个类型为「影片剪辑」的内部结构了： ![](https://blog.30hb.cn/wp-content/uploads/1_compressed-1024x559.png) 根据上图我们可以往右拖动箭头指示的滑动栏，这样可以展开帧，往左则是缩小帧。
+
+#### 创建sc动画文件
+
+警告：如果你打开了非常大的fla文件，例如部落冲突的building或effects.fla文件，先关闭这些fla文件工程，创建好sc动画预设后再打开它们！不然你的An会卡死导致前功尽弃。 但是目前对于fla文件我们只能查看并复制或重命名一些影片剪辑或帧图片，还无法进行导出为sc文件的操作，所以我们要在An左上角的文件→新建→高级→自定义平台→创建： ![](https://blog.30hb.cn/wp-content/uploads/·-1024x559.png) 创建好后我们先观察一下火枪手csv数据的BlueExportName（蓝方动画导出名）：chr\_musketeer\_blue和RedExportName（红方动画导出名）：chr\_musketeer。这里面的内容就是你待会做好动画以后要引用的名字。 在新建An工程右侧我们创建一个文件夹，命名你的兵种名字，最好是英文，比如666。对于皇室1.9.2，这里的666文件夹里必须包括attack1，idle1，run1这三个子文件夹，所以继续创建这三个文件夹后将三个拖入到666文件夹中： （当然你可以不改动，默认火枪手名字就好，我的意思是名字是可以自定义的，但我不建议新手这么没做，他会让你很累或学到的东西较少，等你看完帖子熟练了再进行自定义名字是个不错的选择） ![](https://blog.30hb.cn/wp-content/uploads/·_compressed.png) 将chr\_musketeer.fla内的chr\_musketeer\_attack1\_1（影片剪辑）复制并粘贴到上图红框的跟目录中，不要粘贴到文件夹中，根目录就好，然后双击chr\_musketeer\_attack1\_1并更名为666\_attack1\_1，然后拖动放置到666/attack1/  的文件夹内： ![](https://blog.30hb.cn/wp-content/uploads/·_compressed-1.png) 其余的一并跟着放进来，并重命名。 chr\_musketeer\_attack1\_1的\_1的1是干嘛的呢，1为角色正方向，朝向对面，往后推2,3,4,5则为转向，最高到9,9是正对着你，背身对敌人，如果只有1,2,3，那3就可以是背身，每一个数字代表着角色在战斗中的朝向。 我们右键「影片剪辑」并编辑，在舞台中央会看到类似+的样式，这个是摄像机中心，如果你的图像偏离这个+越远，那么在游戏中你放置兵种时，图像离你所放置的位置也会被偏离。 ![](https://blog.30hb.cn/wp-content/uploads/1-1024x549.png) 你可以编辑帧，修改帧的时长，放大缩小等，这就是An的教学了，我不多讲，我们新建一个帧图层，在你想开始的帧位置拖入自己喜欢的图片： ![](https://blog.30hb.cn/wp-content/uploads/1-1-1024x555.png) 那么从19帧开始，往后就会显示寒冰菇了！，我们还要留意一下Frame\_Labels图层，也就是第二个帧图层，这个action\_frame的帧是作为动画卡点的，比如这个进攻动画总共6帧，在游戏中兵种的进攻间隔是1.5秒，在1.5秒内，如果这个动画播放完了，他会重新又播放一遍，所以这个帧的作用是为了做卡点标记进攻刹那的，即为每1.5秒内，下一次进攻动画会等待当前时间结束后重新开始播放，而不是1.5秒内就无限循环播放进攻动画。   例如火枪手会在第15帧开火，子弹发射出去，那么我们需要将action\_frame这一帧拖动到第15帧上，确保1.5秒后火枪手发射子弹时，正好对应这第15帧。或者你可以将寒冰菇的开始帧拖动到第15帧，这意味着火枪手发射子弹时，寒冰菇出现。就是这么简单。 ![](https://blog.30hb.cn/wp-content/uploads/2-1024x706.png)
+
+### 第四步：生成sc导入游戏
+
+我们现在就简单修改了一下进攻动画，选中所有666文件夹内的影片剪辑，右键属性，点击「在第一帧中导出」选「是」 ![](https://blog.30hb.cn/wp-content/uploads/QQ20251202-125302-1024x702.png) 之后「链接」中会出现和左侧「名称」下的名字一样的名字，这些名字作用是用于在游戏中显示这些「影片剪辑」。确保右侧「链接」没有遗漏。 点击左上角文件→发布设置： ![](https://blog.30hb.cn/wp-content/uploads/23-1024x666.png) 设置路径，选择导出sc级别为sc1，点击导出到指定路径即可，导出名字可自定义，之后路径中就会出现你的sc和\_tex.sc文件了。 将你的俩sc文件放进安装包的assets→sc内，在characters.csv中指定你的sc文件和名称即可，这个名称必须是大文件名字： ![](https://blog.30hb.cn/wp-content/uploads/111-1024x542.png) 在游戏中，修改好后安装安装包，进入游戏，放置火枪手，你的火枪后会在每次开火时出现寒冰菇。
+
+## 疑难解答
+
+### 为什么闪退？
+
+问：我修改好sc并导入游戏后，要么游戏进不去，要么在放置卡牌时闪退，要么是游戏在游玩过程中闪退？ 答：首先检查An sc工程中的链接是否输入正确，是否和影片剪辑名称一致，有些卡牌图片你没有设置好名称关联会导致进入游戏时游戏找不到卡牌图片而闪退，其次是sc工程中大文件名称是否有误。放置卡牌一般兵种和建筑都是idle1，兵种朝向不能有\_0这一说法，要从1开始（也许），游玩过程中闪退检查你的兵种是否有三类（attack1，run1，idle1），而建筑不需要，建筑只需要idle1就可以了。 新版sc游戏一般都有animations.csv，在这里配置动画文件和名称关联，至于没有animations.csv的老版本，就按上述潜规则进行设置。   问：为什么上面都无误还是会闪退？ 答：这就涉及到兵种属性，比如王子会有冲锋动画，骷髅守卫会有盾牌动画，还有超级骑士的部署动画。这些动画如果你没有创建，但是csv中你的兵种包含了这类属性，就会导致在属性生效时，找不到动画而闪退，正确做法是先将这类特殊兵种建筑的sc转为fla，如果发现纹理有问题，老版本可能sc2fla有bug，就用新版本的游戏sc文件，或使用[ToxicLand/SCEditor: Create or Edit Supercell (Clash of Clans, Clash Royale, Brawl Stars, Boom Beach) SC Files. Add or Edit an Existing or Custom Character, Building or other game object.](https://github.com/ToxicLand/SCEditor) 进行查看，不过这相对麻烦一些，但对于经常使用VS 的人来说挺方便。这个工具还支持在原sc文件中替换图片和添加图片，还支持合并sc，简直棒极了！
