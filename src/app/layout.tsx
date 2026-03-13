@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LocaleProvider } from '@/contexts/locale-context'
+import { MusicPlayerProvider } from '@/contexts/music-player-context'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { MusicPlayerBar, PlayerSpacer } from '@/components/music-player-bar'
 import {
   SITE_URL,
   SITE_NAME,
@@ -118,11 +120,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LocaleProvider>
-            <div className="relative flex min-h-svh flex-col">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
+            <MusicPlayerProvider>
+              <div className="relative flex min-h-svh flex-col">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <PlayerSpacer />
+              </div>
+              <MusicPlayerBar />
+            </MusicPlayerProvider>
           </LocaleProvider>
         </ThemeProvider>
       </body>

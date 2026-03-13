@@ -16,6 +16,7 @@ import footer from './footer.json'
 import teams from './teams.json'
 import community from './community.json'
 import gallery from './gallery.json'
+import music from './music.json'
 
 const zh = {
   site,
@@ -35,7 +36,8 @@ const zh = {
   footer,
   teams,
   community,
-  gallery
+  gallery,
+  music
 }
 
 export default zh

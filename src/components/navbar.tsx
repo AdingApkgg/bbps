@@ -81,6 +81,7 @@ export function Navbar() {
     { href: `${prefix}/teams`, label: dict.nav.team },
     { href: `${prefix}/community`, label: dict.nav.community },
     { href: `${prefix}/gallery`, label: dict.nav.gallery },
+    { href: `${prefix}/music`, label: dict.nav.music },
     { href: `${prefix}/comments`, label: dict.nav.comments }
   ]
 
