@@ -75,13 +75,12 @@ function WalinePanel() {
   )
 }
 
-function ArtalkPanel() {
-  const locale = useLocale()
+function ArtalkPanel({ lang }: { lang: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const artalkRef = useRef<ReturnType<typeof import('artalk').default.init> | null>(null)
-  const readyRef = useRef(false)
   const [loaded, setLoaded] = useState(false)
   const { resolvedTheme } = useTheme()
+  const artalkLocale = lang === 'en' ? 'en' : 'zh-CN'
 
   useEffect(() => {
     const el = containerRef.current
@@ -97,17 +96,16 @@ function ArtalkPanel() {
         site: '蚕豆私服',
         pageKey: '/comments/',
         pageTitle: '评论',
-        locale: 'auto',
-        darkMode: resolvedTheme === 'dark'
+        locale: artalkLocale,
+        darkMode: resolvedTheme === 'dark',
+        useBackendConf: false
       })
       artalkRef.current = instance
-      readyRef.current = true
       setLoaded(true)
     })().catch(() => { /* dynamic import aborted on unmount */ })
     return () => {
       cancelled = true
       artalkRef.current = null
-      readyRef.current = false
       el.innerHTML = ''
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,7 +155,7 @@ export function CommentsSection() {
               <WalinePanel />
             </TabsContent>
             <TabsContent value="artalk" className="mt-0">
-              <ArtalkPanel />
+              <ArtalkPanel key={locale} lang={locale} />
             </TabsContent>
           </CardContent>
         </Card>

@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from 'react'
 import Image from 'next/image'
 import { Copy, Check, Plus, X, Trash2, Calculator } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
+import { ASSETS } from '@/lib/assets'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands } from '@/lib/commands-data'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -140,7 +141,7 @@ function CrabDeckCalculator({
 
       {/* 甲板示例图 */}
       <Image
-        src="/assets/images/game/crab-deck.avif"
+        src={ASSETS.crabDeck}
         alt="螃蟹甲板开关示例"
         width={600}
         height={400}

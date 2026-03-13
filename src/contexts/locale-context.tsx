@@ -88,6 +88,11 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   // 从 localStorage 读取偏好，无 setState-in-effect
   const pref = useSyncExternalStore(subscribePref, getPrefSnapshot, getPrefServerSnapshot)
 
+  // 同步 <html lang="...">
+  useEffect(() => {
+    document.documentElement.lang = locale === 'en' ? 'en' : 'zh-CN'
+  }, [locale])
+
   // 首次挂载：按偏好跳转（直接读 localStorage，避免 hydration 闭包捕获到服务端快照 'system'）
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as LocalePref | null

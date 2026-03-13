@@ -7,12 +7,11 @@ import { getDictionary } from '@/lib/i18n'
 import { ASSETS } from '@/lib/assets'
 import { FadeIn } from '@/components/motion'
 
-/** 每个 feature 对应的配图 */
 const FEATURE_IMAGES = [
-  ASSETS.commander,
-  ASSETS.hammerman,
-  ASSETS.creative,
-  ASSETS.island
+  ASSETS.hero,
+  ASSETS.commands,
+  ASSETS.community,
+  ASSETS.builder
 ]
 
 interface FeatureItem {
