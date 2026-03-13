@@ -20,23 +20,20 @@ export function Footer() {
       <div className="container mx-auto max-w-screen-2xl px-4 py-8 md:py-12">
         <div className="text-center text-sm text-muted-foreground">
           <div className="mb-3 flex items-center justify-center gap-6">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1">
               <Eye className="h-3.5 w-3.5" />
-              <span>{dict.footer.pageviews}</span>
               <span className="font-medium tabular-nums text-foreground">
                 {sitePv !== null ? sitePv.toLocaleString() : '-'}
               </span>
             </span>
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1">
               <Users className="h-3.5 w-3.5" />
-              <span>{dict.footer.visitors}</span>
               <span className="font-medium tabular-nums text-foreground">
                 {siteUv !== null ? siteUv.toLocaleString() : '-'}
               </span>
             </span>
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1">
               <FileText className="h-3.5 w-3.5" />
-              <span>{locale === 'zh' ? '本页访问' : 'This Page'}</span>
               <span className="font-medium tabular-nums text-foreground">
                 {pagePv !== null ? pagePv.toLocaleString() : '-'}
               </span>

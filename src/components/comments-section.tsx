@@ -97,8 +97,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
         pageKey: '/comments/',
         pageTitle: '评论',
         locale: artalkLocale,
-        darkMode: resolvedTheme === 'dark',
-        useBackendConf: false
+        darkMode: resolvedTheme === 'dark'
       })
       artalkRef.current = instance
       setLoaded(true)
