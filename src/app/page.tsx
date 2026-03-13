@@ -3,8 +3,6 @@ import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/site'
 import { HeroSection } from '@/components/hero-section'
 import { IntroTabs } from '@/components/intro-tabs'
 import { CtaSection } from '@/components/cta-section'
-import { MapsShowcase } from '@/components/maps-showcase'
-import { CreativeShowcase } from '@/components/creative-showcase'
 import { FeaturesZigzag } from '@/components/features-zigzag'
 
 export const metadata: Metadata = {
@@ -26,8 +24,6 @@ export default function HomePage() {
       <IntroTabs />
       <FeaturesZigzag />
       <CtaSection />
-      <MapsShowcase />
-      <CreativeShowcase />
     </div>
   )
 }

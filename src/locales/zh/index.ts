@@ -15,6 +15,7 @@ import rank from './rank.json'
 import footer from './footer.json'
 import teams from './teams.json'
 import community from './community.json'
+import gallery from './gallery.json'
 
 const zh = {
   site,
@@ -33,7 +34,8 @@ const zh = {
   rank,
   footer,
   teams,
-  community
+  community,
+  gallery
 }
 
 export default zh

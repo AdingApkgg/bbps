@@ -16,7 +16,8 @@ const STATIC_ROUTES = [
   '/community/',
   '/privacy-policy/',
   '/server-rules/',
-  '/donate/'
+  '/donate/',
+  '/gallery/'
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

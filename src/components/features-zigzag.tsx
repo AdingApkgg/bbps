@@ -11,7 +11,7 @@ import { FadeIn } from '@/components/motion'
 const FEATURE_IMAGES = [
   ASSETS.commander,
   ASSETS.hammerman,
-  ASSETS.creativeSlides[0],
+  ASSETS.creative,
   ASSETS.island
 ]
 

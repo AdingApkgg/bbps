@@ -80,6 +80,7 @@ export function Navbar() {
     { href: `${prefix}/blog`, label: dict.nav.blog },
     { href: `${prefix}/teams`, label: dict.nav.team },
     { href: `${prefix}/community`, label: dict.nav.community },
+    { href: `${prefix}/gallery`, label: dict.nav.gallery },
     { href: `${prefix}/comments`, label: dict.nav.comments }
   ]
 
@@ -105,7 +106,7 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href={locale === 'en' ? '/en' : '/'}
-          className="mr-6 flex items-center gap-2"
+          className="flex items-center gap-2"
         >
           <Image
             src="/assets/images/logo/logo.avif"
@@ -114,39 +115,10 @@ export function Navbar() {
             height={28}
             className="rounded-md"
           />
-          <span className="hidden font-semibold sm:inline-block">
+          <span className="font-semibold">
             {dict.site.name}
           </span>
         </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden flex-1 items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
-                isActive(item.href)
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground'
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-          {externalItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center gap-1">
@@ -194,10 +166,10 @@ export function Navbar() {
           {/* Theme toggle */}
           <ThemeToggle isEn={locale === 'en'} />
 
-          {/* Mobile nav trigger */}
+          {/* Menu trigger */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">{dict.nav.toggleMenu}</span>
               </Button>

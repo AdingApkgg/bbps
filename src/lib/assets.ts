@@ -12,8 +12,6 @@ export const ASSETS = {
   hammerman: `${GAME}/hammerman.avif`,
   /** 单图占位 */
   island: `${GAME}/island.avif`,
-  /** 地图展示 13 张 */
-  mapSlots: Array.from({ length: 13 }, (_, i) => `${GAME}/map-${i + 1}.avif`),
-  /** 创意轮播 4 张 */
-  creativeSlides: Array.from({ length: 4 }, (_, i) => `${GAME}/creative-${i + 1}.avif`)
+  /** 创意配图 */
+  creative: `${GAME}/creative-1.avif`
 }
