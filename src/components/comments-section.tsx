@@ -88,7 +88,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
     let cancelled = false
     ;(async () => {
       const { default: Artalk } = await import('artalk')
-      // @ts-expect-error artalk/Artalk.css has no type declarations
+      // @ts-ignore -- artalk/Artalk.css may lack type declarations depending on version
       await import('artalk/Artalk.css')
       if (cancelled || !el.isConnected) return
       const instance = Artalk.init({
