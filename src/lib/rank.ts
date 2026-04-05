@@ -1,10 +1,7 @@
 /**
  * 排行榜 API，与 30hb.cn/rank 一致
- * 代理: https://rp.30hb.cn/?target=
  * 接口: leaderboard/VP_GLOBAL | leaderboard/CRAB_GLOBAL | reserved_alliance/RANK_STATS_DEPLOY
  */
-const RANK_PROXY =
-  process.env.NEXT_PUBLIC_RANK_PROXY ?? 'https://rp.30hb.cn/?target='
 const API_BASE = 'https://webapi.30hb.cn/api/'
 
 export interface RankEntry {
@@ -37,22 +34,31 @@ interface VPOrCrabItem {
   AvatarLevel?: number
   Name?: string
   Score?: number
+  ID?: number
+  HomeID?: number
+  Region?: string
+  AllianceName?: string
+  NumberOnePosCounter?: number
+  PreviousOrder?: number
   [key: string]: unknown
 }
 
 interface DeployItem {
+  Order?: number
   VictoryPoint?: number
   Level?: number
   PlayerName?: string
+  PlayerID?: number
+  NumberOnePosCounter?: number
+  PreviousOrder?: number
   [key: string]: unknown
 }
 
 async function fetchVpOrCrab(path: string): Promise<RankEntry[]> {
-  const url = `${RANK_PROXY}${encodeURIComponent(API_BASE + path)}`
-  const res = await fetch(url, { cache: 'no-store' })
+  const res = await fetch(API_BASE + path, { cache: 'no-store' })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const json = await res.json()
-  const list = json?.body?.RankingEntries as VPOrCrabItem[] | undefined
+  const list = (Array.isArray(json) ? json : json?.body?.RankingEntries) as VPOrCrabItem[] | undefined
   if (!Array.isArray(list)) return []
   return list.map((item, i) => ({
     rank: item.Order ?? i + 1,
@@ -65,14 +71,13 @@ async function fetchVpOrCrab(path: string): Promise<RankEntry[]> {
 
 async function fetchDeployStats(): Promise<RankEntry[]> {
   const path = 'reserved_alliance/RANK_STATS_DEPLOY'
-  const url = `${RANK_PROXY}${encodeURIComponent(API_BASE + path)}`
-  const res = await fetch(url, { cache: 'no-store' })
+  const res = await fetch(API_BASE + path, { cache: 'no-store' })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const json = await res.json()
-  const list = json?.body?.AllianceMemberList as DeployItem[] | undefined
+  const list = (json?.AllianceMemberList ?? json?.body?.AllianceMemberList) as DeployItem[] | undefined
   if (!Array.isArray(list)) return []
   return list.map((item, i) => ({
-    rank: i + 1,
+    rank: item.Order ?? i + 1,
     level: Number(item.Level) || 0,
     name: String(item.PlayerName ?? '').trim() || '—',
     rawName: String(item.PlayerName ?? ''),
