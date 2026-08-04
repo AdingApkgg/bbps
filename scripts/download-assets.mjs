@@ -6,7 +6,7 @@
  * 优先使用 scripts/fankit-urls.json（从上述页面复制 20 条图片/show 链接，顺序对应
  * commander, hammerman, island, map-1..13, creative-1..4）；若无则尝试抓取 Fan Kit 页；
  * 否则回退到 Fandom 维基。
- * 运行: pnpm run download-assets
+ * 运行: bun run download-assets
  */
 import { mkdir, writeFile } from 'fs/promises'
 import { join, dirname } from 'path'

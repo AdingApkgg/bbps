@@ -4,5 +4,9 @@
   "loading": "Loading…",
   "error": "Failed to load posts",
   "openPost": "Read more",
-  "backToBlog": "Back to blog"
+  "backToBlog": "Back to blog",
+  "sortBy": "Sort by",
+  "sortByDate": "Published",
+  "sortByModified": "Last updated",
+  "updatedAt": "Updated"
 }

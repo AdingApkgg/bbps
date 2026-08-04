@@ -4,5 +4,9 @@
   "loading": "加载中…",
   "error": "无法加载文章列表",
   "openPost": "阅读全文",
-  "backToBlog": "返回博客"
+  "backToBlog": "返回博客",
+  "sortBy": "排序",
+  "sortByDate": "发布时间",
+  "sortByModified": "更新时间",
+  "updatedAt": "更新于"
 }

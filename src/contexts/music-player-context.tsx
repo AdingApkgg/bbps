@@ -15,7 +15,6 @@ import {
 } from '@/lib/music'
 
 interface MusicPlayerContextValue {
-  audio: HTMLAudioElement | null
   playlistTracks: MetingTrack[][]
   loading: boolean
   error: boolean
@@ -46,6 +45,22 @@ interface MusicPlayerContextValue {
 
 const Ctx = createContext<MusicPlayerContextValue | null>(null)
 
+/**
+ * 全站共用同一个 audio 元素。它是需要被直接改写（src / volume / currentTime）的外部对象，
+ * 既不能放进 state（react-hooks/immutability），也不能在渲染期读写 ref（react-hooks/refs），
+ * 因此放在模块作用域内惰性创建，只在 effect / 事件回调里访问。
+ */
+let sharedAudio: HTMLAudioElement | null = null
+
+function getAudio(): HTMLAudioElement | null {
+  if (typeof window === 'undefined') return null
+  if (!sharedAudio) {
+    sharedAudio = new Audio()
+    sharedAudio.preload = 'metadata'
+  }
+  return sharedAudio
+}
+
 export function useMusicPlayer() {
   const ctx = useContext(Ctx)
   if (!ctx) throw new Error('useMusicPlayer requires MusicPlayerProvider')
@@ -53,11 +68,11 @@ export function useMusicPlayer() {
 }
 
 export function useMusicTime() {
-  const { audio } = useMusicPlayer()
   const [time, setTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
   useEffect(() => {
+    const audio = getAudio()
     if (!audio) return
     const onTime = () => setTime(audio.currentTime)
     const onDur = () => { if (isFinite(audio.duration)) setDuration(audio.duration) }
@@ -67,19 +82,12 @@ export function useMusicTime() {
       audio.removeEventListener('timeupdate', onTime)
       audio.removeEventListener('durationchange', onDur)
     }
-  }, [audio])
+  }, [])
 
   return { time, duration }
 }
 
 export function MusicPlayerProvider({ children }: { children: ReactNode }) {
-  const [audio] = useState<HTMLAudioElement | null>(() => {
-    if (typeof window === 'undefined') return null
-    const a = new Audio()
-    a.preload = 'metadata'
-    return a
-  })
-
   const [playlists, setPlaylists] = useState<PlaylistConfig[]>(() =>
     typeof window !== 'undefined' ? loadPlaylists() : DEFAULT_PLAYLISTS
   )
@@ -120,6 +128,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [currentTrackIdx, playingPlaylist, playlistTracks])
 
   const playTrack = useCallback((pIdx: number, tIdx: number) => {
+    const audio = getAudio()
     if (!audio) return
     const tracks = allTracksRef.current[pIdx]
     if (!tracks || tIdx < 0 || tIdx >= tracks.length) return
@@ -130,10 +139,11 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     setPlaying(true)
     audio.src = tracks[tIdx].url
     audio.play().catch(() => setPlaying(false))
-  }, [audio])
+  }, [])
 
   /* audio events */
   useEffect(() => {
+    const audio = getAudio()
     if (!audio) return
     const onPlay = () => setPlaying(true)
     const onPause = () => setPlaying(false)
@@ -180,13 +190,14 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       audio.removeEventListener('canplay', onCanPlay)
       audio.removeEventListener('ended', onEnded)
     }
-  }, [audio])
+  }, [])
 
   /* volume */
   useEffect(() => {
+    const audio = getAudio()
     if (audio) audio.volume = volume
     persistVolume(volume)
-  }, [audio, volume])
+  }, [volume])
 
   /* MediaSession */
   useEffect(() => {
@@ -196,8 +207,8 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       artist: currentTrack.artist,
       artwork: currentTrack.pic ? [{ src: currentTrack.pic }] : []
     })
-    navigator.mediaSession.setActionHandler('play', () => audio?.play())
-    navigator.mediaSession.setActionHandler('pause', () => audio?.pause())
+    navigator.mediaSession.setActionHandler('play', () => getAudio()?.play())
+    navigator.mediaSession.setActionHandler('pause', () => getAudio()?.pause())
     navigator.mediaSession.setActionHandler('previoustrack', () => {
       const pIdx = playlistIdxRef.current
       const tIdx = trackIdxRef.current
@@ -210,7 +221,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       if (tIdx !== null && tracks && tIdx < tracks.length - 1)
         playTrack(pIdx, tIdx + 1)
     })
-  }, [audio, currentTrack, playTrack])
+  }, [currentTrack, playTrack])
 
   /* fetch tracks per playlist */
   useEffect(() => {
@@ -268,6 +279,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
 
   /* controls */
   const togglePlay = useCallback(() => {
+    const audio = getAudio()
     if (!audio) return
     if (currentTrackIdx === null) {
       for (let i = 0; i < allTracksRef.current.length; i++) {
@@ -277,7 +289,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     }
     if (audio.paused) audio.play().catch(() => {})
     else audio.pause()
-  }, [audio, currentTrackIdx, playTrack])
+  }, [currentTrackIdx, playTrack])
 
   const prevTrack = useCallback(() => {
     const pIdx = playlistIdxRef.current
@@ -299,8 +311,9 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [playTrack])
 
   const seek = useCallback((t: number) => {
+    const audio = getAudio()
     if (audio) audio.currentTime = t
-  }, [audio])
+  }, [])
 
   const setVolume = useCallback((v: number) => { setVolumeState(v) }, [])
 
@@ -340,7 +353,6 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   const toggleLyrics = useCallback(() => { setShowLyrics(prev => !prev) }, [])
 
   const value = useMemo<MusicPlayerContextValue>(() => ({
-    audio,
     playlistTracks, loading, error,
     playingPlaylist, currentTrackIdx, currentTrack,
     playing, volume, mode, buffering,
@@ -351,7 +363,6 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     toggleLyrics,
     addPlaylist, removePlaylist, saveApiAndRefetch, retry
   }), [
-    audio,
     playlistTracks, loading, error,
     playingPlaylist, currentTrackIdx, currentTrack,
     playing, volume, mode, buffering,

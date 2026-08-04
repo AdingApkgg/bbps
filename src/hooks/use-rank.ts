@@ -9,6 +9,9 @@ export interface RankData {
   casualties: RankEntry[]
 }
 
+const POLL_INTERVAL = 60000
+const EMPTY_RANKS: RankData = { vp: [], megacrab: [], casualties: [] }
+
 export function useRank() {
   const [data, setData] = useState<RankData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -16,23 +19,40 @@ export function useRank() {
 
   const fetchRanks = useCallback(async () => {
     try {
-      setLoading(true)
+      setData(await fetchAllRanks())
       setError(null)
-      const result = await fetchAllRanks()
-      setData(result)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
-      setData({ vp: [], megacrab: [], casualties: [] })
+      setData(EMPTY_RANKS)
     } finally {
       setLoading(false)
     }
   }, [])
 
+  // 轮询订阅外部数据源：状态更新只发生在 await 之后，且卸载后不再写入
   useEffect(() => {
-    fetchRanks()
-    const id = setInterval(fetchRanks, 60000)
-    return () => clearInterval(id)
-  }, [fetchRanks])
+    let cancelled = false
+    const run = async () => {
+      try {
+        const result = await fetchAllRanks()
+        if (cancelled) return
+        setData(result)
+        setError(null)
+      } catch (e) {
+        if (cancelled) return
+        setError(e instanceof Error ? e.message : 'Unknown error')
+        setData(EMPTY_RANKS)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+    run()
+    const id = setInterval(run, POLL_INTERVAL)
+    return () => {
+      cancelled = true
+      clearInterval(id)
+    }
+  }, [])
 
   return {
     data,

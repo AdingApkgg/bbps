@@ -29,6 +29,16 @@ export interface ServerStatsBody {
 }
 
 const API_URL = 'https://webapi.30hb.cn/api/server'
+const POLL_INTERVAL = 30000
+
+async function loadStats(): Promise<ServerStatsBody> {
+  const res = await fetch(API_URL, { cache: 'no-store' })
+  if (!res.ok) throw new Error('Network error')
+  const json = await res.json()
+  const data: ServerStatsBody = json?.body ?? json
+  if (!data.server_version) throw new Error('Invalid data')
+  return data
+}
 
 export function useServerStats() {
   const [stats, setStats] = useState<ServerStatsBody | null>(null)
@@ -37,14 +47,8 @@ export function useServerStats() {
 
   const fetchStats = useCallback(async () => {
     try {
-      setLoading(true)
+      setStats(await loadStats())
       setError(null)
-      const res = await fetch(API_URL, { cache: 'no-store' })
-      if (!res.ok) throw new Error('Network error')
-      const json = await res.json()
-      const data: ServerStatsBody = json?.body ?? json
-      if (!data.server_version) throw new Error('Invalid data')
-      setStats(data)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
@@ -52,11 +56,29 @@ export function useServerStats() {
     }
   }, [])
 
+  // 轮询订阅外部数据源：状态更新只发生在 await 之后，且卸载后不再写入
   useEffect(() => {
-    fetchStats()
-    const id = setInterval(fetchStats, 30000)
-    return () => clearInterval(id)
-  }, [fetchStats])
+    let cancelled = false
+    const run = async () => {
+      try {
+        const data = await loadStats()
+        if (cancelled) return
+        setStats(data)
+        setError(null)
+      } catch (e) {
+        if (cancelled) return
+        setError(e instanceof Error ? e.message : 'Unknown error')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+    run()
+    const id = setInterval(run, POLL_INTERVAL)
+    return () => {
+      cancelled = true
+      clearInterval(id)
+    }
+  }, [])
 
   return {
     stats,

@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site'
 import { getDictionary } from '@/lib/i18n'
-import { getAllPosts } from '@/lib/blog'
+import { fetchBlogPosts, type WPPost } from '@/lib/blog'
 import { BlogList } from '@/components/blog-list'
+
+export const revalidate = 600
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -21,6 +23,13 @@ export const metadata: Metadata = {
 
 export default async function BlogEnPage() {
   const dict = getDictionary('en')
-  const posts = await getAllPosts()
+
+  let posts: WPPost[]
+  try {
+    posts = await fetchBlogPosts({ perPage: 20 })
+  } catch {
+    posts = []
+  }
+
   return <BlogList posts={posts} dict={dict.blog} locale="en" />
 }

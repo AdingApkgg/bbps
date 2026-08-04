@@ -1,9 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/site'
-import { getAllPosts } from '@/lib/blog'
 
 export const dynamic = 'force-static'
 
+/**
+ * 静态页面路由 —— 中文 + 英文镜像
+ */
 const STATIC_ROUTES = [
   '/',
   '/commands/',
@@ -23,6 +25,7 @@ const STATIC_ROUTES = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
 
+  /* ── 静态页面（中文 + 英文） ── */
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
     (route) => [
       {
@@ -40,21 +43,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
   )
 
-  const posts = await getAllPosts()
-  const blogEntries: MetadataRoute.Sitemap = posts.flatMap((post) => [
-    {
-      url: `${SITE_URL}/blog/${post.slug}/`,
-      lastModified: new Date(post.date),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6
-    },
-    {
-      url: `${SITE_URL}/en/blog/${post.slug}/`,
-      lastModified: new Date(post.date),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5
-    }
-  ])
-
-  return [...staticEntries, ...blogEntries]
+  /* 文章正文托管在 blog.30hb.cn，由该站自己的 sitemap 收录，此处不再列出 */
+  return staticEntries
 }

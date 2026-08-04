@@ -5,7 +5,7 @@
  * 用法:
  *   1. 从 WordPress 后台「工具 > 导出 > 所有内容」下载 XML
  *   2. 放到 scripts/ 目录
- *   3. pnpm migrate-blog scripts/WordPress.xml
+ *   3. bun run migrate-blog scripts/WordPress.xml
  *
  * 产出:
  *   - src/content/blog/<slug>.mdx   (每篇文章)

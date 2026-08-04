@@ -8,13 +8,13 @@
 - **React 19**
 - **Tailwind CSS 4**
 - **shadcn/ui**（New York 风格，RSC）
-- **Framer Motion**、**Lucide React**、**next-themes**、**Waline** 等
+- **Framer Motion**、**Lucide React**、**next-themes**、**Artalk** 等
 
 ## 开发
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 ## 添加 shadcn 组件
@@ -22,24 +22,24 @@ pnpm dev
 按需添加组件（会写入 `src/components/ui/`）：
 
 ```bash
-npx shadcn@latest add button
-npx shadcn@latest add card
-npx shadcn@latest add tabs
-npx shadcn@latest add dialog
-npx shadcn@latest add select
-npx shadcn@latest add tooltip
+bunx shadcn@latest add button
+bunx shadcn@latest add card
+bunx shadcn@latest add tabs
+bunx shadcn@latest add dialog
+bunx shadcn@latest add select
+bunx shadcn@latest add tooltip
 ```
 
 或一次添加多个：
 
 ```bash
-npx shadcn@latest add button card tabs dialog select tooltip badge
+bunx shadcn@latest add button card tabs dialog select tooltip badge
 ```
 
 ## 构建与导出
 
 ```bash
-pnpm build
+bun run build
 ```
 
 静态文件输出到 `out/`，可直接部署到 GitHub Pages / Netlify / Vercel。
