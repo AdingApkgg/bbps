@@ -1,6 +1,7 @@
 'use client'
 
-import { Trophy, Shell, Skull } from 'lucide-react'
+import { useState } from 'react'
+import { Trophy, Shell, Skull, Swords } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { useRank } from '@/hooks/use-rank'
@@ -16,7 +17,12 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { parseGameText, type RankEntry } from '@/lib/rank'
+import { type RankEntry, type LeaderboardScope } from '@/lib/rank'
+import { PlayerName } from '@/components/player-name'
+import {
+  PlayerBaseSheet,
+  type PlayerBaseTarget
+} from '@/components/player-base-sheet'
 import { cn } from '@/lib/utils'
 import { FadeIn } from '@/components/motion'
 
@@ -27,7 +33,8 @@ function RankTable({
   colPlayer,
   scoreLabel,
   noData,
-  loading
+  loading,
+  onSelect
 }: {
   list: RankEntry[]
   colRank: string
@@ -36,6 +43,7 @@ function RankTable({
   scoreLabel: string
   noData: string
   loading: boolean
+  onSelect: (target: PlayerBaseTarget) => void
 }) {
   if (loading) {
     return (
@@ -73,7 +81,6 @@ function RankTable({
         </TableHeader>
         <TableBody>
           {list.map((entry, i) => {
-            const nameHtml = parseGameText(entry.rawName || entry.name)
             return (
               <TableRow key={`${entry.rank}-${entry.name}-${i}`}>
                 <TableCell>
@@ -99,13 +106,21 @@ function RankTable({
                   </span>
                 </TableCell>
                 <TableCell className="max-w-[200px] truncate">
-                  {nameHtml ? (
-                    <span
-                      dangerouslySetInnerHTML={{ __html: nameHtml }}
-                      title={entry.name}
-                    />
+                  {entry.playerId ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        onSelect({
+                          id: entry.playerId as number,
+                          name: entry.rawName || entry.name
+                        })
+                      }
+                      className="truncate text-left hover:underline"
+                    >
+                      <PlayerName name={entry.rawName || entry.name} />
+                    </button>
                   ) : (
-                    <span title={entry.name}>{entry.name || '—'}</span>
+                    <PlayerName name={entry.rawName || entry.name} />
                   )}
                 </TableCell>
                 <TableCell className="text-right tabular-nums font-medium">
@@ -124,11 +139,28 @@ export function RankSection() {
   const locale = useLocale()
   const dict = getDictionary(locale)
   const r = dict.rank
-  const { data, loading, error } = useRank()
+  const [scope, setScope] = useState<LeaderboardScope>('GLOBAL')
+  const [target, setTarget] = useState<PlayerBaseTarget | null>(null)
+  const { data, loading, error } = useRank(scope)
 
   const vpList = data?.vp ?? []
   const megacrabList = data?.megacrab ?? []
+  const coeList = data?.coe ?? []
   const casualtiesList = data?.casualties ?? []
+
+  const shared = {
+    colRank: r.colRank,
+    colLevel: r.colLevel,
+    colPlayer: r.colPlayer,
+    noData: r.noData,
+    loading,
+    onSelect: setTarget
+  }
+
+  const scopes: { id: LeaderboardScope; label: string }[] = [
+    { id: 'GLOBAL', label: r.scopeGlobal },
+    { id: 'LOCAL', label: r.scopeLocal }
+  ]
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
@@ -141,10 +173,36 @@ export function RankSection() {
         <p className="mt-4 text-center text-sm text-destructive">{r.error}</p>
       )}
 
-      <Card className="mt-10">
+      {/* 全球 / 本地切换。阵亡榜没有本地档，两边共用同一份数据 */}
+      <div className="mt-8 flex justify-center">
+        <div
+          role="group"
+          className="inline-flex rounded-lg bg-muted p-1"
+          aria-label={r.title}
+        >
+          {scopes.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setScope(s.id)}
+              aria-pressed={scope === s.id}
+              className={cn(
+                'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                scope === s.id
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Card className="mt-6">
         <CardContent className="p-6">
           <Tabs defaultValue="vp" className="w-full">
-            <TabsList className="mb-6 w-full">
+            <TabsList className="mb-6 h-auto w-full flex-wrap">
               <TabsTrigger value="vp" className="flex-1 gap-1.5">
                 <Trophy className="h-4 w-4" />
                 {r.tabVp}
@@ -153,47 +211,50 @@ export function RankSection() {
                 <Shell className="h-4 w-4" />
                 {r.tabMegaCrab}
               </TabsTrigger>
+              <TabsTrigger value="coe" className="flex-1 gap-1.5">
+                <Swords className="h-4 w-4" />
+                {r.tabCoe}
+              </TabsTrigger>
               <TabsTrigger value="casualties" className="flex-1 gap-1.5">
                 <Skull className="h-4 w-4" />
                 {r.tabCasualties}
               </TabsTrigger>
             </TabsList>
+
+            <p className="mb-3 text-xs text-muted-foreground">
+              {dict.stats.baseViewHint}
+            </p>
+
             <TabsContent value="vp">
-              <RankTable
-                list={vpList}
-                colRank={r.colRank}
-                colLevel={r.colLevel}
-                colPlayer={r.colPlayer}
-                scoreLabel={r.scoreLabelVp}
-                noData={r.noData}
-                loading={loading}
-              />
+              <RankTable {...shared} list={vpList} scoreLabel={r.scoreLabelVp} />
             </TabsContent>
             <TabsContent value="megacrab">
               <RankTable
+                {...shared}
                 list={megacrabList}
-                colRank={r.colRank}
-                colLevel={r.colLevel}
-                colPlayer={r.colPlayer}
                 scoreLabel={r.scoreLabelCrab}
-                noData={r.noData}
-                loading={loading}
               />
+            </TabsContent>
+            <TabsContent value="coe">
+              <RankTable {...shared} list={coeList} scoreLabel={r.colValue} />
             </TabsContent>
             <TabsContent value="casualties">
               <RankTable
+                {...shared}
                 list={casualtiesList}
-                colRank={r.colRank}
-                colLevel={r.colLevel}
-                colPlayer={r.colPlayer}
                 scoreLabel={r.scoreLabelCasualties}
-                noData={r.noData}
-                loading={loading}
               />
             </TabsContent>
           </Tabs>
         </CardContent>
       </Card>
+
+      <PlayerBaseSheet
+        target={target}
+        onOpenChange={(open) => {
+          if (!open) setTarget(null)
+        }}
+      />
     </div>
   )
 }

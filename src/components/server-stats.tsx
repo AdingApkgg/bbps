@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Users, Trophy, Video, Server } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -16,10 +17,19 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { FadeIn, Stagger, StaggerItem } from '@/components/motion'
+import { PlayerName } from '@/components/player-name'
+import { ChatFeed } from '@/components/chat-feed'
+import { ServerDetails } from '@/components/server-details'
+import { GlobalStats } from '@/components/global-stats'
+import {
+  PlayerBaseSheet,
+  type PlayerBaseTarget
+} from '@/components/player-base-sheet'
 
 export function ServerStats() {
   const locale = useLocale()
   const dict = getDictionary(locale)
+  const [target, setTarget] = useState<PlayerBaseTarget | null>(null)
   const {
     serverVersion,
     onlinePlayers,
@@ -124,7 +134,11 @@ export function ServerStats() {
             )}
 
             {!loading && players.length > 0 && (
-              <div className="max-h-[400px] overflow-y-auto rounded-md border">
+              <>
+                <p className="mb-3 text-xs text-muted-foreground">
+                  {dict.stats.baseViewHint}
+                </p>
+                <div className="max-h-[400px] overflow-y-auto rounded-md border">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -141,7 +155,17 @@ export function ServerStats() {
                         <TableCell className="font-medium">
                           {index + 1}
                         </TableCell>
-                        <TableCell>{player.name}</TableCell>
+                        <TableCell>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setTarget({ id: player.id, name: player.name })
+                            }
+                            className="text-left hover:underline"
+                          >
+                            <PlayerName name={player.name} />
+                          </button>
+                        </TableCell>
                         <TableCell className="text-right text-muted-foreground">
                           {player.id}
                         </TableCell>
@@ -149,11 +173,34 @@ export function ServerStats() {
                     ))}
                   </TableBody>
                 </Table>
-              </div>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
       </FadeIn>
+
+      {/* 最近聊天 */}
+      <FadeIn delay={0.4}>
+        <ChatFeed />
+      </FadeIn>
+
+      {/* 服务器详情：/api/server 里此前未展示的字段 */}
+      <FadeIn delay={0.45}>
+        <ServerDetails />
+      </FadeIn>
+
+      {/* 全服统计 */}
+      <FadeIn delay={0.5}>
+        <GlobalStats />
+      </FadeIn>
+
+      <PlayerBaseSheet
+        target={target}
+        onOpenChange={(open) => {
+          if (!open) setTarget(null)
+        }}
+      />
     </section>
   )
 }

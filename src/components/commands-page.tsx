@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { FadeIn } from '@/components/motion'
+import { RemoteConsole } from '@/components/remote-console'
 
 /* ── 螃蟹甲板计算器 ── */
 
@@ -210,9 +211,16 @@ export function CommandsPage() {
         <p className="mt-2 text-muted-foreground">{dict.commands.subtitle}</p>
       </FadeIn>
 
+      {/* 网页远程执行指令 */}
+      <FadeIn delay={0.1}>
+        <div className="mt-10">
+          <RemoteConsole />
+        </div>
+      </FadeIn>
+
       {/* Command generator */}
       <FadeIn delay={0.15}>
-        <Card className="mt-10">
+        <Card className="mt-6">
           <CardHeader>
             <Tabs
               value={activeCategory}

@@ -13,5 +13,8 @@
   "scoreLabelCasualties": "Troops Deployed",
   "noData": "No data yet",
   "error": "Failed to load",
-  "loading": "Loading…"
+  "loading": "Loading…",
+  "tabCoe": "COE",
+  "scopeGlobal": "Global",
+  "scopeLocal": "Local"
 }

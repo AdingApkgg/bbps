@@ -6,6 +6,7 @@ import features from './features.json'
 import stats from './stats.json'
 import cta from './cta.json'
 import commands from './commands.json'
+import consoleDict from './console.json'
 import maps from './maps.json'
 import creative from './creative.json'
 import comments from './comments.json'
@@ -27,6 +28,7 @@ const zh = {
   stats,
   cta,
   commands,
+  console: consoleDict,
   maps,
   creative,
   comments,
