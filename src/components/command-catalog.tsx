@@ -135,14 +135,22 @@ function CatalogItem({
         <div className="mt-2 space-y-1.5">
           {params.map((p) => {
             const hint = paramHint(p.value, locale)
-            const isLayout = p.value.toLowerCase().includes('layout')
+            // 参数名本身是枚举（如 island|warship）就直接做成下拉；
+            // layout 类参数取 LAYOUT_NAMES 的 12 个生效值
+            const options = p.value.includes('|')
+              ? p.value.split('|').map((x) => x.trim()).filter(Boolean)
+              : p.value.toLowerCase().includes('layout')
+                ? LAYOUT_VALUES
+                : null
+            // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现
+            const label = p.value.includes('|') ? t.optionLabel : p.value
             return (
               <div key={p.value} className="flex flex-wrap items-center gap-2">
                 <span className="w-20 shrink-0 text-xs text-muted-foreground">
-                  {p.value}
+                  {label}
                   {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
                 </span>
-                {isLayout ? (
+                {options ? (
                   <select
                     value={values[p.value] ?? ''}
                     onChange={(e) =>
@@ -151,7 +159,7 @@ function CatalogItem({
                     className="h-7 rounded-md border bg-background px-2 text-xs"
                   >
                     <option value="">—</option>
-                    {LAYOUT_VALUES.map((l) => (
+                    {options.map((l) => (
                       <option key={l} value={l}>{l}</option>
                     ))}
                   </select>

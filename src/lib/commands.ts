@@ -275,7 +275,7 @@ export const COMMAND_CATALOG: CatalogCommand[] = [
       desc: '设置地堡部队' }),
   C({ cmd: '/bunker clear', syntax: '/bunker <序号> clear', group: 'home',
       desc: '清空指定地堡' }),
-  C({ cmd: '/layout', syntax: '/layout [<名字>]', group: 'home', danger: 'warn',
+  C({ cmd: '/layout', syntax: '/layout [<layout>]', group: 'home', danger: 'warn',
       desc: '修改自己岛屿的地图类型；不带参数则在游戏内列出全部可选值' }),
   C({ cmd: '/blockingmask', syntax: '/blockingmask <island|warship> <掩码>', group: 'home',
       danger: 'warn',
