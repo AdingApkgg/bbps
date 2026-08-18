@@ -135,13 +135,23 @@ function CatalogItem({
         <div className="mt-2 space-y-1.5">
           {params.map((p) => {
             const hint = paramHint(p.value, locale)
-            // 参数名本身是枚举（如 island|warship）就直接做成下拉；
-            // layout 类参数取 LAYOUT_NAMES 的 12 个生效值
-            const options = p.value.includes('|')
-              ? p.value.split('|').map((x) => x.trim()).filter(Boolean)
-              : p.value.toLowerCase().includes('layout')
-                ? LAYOUT_VALUES
-                : null
+            // 取值来源优先级：条目自带的 paramOptions（带中文标签）→
+            // 参数名本身是枚举（如 island|warship）→ layout 类
+            const declared = item.paramOptions?.[p.value]
+            const options: { value: string; label: string }[] | null = declared
+              ? declared.map((o) => ({
+                  value: o.value,
+                  label: locale === 'en' ? o.labelEn : o.labelZh
+                }))
+              : p.value.includes('|')
+                ? p.value
+                    .split('|')
+                    .map((x) => x.trim())
+                    .filter(Boolean)
+                    .map((v) => ({ value: v, label: v }))
+                : p.value.toLowerCase().includes('layout')
+                  ? LAYOUT_VALUES.map((v) => ({ value: v, label: v }))
+                  : null
             // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现
             const label = p.value.includes('|') ? t.optionLabel : p.value
             return (
@@ -156,11 +166,13 @@ function CatalogItem({
                     onChange={(e) =>
                       setValues((v) => ({ ...v, [p.value]: e.target.value }))
                     }
-                    className="h-7 rounded-md border bg-background px-2 text-xs"
+                    className="h-7 max-w-[14rem] rounded-md border bg-background px-2 text-xs"
                   >
                     <option value="">—</option>
-                    {options.map((l) => (
-                      <option key={l} value={l}>{l}</option>
+                    {options.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
                     ))}
                   </select>
                 ) : (

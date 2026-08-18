@@ -39,7 +39,15 @@ export interface CatalogCommand {
   advancedOnly?: boolean
   /** 只能在游戏里打，网页上仅作说明 */
   inGameOnly?: boolean
+  /** 按参数名提供固定取值，渲染成下拉；键要与 syntax 里的占位符同名 */
+  paramOptions?: Record<string, ParamOption[]>
   desc: string
+}
+
+export interface ParamOption {
+  value: string
+  labelZh: string
+  labelEn: string
 }
 
 export interface CommandGroupMeta {
@@ -82,6 +90,42 @@ export const COMMAND_GROUP_META: CommandGroupMeta[] = [
     noteEn: 'Requires admin. Regular players get a failure — the same code as a typo, indistinguishable.',
     collapsed: true
   }
+]
+
+/**
+ * /getstatue 的取值。
+ * 神像 = buildings.csv 里 BuildingClass == "Artifact" 的具名实例序号；
+ * 加成 = artifact_bonuses.csv 的行序（0 起）。均由 CSV 实测导出，
+ * 注意蓝色普通神像是 39 而非某些旧文档写的 30 —— 30 是 Boss Mortar，会直接报错。
+ */
+export const ARTIFACT_OPTIONS: ParamOption[] = [
+  { value: '12', labelZh: '绿·普通 (12)', labelEn: 'Green · Common (12)' },
+  { value: '13', labelZh: '绿·稀有 (13)', labelEn: 'Green · Rare (13)' },
+  { value: '14', labelZh: '绿·史诗 (14)', labelEn: 'Green · Epic (14)' },
+  { value: '39', labelZh: '蓝·普通 (39)', labelEn: 'Blue · Common (39)' },
+  { value: '40', labelZh: '蓝·稀有 (40)', labelEn: 'Blue · Rare (40)' },
+  { value: '41', labelZh: '蓝·史诗 (41)', labelEn: 'Blue · Epic (41)' },
+  { value: '42', labelZh: '红·普通 (42)', labelEn: 'Red · Common (42)' },
+  { value: '43', labelZh: '红·稀有 (43)', labelEn: 'Red · Rare (43)' },
+  { value: '44', labelZh: '红·史诗 (44)', labelEn: 'Red · Epic (44)' },
+  { value: '45', labelZh: '紫·普通 (45)', labelEn: 'Purple · Common (45)' },
+  { value: '46', labelZh: '紫·稀有 (46)', labelEn: 'Purple · Rare (46)' },
+  { value: '47', labelZh: '紫·史诗 (47)', labelEn: 'Purple · Epic (47)' }
+]
+
+export const ARTIFACT_BONUS_OPTIONS: ParamOption[] = [
+  { value: '0', labelZh: '金币产量 (0)', labelEn: 'Gold production (0)' },
+  { value: '1', labelZh: '木材产量 (1)', labelEn: 'Wood production (1)' },
+  { value: '2', labelZh: '石材产量 (2)', labelEn: 'Stone production (2)' },
+  { value: '3', labelZh: '钢材产量 (3)', labelEn: 'Metal production (3)' },
+  { value: '4', labelZh: '部队血量 / 红防 (4)', labelEn: 'Troop HP (4)' },
+  { value: '5', labelZh: '建筑血量 / 蓝防 (5)', labelEn: 'Building HP (5)' },
+  { value: '6', labelZh: '部队伤害 / 红攻 (6)', labelEn: 'Troop damage (6)' },
+  { value: '7', labelZh: '建筑伤害 / 蓝攻 (7)', labelEn: 'Building damage (7)' },
+  { value: '8', labelZh: '战舰能量 (8)', labelEn: 'Gunboat energy (8)' },
+  { value: '9', labelZh: '掠夺资源 (9)', labelEn: 'Loot (9)' },
+  { value: '10', labelZh: '水晶掉落 (10)', labelEn: 'Artifact drop (10)' },
+  { value: '11', labelZh: '全部产量 (11)', labelEn: 'All resources (11)' }
 ]
 
 /** /homege、/attacklevel 等的 <layout> 取值，页面上做成下拉框 */
@@ -283,8 +327,9 @@ export const COMMAND_CATALOG: CatalogCommand[] = [
   C({ cmd: '/place', syntax: '/place <X> <Y> <全局ID> [<等级>]', group: 'home', danger: 'warn',
       desc: '放置建筑 / 陷阱 / 障碍物。历史上出现过引起闪退并污染存档的情况，谨慎使用' }),
   C({ cmd: '/getstatue', syntax: '/getstatue <神像> <加成类型> <百分比>', aliases: ['/statue'],
-      group: 'home',
-      desc: '给予神像。神像 ID：绿 12/13/14、蓝 30/40/41、红 42/43/44、紫 45/46/47；加成类型：金产0 木产1 石产2 铁产3 红血4 蓝血5 红攻6 蓝攻7 能量8 资源9 水晶10 全产11' }),
+      group: 'home', needsHome: true,
+      paramOptions: { 神像: ARTIFACT_OPTIONS, 加成类型: ARTIFACT_BONUS_OPTIONS },
+      desc: '给予神像。百分比超过 1000 服务端会额外提示「过强」；取值取自 CSV，见下拉' }),
   C({ cmd: '/gbe', syntax: '/gbe', group: 'home',
       desc: '快速拿到最强战舰能量雕像' }),
   C({ cmd: '/mutate', syntax: '/mutate <变异JSON>', group: 'home', danger: 'warn',
