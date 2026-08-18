@@ -17,6 +17,7 @@ import { CommandHistory, useCommandHistory } from '@/components/command-history'
 import { CrabDeckCalculator } from '@/components/crab-deck-calculator'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { RunButton } from '@/components/run-button'
 import { Input } from '@/components/ui/input'
 import { FadeIn } from '@/components/motion'
 
@@ -85,21 +86,26 @@ export function CommandsPage() {
           <CardContent className="space-y-4">
             {QUICK_COMMANDS.map((group) => (
               <div key={group.id}>
-                <p className="mb-2 text-xs font-medium text-muted-foreground">
+                <p className="text-xs font-medium">
                   {locale === 'en' ? group.labelEn : group.labelZh}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                {(group.noteZh || group.noteEn) && (
+                  <p className="mb-2 text-xs text-muted-foreground">
+                    {locale === 'en' ? group.noteEn : group.noteZh}
+                  </p>
+                )}
+                <div className="mt-2 flex flex-wrap gap-2">
                   {group.items.map((item) => (
-                    <Button
+                    /* 危险级别由 RunButton 从目录反查，与目录里的确认行为一致 */
+                    <RunButton
                       key={item.command}
+                      command={item.command}
+                      canRun={runner.canRun}
+                      onRun={run}
                       variant="outline"
-                      size="sm"
-                      disabled={!runner.canRun}
-                      onClick={() => run(item.command)}
-                      title={`/${item.command}`}
                     >
                       {locale === 'en' ? item.labelEn : item.labelZh}
-                    </Button>
+                    </RunButton>
                   ))}
                 </div>
               </div>

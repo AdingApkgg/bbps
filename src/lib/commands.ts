@@ -475,3 +475,23 @@ export function searchCatalog(query: string): CatalogCommand[] {
       c.aliases.some((a) => a.toLowerCase().includes(q))
   )
 }
+
+/**
+ * 按完整指令反查目录条目，取最长前缀匹配。
+ * 用于让快捷按钮、生成器等入口继承同一份危险级别与标记，
+ * 避免「目录里要二次确认、快捷按钮点一下就执行」这种不一致。
+ *
+ *   /resource clear      → 命中 /resource clear（不可撤销）
+ *   /resource 1 9999999  → 命中 /resource（无危险标记）
+ */
+export function findCatalogEntry(command: string): CatalogCommand | null {
+  const norm = '/' + command.trim().replace(/^\/+/, '').toLowerCase()
+  let best: CatalogCommand | null = null
+  for (const c of COMMAND_CATALOG) {
+    const key = c.cmd.toLowerCase()
+    if (norm === key || norm.startsWith(key + ' ')) {
+      if (!best || key.length > best.cmd.length) best = c
+    }
+  }
+  return best
+}

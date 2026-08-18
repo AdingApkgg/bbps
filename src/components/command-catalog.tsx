@@ -6,7 +6,6 @@ import {
   Check,
   ChevronDown,
   Copy,
-  Play,
   Search,
   ShieldAlert,
   X
@@ -22,9 +21,10 @@ import {
 } from '@/lib/commands'
 import { fillTemplate, isTemplateReady, parseTemplate } from '@/lib/command-template'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { RunButton } from '@/components/run-button'
 import { cn } from '@/lib/utils'
 
 /* ── 单条指令 ── */
@@ -42,7 +42,6 @@ function CatalogItem({
   const t = getDictionary(locale).commands
   const [values, setValues] = useState<Record<string, string>>({})
   const [copied, setCopied] = useState(false)
-  const [confirming, setConfirming] = useState(0)
 
   const params = useMemo(
     () => parseTemplate(item.syntax).filter((p) => p.type === 'param'),
@@ -50,10 +49,6 @@ function CatalogItem({
   )
   const final = fillTemplate(item.syntax, values)
   const ready = isTemplateReady(item.syntax, values)
-  // ☢ 要点两次，⚠ 点一次
-  const confirmsNeeded =
-    item.danger === 'destructive' ? 2 : item.danger === 'warn' ? 1 : 0
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(final)
@@ -63,23 +58,6 @@ function CatalogItem({
       /* 剪贴板不可用 */
     }
   }
-
-  const handleRun = () => {
-    if (confirming < confirmsNeeded) {
-      setConfirming((n) => n + 1)
-      setTimeout(() => setConfirming(0), 4000)
-      return
-    }
-    setConfirming(0)
-    onRun(final)
-  }
-
-  const runLabel =
-    confirmsNeeded === 0 || confirming >= confirmsNeeded
-      ? t.runButton
-      : item.danger === 'destructive' && confirming === 0
-        ? t.confirmDestructive
-        : t.confirmOnce
 
   return (
     <li
@@ -130,16 +108,13 @@ function CatalogItem({
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           </Button>
           {!item.inGameOnly && !item.advancedOnly && (
-            <Button
-              size="sm"
-              variant={confirming > 0 ? 'destructive' : 'default'}
-              onClick={handleRun}
-              disabled={!canRun || !ready}
-              title={!canRun ? t.runNeedsLogin : undefined}
-            >
-              <Play className="mr-1 h-3.5 w-3.5" />
-              {runLabel}
-            </Button>
+            <RunButton
+              command={final}
+              danger={item.danger}
+              canRun={canRun}
+              disabled={!ready}
+              onRun={onRun}
+            />
           )}
         </div>
       </div>

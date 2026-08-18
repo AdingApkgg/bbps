@@ -37,5 +37,6 @@
   "paramNotationTitle": "Parameter notation",
   "notationPlayer": "Player: 18 ID · #2PP tag (must include #) · [23,19,25] multiple IDs · \"Alice\" name (double quotes; matches every player with that name)",
   "notationData": "Data: when the type is fixed use [Tank] data name · <中文名> · 4 instance ID · 4000001 global ID. When it is not (e.g. /place) use TRAP:Mine · buildings[HQ] · 3000001 global ID — bare instance IDs are not allowed there",
-  "repeatHint": "In game a lone / repeats the last command; the web cannot do that — use the recent list below instead"
+  "repeatHint": "In game a lone / repeats the last command; the web cannot do that — use the recent list below instead",
+  "confirmAgain": "Click once more"
 }
