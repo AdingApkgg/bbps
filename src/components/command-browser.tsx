@@ -5,6 +5,7 @@ import { Check, Copy, Play, Search, X } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands, type Command } from '@/lib/commands-data'
+import { searchCommands } from '@/lib/command-search'
 import {
   fillTemplate,
   isRunnable,
@@ -144,17 +145,10 @@ export function CommandBrowser({
     []
   )
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return commands.filter((c) => {
-      if (category !== 'all' && c.category !== category) return false
-      if (!q) return true
-      return (
-        c.name.toLowerCase().includes(q) ||
-        c.command.toLowerCase().includes(q)
-      )
-    })
-  }, [query, category])
+  const filtered = useMemo(
+    () => searchCommands(query, category),
+    [query, category]
+  )
 
   const visible = filtered.slice(0, limit)
 
