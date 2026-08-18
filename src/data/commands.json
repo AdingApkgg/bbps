@@ -47,8 +47,8 @@
     },
     {
       "id": "全部",
-      "nameZh": "全部指令",
-      "nameEn": "All"
+      "nameZh": "指令总览",
+      "nameEn": "Reference"
     },
     {
       "id": "Trophy",
@@ -466,18 +466,6 @@
       "id": "common-65",
       "name": "获取一个csv表的全部ID和名称清单",
       "command": "/datatable <type_id>",
-      "category": "common"
-    },
-    {
-      "id": "common-66",
-      "name": "玩家标签转换为玩家ID（需以#开头）",
-      "command": "/tag2id <tag>",
-      "category": "common"
-    },
-    {
-      "id": "common-67",
-      "name": "玩家ID转换为玩家标签",
-      "command": "/id2tag <id>",
       "category": "common"
     },
     {
@@ -3265,12 +3253,6 @@
       "category": "全部"
     },
     {
-      "id": "全部-532",
-      "name": "攻击玩家（简写，对应attackplayer）",
-      "command": "/atkp",
-      "category": "全部"
-    },
-    {
       "id": "全部-533",
       "name": "攻击战舰（简写，对应attackwarship）",
       "command": "/atkw",
@@ -3320,7 +3302,7 @@
     },
     {
       "id": "全部-541",
-      "name": "（同前，可能为游戏内特定功能指令）",
+      "name": "介绍本服机器人（同 /Bebean）",
       "command": "/bebean",
       "category": "全部"
     },
@@ -3343,18 +3325,6 @@
       "category": "全部"
     },
     {
-      "id": "全部-545",
-      "name": "计算时间",
-      "command": "/calctime",
-      "category": "全部"
-    },
-    {
-      "id": "全部-546",
-      "name": "清除等级",
-      "command": "/clearlevel",
-      "category": "全部"
-    },
-    {
       "id": "全部-547",
       "name": "清除障碍物",
       "command": "/clearobstacles",
@@ -3362,20 +3332,8 @@
     },
     {
       "id": "全部-548",
-      "name": "清除流（可能为游戏内资源流等）",
+      "name": "清除流",
       "command": "/clearstream",
-      "category": "全部"
-    },
-    {
-      "id": "全部-549",
-      "name": "清除部队",
-      "command": "/cleartroops",
-      "category": "全部"
-    },
-    {
-      "id": "全部-550",
-      "name": "调试地图",
-      "command": "/debugmap",
       "category": "全部"
     },
     {
@@ -3391,33 +3349,9 @@
       "category": "全部"
     },
     {
-      "id": "全部-553",
-      "name": "断开连接",
-      "command": "/disconnect",
-      "category": "全部"
-    },
-    {
-      "id": "全部-554",
-      "name": "简单模式",
-      "command": "/easy",
-      "category": "全部"
-    },
-    {
       "id": "全部-555",
-      "name": "雕刻（可能为游戏内养成系统）",
+      "name": "雕刻",
       "command": "/engraving",
-      "category": "全部"
-    },
-    {
-      "id": "全部-556",
-      "name": "清除雕刻",
-      "command": "/engraving clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-557",
-      "name": "填充雕刻",
-      "command": "/engraving fill",
       "category": "全部"
     },
     {
@@ -3446,13 +3380,13 @@
     },
     {
       "id": "全部-562",
-      "name": "（可能为游戏内特定功能指令）",
+      "name": "说明待补充",
       "command": "/gbe",
       "category": "全部"
     },
     {
       "id": "全部-563",
-      "name": "获取BD（可能为游戏内数据）",
+      "name": "获取BD",
       "command": "/getbd",
       "category": "全部"
     },
@@ -3470,7 +3404,7 @@
     },
     {
       "id": "全部-566",
-      "name": "（可能为游戏内特定功能指令）",
+      "name": "说明待补充",
       "command": "/gomg",
       "category": "全部"
     },
@@ -3505,12 +3439,6 @@
       "category": "全部"
     },
     {
-      "id": "全部-572",
-      "name": "清除活动日志",
-      "command": "/log activity clear",
-      "category": "全部"
-    },
-    {
       "id": "全部-573",
       "name": "深海活动日志",
       "command": "/log activity deepsea",
@@ -3541,21 +3469,9 @@
       "category": "全部"
     },
     {
-      "id": "全部-578",
-      "name": "清除攻击日志",
-      "command": "/log attack clear",
-      "category": "全部"
-    },
-    {
       "id": "全部-579",
       "name": "宝箱通知日志",
       "command": "/log notice chest",
-      "category": "全部"
-    },
-    {
-      "id": "全部-580",
-      "name": "清除通知日志",
-      "command": "/log notice clear",
       "category": "全部"
     },
     {
@@ -3574,18 +3490,6 @@
       "id": "全部-583",
       "name": "地图",
       "command": "/map",
-      "category": "全部"
-    },
-    {
-      "id": "全部-584",
-      "name": "清除地图",
-      "command": "/map clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-585",
-      "name": "最大ID",
-      "command": "/maxid",
       "category": "全部"
     },
     {
@@ -3619,33 +3523,9 @@
       "category": "全部"
     },
     {
-      "id": "全部-591",
-      "name": "清除军官",
-      "command": "/officer clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-592",
-      "name": "填充军官",
-      "command": "/officer fill",
-      "category": "全部"
-    },
-    {
-      "id": "全部-593",
-      "name": "（可能为游戏内特定功能指令）",
-      "command": "/olp",
-      "category": "全部"
-    },
-    {
       "id": "全部-594",
       "name": "赋予管理员权限",
       "command": "/op",
-      "category": "全部"
-    },
-    {
-      "id": "全部-595",
-      "name": "（可能为游戏内特定功能指令）",
-      "command": "/outsy",
       "category": "全部"
     },
     {
@@ -3673,24 +3553,6 @@
       "category": "全部"
     },
     {
-      "id": "全部-600",
-      "name": "清除原型部队",
-      "command": "/prototroop clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-601",
-      "name": "填充原型部队",
-      "command": "/prototroop fill",
-      "category": "全部"
-    },
-    {
-      "id": "全部-602",
-      "name": "重新计算经验",
-      "command": "/recalcexp",
-      "category": "全部"
-    },
-    {
       "id": "全部-603",
       "name": "重命名",
       "command": "/rename",
@@ -3700,18 +3562,6 @@
       "id": "全部-604",
       "name": "回放",
       "command": "/replay",
-      "category": "全部"
-    },
-    {
-      "id": "全部-605",
-      "name": "回放次数",
-      "command": "/replay count",
-      "category": "全部"
-    },
-    {
-      "id": "全部-606",
-      "name": "随机回放",
-      "command": "/replay random",
       "category": "全部"
     },
     {
@@ -3736,12 +3586,6 @@
       "id": "全部-610",
       "name": "资源神器",
       "command": "/resource artifact",
-      "category": "全部"
-    },
-    {
-      "id": "全部-611",
-      "name": "清除资源",
-      "command": "/resource clear",
       "category": "全部"
     },
     {
@@ -3781,21 +3625,9 @@
       "category": "全部"
     },
     {
-      "id": "全部-618",
-      "name": "侦察玩家",
-      "command": "/scoutplayer",
-      "category": "全部"
-    },
-    {
       "id": "全部-619",
       "name": "侦察玩家（简写，对应visitplayer）",
       "command": "/scoutplayer",
-      "category": "全部"
-    },
-    {
-      "id": "全部-620",
-      "name": "（可能为游戏内特定功能指令）",
-      "command": "/serr",
       "category": "全部"
     },
     {
@@ -3808,24 +3640,6 @@
       "id": "全部-622",
       "name": "皮肤",
       "command": "/skin",
-      "category": "全部"
-    },
-    {
-      "id": "全部-623",
-      "name": "清除皮肤",
-      "command": "/skin clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-624",
-      "name": "填充皮肤",
-      "command": "/skin fill",
-      "category": "全部"
-    },
-    {
-      "id": "全部-625",
-      "name": "初始家园",
-      "command": "/startinghome",
       "category": "全部"
     },
     {
@@ -3859,18 +3673,6 @@
       "category": "全部"
     },
     {
-      "id": "全部-631",
-      "name": "测试基地",
-      "command": "/testbase",
-      "category": "全部"
-    },
-    {
-      "id": "全部-632",
-      "name": "时间",
-      "command": "/time",
-      "category": "全部"
-    },
-    {
       "id": "全部-633",
       "name": "奖杯（简写，对应vp）",
       "command": "/trophy",
@@ -3883,14 +3685,8 @@
       "category": "全部"
     },
     {
-      "id": "全部-635",
-      "name": "升级",
-      "command": "/upgrade",
-      "category": "全部"
-    },
-    {
       "id": "全部-636",
-      "name": "协调世界时（同前）",
+      "name": "协调世界时（同 /UTC）",
       "command": "/utc",
       "category": "全部"
     },
@@ -3904,12 +3700,6 @@
       "id": "全部-638",
       "name": "访问（玩家）（简写，对应visitplayer）",
       "command": "/visit",
-      "category": "全部"
-    },
-    {
-      "id": "全部-639",
-      "name": "访问玩家",
-      "command": "/visitplayer",
       "category": "全部"
     },
     {
@@ -3952,18 +3742,6 @@
       "id": "全部-646",
       "name": "战舰物品",
       "command": "/warship item",
-      "category": "全部"
-    },
-    {
-      "id": "全部-647",
-      "name": "清除战舰物品",
-      "command": "/warship item clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-648",
-      "name": "填充战舰物品",
-      "command": "/warship item fill",
       "category": "全部"
     },
     {
@@ -4012,12 +3790,6 @@
       "id": "全部-656",
       "name": "清除全部规则（/rule clear - 删除所有已设置的规则）",
       "command": "/rule clear",
-      "category": "全部"
-    },
-    {
-      "id": "全部-657",
-      "name": "攻击战舰（简写，对应attackwarship）",
-      "command": "/atkw",
       "category": "全部"
     },
     {
