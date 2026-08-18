@@ -34,12 +34,17 @@ export function buildingName(id: number): string {
 }
 
 /** 资源 ID → 名称，对应 `/resource <n>` 的编号 */
+/**
+ * 名称取自 Gamefiles/csv/resources.csv 的 TID 在 texts.csv 的官方译名。
+ * 注意 3 与 4：官方是 3=石材(Stone)、4=钢材(Iron)，
+ * 而 data/commands.json 里这两条写反了，别照抄那边。
+ */
 const RESOURCE_NAMES: Record<number, { zh: string; en: string }> = {
   3000000: { zh: '钻石', en: 'Diamonds' },
-  3000001: { zh: '金币', en: 'Gold' },
+  3000001: { zh: '黄金', en: 'Gold' },
   3000002: { zh: '木材', en: 'Wood' },
-  3000003: { zh: '钢材', en: 'Steel' },
-  3000004: { zh: '石材', en: 'Stone' }
+  3000003: { zh: '石材', en: 'Stone' },
+  3000004: { zh: '钢材', en: 'Iron' }
 }
 
 export function resourceName(id: number, locale: string): string | null {

@@ -58,10 +58,10 @@ export const QUICK_COMMANDS: QuickCommandGroup[] = [
     labelEn: 'Resources',
     items: [
       { command: 'resource fill', labelZh: '一键补满常用资源', labelEn: 'Fill common resources' },
-      { command: 'resource 1 9999999', labelZh: '999 万金币', labelEn: '9.99M coins' },
+      { command: 'resource 1 9999999', labelZh: '999 万黄金', labelEn: '9.99M gold' },
       { command: 'resource 2 9999999', labelZh: '999 万木材', labelEn: '9.99M wood' },
-      { command: 'resource 3 9999999', labelZh: '999 万钢材', labelEn: '9.99M steel' },
-      { command: 'resource 4 9999999', labelZh: '999 万石材', labelEn: '9.99M stone' },
+      { command: 'resource 3 9999999', labelZh: '999 万石材', labelEn: '9.99M stone' },
+      { command: 'resource 4 9999999', labelZh: '999 万钢材', labelEn: '9.99M iron' },
       { command: 'resource clear', labelZh: '清空资源', labelEn: 'Clear resources' }
     ]
   },

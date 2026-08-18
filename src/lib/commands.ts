@@ -93,39 +93,44 @@ export const COMMAND_GROUP_META: CommandGroupMeta[] = [
 ]
 
 /**
- * /getstatue 的取值。
- * 神像 = buildings.csv 里 BuildingClass == "Artifact" 的具名实例序号；
- * 加成 = artifact_bonuses.csv 的行序（0 起）。均由 CSV 实测导出，
- * 注意蓝色普通神像是 39 而非某些旧文档写的 30 —— 30 是 Boss Mortar，会直接报错。
+ * /getstatue 的取值，全部取自游戏自带数据，不自拟名称：
+ *   神像 = buildings.csv 中 BuildingClass == "Artifact" 的具名实例序号，
+ *          名称取其 TID 在 texts.csv 的 EN / ZH-HANS；
+ *          四种元素共用同一套稀有度名（小巧/精良/极品），
+ *          故用 artifacts.csv 的 ArtifactType 配合
+ *          TID_ARTIFACT_TYPE_HINT_1..4 的元素名（生命/寒冰/熔岩/暗黑）区分。
+ *          注意内部名是 Fire，游戏里显示为「熔岩 / Magma」。
+ *   加成 = artifact_bonuses.csv 的行序，名称取其 TID 的官方译名。
+ * 旧文档写的「蓝30」有误：实例 30 是 Boss Mortar，并非神像。
  */
 export const ARTIFACT_OPTIONS: ParamOption[] = [
-  { value: '12', labelZh: '绿·普通 (12)', labelEn: 'Green · Common (12)' },
-  { value: '13', labelZh: '绿·稀有 (13)', labelEn: 'Green · Rare (13)' },
-  { value: '14', labelZh: '绿·史诗 (14)', labelEn: 'Green · Epic (14)' },
-  { value: '39', labelZh: '蓝·普通 (39)', labelEn: 'Blue · Common (39)' },
-  { value: '40', labelZh: '蓝·稀有 (40)', labelEn: 'Blue · Rare (40)' },
-  { value: '41', labelZh: '蓝·史诗 (41)', labelEn: 'Blue · Epic (41)' },
-  { value: '42', labelZh: '红·普通 (42)', labelEn: 'Red · Common (42)' },
-  { value: '43', labelZh: '红·稀有 (43)', labelEn: 'Red · Rare (43)' },
-  { value: '44', labelZh: '红·史诗 (44)', labelEn: 'Red · Epic (44)' },
-  { value: '45', labelZh: '紫·普通 (45)', labelEn: 'Purple · Common (45)' },
-  { value: '46', labelZh: '紫·稀有 (46)', labelEn: 'Purple · Rare (46)' },
-  { value: '47', labelZh: '紫·史诗 (47)', labelEn: 'Purple · Epic (47)' }
+  { value: '12', labelZh: '生命小巧神像 (12)', labelEn: 'Life Idol (12)' },
+  { value: '13', labelZh: '生命精良神像 (13)', labelEn: 'Life Guardian (13)' },
+  { value: '14', labelZh: '生命极品神像 (14)', labelEn: 'Life Masterpiece (14)' },
+  { value: '39', labelZh: '寒冰小巧神像 (39)', labelEn: 'Ice Idol (39)' },
+  { value: '40', labelZh: '寒冰精良神像 (40)', labelEn: 'Ice Guardian (40)' },
+  { value: '41', labelZh: '寒冰极品神像 (41)', labelEn: 'Ice Masterpiece (41)' },
+  { value: '42', labelZh: '熔岩小巧神像 (42)', labelEn: 'Magma Idol (42)' },
+  { value: '43', labelZh: '熔岩精良神像 (43)', labelEn: 'Magma Guardian (43)' },
+  { value: '44', labelZh: '熔岩极品神像 (44)', labelEn: 'Magma Masterpiece (44)' },
+  { value: '45', labelZh: '暗黑小巧神像 (45)', labelEn: 'Dark Idol (45)' },
+  { value: '46', labelZh: '暗黑精良神像 (46)', labelEn: 'Dark Guardian (46)' },
+  { value: '47', labelZh: '暗黑极品神像 (47)', labelEn: 'Dark Masterpiece (47)' }
 ]
 
 export const ARTIFACT_BONUS_OPTIONS: ParamOption[] = [
-  { value: '0', labelZh: '金币产量 (0)', labelEn: 'Gold production (0)' },
+  { value: '0', labelZh: '黄金产量 (0)', labelEn: 'Gold production (0)' },
   { value: '1', labelZh: '木材产量 (1)', labelEn: 'Wood production (1)' },
   { value: '2', labelZh: '石材产量 (2)', labelEn: 'Stone production (2)' },
-  { value: '3', labelZh: '钢材产量 (3)', labelEn: 'Metal production (3)' },
-  { value: '4', labelZh: '部队血量 / 红防 (4)', labelEn: 'Troop HP (4)' },
-  { value: '5', labelZh: '建筑血量 / 蓝防 (5)', labelEn: 'Building HP (5)' },
-  { value: '6', labelZh: '部队伤害 / 红攻 (6)', labelEn: 'Troop damage (6)' },
-  { value: '7', labelZh: '建筑伤害 / 蓝攻 (7)', labelEn: 'Building damage (7)' },
+  { value: '3', labelZh: '钢材产量 (3)', labelEn: 'Iron production (3)' },
+  { value: '4', labelZh: '部队生命值 (4)', labelEn: 'Troop health (4)' },
+  { value: '5', labelZh: '建筑生命值 (5)', labelEn: 'Building health (5)' },
+  { value: '6', labelZh: '部队伤害输出 (6)', labelEn: 'Troop damage (6)' },
+  { value: '7', labelZh: '建筑伤害输出 (7)', labelEn: 'Building damage (7)' },
   { value: '8', labelZh: '战舰能量 (8)', labelEn: 'Gunboat energy (8)' },
-  { value: '9', labelZh: '掠夺资源 (9)', labelEn: 'Loot (9)' },
-  { value: '10', labelZh: '水晶掉落 (10)', labelEn: 'Artifact drop (10)' },
-  { value: '11', labelZh: '全部产量 (11)', labelEn: 'All resources (11)' }
+  { value: '9', labelZh: '资源奖励 (9)', labelEn: 'Resource reward (9)' },
+  { value: '10', labelZh: '能量水晶掉落几率 (10)', labelEn: 'Power Stone chance (10)' },
+  { value: '11', labelZh: '资源产量 (11)', labelEn: 'Resource production (11)' }
 ]
 
 /**
