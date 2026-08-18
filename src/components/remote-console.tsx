@@ -6,7 +6,6 @@ import {
   Check,
   Loader2,
   LogOut,
-  Send,
   ShieldAlert,
   Terminal
 } from 'lucide-react'
@@ -15,17 +14,118 @@ import { getDictionary } from '@/lib/i18n'
 import { useWebSession } from '@/hooks/use-web-session'
 import { useServerStats } from '@/hooks/use-server-stats'
 import { ApiError, runCommand } from '@/lib/api'
-import { QUICK_COMMANDS } from '@/lib/quick-commands'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 
-type Feedback = { kind: 'ok' | 'warn' | 'error'; text: string } | null
+export type Feedback = { kind: 'ok' | 'warn' | 'error'; text: string } | null
+
+/**
+ * 会话 + 在线状态 + 执行指令。
+ * 指令库和常用指令共用这一份，避免重复发起会话校验与 /api/server 轮询。
+ */
+export function useCommandRunner() {
+  const locale = useLocale()
+  const t = getDictionary(locale).console
+  const session = useWebSession()
+  // 复用已有的 /api/server 轮询，不额外发请求
+  const { players, loading: statsLoading } = useServerStats()
+  const [busy, setBusy] = useState(false)
+  const [feedback, setFeedback] = useState<Feedback>(null)
+
+  const playerId = session.playerId
+  const isOnline = useMemo(
+    () => (playerId == null ? false : players.some((p) => p.id === playerId)),
+    [players, playerId]
+  )
+
+  const execute = useCallback(
+    async (rawCommand: string) => {
+      const command = rawCommand.trim().replace(/^\/+/, '') // 不要带开头的 /
+      if (!command || busy) return
+      if (command.length > 2048) {
+        setFeedback({ kind: 'error', text: t.resultTooLong })
+        return
+      }
+      setBusy(true)
+      setFeedback(null)
+      try {
+        const res = await runCommand(command)
+        setFeedback(
+          res.result === 1
+            ? { kind: 'ok', text: t.resultSent }
+            : { kind: 'warn', text: t.resultRejected }
+        )
+      } catch (err) {
+        if (err instanceof ApiError) {
+          if (err.kind === 'offline') setFeedback({ kind: 'error', text: t.resultOffline })
+          else if (err.kind === 'unauthorized') return // 令牌已清，自动退回验证页
+          else if (err.kind === 'bad_request') setFeedback({ kind: 'error', text: t.resultBadRequest })
+          else if (err.kind === 'rate_limited') setFeedback({ kind: 'error', text: t.resultRateLimited })
+          else setFeedback({ kind: 'error', text: t.errorNetwork })
+        } else {
+          setFeedback({ kind: 'error', text: t.errorNetwork })
+        }
+      } finally {
+        setBusy(false)
+      }
+    },
+    [busy, t]
+  )
+
+  return {
+    ...session,
+    isOnline,
+    statsLoading,
+    busy,
+    feedback,
+    setFeedback,
+    execute,
+    /** 可执行：已登录 + 游戏在线 + 当前没有请求在飞 */
+    canRun: session.status === 'authed' && isOnline && !busy
+  }
+}
+
+export function RunFeedback({ feedback }: { feedback: Feedback }) {
+  if (!feedback) return null
+  return (
+    <div
+      className={`flex gap-2 rounded-md border p-3 ${
+        feedback.kind === 'ok'
+          ? 'border-emerald-500/40 bg-emerald-500/5'
+          : feedback.kind === 'warn'
+            ? 'border-amber-500/40 bg-amber-500/5'
+            : 'border-destructive/40 bg-destructive/5'
+      }`}
+    >
+      {feedback.kind === 'ok' ? (
+        <Check className="h-4 w-4 shrink-0 text-emerald-600" />
+      ) : (
+        <AlertCircle
+          className={`h-4 w-4 shrink-0 ${
+            feedback.kind === 'warn' ? 'text-amber-600' : 'text-destructive'
+          }`}
+        />
+      )}
+      <p
+        className={`text-sm ${
+          feedback.kind === 'ok'
+            ? 'text-emerald-700 dark:text-emerald-500'
+            : feedback.kind === 'warn'
+              ? 'text-amber-700 dark:text-amber-500'
+              : 'text-destructive'
+        }`}
+      >
+        {feedback.text}
+      </p>
+    </div>
+  )
+}
 
 /* ── 第一步：游戏内取码 → 换令牌 ── */
 
-function VerifyPanel({
+export function VerifyPanel({
   onVerify
 }: {
   onVerify: (id: number, code: string) => Promise<unknown>
@@ -168,64 +268,22 @@ function VerifyPanel({
   )
 }
 
-/* ── 第二步：指令面板 ── */
+/* ── 已登录状态条 ── */
 
-function CommandPanel({
+export function SessionBar({
   playerId,
+  isOnline,
+  statsLoading,
   onLogout
 }: {
   playerId: number | null
+  isOnline: boolean
+  statsLoading: boolean
   onLogout: () => Promise<void>
 }) {
   const locale = useLocale()
-  const dict = getDictionary(locale)
-  const t = dict.console
-  const [input, setInput] = useState('')
-  const [busy, setBusy] = useState(false)
-  const [feedback, setFeedback] = useState<Feedback>(null)
+  const t = getDictionary(locale).console
   const [loggingOut, setLoggingOut] = useState(false)
-
-  // 复用已有的 /api/server 轮询，不额外发请求
-  const { players, loading: statsLoading } = useServerStats()
-
-  const isOnline = useMemo(
-    () => (playerId == null ? false : players.some((p) => p.id === playerId)),
-    [players, playerId]
-  )
-
-  const execute = useCallback(
-    async (rawCommand: string) => {
-      const command = rawCommand.trim().replace(/^\/+/, '') // 不要带开头的 /
-      if (!command || busy) return
-      if (command.length > 2048) {
-        setFeedback({ kind: 'error', text: t.resultTooLong })
-        return
-      }
-      setBusy(true)
-      setFeedback(null)
-      try {
-        const res = await runCommand(command)
-        setFeedback(
-          res.result === 1
-            ? { kind: 'ok', text: t.resultSent }
-            : { kind: 'warn', text: t.resultRejected }
-        )
-      } catch (err) {
-        if (err instanceof ApiError) {
-          if (err.kind === 'offline') setFeedback({ kind: 'error', text: t.resultOffline })
-          else if (err.kind === 'unauthorized') return // 令牌已清，自动退回验证页
-          else if (err.kind === 'bad_request') setFeedback({ kind: 'error', text: t.resultBadRequest })
-          else if (err.kind === 'rate_limited') setFeedback({ kind: 'error', text: t.resultRateLimited })
-          else setFeedback({ kind: 'error', text: t.errorNetwork })
-        } else {
-          setFeedback({ kind: 'error', text: t.errorNetwork })
-        }
-      } finally {
-        setBusy(false)
-      }
-    },
-    [busy, t]
-  )
 
   const handleLogout = async () => {
     setLoggingOut(true)
@@ -236,11 +294,8 @@ function CommandPanel({
     }
   }
 
-  const canRun = isOnline && !busy
-
   return (
-    <div className="space-y-6">
-      {/* 会话状态条 */}
+    <div className="space-y-3">
       <Card>
         <CardContent className="flex flex-wrap items-center gap-3 p-4">
           <Badge variant="secondary" className="font-mono">
@@ -280,141 +335,6 @@ function CommandPanel({
           </p>
         </div>
       )}
-
-      {/* 执行反馈。注意：指令的文字结果只发到游戏客户端，网页拿不到，
-          所以这里只说「已发送」，不做假装显示指令输出的终端框 */}
-      {feedback && (
-        <div
-          className={`flex gap-2 rounded-md border p-3 ${
-            feedback.kind === 'ok'
-              ? 'border-emerald-500/40 bg-emerald-500/5'
-              : feedback.kind === 'warn'
-                ? 'border-amber-500/40 bg-amber-500/5'
-                : 'border-destructive/40 bg-destructive/5'
-          }`}
-        >
-          {feedback.kind === 'ok' ? (
-            <Check className="h-4 w-4 shrink-0 text-emerald-600" />
-          ) : (
-            <AlertCircle
-              className={`h-4 w-4 shrink-0 ${
-                feedback.kind === 'warn' ? 'text-amber-600' : 'text-destructive'
-              }`}
-            />
-          )}
-          <p
-            className={`text-sm ${
-              feedback.kind === 'ok'
-                ? 'text-emerald-700 dark:text-emerald-500'
-                : feedback.kind === 'warn'
-                  ? 'text-amber-700 dark:text-amber-500'
-                  : 'text-destructive'
-            }`}
-          >
-            {feedback.text}
-          </p>
-        </div>
-      )}
-
-      {/* 常用指令：绝大多数玩家不知道有哪些指令，这是本页最大的价值点 */}
-      {QUICK_COMMANDS.map((group) => (
-        <Card key={group.id}>
-          <CardHeader>
-            <CardTitle className="text-base">
-              {locale === 'en' ? group.labelEn : group.labelZh}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-2 sm:grid-cols-2">
-            {group.items.map((item) => (
-              <button
-                key={item.command}
-                type="button"
-                onClick={() => execute(item.command)}
-                disabled={!canRun}
-                className="flex flex-col items-start rounded-md border p-3 text-left transition-colors hover:bg-muted/60 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <span className="font-medium">
-                  {locale === 'en' ? item.labelEn : item.labelZh}
-                </span>
-                <code className="mt-0.5 font-mono text-xs text-muted-foreground">
-                  /{item.command}
-                </code>
-              </button>
-            ))}
-          </CardContent>
-        </Card>
-      ))}
-
-      {/* 高级模式：给熟练用户的自由输入 */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">{t.advancedTitle}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              execute(input)
-            }}
-            className="flex gap-2"
-          >
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t.advancedPlaceholder}
-              className="font-mono"
-              maxLength={2048}
-              disabled={!canRun}
-            />
-            <Button type="submit" disabled={!canRun || !input.trim()}>
-              {busy ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Send className="h-4 w-4" />
-              )}
-              <span className="ml-2 hidden sm:inline">{t.send}</span>
-            </Button>
-          </form>
-          <p className="text-xs text-muted-foreground">{t.advancedHint}</p>
-        </CardContent>
-      </Card>
-
-      {/* 权限模型说明，避免用户误解 */}
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        {t.permissionNote}
-      </p>
     </div>
-  )
-}
-
-/* ── 入口 ── */
-
-export function RemoteConsole() {
-  const locale = useLocale()
-  const t = getDictionary(locale).console
-  const { status, playerId, verify, logout } = useWebSession()
-
-  return (
-    <section className="space-y-4">
-      <div>
-        <h2 className="text-xl font-semibold tracking-tight">{t.title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{t.subtitle}</p>
-      </div>
-
-      {status === 'checking' && (
-        <Card>
-          <CardContent className="flex items-center justify-center gap-2 py-10 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            {t.checkingSession}
-          </CardContent>
-        </Card>
-      )}
-
-      {status === 'anonymous' && <VerifyPanel onVerify={verify} />}
-
-      {status === 'authed' && (
-        <CommandPanel playerId={playerId} onLogout={logout} />
-      )}
-    </section>
   )
 }
