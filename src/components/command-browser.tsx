@@ -12,6 +12,12 @@ import {
   isTemplateReady,
   parseTemplate
 } from '@/lib/command-template'
+import {
+  applyNumbers,
+  displayName,
+  extractNumbers,
+  matchFamily
+} from '@/lib/command-families'
 import { PlayerName } from '@/components/player-name'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -35,16 +41,28 @@ function CommandItem({
 }) {
   const locale = useLocale()
   const t = getDictionary(locale).commands
-  const [values, setValues] = useState<Record<string, string>>({})
   const [copied, setCopied] = useState(false)
+
+  // 两套可编辑机制：家族数值参数（698 条），或显式 <参数> 占位符（114 条）
+  const family = useMemo(() => matchFamily(cmd.command), [cmd.command])
+  const originalNumbers = useMemo(
+    () => (family ? extractNumbers(cmd.command) : []),
+    [family, cmd.command]
+  )
+  const [numbers, setNumbers] = useState<string[]>(originalNumbers)
+  const [values, setValues] = useState<Record<string, string>>({})
 
   const parts = useMemo(() => parseTemplate(cmd.command), [cmd.command])
   const params = parts.filter((p) => p.type === 'param')
-  const final = fillTemplate(cmd.command, values)
-  const ready = isTemplateReady(cmd.command, values)
+
+  const final = family
+    ? applyNumbers(cmd.command, numbers)
+    : fillTemplate(cmd.command, values)
+  const ready = family ? true : isTemplateReady(cmd.command, values)
   const runnable = isRunnable(cmd.command)
-  // 彩色字体那类条目本身就是 <cRRGGBB>文字</c>，直接预览成色
   const isColorSnippet = /^<c[0-9A-Fa-f]{6}>/.test(cmd.command)
+  const label = displayName(cmd.name, family)
+  const edited = family && numbers.some((n, i) => n !== originalNumbers[i])
 
   const handleCopy = async () => {
     try {
@@ -56,21 +74,33 @@ function CommandItem({
     }
   }
 
+  const setNumberAt = (index: number, v: string) =>
+    setNumbers((prev) => {
+      const next = [...(prev.length ? prev : originalNumbers)]
+      next[index] = v.replace(/[^\d]/g, '')
+      return next
+    })
+
   return (
     <li className="rounded-lg border p-3 transition-colors hover:bg-muted/40">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">{cmd.name}</p>
+          <p className="text-sm font-medium">{label}</p>
           <code className="mt-0.5 block break-all font-mono text-xs text-muted-foreground">
-            {isColorSnippet ? (
-              <PlayerName name={cmd.command} />
-            ) : (
-              final
-            )}
+            {isColorSnippet ? <PlayerName name={cmd.command} /> : final}
           </code>
         </div>
 
-        <div className="flex shrink-0 gap-1.5">
+        <div className="flex shrink-0 items-center gap-1.5">
+          {edited && (
+            <button
+              type="button"
+              onClick={() => setNumbers(originalNumbers)}
+              className="text-xs text-muted-foreground hover:text-foreground"
+            >
+              {t.resetValues}
+            </button>
+          )}
           <Button
             variant="outline"
             size="sm"
@@ -97,7 +127,40 @@ function CommandItem({
         </div>
       </div>
 
-      {params.length > 0 && (
+      {/* 家族数值：把写死的数量/等级/坐标开放成输入框，实体位保持不动 */}
+      {family && (
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {family.args
+            .filter((a) => a.role === 'value')
+            .map((a) => {
+              const listId = `${cmd.id}-${a.index}`
+              return (
+                <label key={a.index} className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground">
+                    {locale === 'en' ? a.labelEn : a.labelZh}
+                  </span>
+                  <Input
+                    inputMode="numeric"
+                    value={numbers[a.index] ?? originalNumbers[a.index] ?? ''}
+                    onChange={(e) => setNumberAt(a.index, e.target.value)}
+                    className="h-7 w-24 text-xs"
+                    list={a.presets ? listId : undefined}
+                  />
+                  {a.presets && (
+                    <datalist id={listId}>
+                      {a.presets.map((v) => (
+                        <option key={v} value={v} />
+                      ))}
+                    </datalist>
+                  )}
+                </label>
+              )
+            })}
+        </div>
+      )}
+
+      {/* 显式 <参数> 占位符 */}
+      {!family && params.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {params.map((p) => (
             <label key={p.value} className="flex items-center gap-1.5">
