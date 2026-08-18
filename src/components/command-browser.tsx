@@ -27,6 +27,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { SearchableSelect } from '@/components/ui/searchable-select'
 import { cn } from '@/lib/utils'
 
 /** 一次最多渲染这么多条，避免 1042 条全塞进 DOM */
@@ -297,19 +298,19 @@ function GroupItem({
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
-        {/* 用原生 select：几百个选项时可打字跳转，移动端直接调系统选择器 */}
-        <select
+        {/* 可搜索下拉：奖杯有 263 项，原生 select 打字跳转只匹配开头，中文名跳不动 */}
+        <SearchableSelect
+          className="w-full min-w-[10rem] max-w-[16rem] sm:flex-1"
           value={current.id}
-          onChange={(e) => handleSelect(e.target.value)}
-          aria-label={locale === 'en' ? group.labelEn : group.labelZh}
-          className="h-7 max-w-[15rem] flex-1 rounded-md border bg-background px-2 text-xs"
-        >
-          {options.map((o) => (
-            <option key={o.id} value={o.id}>
-              {optionLabel(o, group.family)}
-            </option>
-          ))}
-        </select>
+          onChange={handleSelect}
+          ariaLabel={locale === 'en' ? group.labelEn : group.labelZh}
+          searchPlaceholder={t.pickerSearch}
+          emptyText={t.noResults}
+          options={options.map((o) => ({
+            value: o.id,
+            label: optionLabel(o, group.family)
+          }))}
+        />
 
         {group.family.args
           .filter((a) => a.role === 'value')

@@ -17,5 +17,6 @@
   "copyHint": "复制后到游戏聊天框粘贴使用；已验证并在线时可直接点「执行」",
   "resetValues": "复原",
   "groupCount": "{n} 项",
-  "collapsedHint": "同类指令已折叠为一行，用下拉框挑选具体对象"
+  "collapsedHint": "同类指令已折叠为一行，用下拉框挑选具体对象",
+  "pickerSearch": "搜索…"
 }
