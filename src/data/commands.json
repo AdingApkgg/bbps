@@ -692,13 +692,13 @@
     },
     {
       "id": "troop-105",
-      "name": "火焰喷射兵(Flamer)",
+      "name": "烈焰战车(Scorcher)",
       "command": "/setboat 1 4000008 1",
       "category": "troop"
     },
     {
       "id": "troop-106",
-      "name": "无人机(Drone)",
+      "name": "小怪(Critter)",
       "command": "/setboat 1 4000009 1",
       "category": "troop"
     },
@@ -716,7 +716,7 @@
     },
     {
       "id": "troop-109",
-      "name": "冰冻兵(Freezer)",
+      "name": "极冻先锋(Cryoneer)",
       "command": "/setboat 1 4000012 1",
       "category": "troop"
     },
@@ -728,13 +728,13 @@
     },
     {
       "id": "troop-111",
-      "name": "英雄教官(HeroDrillSergeant)",
+      "name": "布里克中士(Sgt. Brick)",
       "command": "/setboat 1 4000014 1",
       "category": "troop"
     },
     {
       "id": "troop-112",
-      "name": "英雄机械师(HeroMechromancer)",
+      "name": "伊娃斯巴克上尉(Cpt. Everspark)",
       "command": "/setboat 1 4000015 1",
       "category": "troop"
     },
@@ -776,7 +776,7 @@
     },
     {
       "id": "troop-119",
-      "name": "英雄巫医(HeroWitchDoctor)",
+      "name": "巫医卡万(Dr. Kavan)",
       "command": "/setboat 1 4000022 1",
       "category": "troop"
     },
@@ -794,31 +794,31 @@
     },
     {
       "id": "troop-122",
-      "name": "英雄狂战士(HeroBerserker)",
+      "name": "列兵布利特(Pvt. Bullit)",
       "command": "/setboat 1 4000025 1",
       "category": "troop"
     },
     {
       "id": "troop-123",
-      "name": "爆破无人机(ExplosiveDrone)",
+      "name": "爆炸小怪(Bomblet)",
       "command": "/setboat 1 4000026 1",
       "category": "troop"
     },
     {
       "id": "troop-124",
-      "name": "迫击炮坦克(MortarTank)",
+      "name": "弹雨战车(Rain Maker)",
       "command": "/setboat 1 4000027 1",
       "category": "troop"
     },
     {
       "id": "troop-125",
-      "name": "生物迫击炮坦克(CritterMortarTank)",
+      "name": "小怪加农炮2型(Critter Cannon Mk II)",
       "command": "/setboat 1 4000028 1",
       "category": "troop"
     },
     {
       "id": "troop-126",
-      "name": "激光坦克(LaserTank)",
+      "name": "激光坦克2型(Lazortron Mk II)",
       "command": "/setboat 1 4000029 1",
       "category": "troop"
     },
@@ -836,7 +836,7 @@
     },
     {
       "id": "troop-129",
-      "name": "侦察机(Seeker)",
+      "name": "追踪机器人(Seeker)",
       "command": "/setboat 1 4000032 1",
       "category": "troop"
     },
@@ -884,13 +884,13 @@
     },
     {
       "id": "troop-137",
-      "name": "冰冻坦克(CryoTank)",
+      "name": "极冻坦克(CryoTank)",
       "command": "/setboat 1 4000040 1",
       "category": "troop"
     },
     {
       "id": "troop-138",
-      "name": "卧底步枪手(Rifleman_Undercover)",
+      "name": "伪装步兵(Undercover Rifleman)",
       "command": "/setboat 1 4000041 1",
       "category": "troop"
     },
@@ -902,25 +902,25 @@
     },
     {
       "id": "troop-140",
-      "name": "冰冻投弹兵(Bombardier_Freeze)",
+      "name": "极冻炮手(CryoBombardier)",
       "command": "/setboat 1 4000043 1",
       "category": "troop"
     },
     {
       "id": "troop-141",
-      "name": "电击兵(Shockaneer)",
+      "name": "震爆突击兵(Shockaneer)",
       "command": "/setboat 1 4000044 1",
       "category": "troop"
     },
     {
       "id": "troop-142",
-      "name": "防护医疗兵(Healer_Protector)",
+      "name": "守护者(Protector)",
       "command": "/setboat 1 4000045 1",
       "category": "troop"
     },
     {
       "id": "troop-143",
-      "name": "工程医疗兵(Healer_Engineer)",
+      "name": "工程师(Turret Engineer)",
       "command": "/setboat 1 4000046 1",
       "category": "troop"
     },
@@ -932,13 +932,13 @@
     },
     {
       "id": "troop-145",
-      "name": "西瓜投弹兵(Bombardier_Melons)",
+      "name": "西瓜炮手(Melon Bombardier)",
       "command": "/setboat 1 4000048 1",
       "category": "troop"
     },
     {
       "id": "troop-146",
-      "name": "焚化火焰兵(Flamer_Incinerator)",
+      "name": "超级烈焰战车(MegaScorcher)",
       "command": "/setboat 1 4000049 1",
       "category": "troop"
     },
@@ -962,7 +962,7 @@
     },
     {
       "id": "troop-150",
-      "name": "卧底重机枪手(Heavy_Undercover)",
+      "name": "伪装重机枪手(Undercover Heavy)",
       "command": "/setboat 1 4000053 1",
       "category": "troop"
     },
@@ -998,37 +998,37 @@
     },
     {
       "id": "troop-156",
-      "name": "生物工程师(Engineer_Critters)",
+      "name": "工程师(Critter Engineer)",
       "command": "/setboat 1 4000059 1",
       "category": "troop"
     },
     {
       "id": "troop-157",
-      "name": "吸血鬼火箭筒手(VampireZooka)",
+      "name": "牙牙火箭炮手(Vampire Zooka)",
       "command": "/setboat 1 4000060 1",
       "category": "troop"
     },
     {
       "id": "troop-158",
-      "name": "隐藏勇士(HiddenWarrior)",
+      "name": "隐秘土著勇士(Hidden Warrior)",
       "command": "/setboat 1 4000061 1",
       "category": "troop"
     },
     {
       "id": "troop-159",
-      "name": "眩晕掷弹兵(StunGrenadier)",
+      "name": "震爆投弹兵(Stunner)",
       "command": "/setboat 1 4000062 1",
       "category": "troop"
     },
     {
       "id": "troop-160",
-      "name": "激光射手(LaserRanger)",
+      "name": "激光突击兵(Laser Ranger)",
       "command": "/setboat 1 4000063 1",
       "category": "troop"
     },
     {
       "id": "troop-161",
-      "name": "英雄喷气背包兵(HeroJetPack)",
+      "name": "鲁德洛上尉(Cpt. Ruddero)",
       "command": "/setboat 1 4000064 1",
       "category": "troop"
     },
@@ -1040,13 +1040,13 @@
     },
     {
       "id": "troop-163",
-      "name": "地雷重机枪手(HeavyOfcMine)",
+      "name": "扫雷兵(Minesweeper)",
       "command": "/setboat 1 4000066 1",
       "category": "troop"
     },
     {
       "id": "troop-164",
-      "name": "齐射重机枪手(HeavyOfcVolley)",
+      "name": "火箭炮迷(Zooka Fanboy)",
       "command": "/setboat 1 4000067 1",
       "category": "troop"
     },
@@ -1058,43 +1058,43 @@
     },
     {
       "id": "troop-166",
-      "name": "占位符69(Placeholder69)",
+      "name": "集束炮手(Clustardier)",
       "command": "/setboat 1 4000069 1",
       "category": "troop"
     },
     {
       "id": "troop-167",
-      "name": "占位符70(Placeholder70)",
+      "name": "纵火炮手(Firebrand)",
       "command": "/setboat 1 4000070 1",
       "category": "troop"
     },
     {
       "id": "troop-168",
-      "name": "占位符71(Placeholder71)",
+      "name": "护盾炮手(Bomb & Shield)",
       "command": "/setboat 1 4000071 1",
       "category": "troop"
     },
     {
       "id": "troop-169",
-      "name": "占位符72(Placeholder72)",
+      "name": "迫击火箭兵(Mooka)",
       "command": "/setboat 1 4000072 1",
       "category": "troop"
     },
     {
       "id": "troop-170",
-      "name": "占位符73(Placeholder73)",
+      "name": "重机枪迷(Heavy Fangirl)",
       "command": "/setboat 1 4000073 1",
       "category": "troop"
     },
     {
       "id": "troop-171",
-      "name": "占位符74(Placeholder74)",
+      "name": "火箭炮忍者(Ninja-Zooka)",
       "command": "/setboat 1 4000074 1",
       "category": "troop"
     },
     {
       "id": "troop-172",
-      "name": "占位符75(Placeholder75)",
+      "name": "疾速核心(Hasty Core)",
       "command": "/setboat 1 4000075 1",
       "category": "troop"
     },
@@ -1250,163 +1250,163 @@
     },
     {
       "id": "troop-198",
-      "name": "3级火焰陷阱(FlameSurprise3)",
+      "name": "狙击塔(Sniper Tower)",
       "command": "/setboat 1 4000101 1",
       "category": "troop"
     },
     {
       "id": "troop-199",
-      "name": "恐怖迫击炮(Scary Mortar)",
+      "name": "迫击炮(Mortar)",
       "command": "/setboat 1 4000102 1",
       "category": "troop"
     },
     {
       "id": "troop-200",
-      "name": "3级红外狙击塔(IRSniper3)",
+      "name": "重机枪(Machine Gun)",
       "command": "/setboat 1 4000103 1",
       "category": "troop"
     },
     {
       "id": "troop-201",
-      "name": "3级爆炸陷阱(BoomSurprise3)",
+      "name": "火箭发射器(Rocket Launcher)",
       "command": "/setboat 1 4000104 1",
       "category": "troop"
     },
     {
       "id": "troop-202",
-      "name": "3级微波塔(Microwave Tower 3)",
+      "name": "火焰喷射器(Flamethrower)",
       "command": "/setboat 1 4000105 1",
       "category": "troop"
     },
     {
       "id": "troop-203",
-      "name": "3级炸弹塔(Bomb Tower 3)",
+      "name": "加农炮(Cannon)",
       "command": "/setboat 1 4000106 1",
       "category": "troop"
     },
     {
       "id": "troop-204",
-      "name": "生物发射器(Critter Launcher)",
+      "name": "巨型加农炮(Boom Cannon)",
       "command": "/setboat 1 4000107 1",
       "category": "troop"
     },
     {
       "id": "troop-205",
-      "name": "地堡(Bunker)",
+      "name": "高级机枪 9000(MMG 9000)",
       "command": "/setboat 1 4000108 1",
       "category": "troop"
     },
     {
       "id": "troop-206",
-      "name": "超级勇士2级(SuperWarrior_lvl2)",
+      "name": "超级迫击炮(Super Mortar)",
       "command": "/setboat 1 4000109 1",
       "category": "troop"
     },
     {
       "id": "troop-207",
-      "name": "超级勇士3级(SuperWarrior_lvl3)",
+      "name": "震爆火箭炮(Shock Launcher)",
       "command": "/setboat 1 4000110 1",
       "category": "troop"
     },
     {
       "id": "troop-208",
-      "name": "超级勇士4级(SuperWarrior_lvl4)",
+      "name": "摄魂神器(Death Organ)",
       "command": "/setboat 1 4000111 1",
       "category": "troop"
     },
     {
       "id": "troop-209",
-      "name": "超级勇士5级(SuperWarrior_lvl5)",
+      "name": "震爆器1型(Shock Blaster I)",
       "command": "/setboat 1 4000112 1",
       "category": "troop"
     },
     {
       "id": "troop-210",
-      "name": "超级勇士6级(SuperWarrior_lvl6)",
+      "name": "震爆器2型(Shock Blaster II)",
       "command": "/setboat 1 4000113 1",
       "category": "troop"
     },
     {
       "id": "troop-211",
-      "name": "超级勇士7级(SuperWarrior_lvl7)",
+      "name": "震爆器3型(Shock Blaster III)",
       "command": "/setboat 1 4000114 1",
       "category": "troop"
     },
     {
       "id": "troop-212",
-      "name": "超级勇士8级(SuperWarrior_lvl8)",
+      "name": "激光1型(Lazor Beam I)",
       "command": "/setboat 1 4000115 1",
       "category": "troop"
     },
     {
       "id": "troop-213",
-      "name": "超级勇士9级(SuperWarrior_lvl9)",
+      "name": "激光2型(Lazor Beam II)",
       "command": "/setboat 1 4000116 1",
       "category": "troop"
     },
     {
       "id": "troop-214",
-      "name": "超级勇士10级(SuperWarrior_lvl10)",
+      "name": "激光3型(Lazor Beam III)",
       "command": "/setboat 1 4000117 1",
       "category": "troop"
     },
     {
       "id": "troop-215",
-      "name": "超级勇士11级(SuperWarrior_lvl11)",
+      "name": "毁灭加农炮1型(Doom Cannon I)",
       "command": "/setboat 1 4000118 1",
       "category": "troop"
     },
     {
       "id": "troop-216",
-      "name": "超级勇士12级(SuperWarrior_lvl12)",
+      "name": "毁灭加农炮2型(Doom Cannon II)",
       "command": "/setboat 1 4000119 1",
       "category": "troop"
     },
     {
       "id": "troop-217",
-      "name": "超级勇士13级(SuperWarrior_lvl13)",
+      "name": "毁灭加农炮3型(Doom Cannon III)",
       "command": "/setboat 1 4000120 1",
       "category": "troop"
     },
     {
       "id": "troop-218",
-      "name": "超级勇士14级(SuperWarrior_lvl14)",
+      "name": "机械飞爪1型(Grappler I)",
       "command": "/setboat 1 4000121 1",
       "category": "troop"
     },
     {
       "id": "troop-219",
-      "name": "超级勇士15级(SuperWarrior_lvl15)",
+      "name": "机械飞爪2型(Grappler II)",
       "command": "/setboat 1 4000122 1",
       "category": "troop"
     },
     {
       "id": "troop-220",
-      "name": "超级勇士16级(SuperWarrior_lvl16)",
+      "name": "机械飞爪3型(Grappler III)",
       "command": "/setboat 1 4000123 1",
       "category": "troop"
     },
     {
       "id": "troop-221",
-      "name": "超级勇士17级(SuperWarrior_lvl17)",
+      "name": "高压喷火器1型(Hot Pot I)",
       "command": "/setboat 1 4000124 1",
       "category": "troop"
     },
     {
       "id": "troop-222",
-      "name": "超级勇士18级(SuperWarrior_lvl18)",
+      "name": "高压喷火器2型(Hot Pot II)",
       "command": "/setboat 1 4000125 1",
       "category": "troop"
     },
     {
       "id": "troop-223",
-      "name": "超级勇士19级(SuperWarrior_lvl19)",
+      "name": "高压喷火器3型(Hot Pot III)",
       "command": "/setboat 1 4000126 1",
       "category": "troop"
     },
     {
       "id": "troop-224",
-      "name": "2级炮塔(Turret_lvl2)",
+      "name": "疯狂南瓜炮(Scary Mortar)",
       "command": "/setboat 1 4000127 1",
       "category": "troop"
     },
@@ -1448,103 +1448,103 @@
     },
     {
       "id": "troop-231",
-      "name": "9级炮塔(Turret_lvl9)",
+      "name": "恐怖博士人偶(Dr. T Lookalike)",
       "command": "/setboat 1 4000134 1",
       "category": "troop"
     },
     {
       "id": "troop-232",
-      "name": "10级炮塔(Turret_lvl10)",
+      "name": "西蒙狙击塔1型(S.I.M.O. I)",
       "command": "/setboat 1 4000135 1",
       "category": "troop"
     },
     {
       "id": "troop-233",
-      "name": "11级炮塔(Turret_lvl11)",
+      "name": "西蒙狙击塔2型(S.I.M.O. II)",
       "command": "/setboat 1 4000136 1",
       "category": "troop"
     },
     {
       "id": "troop-234",
-      "name": "12级炮塔(Turret_lvl12)",
+      "name": "西蒙狙击塔3型(S.I.M.O. III)",
       "command": "/setboat 1 4000137 1",
       "category": "troop"
     },
     {
       "id": "troop-235",
-      "name": "13级炮塔(Turret_lvl13)",
+      "name": "惊喜双管炮1型(Boom Surprise I)",
       "command": "/setboat 1 4000138 1",
       "category": "troop"
     },
     {
       "id": "troop-236",
-      "name": "14级炮塔(Turret_lvl14)",
+      "name": "惊喜双管炮2型(Boom Surprise II)",
       "command": "/setboat 1 4000139 1",
       "category": "troop"
     },
     {
       "id": "troop-237",
-      "name": "15级炮塔(Turret_lvl15)",
+      "name": "惊喜双管炮3型(Boom Surprise III)",
       "command": "/setboat 1 4000140 1",
       "category": "troop"
     },
     {
       "id": "troop-238",
-      "name": "16级炮塔(Turret_lvl16)",
+      "name": "微波烤炉1型(Microwav'r I)",
       "command": "/setboat 1 4000141 1",
       "category": "troop"
     },
     {
       "id": "troop-239",
-      "name": "17级炮塔(Turret_lvl17)",
+      "name": "微波烤炉2型(Microwav'r II)",
       "command": "/setboat 1 4000142 1",
       "category": "troop"
     },
     {
       "id": "troop-240",
-      "name": "18级炮塔(Turret_lvl18)",
+      "name": "微波烤炉3型(Microwav'r III)",
       "command": "/setboat 1 4000143 1",
       "category": "troop"
     },
     {
       "id": "troop-241",
-      "name": "19级炮塔(Turret_lvl19)",
+      "name": "诡雷火炮1型(Flotsam Cannon I)",
       "command": "/setboat 1 4000144 1",
       "category": "troop"
     },
     {
       "id": "troop-242",
-      "name": "2级爆破无人机(ExplosiveDrone_lvl2)",
+      "name": "诡雷火炮2型(Flotsam Cannon II)",
       "command": "/setboat 1 4000145 1",
       "category": "troop"
     },
     {
       "id": "troop-243",
-      "name": "3级爆破无人机(ExplosiveDrone_lvl3)",
+      "name": "诡雷火炮3型(Flotsam Cannon III)",
       "command": "/setboat 1 4000146 1",
       "category": "troop"
     },
     {
       "id": "troop-244",
-      "name": "4级爆破无人机(ExplosiveDrone_lvl4)",
+      "name": "烈焰喷口(Flame Hatch)",
       "command": "/setboat 1 4000147 1",
       "category": "troop"
     },
     {
       "id": "troop-245",
-      "name": "5级爆破无人机(ExplosiveDrone_lvl5)",
+      "name": "小怪发射器(Critter Launcher)",
       "command": "/setboat 1 4000148 1",
       "category": "troop"
     },
     {
       "id": "troop-246",
-      "name": "6级爆破无人机(ExplosiveDrone_lvl6)",
+      "name": "超级火焰喷射器(Mega Flamethrower)",
       "command": "/setboat 1 4000149 1",
       "category": "troop"
     },
     {
       "id": "troop-247",
-      "name": "7级爆破无人机(ExplosiveDrone_lvl7)",
+      "name": "爆炸小怪发射器(Bomblet Launcher)",
       "command": "/setboat 1 4000150 1",
       "category": "troop"
     },
@@ -1658,7 +1658,7 @@
     },
     {
       "id": "building-266",
-      "name": "民房(Supply Depot)",
+      "name": "民房(Residence)",
       "command": "/place 1 1 1000001 1",
       "category": "building"
     },
@@ -1670,19 +1670,19 @@
     },
     {
       "id": "building-268",
-      "name": "采石场(Stone Quarry)",
+      "name": "采石场(Quarry)",
       "command": "/place 1 1 1000003 1",
       "category": "building"
     },
     {
       "id": "building-269",
-      "name": "铁矿(Iron Mine)",
+      "name": "铁矿厂(Iron Mine)",
       "command": "/place 1 1 1000004 1",
       "category": "building"
     },
     {
       "id": "building-270",
-      "name": "金库(Coin Vault)",
+      "name": "金库(Gold Storage)",
       "command": "/place 1 1 1000005 1",
       "category": "building"
     },
@@ -1700,13 +1700,13 @@
     },
     {
       "id": "building-273",
-      "name": "钢材库(Steel Storage)",
+      "name": "钢材库(Iron Storage)",
       "command": "/place 1 1 1000008 1",
       "category": "building"
     },
     {
       "id": "building-274",
-      "name": "保险库(Safe)",
+      "name": "保险库(Vault)",
       "command": "/place 1 1 1000009 1",
       "category": "building"
     },
@@ -1718,31 +1718,31 @@
     },
     {
       "id": "building-276",
-      "name": "神庙(Temple)",
+      "name": "神庙(Sculptor)",
       "command": "/place 1 1 1000011 1",
       "category": "building"
     },
     {
       "id": "building-277",
-      "name": "小巧神像(Small Statue)",
+      "name": "小巧神像(Idol)",
       "command": "/place 1 1 1000012 1",
       "category": "building"
     },
     {
       "id": "building-278",
-      "name": "精良神像(Good Statue)",
+      "name": "精良神像(Guardian)",
       "command": "/place 1 1 1000013 1",
       "category": "building"
     },
     {
       "id": "building-279",
-      "name": "极品神像(Great Statue)",
+      "name": "极品神像(Masterpiece)",
       "command": "/place 1 1 1000014 1",
       "category": "building"
     },
     {
       "id": "building-280",
-      "name": "战舰(Battleship)",
+      "name": "战舰(Gunboat)",
       "command": "/place 1 1 1000015 1",
       "category": "building"
     },
@@ -1754,13 +1754,13 @@
     },
     {
       "id": "building-282",
-      "name": "登陆艇(Boat Dock)",
+      "name": "登陆艇(Landing Craft)",
       "command": "/place 1 1 1000017 1",
       "category": "building"
     },
     {
       "id": "building-283",
-      "name": "研究所(Research Lab)",
+      "name": "研究所(Armory)",
       "command": "/place 1 1 1000018 1",
       "category": "building"
     },
@@ -1820,25 +1820,25 @@
     },
     {
       "id": "building-293",
-      "name": "巨型加农炮(Giant Cannon)",
+      "name": "巨型加农炮(Boom Cannon)",
       "command": "/place 1 1 1000028 1",
       "category": "building"
     },
     {
       "id": "building-294",
-      "name": "MMG 9000(MMG 9000)",
+      "name": "高级机枪 9000(MMG 9000)",
       "command": "/place 1 1 1000029 1",
       "category": "building"
     },
     {
       "id": "building-295",
-      "name": "SM 3000(SM 3000)",
+      "name": "超级迫击炮(Super Mortar)",
       "command": "/place 1 1 1000030 1",
       "category": "building"
     },
     {
       "id": "building-296",
-      "name": "地堡(Bunker)",
+      "name": "碉堡(Redoubt)",
       "command": "/place 1 1 1000031 1",
       "category": "building"
     },
@@ -1904,37 +1904,37 @@
     },
     {
       "id": "building-307",
-      "name": "红小巧神像(Red Small Statue)",
+      "name": "小巧神像(Idol)",
       "command": "/place 1 1 1000042 1",
       "category": "building"
     },
     {
       "id": "building-308",
-      "name": "红精良神像(Red Good Statue)",
+      "name": "精良神像(Guardian)",
       "command": "/place 1 1 1000043 1",
       "category": "building"
     },
     {
       "id": "building-309",
-      "name": "红极品神像(Red Great Statue)",
+      "name": "极品神像(Masterpiece)",
       "command": "/place 1 1 1000044 1",
       "category": "building"
     },
     {
       "id": "building-310",
-      "name": "紫小巧神像(Purple Small Statue)",
+      "name": "小巧神像(Idol)",
       "command": "/place 1 1 1000045 1",
       "category": "building"
     },
     {
       "id": "building-311",
-      "name": "紫精良神像(Purple Good Statue)",
+      "name": "精良神像(Guardian)",
       "command": "/place 1 1 1000046 1",
       "category": "building"
     },
     {
       "id": "building-312",
-      "name": "紫极品神像(Purple Great Statue)",
+      "name": "极品神像(Masterpiece)",
       "command": "/place 1 1 1000047 1",
       "category": "building"
     },
@@ -1946,133 +1946,133 @@
     },
     {
       "id": "building-314",
-      "name": "震爆发射器(Shock Launcher)",
+      "name": "震爆火箭炮(Shock Launcher)",
       "command": "/place 1 1 1000049 1",
       "category": "building"
     },
     {
       "id": "building-315",
-      "name": "死亡神器(Doom Device)",
+      "name": "摄魂神器(Death Organ)",
       "command": "/place 1 1 1000050 1",
       "category": "building"
     },
     {
       "id": "building-316",
-      "name": "蓄电池(Battery)",
+      "name": "蓄电池(Power Cell)",
       "command": "/place 1 1 1000051 1",
       "category": "building"
     },
     {
       "id": "building-317",
-      "name": "能量中心(Energy Core)",
+      "name": "能量中心(Power Core)",
       "command": "/place 1 1 1000052 1",
       "category": "building"
     },
     {
       "id": "building-318",
-      "name": "工厂补给(Factory Supply)",
+      "name": "工厂补给(Factory supplies)",
       "command": "/place 1 1 1000053 1",
       "category": "building"
     },
     {
       "id": "building-319",
-      "name": "震爆器I(Shocker I)",
+      "name": "震爆器1型(Shock Blaster I)",
       "command": "/place 1 1 1000054 1",
       "category": "building"
     },
     {
       "id": "building-320",
-      "name": "震爆器II(Shocker II)",
+      "name": "震爆器2型(Shock Blaster II)",
       "command": "/place 1 1 1000055 1",
       "category": "building"
     },
     {
       "id": "building-321",
-      "name": "震爆器III(Shocker III)",
+      "name": "震爆器3型(Shock Blaster III)",
       "command": "/place 1 1 1000056 1",
       "category": "building"
     },
     {
       "id": "building-322",
-      "name": "激光I(Laser I)",
+      "name": "激光1型(Lazor Beam I)",
       "command": "/place 1 1 1000057 1",
       "category": "building"
     },
     {
       "id": "building-323",
-      "name": "激光II(Laser II)",
+      "name": "激光2型(Lazor Beam II)",
       "command": "/place 1 1 1000058 1",
       "category": "building"
     },
     {
       "id": "building-324",
-      "name": "激光III(Laser III)",
+      "name": "激光3型(Lazor Beam III)",
       "command": "/place 1 1 1000059 1",
       "category": "building"
     },
     {
       "id": "building-325",
-      "name": "伤害放大器I(Damage Amplifier I)",
+      "name": "伤害放大器1型(Damage Amplifier I)",
       "command": "/place 1 1 1000060 1",
       "category": "building"
     },
     {
       "id": "building-326",
-      "name": "伤害放大器II(Damage Amplifier II)",
+      "name": "伤害放大器2型(Damage Amplifier II)",
       "command": "/place 1 1 1000061 1",
       "category": "building"
     },
     {
       "id": "building-327",
-      "name": "伤害放大器III(Damage Amplifier III)",
+      "name": "伤害放大器3型(Damage Amplifier III)",
       "command": "/place 1 1 1000062 1",
       "category": "building"
     },
     {
       "id": "building-328",
-      "name": "毁灭加农炮I(Destroyer Cannon I)",
+      "name": "毁灭加农炮1型(Doom Cannon I)",
       "command": "/place 1 1 1000063 1",
       "category": "building"
     },
     {
       "id": "building-329",
-      "name": "毁灭加农炮II(Destroyer Cannon II)",
+      "name": "毁灭加农炮2型(Doom Cannon II)",
       "command": "/place 1 1 1000064 1",
       "category": "building"
     },
     {
       "id": "building-330",
-      "name": "毁灭加农炮III(Destroyer Cannon III)",
+      "name": "毁灭加农炮3型(Doom Cannon III)",
       "command": "/place 1 1 1000065 1",
       "category": "building"
     },
     {
       "id": "building-331",
-      "name": "武器实验室(Weapons Lab)",
+      "name": "武器实验室(Weapon Lab)",
       "command": "/place 1 1 1000066 1",
       "category": "building"
     },
     {
       "id": "building-332",
-      "name": "护盾发生器I(Shield Generator I)",
+      "name": "护盾发生器1型(Shield Generator I)",
       "command": "/place 1 1 1000067 1",
       "category": "building"
     },
     {
       "id": "building-333",
-      "name": "护盾发生器II(Shield Generator II)",
+      "name": "护盾发生器2型(Shield Generator II)",
       "command": "/place 1 1 1000068 1",
       "category": "building"
     },
     {
       "id": "building-334",
-      "name": "护盾发生器III(Shield Generator III)",
+      "name": "护盾发生器3型(Shield Generator III)",
       "command": "/place 1 1 1000069 1",
       "category": "building"
     },
     {
       "id": "building-335",
-      "name": "超级核心(Super Core)",
+      "name": "超级核心(Mega Core)",
       "command": "/place 1 1 1000070 1",
       "category": "building"
     },
@@ -2090,7 +2090,7 @@
     },
     {
       "id": "building-338",
-      "name": "博士补给3(Dr. Tako Supply 3)",
+      "name": "梦幻导管(Dream Pipes)",
       "command": "/place 1 1 1000073 1",
       "category": "building"
     },
@@ -2108,7 +2108,7 @@
     },
     {
       "id": "building-341",
-      "name": "冷冻炸弹(Freeze Bomb)",
+      "name": "冷冻炸弹(Cryo Bomb)",
       "command": "/place 1 1 1000076 1",
       "category": "building"
     },
@@ -2138,49 +2138,49 @@
     },
     {
       "id": "building-346",
-      "name": "机械飞爪I(Mechanical Claw I)",
+      "name": "机械飞爪1型(Grappler I)",
       "command": "/place 1 1 1000081 1",
       "category": "building"
     },
     {
       "id": "building-347",
-      "name": "机械飞爪II(Mechanical Claw II)",
+      "name": "机械飞爪2型(Grappler II)",
       "command": "/place 1 1 1000082 1",
       "category": "building"
     },
     {
       "id": "building-348",
-      "name": "机械飞爪III(Mechanical Claw III)",
+      "name": "机械飞爪3型(Grappler III)",
       "command": "/place 1 1 1000083 1",
       "category": "building"
     },
     {
       "id": "building-349",
-      "name": "高压喷火器I(High-Pressure Flamer I)",
+      "name": "高压喷火器1型(Hot Pot I)",
       "command": "/place 1 1 1000084 1",
       "category": "building"
     },
     {
       "id": "building-350",
-      "name": "高压喷火器II(High-Pressure Flamer II)",
+      "name": "高压喷火器2型(Hot Pot II)",
       "command": "/place 1 1 1000085 1",
       "category": "building"
     },
     {
       "id": "building-351",
-      "name": "高压喷火器III(High-Pressure Flamer III)",
+      "name": "高压喷火器3型(Hot Pot III)",
       "command": "/place 1 1 1000086 1",
       "category": "building"
     },
     {
       "id": "building-352",
-      "name": "疯狂南瓜炮(Crazy Pumpkin Cannon)",
+      "name": "疯狂南瓜炮(Scary Mortar)",
       "command": "/place 1 1 1000087 1",
       "category": "building"
     },
     {
       "id": "building-353",
-      "name": "瓜田(Pumpkin Field)",
+      "name": "瓜田(Melon Patch)",
       "command": "/place 1 1 1000088 1",
       "category": "building"
     },
@@ -2204,7 +2204,7 @@
     },
     {
       "id": "building-357",
-      "name": "45级战争工厂司令部(War Factory HQ Lv.45)",
+      "name": "战争工厂(War Factory)",
       "command": "/place 1 1 1000092 1",
       "category": "building"
     },
@@ -2252,7 +2252,7 @@
     },
     {
       "id": "building-365",
-      "name": "博士雕像(Dr. Tako Statue)",
+      "name": "恐怖博士人偶(Dr. T Lookalike)",
       "command": "/place 1 1 1000100 1",
       "category": "building"
     },
@@ -2270,127 +2270,127 @@
     },
     {
       "id": "building-368",
-      "name": "超级步兵(Super Troop)",
+      "name": "步兵培养器(Rifleman Vat)",
       "command": "/place 1 1 1000103 1",
       "category": "building"
     },
     {
       "id": "building-369",
-      "name": "超级医生(Super Medic)",
+      "name": "医师培养器(Medic Vat)",
       "command": "/place 1 1 1000104 1",
       "category": "building"
     },
     {
       "id": "building-370",
-      "name": "超级土著勇士(Super Warrior)",
+      "name": "土著勇士培养器(Warrior Vat)",
       "command": "/place 1 1 1000105 1",
       "category": "building"
     },
     {
       "id": "building-371",
-      "name": "超级重机枪手(Super Heavy)",
+      "name": "重机枪手培养器(Heavy Vat)",
       "command": "/place 1 1 1000106 1",
       "category": "building"
     },
     {
       "id": "building-372",
-      "name": "超级机器小怪(Super Machine Cub)",
+      "name": "机器小怪培养器(Critter Vat)",
       "command": "/place 1 1 1000107 1",
       "category": "building"
     },
     {
       "id": "building-373",
-      "name": "超级投弹兵(Super Grenadier)",
+      "name": "投弹兵培养器(Grenadier Vat)",
       "command": "/place 1 1 1000108 1",
       "category": "building"
     },
     {
       "id": "building-374",
-      "name": "防空护盾I(Anti-Air Shield I)",
+      "name": "防空护盾1型(Sky Shield I)",
       "command": "/place 1 1 1000109 1",
       "category": "building"
     },
     {
       "id": "building-375",
-      "name": "防空护盾II(Anti-Air Shield II)",
+      "name": "防空护盾2型(Sky Shield II)",
       "command": "/place 1 1 1000110 1",
       "category": "building"
     },
     {
       "id": "building-376",
-      "name": "防空护盾III(Anti-Air Shield III)",
+      "name": "防空护盾3型(Sky Shield III)",
       "command": "/place 1 1 1000111 1",
       "category": "building"
     },
     {
       "id": "building-377",
-      "name": "西蒙狙击塔I(Simon's Sniper Tower I)",
+      "name": "西蒙狙击塔1型(S.I.M.O. I)",
       "command": "/place 1 1 1000112 1",
       "category": "building"
     },
     {
       "id": "building-378",
-      "name": "西蒙狙击塔II(Simon's Sniper Tower II)",
+      "name": "西蒙狙击塔2型(S.I.M.O. II)",
       "command": "/place 1 1 1000113 1",
       "category": "building"
     },
     {
       "id": "building-379",
-      "name": "西蒙狙击塔III(Simon's Sniper Tower III)",
+      "name": "西蒙狙击塔3型(S.I.M.O. III)",
       "command": "/place 1 1 1000114 1",
       "category": "building"
     },
     {
       "id": "building-380",
-      "name": "惊喜双管炮I(Surprise Double Cannon I)",
+      "name": "惊喜双管炮1型(Boom Surprise I)",
       "command": "/place 1 1 1000115 1",
       "category": "building"
     },
     {
       "id": "building-381",
-      "name": "惊喜双管炮II(Surprise Double Cannon II)",
+      "name": "惊喜双管炮2型(Boom Surprise II)",
       "command": "/place 1 1 1000116 1",
       "category": "building"
     },
     {
       "id": "building-382",
-      "name": "惊喜双管炮III(Surprise Double Cannon III)",
+      "name": "惊喜双管炮3型(Boom Surprise III)",
       "command": "/place 1 1 1000117 1",
       "category": "building"
     },
     {
       "id": "building-383",
-      "name": "微波炉I(Microwave Tower I)",
+      "name": "微波烤炉1型(Microwav'r I)",
       "command": "/place 1 1 1000118 1",
       "category": "building"
     },
     {
       "id": "building-384",
-      "name": "微波炉II(Microwave Tower II)",
+      "name": "微波烤炉2型(Microwav'r II)",
       "command": "/place 1 1 1000119 1",
       "category": "building"
     },
     {
       "id": "building-385",
-      "name": "微波炉III(Microwave Tower III)",
+      "name": "微波烤炉3型(Microwav'r III)",
       "command": "/place 1 1 1000120 1",
       "category": "building"
     },
     {
       "id": "building-386",
-      "name": "鱼雷I(Torpedo Launcher I)",
+      "name": "诡雷火炮1型(Flotsam Cannon I)",
       "command": "/place 1 1 1000121 1",
       "category": "building"
     },
     {
       "id": "building-387",
-      "name": "鱼雷II(Torpedo Launcher II)",
+      "name": "诡雷火炮2型(Flotsam Cannon II)",
       "command": "/place 1 1 1000122 1",
       "category": "building"
     },
     {
       "id": "building-388",
-      "name": "鱼雷III(Torpedo Launcher III)",
+      "name": "诡雷火炮3型(Flotsam Cannon III)",
       "command": "/place 1 1 1000123 1",
       "category": "building"
     },
@@ -2402,7 +2402,7 @@
     },
     {
       "id": "building-390",
-      "name": "烈焰碰口(Flaming Vent)",
+      "name": "烈焰喷口(Flame Hatch)",
       "command": "/place 1 1 1000125 1",
       "category": "building"
     },
@@ -2414,13 +2414,13 @@
     },
     {
       "id": "building-392",
-      "name": "小怪发射器(Cub Launcher)",
+      "name": "小怪发射器(Critter Launcher)",
       "command": "/place 1 1 1000127 1",
       "category": "building"
     },
     {
       "id": "building-393",
-      "name": "神秘纪念碑(Mystery Monument)",
+      "name": "神秘纪念碑(Mystical Monument)",
       "command": "/place 1 1 1000128 1",
       "category": "building"
     },
@@ -2546,73 +2546,73 @@
     },
     {
       "id": "地雷-414",
-      "name": "地雷",
+      "name": "地雷(Mine)",
       "command": "/place 1 1 12000000",
       "category": "地雷"
     },
     {
       "id": "地雷-415",
-      "name": "高爆地雷",
+      "name": "高爆地雷(Boom Mine)",
       "command": "/place 1 1 12000001",
       "category": "地雷"
     },
     {
       "id": "地雷-416",
-      "name": "震爆地雷",
+      "name": "震爆地雷(Shock Mine)",
       "command": "/place 1 1 12000002",
       "category": "地雷"
     },
     {
       "id": "障碍物-417",
-      "name": "红树",
+      "name": "红树(Mangrove Tree)",
       "command": "/place 1 1 8000000",
       "category": "障碍物"
     },
     {
       "id": "障碍物-418",
-      "name": "成年红树",
+      "name": "成年红树(Old Mangrove)",
       "command": "/place 1 1 8000001",
       "category": "障碍物"
     },
     {
       "id": "障碍物-419",
-      "name": "红树从",
+      "name": "红树丛(Mangrove Thicket)",
       "command": "/place 1 1 8000002",
       "category": "障碍物"
     },
     {
       "id": "障碍物-420",
-      "name": "红树林",
+      "name": "红树林(Mangrove Grove)",
       "command": "/place 1 1 8000003",
       "category": "障碍物"
     },
     {
       "id": "障碍物-421",
-      "name": "石头",
+      "name": "石头(Stone)",
       "command": "/place 1 1 8000004",
       "category": "障碍物"
     },
     {
       "id": "障碍物-422",
-      "name": "巨石",
+      "name": "巨石(Boulder)",
       "command": "/place 1 1 8000005",
       "category": "障碍物"
     },
     {
       "id": "障碍物-423",
-      "name": "红树苗",
+      "name": "红树苗(Young Mangrove)",
       "command": "/place 1 1 8000006",
       "category": "障碍物"
     },
     {
       "id": "障碍物-424",
-      "name": "厚实红树",
+      "name": "厚实红树(Sturdy Mangrove)",
       "command": "/place 1 1 8000007",
       "category": "障碍物"
     },
     {
       "id": "障碍物-425",
-      "name": "古老红树",
+      "name": "古老红树(Ancient Mangrove)",
       "command": "/place 1 1 8000008",
       "category": "障碍物"
     },
@@ -2636,289 +2636,289 @@
     },
     {
       "id": "雕刻-429",
-      "name": "肾上腺素 1级",
+      "name": "肾上腺素(Adrenaline)",
       "command": "/engraving level 0 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-430",
-      "name": "干扰信号 1级",
+      "name": "干扰信号(Interference)",
       "command": "/engraving level 1 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-431",
-      "name": "破坏阻滞 1级",
+      "name": "破坏阻滞(Sabotage)",
       "command": "/engraving level 2 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-432",
-      "name": "能量涌动 1级",
+      "name": "能量涌动(Power Surge)",
       "command": "/engraving level 3 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-433",
-      "name": "坚固装甲 1级",
+      "name": "坚固装甲(Armor)",
       "command": "/engraving level 4 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-434",
-      "name": "绝缘材料 1级",
+      "name": "绝缘材料(Insulation)",
       "command": "/engraving level 5 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-435",
-      "name": "炮火连天 1级",
+      "name": "炮火连天(Ordnance)",
       "command": "/engraving level 6 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-436",
-      "name": "前仆后继 1级",
+      "name": "前仆后继(Rally)",
       "command": "/engraving level 7 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-437",
-      "name": "活力汲取 1级",
+      "name": "活力汲取(Leech)",
       "command": "/engraving level 8 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-438",
-      "name": "情报压制 1级",
+      "name": "情报压制(Intel)",
       "command": "/engraving level 9 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-439",
-      "name": "战地急救 1级",
+      "name": "战地急救(Triage)",
       "command": "/engraving level 10 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-440",
-      "name": "炼金技术 1级",
+      "name": "炼金技术(Alchemy)",
       "command": "/engraving level 11 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-441",
-      "name": "过载 1级",
+      "name": "过载(Overdrive)",
       "command": "/engraving level 12 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-442",
-      "name": "力竭 1级",
+      "name": "力竭(Life Drain)",
       "command": "/engraving level 13 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-443",
-      "name": "硬化 1级",
+      "name": "硬化(Hardening)",
       "command": "/engraving level 14 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-444",
-      "name": "昏沉 1级",
+      "name": "昏沉(Mind Fog)",
       "command": "/engraving level 15 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-445",
-      "name": "修补 1级",
+      "name": "修补(Tinkering)",
       "command": "/engraving level 16 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-446",
-      "name": "干扰 1级",
+      "name": "干扰(Disruption)",
       "command": "/engraving level 17 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-447",
-      "name": "投诚 1级",
+      "name": "投诚(Mind Control)",
       "command": "/engraving level 18 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-448",
-      "name": "接地 1级",
+      "name": "接地(Grounding)",
       "command": "/engraving level 19 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-449",
-      "name": "加固 1级",
+      "name": "加固(Shielding)",
       "command": "/engraving level 20 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-450",
-      "name": "保险 1级",
+      "name": "保险(Insurance)",
       "command": "/engraving level 21 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-451",
-      "name": "过热 1级",
+      "name": "过热(Overheat)",
       "command": "/engraving level 22 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-452",
-      "name": "辅助 1级",
+      "name": "辅助(Support)",
       "command": "/engraving level 23 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-453",
-      "name": "肾上腺素 0品质",
+      "name": "肾上腺素(Adrenaline)",
       "command": "/engraving quality 0 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-454",
-      "name": "干扰信号 0品质",
+      "name": "干扰信号(Interference)",
       "command": "/engraving quality 1 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-455",
-      "name": "破坏阻滞 0品质",
+      "name": "破坏阻滞(Sabotage)",
       "command": "/engraving quality 2 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-456",
-      "name": "能量涌动 0品质",
+      "name": "能量涌动(Power Surge)",
       "command": "/engraving quality 3 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-457",
-      "name": "坚固装甲 0品质",
+      "name": "坚固装甲(Armor)",
       "command": "/engraving quality 4 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-458",
-      "name": "绝缘材料 0品质",
+      "name": "绝缘材料(Insulation)",
       "command": "/engraving quality 5 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-459",
-      "name": "炮火连天 0品质",
+      "name": "炮火连天(Ordnance)",
       "command": "/engraving quality 6 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-460",
-      "name": "前仆后继 0品质",
+      "name": "前仆后继(Rally)",
       "command": "/engraving quality 7 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-461",
-      "name": "活力汲取 0品质",
+      "name": "活力汲取(Leech)",
       "command": "/engraving quality 8 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-462",
-      "name": "情报压制 0品质",
+      "name": "情报压制(Intel)",
       "command": "/engraving quality 9 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-463",
-      "name": "战地急救 0品质",
+      "name": "战地急救(Triage)",
       "command": "/engraving quality 10 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-464",
-      "name": "炼金技术 0品质",
+      "name": "炼金技术(Alchemy)",
       "command": "/engraving quality 11 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-465",
-      "name": "过载 0品质",
+      "name": "过载(Overdrive)",
       "command": "/engraving quality 12 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-466",
-      "name": "力竭 0品质",
+      "name": "力竭(Life Drain)",
       "command": "/engraving quality 13 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-467",
-      "name": "硬化 0品质",
+      "name": "硬化(Hardening)",
       "command": "/engraving quality 14 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-468",
-      "name": "昏沉 0品质",
+      "name": "昏沉(Mind Fog)",
       "command": "/engraving quality 15 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-469",
-      "name": "修补 0品质",
+      "name": "修补(Tinkering)",
       "command": "/engraving quality 16 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-470",
-      "name": "干扰 0品质",
+      "name": "干扰(Disruption)",
       "command": "/engraving quality 17 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-471",
-      "name": "投诚 0品质",
+      "name": "投诚(Mind Control)",
       "command": "/engraving quality 18 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-472",
-      "name": "接地 0品质",
+      "name": "接地(Grounding)",
       "command": "/engraving quality 19 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-473",
-      "name": "加固 0品质",
+      "name": "加固(Shielding)",
       "command": "/engraving quality 20 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-474",
-      "name": "保险 0品质",
+      "name": "保险(Insurance)",
       "command": "/engraving quality 21 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-475",
-      "name": "过热 0品质",
+      "name": "过热(Overheat)",
       "command": "/engraving quality 22 0",
       "category": "雕刻"
     },
     {
       "id": "雕刻-476",
-      "name": "辅助 0品质",
+      "name": "辅助(Support)",
       "command": "/engraving quality 23 0",
       "category": "雕刻"
     },
@@ -2930,211 +2930,211 @@
     },
     {
       "id": "资源-478",
-      "name": "获取9百万钻石",
+      "name": "钻石(Diamonds)",
       "command": "/resource 0 9999999",
       "category": "资源"
     },
     {
       "id": "资源-479",
-      "name": "获取9百万黄金",
+      "name": "黄金(Gold)",
       "command": "/resource 1 9999999",
       "category": "资源"
     },
     {
       "id": "资源-480",
-      "name": "获取9百万木材",
+      "name": "木材(Wood)",
       "command": "/resource 2 9999999",
       "category": "资源"
     },
     {
       "id": "资源-481",
-      "name": "获取9百万石材",
+      "name": "石材(Stone)",
       "command": "/resource 3 9999999",
       "category": "资源"
     },
     {
       "id": "资源-482",
-      "name": "获取9百万钢材",
+      "name": "钢材(Iron)",
       "command": "/resource 4 9999999",
       "category": "资源"
     },
     {
       "id": "资源-483",
-      "name": "获取9百万绿小水晶",
+      "name": "生命水晶颗粒(Life Fragment)",
       "command": "/resource 5 9999999",
       "category": "资源"
     },
     {
       "id": "资源-484",
-      "name": "获取9百万绿中水晶",
+      "name": "生命水晶碎片(Life Shard)",
       "command": "/resource 6 9999999",
       "category": "资源"
     },
     {
       "id": "资源-485",
-      "name": "获取9百万绿大水晶",
+      "name": "生命水晶(Life Crystal)",
       "command": "/resource 7 9999999",
       "category": "资源"
     },
     {
       "id": "资源-486",
-      "name": "获取9百万蓝小水晶",
+      "name": "寒冰水晶颗粒(Ice Fragment)",
       "command": "/resource 8 9999999",
       "category": "资源"
     },
     {
       "id": "资源-487",
-      "name": "获取9百万蓝中水晶",
+      "name": "寒冰水晶碎片(Ice Shard)",
       "command": "/resource 9 9999999",
       "category": "资源"
     },
     {
       "id": "资源-488",
-      "name": "获取9百万蓝大水晶",
+      "name": "寒冰水晶(Ice Crystal)",
       "command": "/resource 10 9999999",
       "category": "资源"
     },
     {
       "id": "资源-489",
-      "name": "获取9百万红小水晶",
+      "name": "熔岩水晶颗粒(Magma Fragment)",
       "command": "/resource 11 9999999",
       "category": "资源"
     },
     {
       "id": "资源-490",
-      "name": "获取9百万红中水晶",
+      "name": "熔岩水晶碎片(Magma Shard)",
       "command": "/resource 12 9999999",
       "category": "资源"
     },
     {
       "id": "资源-491",
-      "name": "获取9百万红大水晶",
+      "name": "熔岩水晶(Magma Crystal)",
       "command": "/resource 13 9999999",
       "category": "资源"
     },
     {
       "id": "资源-492",
-      "name": "获取9百万紫小水晶",
+      "name": "暗黑水晶颗粒(Dark Fragment)",
       "command": "/resource 14 9999999",
       "category": "资源"
     },
     {
       "id": "资源-493",
-      "name": "获取9百万紫中水晶",
+      "name": "暗黑水晶碎片(Dark Shard)",
       "command": "/resource 15 9999999",
       "category": "资源"
     },
     {
       "id": "资源-494",
-      "name": "获取9百万紫大水晶",
+      "name": "暗黑水晶(Dark Crystal)",
       "command": "/resource 16 9999999",
       "category": "资源"
     },
     {
       "id": "资源-495",
-      "name": "获取9百万能量粉末",
+      "name": "能量粉末(Power Powder)",
       "command": "/resource 17 9999999",
       "category": "资源"
     },
     {
       "id": "资源-496",
-      "name": "获取9百万临界熔断器",
+      "name": "临界熔断器(Critical Fuse)",
       "command": "/resource 18 9999999",
       "category": "资源"
     },
     {
       "id": "资源-497",
-      "name": "获取9百万复合齿轮",
+      "name": "复合齿轮(Complex Gear)",
       "command": "/resource 19 9999999",
       "category": "资源"
     },
     {
       "id": "资源-498",
-      "name": "获取9百万动力杆",
+      "name": "动力杆(Power Rod)",
       "command": "/resource 20 9999999",
       "category": "资源"
     },
     {
       "id": "资源-499",
-      "name": "获取9百万场电容器",
+      "name": "场电容器(Field Capacitor)",
       "command": "/resource 21 9999999",
       "category": "资源"
     },
     {
       "id": "资源-500",
-      "name": "获取9百万英雄劵",
+      "name": "英雄券(Hero Tokens)",
       "command": "/resource 22 9999999",
       "category": "资源"
     },
     {
       "id": "资源-501",
-      "name": "获取9百万商人劵",
+      "name": "商人券(Trader Tickets)",
       "command": "/resource 23 9999999",
       "category": "资源"
     },
     {
       "id": "资源-502",
-      "name": "获取9百万部族水晶矿",
+      "name": "原始水晶(Raw Crystals)",
       "command": "/resource 24 9999999",
       "category": "资源"
     },
     {
       "id": "资源-503",
-      "name": "获取9百万航母升级币",
+      "name": "升级币(Upgrade Tokens)",
       "command": "/resource 25 9999999",
       "category": "资源"
     },
     {
       "id": "资源-504",
-      "name": "获取9百万航母解锁币",
+      "name": "解锁币(Unlock Tokens)",
       "command": "/resource 26 9999999",
       "category": "资源"
     },
     {
       "id": "资源-505",
-      "name": "获取9百万原型币",
+      "name": "原型币(Proto Token)",
       "command": "/resource 27 9999999",
       "category": "资源"
     },
     {
       "id": "资源-506",
-      "name": "获取9百万战备档案",
+      "name": "战备档案(Attack Plan)",
       "command": "/resource 28 9999999",
       "category": "资源"
     },
     {
       "id": "资源-507",
-      "name": "获取9百万建筑蓝图",
+      "name": "建筑蓝图(Building Blueprint)",
       "command": "/resource 29 9999999",
       "category": "资源"
     },
     {
       "id": "资源-508",
-      "name": "获取9百万黄金保险库",
+      "name": "黄金保险库(Gold Safe)",
       "command": "/resource 30 9999999",
       "category": "资源"
     },
     {
       "id": "资源-509",
-      "name": "获取9百万木材保险库",
+      "name": "木材保险库(Wood Safe)",
       "command": "/resource 31 9999999",
       "category": "资源"
     },
     {
       "id": "资源-510",
-      "name": "获取9百万石材保险库",
+      "name": "石材保险库(Stone Safe)",
       "command": "/resource 32 9999999",
       "category": "资源"
     },
     {
       "id": "资源-511",
-      "name": "获取9百万钢材保险库",
+      "name": "钢材保险库(Iron Safe)",
       "command": "/resource 33 9999999",
       "category": "资源"
     },
     {
       "id": "资源-512",
-      "name": "获取9百万省时劵",
+      "name": "省时券(Time Saver)",
       "command": "/resource 34 9999999",
       "category": "资源"
     },
@@ -3146,49 +3146,49 @@
     },
     {
       "id": "资源-514",
-      "name": "获取9百万建筑加速器",
+      "name": "建筑加速器(Build Optimizer)",
       "command": "/resource 36 9999999",
       "category": "资源"
     },
     {
       "id": "资源-515",
-      "name": "获取9百万升级加速器",
+      "name": "升级加速器(Upgrade Optimizer)",
       "command": "/resource 37 9999999",
       "category": "资源"
     },
     {
       "id": "资源-516",
-      "name": "获取9百万神庙加速器",
+      "name": "神庙加速器(Sculpt Optimizer)",
       "command": "/resource 38 9999999",
       "category": "资源"
     },
     {
       "id": "资源-517",
-      "name": "获取9百万建筑币",
+      "name": "建筑币(Build Token)",
       "command": "/resource 39 9999999",
       "category": "资源"
     },
     {
       "id": "资源-518",
-      "name": "获取9百万神庙栏位",
+      "name": "神庙栏位(Sculptor Slot)",
       "command": "/resource 40 9999999",
       "category": "资源"
     },
     {
       "id": "资源-519",
-      "name": "获取9百万研究币",
+      "name": "研究币(Research Token)",
       "command": "/resource 41 9999999",
       "category": "资源"
     },
     {
       "id": "资源-520",
-      "name": "获取9百万材料回收",
+      "name": "材料回收(Material Salvage)",
       "command": "/resource 42 9999999",
       "category": "资源"
     },
     {
       "id": "资源-521",
-      "name": "获取9百万海岛战令币",
+      "name": "海岛战令币(Boom Pass Token)",
       "command": "/resource 43 9999999",
       "category": "资源"
     },
@@ -3200,31 +3200,31 @@
     },
     {
       "id": "资源-523",
-      "name": "获取9百万迷彩劵",
+      "name": "迷彩券(Camo Ticket)",
       "command": "/resource 45 9999999",
       "category": "资源"
     },
     {
       "id": "资源-524",
-      "name": "获取9百万邪恶币",
+      "name": "邪恶币(Evil Coin)",
       "command": "/resource 46 9999999",
       "category": "资源"
     },
     {
       "id": "资源-525",
-      "name": "获取9百万深水炸弹",
+      "name": "深水炸弹(Depth Charge)",
       "command": "/resource 47 9999999",
       "category": "资源"
     },
     {
       "id": "资源-526",
-      "name": "获取9百万集束深水炸弹",
+      "name": "集束炸弹(Cluster Charge)",
       "command": "/resource 48 9999999",
       "category": "资源"
     },
     {
       "id": "资源-527",
-      "name": "获取9百万声呐币",
+      "name": "声呐币(Sonar Coin)",
       "command": "/resource 49 9999999",
       "category": "资源"
     },
@@ -3794,7 +3794,7 @@
     },
     {
       "id": "Trophy-658",
-      "name": "装饰(默认)",
+      "name": "奴隶笼子(Slave Cage)",
       "command": "/place 0 0 18000000",
       "category": "Trophy"
     },
@@ -3824,13 +3824,13 @@
     },
     {
       "id": "Trophy-663",
-      "name": "New Native Hut3原著居民小屋4",
+      "name": "被烧毁的木屋(Burned Hut)",
       "command": "/place 0 0 18000005",
       "category": "Trophy"
     },
     {
       "id": "Trophy-664",
-      "name": "Burned Hut残破的房子",
+      "name": "营火(Campfire)",
       "command": "/place 0 0 18000006",
       "category": "Trophy"
     },
@@ -3860,1339 +3860,1339 @@
     },
     {
       "id": "Trophy-669",
-      "name": "Debris5",
+      "name": "超级螃蟹(Megacrab)",
       "command": "/place 0 0 18000011",
       "category": "Trophy"
     },
     {
       "id": "Trophy-670",
-      "name": "Megacrab Standard超级螃蟹",
+      "name": "海岛圣诞树(Beachmas Tree)",
       "command": "/place 0 0 18000012",
       "category": "Trophy"
     },
     {
       "id": "Trophy-671",
-      "name": "Christmas_Tree圣诞树",
+      "name": "???",
       "command": "/place 0 0 18000013",
       "category": "Trophy"
     },
     {
       "id": "Trophy-672",
-      "name": "No_Decos一个问号",
+      "name": "石质周年奖杯(Stone Anniversary Trophy)",
       "command": "/place 0 0 18000014",
       "category": "Trophy"
     },
     {
       "id": "Trophy-673",
-      "name": "Megacrab Birthday 1周年火炮",
+      "name": "钢质周年奖杯(Iron Anniversary Trophy)",
       "command": "/place 0 0 18000015",
       "category": "Trophy"
     },
     {
       "id": "Trophy-674",
-      "name": "Megacrab Birthday 2",
+      "name": "黄金周年奖杯(Golden Anniversary Trophy)",
       "command": "/place 0 0 18000016",
       "category": "Trophy"
     },
     {
       "id": "Trophy-675",
-      "name": "Megacrab Birthday 3",
+      "name": "钻石周年奖杯(Diamond Anniversary Trophy)",
       "command": "/place 0 0 18000017",
       "category": "Trophy"
     },
     {
       "id": "Trophy-676",
-      "name": "Megacrab Birthday 4",
+      "name": "石质疾速奖杯(Stone Hasty Trophy)",
       "command": "/place 0 0 18000018",
       "category": "Trophy"
     },
     {
       "id": "Trophy-677",
-      "name": "Megacrab Hasty 1极速战靴",
+      "name": "钢质疾速奖杯(Iron Hasty Trophy)",
       "command": "/place 0 0 18000019",
       "category": "Trophy"
     },
     {
       "id": "Trophy-678",
-      "name": "Megacrab Hasty 2",
+      "name": "黄金疾速奖杯(Golden Hasty Trophy)",
       "command": "/place 0 0 18000020",
       "category": "Trophy"
     },
     {
       "id": "Trophy-679",
-      "name": "Megacrab Hasty 3",
+      "name": "钻石疾速奖杯(Diamond Hasty Trophy)",
       "command": "/place 0 0 18000021",
       "category": "Trophy"
     },
     {
       "id": "Trophy-680",
-      "name": "Megacrab Hasty 4",
+      "name": "石质部族奖杯(Stone Tribal Trophy)",
       "command": "/place 0 0 18000022",
       "category": "Trophy"
     },
     {
       "id": "Trophy-681",
-      "name": "Megacrab Jungle 1野人雕像",
+      "name": "钢质部族奖杯(Iron Tribal Trophy)",
       "command": "/place 0 0 18000023",
       "category": "Trophy"
     },
     {
       "id": "Trophy-682",
-      "name": "Megacrab Jungle 2",
+      "name": "黄金部族奖杯(Golden Tribal Trophy)",
       "command": "/place 0 0 18000024",
       "category": "Trophy"
     },
     {
       "id": "Trophy-683",
-      "name": "Megacrab Jungle 3",
+      "name": "钻石部族奖杯(Diamond Tribal Trophy)",
       "command": "/place 0 0 18000025",
       "category": "Trophy"
     },
     {
       "id": "Trophy-684",
-      "name": "Megacrab Jungle 4",
+      "name": "石质极冻奖杯(Stone Cryo Trophy)",
       "command": "/place 0 0 18000026",
       "category": "Trophy"
     },
     {
       "id": "Trophy-685",
-      "name": "Megacrab Ice 1雪花雕像",
+      "name": "钢质极冻奖杯(Iron Cryo Trophy)",
       "command": "/place 0 0 18000027",
       "category": "Trophy"
     },
     {
       "id": "Trophy-686",
-      "name": "Megacrab Ice 2",
+      "name": "黄金极冻奖杯(Golden Cryo Trophy)",
       "command": "/place 0 0 18000028",
       "category": "Trophy"
     },
     {
       "id": "Trophy-687",
-      "name": "Megacrab Ice 3",
+      "name": "钻石极冻奖杯(Diamond Cryo Trophy)",
       "command": "/place 0 0 18000029",
       "category": "Trophy"
     },
     {
       "id": "Trophy-688",
-      "name": "Megacrab Ice 4",
+      "name": "石质烈焰奖杯(Stone Scorched Trophy)",
       "command": "/place 0 0 18000030",
       "category": "Trophy"
     },
     {
       "id": "Trophy-689",
-      "name": "Megacrab Flaming 1烈焰雕像",
+      "name": "钢质烈焰奖杯(Iron Scorched Trophy)",
       "command": "/place 0 0 18000031",
       "category": "Trophy"
     },
     {
       "id": "Trophy-690",
-      "name": "Megacrab Flaming 2",
+      "name": "黄金烈焰奖杯(Golden Scorched Trophy)",
       "command": "/place 0 0 18000032",
       "category": "Trophy"
     },
     {
       "id": "Trophy-691",
-      "name": "Megacrab Flaming 3",
+      "name": "钻石烈焰奖杯(Diamond Scorched Trophy)",
       "command": "/place 0 0 18000033",
       "category": "Trophy"
     },
     {
       "id": "Trophy-692",
-      "name": "Megacrab Flaming 4",
+      "name": "石质螃蟹奖杯(Stone Crab Trophy)",
       "command": "/place 0 0 18000034",
       "category": "Trophy"
     },
     {
       "id": "Trophy-693",
-      "name": "Megacrab Death 1周年螃蟹",
+      "name": "钢质螃蟹奖杯(Iron Crab Trophy)",
       "command": "/place 0 0 18000035",
       "category": "Trophy"
     },
     {
       "id": "Trophy-694",
-      "name": "Megacrab Death 2",
+      "name": "黄金螃蟹奖杯(Golden Crab Trophy)",
       "command": "/place 0 0 18000036",
       "category": "Trophy"
     },
     {
       "id": "Trophy-695",
-      "name": "Megacrab Death 3",
+      "name": "钻石螃蟹奖杯(Diamond Crab Trophy)",
       "command": "/place 0 0 18000037",
       "category": "Trophy"
     },
     {
       "id": "Trophy-696",
-      "name": "Megacrab Death 4",
+      "name": "石质战舰奖杯(Stone Gunboat Trophy)",
       "command": "/place 0 0 18000038",
       "category": "Trophy"
     },
     {
       "id": "Trophy-697",
-      "name": "Megacrab Energy 1船",
+      "name": "钢质战舰奖杯(Iron Gunboat Trophy)",
       "command": "/place 0 0 18000039",
       "category": "Trophy"
     },
     {
       "id": "Trophy-698",
-      "name": "Megacrab Energy 2",
+      "name": "黄金战舰奖杯(Golden Gunboat Trophy)",
       "command": "/place 0 0 18000040",
       "category": "Trophy"
     },
     {
       "id": "Trophy-699",
-      "name": "Megacrab Energy 3",
+      "name": "钻石战舰奖杯(Diamond Gunboat Trophy)",
       "command": "/place 0 0 18000041",
       "category": "Trophy"
     },
     {
       "id": "Trophy-700",
-      "name": "Megacrab Energy 4",
+      "name": "石质万圣节奖杯(Stone Halloween Trophy)",
       "command": "/place 0 0 18000042",
       "category": "Trophy"
     },
     {
       "id": "Trophy-701",
-      "name": "Megacrab Halloween 1万圣节南瓜",
+      "name": "钢质万圣节奖杯(Iron Halloween Trophy)",
       "command": "/place 0 0 18000043",
       "category": "Trophy"
     },
     {
       "id": "Trophy-702",
-      "name": "Megacrab Halloween 2",
+      "name": "黄金万圣节奖杯(Golden Halloween Trophy)",
       "command": "/place 0 0 18000044",
       "category": "Trophy"
     },
     {
       "id": "Trophy-703",
-      "name": "Megacrab Halloween 3",
+      "name": "钻石万圣节奖杯(Diamond Halloween Trophy)",
       "command": "/place 0 0 18000045",
       "category": "Trophy"
     },
     {
       "id": "Trophy-704",
-      "name": "Megacrab Halloween 4",
+      "name": "石质原型奖杯(Stone Proto Trophy)",
       "command": "/place 0 0 18000046",
       "category": "Trophy"
     },
     {
       "id": "Trophy-705",
-      "name": "Megacrab Proto 1原型奖杯",
+      "name": "钢质原型奖杯(Iron Proto Trophy)",
       "command": "/place 0 0 18000047",
       "category": "Trophy"
     },
     {
       "id": "Trophy-706",
-      "name": "Megacrab Proto 2",
+      "name": "黄金原型奖杯(Golden Proto Trophy)",
       "command": "/place 0 0 18000048",
       "category": "Trophy"
     },
     {
       "id": "Trophy-707",
-      "name": "Megacrab Proto 3",
+      "name": "钻石原型奖杯(Diamond Proto Trophy)",
       "command": "/place 0 0 18000049",
       "category": "Trophy"
     },
     {
       "id": "Trophy-708",
-      "name": "Megacrab Proto 4",
+      "name": "石质新年奖杯(Stone New Year Trophy)",
       "command": "/place 0 0 18000050",
       "category": "Trophy"
     },
     {
       "id": "Trophy-709",
-      "name": "Megacrab Newyear 1 2019新年奖杯",
+      "name": "钢质新年奖杯(Iron New Year Trophy)",
       "command": "/place 0 0 18000051",
       "category": "Trophy"
     },
     {
       "id": "Trophy-710",
-      "name": "Megacrab Newyear 2",
+      "name": "黄金新年奖杯(Golden New Year Trophy)",
       "command": "/place 0 0 18000052",
       "category": "Trophy"
     },
     {
       "id": "Trophy-711",
-      "name": "Megacrab Newyear 3",
+      "name": "钻石新年奖杯(Diamond New Year Trophy)",
       "command": "/place 0 0 18000053",
       "category": "Trophy"
     },
     {
       "id": "Trophy-712",
-      "name": "Megacrab Newyear 4",
+      "name": "石质牙牙奖杯(Stone Vampire Trophy)",
       "command": "/place 0 0 18000054",
       "category": "Trophy"
     },
     {
       "id": "Trophy-713",
-      "name": "Megacrab Lifesteal 1吸血鬼",
+      "name": "钢质牙牙奖杯(Iron Vampire Trophy)",
       "command": "/place 0 0 18000055",
       "category": "Trophy"
     },
     {
       "id": "Trophy-714",
-      "name": "Megacrab Lifesteal 2",
+      "name": "黄金牙牙奖杯(Golden Vampire Trophy)",
       "command": "/place 0 0 18000056",
       "category": "Trophy"
     },
     {
       "id": "Trophy-715",
-      "name": "Megacrab Lifesteal 3",
+      "name": "钻石牙牙奖杯(Diamond Vampire Trophy)",
       "command": "/place 0 0 18000057",
       "category": "Trophy"
     },
     {
       "id": "Trophy-716",
-      "name": "Megacrab Lifesteal 4",
+      "name": "石质小猪奖杯(Stone Piggy Trophy)",
       "command": "/place 0 0 18000058",
       "category": "Trophy"
     },
     {
       "id": "Trophy-717",
-      "name": "Megacrab Year of Pig 1猪猪奖杯",
+      "name": "钢质小猪奖杯(Iron Piggy Trophy)",
       "command": "/place 0 0 18000059",
       "category": "Trophy"
     },
     {
       "id": "Trophy-718",
-      "name": "Megacrab Year of Pig 2",
+      "name": "黄金小猪奖杯(Golden Piggy Trophy)",
       "command": "/place 0 0 18000060",
       "category": "Trophy"
     },
     {
       "id": "Trophy-719",
-      "name": "Megacrab Year of Pig 3",
+      "name": "钻石小猪奖杯(Diamond Piggy Trophy)",
       "command": "/place 0 0 18000061",
       "category": "Trophy"
     },
     {
       "id": "Trophy-720",
-      "name": "Megacrab Year of Pig 4",
+      "name": "石质建筑奖杯(Stone Building Trophy)",
       "command": "/place 0 0 18000062",
       "category": "Trophy"
     },
     {
       "id": "Trophy-721",
-      "name": "Megacrab Buildings 1",
+      "name": "钢质建筑奖杯(Iron Building Trophy)",
       "command": "/place 0 0 18000063",
       "category": "Trophy"
     },
     {
       "id": "Trophy-722",
-      "name": "Megacrab Buildings 2",
+      "name": "黄金建筑奖杯(Golden Building Trophy)",
       "command": "/place 0 0 18000064",
       "category": "Trophy"
     },
     {
       "id": "Trophy-723",
-      "name": "Megacrab Buildings 3",
+      "name": "钻石建筑奖杯(Diamond Building Trophy)",
       "command": "/place 0 0 18000065",
       "category": "Trophy"
     },
     {
       "id": "Trophy-724",
-      "name": "Megacrab Buildings 4",
+      "name": "石质灯笼奖杯(Stone Lantern Trophy)",
       "command": "/place 0 0 18000066",
       "category": "Trophy"
     },
     {
       "id": "Trophy-725",
-      "name": "Megacrab Lunar New Year 1新年灯笼奖杯",
+      "name": "钢质灯笼奖杯(Iron Lantern Trophy)",
       "command": "/place 0 0 18000067",
       "category": "Trophy"
     },
     {
       "id": "Trophy-726",
-      "name": "Megacrab Lunar New Year 2",
+      "name": "黄金灯笼奖杯(Golden Lantern Trophy)",
       "command": "/place 0 0 18000068",
       "category": "Trophy"
     },
     {
       "id": "Trophy-727",
-      "name": "Megacrab Lunar New Year 3",
+      "name": "钻石灯笼奖杯(Diamond Lantern Trophy)",
       "command": "/place 0 0 18000069",
       "category": "Trophy"
     },
     {
       "id": "Trophy-728",
-      "name": "Megacrab Lunar New Year 4",
+      "name": "传奇灯笼奖杯 1(Legendary Lantern Trophy I)",
       "command": "/place 0 0 18000070",
       "category": "Trophy"
     },
     {
       "id": "Trophy-729",
-      "name": "Megacrab Lunar New Year 5",
+      "name": "传奇灯笼奖杯 2(Legendary Lantern Trophy II)",
       "command": "/place 0 0 18000071",
       "category": "Trophy"
     },
     {
       "id": "Trophy-730",
-      "name": "Megacrab Lunar New Year 6",
+      "name": "传奇灯笼奖杯 3(Legendary Lantern Trophy III)",
       "command": "/place 0 0 18000072",
       "category": "Trophy"
     },
     {
       "id": "Trophy-731",
-      "name": "Megacrab Lunar New Year 7",
+      "name": "传奇灯笼奖杯 4(Legendary Lantern Trophy IV)",
       "command": "/place 0 0 18000073",
       "category": "Trophy"
     },
     {
       "id": "Trophy-732",
-      "name": "Megacrab Lunar New Year 8",
+      "name": "传奇灯笼奖杯 5(Legendary Lantern Trophy V)",
       "command": "/place 0 0 18000074",
       "category": "Trophy"
     },
     {
       "id": "Trophy-733",
-      "name": "Megacrab Lunar New Year 9",
+      "name": "传奇灯笼奖杯 6(Legendary Lantern Trophy VI)",
       "command": "/place 0 0 18000075",
       "category": "Trophy"
     },
     {
       "id": "Trophy-734",
-      "name": "Megacrab Lunar New Year 10",
+      "name": "传奇灯笼奖杯 7(Legendary Lantern Trophy VII)",
       "command": "/place 0 0 18000076",
       "category": "Trophy"
     },
     {
       "id": "Trophy-735",
-      "name": "Megacrab Lunar New Year 11",
+      "name": "传奇灯笼奖杯 8(Legendary Lantern Trophy VIII)",
       "command": "/place 0 0 18000077",
       "category": "Trophy"
     },
     {
       "id": "Trophy-736",
-      "name": "Megacrab Lunar New Year 12",
+      "name": "传奇灯笼奖杯 9(Legendary Lantern Trophy IX)",
       "command": "/place 0 0 18000078",
       "category": "Trophy"
     },
     {
       "id": "Trophy-737",
-      "name": "Megacrab Lunar New Year 13",
+      "name": "传奇灯笼奖杯 10(Legendary Lantern Trophy X)",
       "command": "/place 0 0 18000079",
       "category": "Trophy"
     },
     {
       "id": "Trophy-738",
-      "name": "Megacrab Lunar New Year 14",
+      "name": "传奇灯笼奖杯 11(Legendary Lantern Trophy XI)",
       "command": "/place 0 0 18000080",
       "category": "Trophy"
     },
     {
       "id": "Trophy-739",
-      "name": "Megacrab Lunar New Year 15",
+      "name": "传奇灯笼奖杯 12(Legendary Lantern Trophy XII)",
       "command": "/place 0 0 18000081",
       "category": "Trophy"
     },
     {
       "id": "Trophy-740",
-      "name": "Megacrab Lunar New Year 16",
+      "name": "石质烟花奖杯(Stone Fireworks Trophy)",
       "command": "/place 0 0 18000082",
       "category": "Trophy"
     },
     {
       "id": "Trophy-741",
-      "name": "Megacrab Fireworks 1新年火箭奖杯",
+      "name": "钢质烟花奖杯(Iron Fireworks Trophy)",
       "command": "/place 0 0 18000083",
       "category": "Trophy"
     },
     {
       "id": "Trophy-742",
-      "name": "Megacrab Fireworks 2",
+      "name": "黄金烟花奖杯(Golden Fireworks Trophy)",
       "command": "/place 0 0 18000084",
       "category": "Trophy"
     },
     {
       "id": "Trophy-743",
-      "name": "Megacrab Fireworks 3",
+      "name": "钻石烟花奖杯(Diamond Fireworks Trophy)",
       "command": "/place 0 0 18000085",
       "category": "Trophy"
     },
     {
       "id": "Trophy-744",
-      "name": "Megacrab Fireworks 4",
+      "name": "传奇烟花奖杯 1(Legendary Fireworks Trophy I)",
       "command": "/place 0 0 18000086",
       "category": "Trophy"
     },
     {
       "id": "Trophy-745",
-      "name": "Megacrab Fireworks 5",
+      "name": "传奇烟花奖杯 2(Legendary Fireworks Trophy II)",
       "command": "/place 0 0 18000087",
       "category": "Trophy"
     },
     {
       "id": "Trophy-746",
-      "name": "Megacrab Fireworks 6",
+      "name": "传奇烟花奖杯 3(Legendary Fireworks Trophy III)",
       "command": "/place 0 0 18000088",
       "category": "Trophy"
     },
     {
       "id": "Trophy-747",
-      "name": "Megacrab Fireworks 7",
+      "name": "传奇烟花奖杯 4(Legendary Fireworks Trophy IV)",
       "command": "/place 0 0 18000089",
       "category": "Trophy"
     },
     {
       "id": "Trophy-748",
-      "name": "Megacrab Fireworks 8",
+      "name": "传奇烟花奖杯 5(Legendary Fireworks Trophy V)",
       "command": "/place 0 0 18000090",
       "category": "Trophy"
     },
     {
       "id": "Trophy-749",
-      "name": "Megacrab Fireworks 9",
+      "name": "传奇烟花奖杯 6(Legendary Fireworks Trophy VI)",
       "command": "/place 0 0 18000091",
       "category": "Trophy"
     },
     {
       "id": "Trophy-750",
-      "name": "Megacrab Fireworks 10",
+      "name": "传奇烟花奖杯 7(Legendary Fireworks Trophy VII)",
       "command": "/place 0 0 18000092",
       "category": "Trophy"
     },
     {
       "id": "Trophy-751",
-      "name": "Megacrab Fireworks 11",
+      "name": "传奇烟花奖杯 8(Legendary Fireworks Trophy VIII)",
       "command": "/place 0 0 18000093",
       "category": "Trophy"
     },
     {
       "id": "Trophy-752",
-      "name": "Megacrab Fireworks 12",
+      "name": "传奇烟花奖杯 9(Legendary Fireworks Trophy IX)",
       "command": "/place 0 0 18000094",
       "category": "Trophy"
     },
     {
       "id": "Trophy-753",
-      "name": "Megacrab Fireworks 13",
+      "name": "传奇烟花奖杯 10(Legendary Fireworks Trophy X)",
       "command": "/place 0 0 18000095",
       "category": "Trophy"
     },
     {
       "id": "Trophy-754",
-      "name": "Megacrab Fireworks 14",
+      "name": "传奇烟花奖杯 11(Legendary Fireworks Trophy XI)",
       "command": "/place 0 0 18000096",
       "category": "Trophy"
     },
     {
       "id": "Trophy-755",
-      "name": "Megacrab Fireworks 15",
+      "name": "传奇烟花奖杯 12(Legendary Fireworks Trophy XII)",
       "command": "/place 0 0 18000097",
       "category": "Trophy"
     },
     {
       "id": "Trophy-756",
-      "name": "Megacrab Fireworks 16",
+      "name": "传奇周年奖杯 1(Legendary Anniversary Trophy I)",
       "command": "/place 0 0 18000098",
       "category": "Trophy"
     },
     {
       "id": "Trophy-757",
-      "name": "Megacrab Birthday 5传奇火炮新年奖杯",
+      "name": "传奇周年奖杯 2(Legendary Anniversary Trophy II)",
       "command": "/place 0 0 18000099",
       "category": "Trophy"
     },
     {
       "id": "Trophy-758",
-      "name": "Megacrab Birthday 6",
+      "name": "传奇周年奖杯 3(Legendary Anniversary Trophy III)",
       "command": "/place 0 0 18000100",
       "category": "Trophy"
     },
     {
       "id": "Trophy-759",
-      "name": "Megacrab Birthday 7",
+      "name": "传奇周年奖杯 4(Legendary Anniversary Trophy IV)",
       "command": "/place 0 0 18000101",
       "category": "Trophy"
     },
     {
       "id": "Trophy-760",
-      "name": "Megacrab Birthday 8",
+      "name": "传奇周年奖杯 5(Legendary Anniversary Trophy V)",
       "command": "/place 0 0 18000102",
       "category": "Trophy"
     },
     {
       "id": "Trophy-761",
-      "name": "Megacrab Birthday 9",
+      "name": "传奇周年奖杯 6(Legendary Anniversary Trophy VI)",
       "command": "/place 0 0 18000103",
       "category": "Trophy"
     },
     {
       "id": "Trophy-762",
-      "name": "Megacrab Birthday 10",
+      "name": "传奇周年奖杯 7(Legendary Anniversary Trophy VII)",
       "command": "/place 0 0 18000104",
       "category": "Trophy"
     },
     {
       "id": "Trophy-763",
-      "name": "Megacrab Birthday 11",
+      "name": "传奇周年奖杯 8(Legendary Anniversary Trophy VIII)",
       "command": "/place 0 0 18000105",
       "category": "Trophy"
     },
     {
       "id": "Trophy-764",
-      "name": "Megacrab Birthday 12",
+      "name": "传奇周年奖杯 9(Legendary Anniversary Trophy IX)",
       "command": "/place 0 0 18000106",
       "category": "Trophy"
     },
     {
       "id": "Trophy-765",
-      "name": "Megacrab Birthday 13",
+      "name": "传奇周年奖杯 10(Legendary Anniversary Trophy X)",
       "command": "/place 0 0 18000107",
       "category": "Trophy"
     },
     {
       "id": "Trophy-766",
-      "name": "Megacrab Birthday 14",
+      "name": "传奇周年奖杯 11(Legendary Anniversary Trophy XI)",
       "command": "/place 0 0 18000108",
       "category": "Trophy"
     },
     {
       "id": "Trophy-767",
-      "name": "Megacrab Birthday 15",
+      "name": "传奇周年奖杯 12(Legendary Anniversary Trophy XII)",
       "command": "/place 0 0 18000109",
       "category": "Trophy"
     },
     {
       "id": "Trophy-768",
-      "name": "Megacrab Birthday 16",
+      "name": "传奇疾速奖杯 1(Legendary Hasty Trophy I)",
       "command": "/place 0 0 18000110",
       "category": "Trophy"
     },
     {
       "id": "Trophy-769",
-      "name": "Megacrab Hasty 5传奇极速战靴",
+      "name": "传奇疾速奖杯 2(Legendary Hasty Trophy II)",
       "command": "/place 0 0 18000111",
       "category": "Trophy"
     },
     {
       "id": "Trophy-770",
-      "name": "Megacrab Hasty 6",
+      "name": "传奇疾速奖杯 3(Legendary Hasty Trophy III)",
       "command": "/place 0 0 18000112",
       "category": "Trophy"
     },
     {
       "id": "Trophy-771",
-      "name": "Megacrab Hasty 7",
+      "name": "传奇疾速奖杯 4(Legendary Hasty Trophy IV)",
       "command": "/place 0 0 18000113",
       "category": "Trophy"
     },
     {
       "id": "Trophy-772",
-      "name": "Megacrab Hasty 8",
+      "name": "传奇疾速奖杯 5(Legendary Hasty Trophy V)",
       "command": "/place 0 0 18000114",
       "category": "Trophy"
     },
     {
       "id": "Trophy-773",
-      "name": "Megacrab Hasty 9",
+      "name": "传奇疾速奖杯 6(Legendary Hasty Trophy VI)",
       "command": "/place 0 0 18000115",
       "category": "Trophy"
     },
     {
       "id": "Trophy-774",
-      "name": "Megacrab Hasty 10",
+      "name": "传奇疾速奖杯 7(Legendary Hasty Trophy VII)",
       "command": "/place 0 0 18000116",
       "category": "Trophy"
     },
     {
       "id": "Trophy-775",
-      "name": "Megacrab Hasty 11",
+      "name": "传奇疾速奖杯 8(Legendary Hasty Trophy VIII)",
       "command": "/place 0 0 18000117",
       "category": "Trophy"
     },
     {
       "id": "Trophy-776",
-      "name": "Megacrab Hasty 12",
+      "name": "传奇疾速奖杯 9(Legendary Hasty Trophy IX)",
       "command": "/place 0 0 18000118",
       "category": "Trophy"
     },
     {
       "id": "Trophy-777",
-      "name": "Megacrab Hasty 13",
+      "name": "传奇疾速奖杯 10(Legendary Hasty Trophy X)",
       "command": "/place 0 0 18000119",
       "category": "Trophy"
     },
     {
       "id": "Trophy-778",
-      "name": "Megacrab Hasty 14",
+      "name": "传奇疾速奖杯 11(Legendary Hasty Trophy XI)",
       "command": "/place 0 0 18000120",
       "category": "Trophy"
     },
     {
       "id": "Trophy-779",
-      "name": "Megacrab Hasty 15",
+      "name": "传奇疾速奖杯 12(Legendary Hasty Trophy XII)",
       "command": "/place 0 0 18000121",
       "category": "Trophy"
     },
     {
       "id": "Trophy-780",
-      "name": "Megacrab Hasty 16",
+      "name": "传奇部族奖杯 1(Legendary Tribal Trophy I)",
       "command": "/place 0 0 18000122",
       "category": "Trophy"
     },
     {
       "id": "Trophy-781",
-      "name": "Megacrab Jungle 5传奇野人",
+      "name": "传奇部族奖杯 2(Legendary Tribal Trophy II)",
       "command": "/place 0 0 18000123",
       "category": "Trophy"
     },
     {
       "id": "Trophy-782",
-      "name": "Megacrab Jungle 6",
+      "name": "传奇部族奖杯 3(Legendary Tribal Trophy III)",
       "command": "/place 0 0 18000124",
       "category": "Trophy"
     },
     {
       "id": "Trophy-783",
-      "name": "Megacrab Jungle 7",
+      "name": "传奇部族奖杯 4(Legendary Tribal Trophy IV)",
       "command": "/place 0 0 18000125",
       "category": "Trophy"
     },
     {
       "id": "Trophy-784",
-      "name": "Megacrab Jungle 8",
+      "name": "传奇部族奖杯 5(Legendary Tribal Trophy V)",
       "command": "/place 0 0 18000126",
       "category": "Trophy"
     },
     {
       "id": "Trophy-785",
-      "name": "Megacrab Jungle 9",
+      "name": "传奇部族奖杯 6(Legendary Tribal Trophy VI)",
       "command": "/place 0 0 18000127",
       "category": "Trophy"
     },
     {
       "id": "Trophy-786",
-      "name": "Megacrab Jungle 10",
+      "name": "传奇部族奖杯 7(Legendary Tribal Trophy VII)",
       "command": "/place 0 0 18000128",
       "category": "Trophy"
     },
     {
       "id": "Trophy-787",
-      "name": "Megacrab Jungle 11",
+      "name": "传奇部族奖杯 8(Legendary Tribal Trophy VIII)",
       "command": "/place 0 0 18000129",
       "category": "Trophy"
     },
     {
       "id": "Trophy-788",
-      "name": "Megacrab Jungle 12",
+      "name": "传奇部族奖杯 9(Legendary Tribal Trophy IX)",
       "command": "/place 0 0 18000130",
       "category": "Trophy"
     },
     {
       "id": "Trophy-789",
-      "name": "Megacrab Jungle 13",
+      "name": "传奇部族奖杯 10(Legendary Tribal Trophy X)",
       "command": "/place 0 0 18000131",
       "category": "Trophy"
     },
     {
       "id": "Trophy-790",
-      "name": "Megacrab Jungle 14",
+      "name": "传奇部族奖杯 11(Legendary Tribal Trophy XI)",
       "command": "/place 0 0 18000132",
       "category": "Trophy"
     },
     {
       "id": "Trophy-791",
-      "name": "Megacrab Jungle 15",
+      "name": "传奇部族奖杯 12(Legendary Tribal Trophy XII)",
       "command": "/place 0 0 18000133",
       "category": "Trophy"
     },
     {
       "id": "Trophy-792",
-      "name": "Megacrab Jungle 16",
+      "name": "传奇极冻奖杯 1(Legendary Cryo Trophy I)",
       "command": "/place 0 0 18000134",
       "category": "Trophy"
     },
     {
       "id": "Trophy-793",
-      "name": "Megacrab Ice 5传奇雪花雕像",
+      "name": "传奇极冻奖杯 2(Legendary Cryo Trophy II)",
       "command": "/place 0 0 18000135",
       "category": "Trophy"
     },
     {
       "id": "Trophy-794",
-      "name": "Megacrab Ice 6",
+      "name": "传奇极冻奖杯 3(Legendary Cryo Trophy III)",
       "command": "/place 0 0 18000136",
       "category": "Trophy"
     },
     {
       "id": "Trophy-795",
-      "name": "Megacrab Ice 7",
+      "name": "传奇极冻奖杯 4(Legendary Cryo Trophy IV)",
       "command": "/place 0 0 18000137",
       "category": "Trophy"
     },
     {
       "id": "Trophy-796",
-      "name": "Megacrab Ice 8",
+      "name": "传奇极冻奖杯 5(Legendary Cryo Trophy V)",
       "command": "/place 0 0 18000138",
       "category": "Trophy"
     },
     {
       "id": "Trophy-797",
-      "name": "Megacrab Ice 9",
+      "name": "传奇极冻奖杯 6(Legendary Cryo Trophy VI)",
       "command": "/place 0 0 18000139",
       "category": "Trophy"
     },
     {
       "id": "Trophy-798",
-      "name": "Megacrab Ice 10",
+      "name": "传奇极冻奖杯 7(Legendary Cryo Trophy VII)",
       "command": "/place 0 0 18000140",
       "category": "Trophy"
     },
     {
       "id": "Trophy-799",
-      "name": "Megacrab Ice 11",
+      "name": "传奇极冻奖杯 8(Legendary Cryo Trophy VIII)",
       "command": "/place 0 0 18000141",
       "category": "Trophy"
     },
     {
       "id": "Trophy-800",
-      "name": "Megacrab Ice 12",
+      "name": "传奇极冻奖杯 9(Legendary Cryo Trophy IX)",
       "command": "/place 0 0 18000142",
       "category": "Trophy"
     },
     {
       "id": "Trophy-801",
-      "name": "Megacrab Ice 13",
+      "name": "传奇极冻奖杯 10(Legendary Cryo Trophy X)",
       "command": "/place 0 0 18000143",
       "category": "Trophy"
     },
     {
       "id": "Trophy-802",
-      "name": "Megacrab Ice 14",
+      "name": "传奇极冻奖杯 11(Legendary Cryo Trophy XI)",
       "command": "/place 0 0 18000144",
       "category": "Trophy"
     },
     {
       "id": "Trophy-803",
-      "name": "Megacrab Ice 15",
+      "name": "传奇极冻奖杯 12(Legendary Cryo Trophy XII)",
       "command": "/place 0 0 18000145",
       "category": "Trophy"
     },
     {
       "id": "Trophy-804",
-      "name": "Megacrab Ice 16",
+      "name": "传奇烈焰奖杯 1(Legendary Scorched Trophy I)",
       "command": "/place 0 0 18000146",
       "category": "Trophy"
     },
     {
       "id": "Trophy-805",
-      "name": "Megacrab Flaming 5传奇烈焰奖杯",
+      "name": "传奇烈焰奖杯 2(Legendary Scorched Trophy II)",
       "command": "/place 0 0 18000147",
       "category": "Trophy"
     },
     {
       "id": "Trophy-806",
-      "name": "Megacrab Flaming 6",
+      "name": "传奇烈焰奖杯 3(Legendary Scorched Trophy III)",
       "command": "/place 0 0 18000148",
       "category": "Trophy"
     },
     {
       "id": "Trophy-807",
-      "name": "Megacrab Flaming 7",
+      "name": "传奇烈焰奖杯 4(Legendary Scorched Trophy IV)",
       "command": "/place 0 0 18000149",
       "category": "Trophy"
     },
     {
       "id": "Trophy-808",
-      "name": "Megacrab Flaming 8",
+      "name": "传奇烈焰奖杯 5(Legendary Scorched Trophy V)",
       "command": "/place 0 0 18000150",
       "category": "Trophy"
     },
     {
       "id": "Trophy-809",
-      "name": "Megacrab Flaming 9",
+      "name": "传奇烈焰奖杯 6(Legendary Scorched Trophy VI)",
       "command": "/place 0 0 18000151",
       "category": "Trophy"
     },
     {
       "id": "Trophy-810",
-      "name": "Megacrab Flaming 10",
+      "name": "传奇烈焰奖杯 7(Legendary Scorched Trophy VII)",
       "command": "/place 0 0 18000152",
       "category": "Trophy"
     },
     {
       "id": "Trophy-811",
-      "name": "Megacrab Flaming 11",
+      "name": "传奇烈焰奖杯 8(Legendary Scorched Trophy VIII)",
       "command": "/place 0 0 18000153",
       "category": "Trophy"
     },
     {
       "id": "Trophy-812",
-      "name": "Megacrab Flaming 12",
+      "name": "传奇烈焰奖杯 9(Legendary Scorched Trophy IX)",
       "command": "/place 0 0 18000154",
       "category": "Trophy"
     },
     {
       "id": "Trophy-813",
-      "name": "Megacrab Flaming 13",
+      "name": "传奇烈焰奖杯 10(Legendary Scorched Trophy X)",
       "command": "/place 0 0 18000155",
       "category": "Trophy"
     },
     {
       "id": "Trophy-814",
-      "name": "Megacrab Flaming 14",
+      "name": "传奇烈焰奖杯 11(Legendary Scorched Trophy XI)",
       "command": "/place 0 0 18000156",
       "category": "Trophy"
     },
     {
       "id": "Trophy-815",
-      "name": "Megacrab Flaming 15",
+      "name": "传奇烈焰奖杯 12(Legendary Scorched Trophy XII)",
       "command": "/place 0 0 18000157",
       "category": "Trophy"
     },
     {
       "id": "Trophy-816",
-      "name": "Megacrab Flaming 16",
+      "name": "传奇螃蟹奖杯 1(Legendary Crab Trophy I)",
       "command": "/place 0 0 18000158",
       "category": "Trophy"
     },
     {
       "id": "Trophy-817",
-      "name": "Megacrab Death 5传奇周年螃蟹",
+      "name": "传奇螃蟹奖杯 2(Legendary Crab Trophy II)",
       "command": "/place 0 0 18000159",
       "category": "Trophy"
     },
     {
       "id": "Trophy-818",
-      "name": "Megacrab Death 6",
+      "name": "传奇螃蟹奖杯 3(Legendary Crab Trophy III)",
       "command": "/place 0 0 18000160",
       "category": "Trophy"
     },
     {
       "id": "Trophy-819",
-      "name": "Megacrab Death 7",
+      "name": "传奇螃蟹奖杯 4(Legendary Crab Trophy IV)",
       "command": "/place 0 0 18000161",
       "category": "Trophy"
     },
     {
       "id": "Trophy-820",
-      "name": "Megacrab Death 8",
+      "name": "传奇螃蟹奖杯 5(Legendary Crab Trophy V)",
       "command": "/place 0 0 18000162",
       "category": "Trophy"
     },
     {
       "id": "Trophy-821",
-      "name": "Megacrab Death 9",
+      "name": "传奇螃蟹奖杯 6(Legendary Crab Trophy VI)",
       "command": "/place 0 0 18000163",
       "category": "Trophy"
     },
     {
       "id": "Trophy-822",
-      "name": "Megacrab Death 10",
+      "name": "传奇螃蟹奖杯 7(Legendary Crab Trophy VII)",
       "command": "/place 0 0 18000164",
       "category": "Trophy"
     },
     {
       "id": "Trophy-823",
-      "name": "Megacrab Death 11",
+      "name": "传奇螃蟹奖杯 8(Legendary Crab Trophy VIII)",
       "command": "/place 0 0 18000165",
       "category": "Trophy"
     },
     {
       "id": "Trophy-824",
-      "name": "Megacrab Death 12",
+      "name": "传奇螃蟹奖杯 9(Legendary Crab Trophy IX)",
       "command": "/place 0 0 18000166",
       "category": "Trophy"
     },
     {
       "id": "Trophy-825",
-      "name": "Megacrab Death 13",
+      "name": "传奇螃蟹奖杯 10(Legendary Crab Trophy X)",
       "command": "/place 0 0 18000167",
       "category": "Trophy"
     },
     {
       "id": "Trophy-826",
-      "name": "Megacrab Death 14",
+      "name": "传奇螃蟹奖杯 11(Legendary Crab Trophy XI)",
       "command": "/place 0 0 18000168",
       "category": "Trophy"
     },
     {
       "id": "Trophy-827",
-      "name": "Megacrab Death 15",
+      "name": "传奇螃蟹奖杯 12(Legendary Crab Trophy XII)",
       "command": "/place 0 0 18000169",
       "category": "Trophy"
     },
     {
       "id": "Trophy-828",
-      "name": "Megacrab Death 16",
+      "name": "传奇战舰奖杯 1(Legendary Gunboat Trophy I)",
       "command": "/place 0 0 18000170",
       "category": "Trophy"
     },
     {
       "id": "Trophy-829",
-      "name": "Megacrab Energy 5传奇战舰奖杯",
+      "name": "传奇战舰奖杯 2(Legendary Gunboat Trophy II)",
       "command": "/place 0 0 18000171",
       "category": "Trophy"
     },
     {
       "id": "Trophy-830",
-      "name": "Megacrab Energy 6",
+      "name": "传奇战舰奖杯 3(Legendary Gunboat Trophy III)",
       "command": "/place 0 0 18000172",
       "category": "Trophy"
     },
     {
       "id": "Trophy-831",
-      "name": "Megacrab Energy 7",
+      "name": "传奇战舰奖杯 4(Legendary Gunboat Trophy IV)",
       "command": "/place 0 0 18000173",
       "category": "Trophy"
     },
     {
       "id": "Trophy-832",
-      "name": "Megacrab Energy 8",
+      "name": "传奇战舰奖杯 5(Legendary Gunboat Trophy V)",
       "command": "/place 0 0 18000174",
       "category": "Trophy"
     },
     {
       "id": "Trophy-833",
-      "name": "Megacrab Energy 9",
+      "name": "传奇战舰奖杯 6(Legendary Gunboat Trophy VI)",
       "command": "/place 0 0 18000175",
       "category": "Trophy"
     },
     {
       "id": "Trophy-834",
-      "name": "Megacrab Energy 10",
+      "name": "传奇战舰奖杯 7(Legendary Gunboat Trophy VII)",
       "command": "/place 0 0 18000176",
       "category": "Trophy"
     },
     {
       "id": "Trophy-835",
-      "name": "Megacrab Energy 11",
+      "name": "传奇战舰奖杯 8(Legendary Gunboat Trophy VIII)",
       "command": "/place 0 0 18000177",
       "category": "Trophy"
     },
     {
       "id": "Trophy-836",
-      "name": "Megacrab Energy 12",
+      "name": "传奇战舰奖杯 9(Legendary Gunboat Trophy IX)",
       "command": "/place 0 0 18000178",
       "category": "Trophy"
     },
     {
       "id": "Trophy-837",
-      "name": "Megacrab Energy 13",
+      "name": "传奇战舰奖杯 10(Legendary Gunboat Trophy X)",
       "command": "/place 0 0 18000179",
       "category": "Trophy"
     },
     {
       "id": "Trophy-838",
-      "name": "Megacrab Energy 14",
+      "name": "传奇战舰奖杯 11(Legendary Gunboat Trophy XI)",
       "command": "/place 0 0 18000180",
       "category": "Trophy"
     },
     {
       "id": "Trophy-839",
-      "name": "Megacrab Energy 15",
+      "name": "传奇战舰奖杯 12(Legendary Gunboat Trophy XII)",
       "command": "/place 0 0 18000181",
       "category": "Trophy"
     },
     {
       "id": "Trophy-840",
-      "name": "Megacrab Energy 16",
+      "name": "传奇万圣节奖杯 1(Legendary Halloween Trophy I)",
       "command": "/place 0 0 18000182",
       "category": "Trophy"
     },
     {
       "id": "Trophy-841",
-      "name": "Megacrab Halloween 5传奇万圣节南瓜奖杯",
+      "name": "传奇万圣节奖杯 2(Legendary Halloween Trophy II)",
       "command": "/place 0 0 18000183",
       "category": "Trophy"
     },
     {
       "id": "Trophy-842",
-      "name": "Megacrab Halloween 6",
+      "name": "传奇万圣节奖杯 3(Legendary Halloween Trophy III)",
       "command": "/place 0 0 18000184",
       "category": "Trophy"
     },
     {
       "id": "Trophy-843",
-      "name": "Megacrab Halloween 7",
+      "name": "传奇万圣节奖杯 4(Legendary Halloween Trophy IV)",
       "command": "/place 0 0 18000185",
       "category": "Trophy"
     },
     {
       "id": "Trophy-844",
-      "name": "Megacrab Halloween 8",
+      "name": "传奇万圣节奖杯 5(Legendary Halloween Trophy V)",
       "command": "/place 0 0 18000186",
       "category": "Trophy"
     },
     {
       "id": "Trophy-845",
-      "name": "Megacrab Halloween 9",
+      "name": "传奇万圣节奖杯 6(Legendary Halloween Trophy VI)",
       "command": "/place 0 0 18000187",
       "category": "Trophy"
     },
     {
       "id": "Trophy-846",
-      "name": "Megacrab Halloween 10",
+      "name": "传奇万圣节奖杯 7(Legendary Halloween Trophy VII)",
       "command": "/place 0 0 18000188",
       "category": "Trophy"
     },
     {
       "id": "Trophy-847",
-      "name": "Megacrab Halloween 11",
+      "name": "传奇万圣节奖杯 8(Legendary Halloween Trophy VIII)",
       "command": "/place 0 0 18000189",
       "category": "Trophy"
     },
     {
       "id": "Trophy-848",
-      "name": "Megacrab Halloween 12",
+      "name": "传奇万圣节奖杯 9(Legendary Halloween Trophy IX)",
       "command": "/place 0 0 18000190",
       "category": "Trophy"
     },
     {
       "id": "Trophy-849",
-      "name": "Megacrab Halloween 13",
+      "name": "传奇万圣节奖杯 10(Legendary Halloween Trophy X)",
       "command": "/place 0 0 18000191",
       "category": "Trophy"
     },
     {
       "id": "Trophy-850",
-      "name": "Megacrab Halloween 14",
+      "name": "传奇万圣节奖杯 11(Legendary Halloween Trophy XI)",
       "command": "/place 0 0 18000192",
       "category": "Trophy"
     },
     {
       "id": "Trophy-851",
-      "name": "Megacrab Halloween 15",
+      "name": "传奇万圣节奖杯 12(Legendary Halloween Trophy XII)",
       "command": "/place 0 0 18000193",
       "category": "Trophy"
     },
     {
       "id": "Trophy-852",
-      "name": "Megacrab Halloween 16",
+      "name": "传奇原型奖杯 1(Legendary Proto Trophy I)",
       "command": "/place 0 0 18000194",
       "category": "Trophy"
     },
     {
       "id": "Trophy-853",
-      "name": "Megacrab Proto 5传奇原型奖杯",
+      "name": "传奇原型奖杯 2(Legendary Proto Trophy II)",
       "command": "/place 0 0 18000195",
       "category": "Trophy"
     },
     {
       "id": "Trophy-854",
-      "name": "Megacrab Proto 6",
+      "name": "传奇原型奖杯 3(Legendary Proto Trophy III)",
       "command": "/place 0 0 18000196",
       "category": "Trophy"
     },
     {
       "id": "Trophy-855",
-      "name": "Megacrab Proto 7",
+      "name": "传奇原型奖杯 4(Legendary Proto Trophy IV)",
       "command": "/place 0 0 18000197",
       "category": "Trophy"
     },
     {
       "id": "Trophy-856",
-      "name": "Megacrab Proto 8",
+      "name": "传奇原型奖杯 5(Legendary Proto Trophy V)",
       "command": "/place 0 0 18000198",
       "category": "Trophy"
     },
     {
       "id": "Trophy-857",
-      "name": "Megacrab Proto 9",
+      "name": "传奇原型奖杯 6(Legendary Proto Trophy VI)",
       "command": "/place 0 0 18000199",
       "category": "Trophy"
     },
     {
       "id": "Trophy-858",
-      "name": "Megacrab Proto 10",
+      "name": "传奇原型奖杯 7(Legendary Proto Trophy VII)",
       "command": "/place 0 0 18000200",
       "category": "Trophy"
     },
     {
       "id": "Trophy-859",
-      "name": "Megacrab Proto 11",
+      "name": "传奇原型奖杯 8(Legendary Proto Trophy VIII)",
       "command": "/place 0 0 18000201",
       "category": "Trophy"
     },
     {
       "id": "Trophy-860",
-      "name": "Megacrab Proto 12",
+      "name": "传奇原型奖杯 9(Legendary Proto Trophy IX)",
       "command": "/place 0 0 18000202",
       "category": "Trophy"
     },
     {
       "id": "Trophy-861",
-      "name": "Megacrab Proto 13",
+      "name": "传奇原型奖杯 10(Legendary Proto Trophy X)",
       "command": "/place 0 0 18000203",
       "category": "Trophy"
     },
     {
       "id": "Trophy-862",
-      "name": "Megacrab Proto 14",
+      "name": "传奇原型奖杯 11(Legendary Proto Trophy XI)",
       "command": "/place 0 0 18000204",
       "category": "Trophy"
     },
     {
       "id": "Trophy-863",
-      "name": "Megacrab Proto 15",
+      "name": "传奇原型奖杯 12(Legendary Proto Trophy XII)",
       "command": "/place 0 0 18000205",
       "category": "Trophy"
     },
     {
       "id": "Trophy-864",
-      "name": "Megacrab Proto 16",
+      "name": "传奇牙牙奖杯 1(Legendary Vampire Trophy I)",
       "command": "/place 0 0 18000206",
       "category": "Trophy"
     },
     {
       "id": "Trophy-865",
-      "name": "Megacrab Lifesteal 5吸血鬼奖杯",
+      "name": "传奇牙牙奖杯 2(Legendary Vampire Trophy II)",
       "command": "/place 0 0 18000207",
       "category": "Trophy"
     },
     {
       "id": "Trophy-866",
-      "name": "Megacrab Lifesteal 6",
+      "name": "传奇牙牙奖杯 3(Legendary Vampire Trophy III)",
       "command": "/place 0 0 18000208",
       "category": "Trophy"
     },
     {
       "id": "Trophy-867",
-      "name": "Megacrab Lifesteal 7",
+      "name": "传奇牙牙奖杯 4(Legendary Vampire Trophy IV)",
       "command": "/place 0 0 18000209",
       "category": "Trophy"
     },
     {
       "id": "Trophy-868",
-      "name": "Megacrab Lifesteal 8",
+      "name": "传奇牙牙奖杯 5(Legendary Vampire Trophy V)",
       "command": "/place 0 0 18000210",
       "category": "Trophy"
     },
     {
       "id": "Trophy-869",
-      "name": "Megacrab Lifesteal 9",
+      "name": "传奇牙牙奖杯 6(Legendary Vampire Trophy VI)",
       "command": "/place 0 0 18000211",
       "category": "Trophy"
     },
     {
       "id": "Trophy-870",
-      "name": "Megacrab Lifesteal 10",
+      "name": "传奇牙牙奖杯 7(Legendary Vampire Trophy VII)",
       "command": "/place 0 0 18000212",
       "category": "Trophy"
     },
     {
       "id": "Trophy-871",
-      "name": "Megacrab Lifesteal 11",
+      "name": "传奇牙牙奖杯 8(Legendary Vampire Trophy VIII)",
       "command": "/place 0 0 18000213",
       "category": "Trophy"
     },
     {
       "id": "Trophy-872",
-      "name": "Megacrab Lifesteal 12",
+      "name": "传奇牙牙奖杯 9(Legendary Vampire Trophy IX)",
       "command": "/place 0 0 18000214",
       "category": "Trophy"
     },
     {
       "id": "Trophy-873",
-      "name": "Megacrab Lifesteal 13",
+      "name": "传奇牙牙奖杯 10(Legendary Vampire Trophy X)",
       "command": "/place 0 0 18000215",
       "category": "Trophy"
     },
     {
       "id": "Trophy-874",
-      "name": "Megacrab Lifesteal 14",
+      "name": "传奇牙牙奖杯 11(Legendary Vampire Trophy XI)",
       "command": "/place 0 0 18000216",
       "category": "Trophy"
     },
     {
       "id": "Trophy-875",
-      "name": "Megacrab Lifesteal 15",
+      "name": "传奇牙牙奖杯 12(Legendary Vampire Trophy XII)",
       "command": "/place 0 0 18000217",
       "category": "Trophy"
     },
     {
       "id": "Trophy-876",
-      "name": "Megacrab Lifesteal 16",
+      "name": "石质战斗母舰奖杯(Stone Warship Trophy)",
       "command": "/place 0 0 18000218",
       "category": "Trophy"
     },
     {
       "id": "Trophy-877",
-      "name": "Warship Trophy 1石材航母奖杯",
+      "name": "钢质战斗母舰奖杯(Iron Warship Trophy)",
       "command": "/place 0 0 18000219",
       "category": "Trophy"
     },
     {
       "id": "Trophy-878",
-      "name": "Warship Trophy 2青铜",
+      "name": "黄金战斗母舰奖杯(Gold Warship Trophy)",
       "command": "/place 0 0 18000220",
       "category": "Trophy"
     },
     {
       "id": "Trophy-879",
-      "name": "Warship Trophy 3黄金",
+      "name": "钻石战斗母舰奖杯(Diamond Warship Trophy)",
       "command": "/place 0 0 18000221",
       "category": "Trophy"
     },
     {
       "id": "Trophy-880",
-      "name": "Warship Trophy 4钻石",
+      "name": "传奇战斗母舰奖杯(Legendary warship Trophy)",
       "command": "/place 0 0 18000222",
       "category": "Trophy"
     },
     {
       "id": "Trophy-881",
-      "name": "Warship Trophy 5传奇",
+      "name": "战斗母舰500强奖杯(Warship Top 500 Trophy)",
       "command": "/place 0 0 18000223",
       "category": "Trophy"
     },
     {
       "id": "Trophy-882",
-      "name": "Warship Rank 500 Trophy世界五百强",
+      "name": "战斗母舰50强奖杯(Warship Top 50 Trophy)",
       "command": "/place 0 0 18000224",
       "category": "Trophy"
     },
     {
       "id": "Trophy-883",
-      "name": "Warship Rank 50 Trophy世界50强",
+      "name": "战斗母舰5强奖杯(Warship Top 5 Trophy)",
       "command": "/place 0 0 18000225",
       "category": "Trophy"
     },
     {
       "id": "Trophy-884",
-      "name": "Warship Rank 5 Trophy世界前五",
+      "name": "战斗母舰最强司令奖杯(Warship Winner's Trophy)",
       "command": "/place 0 0 18000226",
       "category": "Trophy"
     },
     {
       "id": "Trophy-885",
-      "name": "Warship Rank 1 Trophy海岛世界第一奖杯",
+      "name": "海岛大音箱(Boom Box)",
       "command": "/place 0 0 18000227",
       "category": "Trophy"
     },
     {
       "id": "Trophy-886",
-      "name": "Speaker海岛大音响",
+      "name": "Supercell ID雕像(Supercell ID Statue)",
       "command": "/place 0 0 18000228",
       "category": "Trophy"
     },
     {
       "id": "Trophy-887",
-      "name": "Scid Statue Supercell 金鸡奖杯",
+      "name": "海龟雕像(Turtle Statue)",
       "command": "/place 0 0 18000229",
       "category": "Trophy"
     },
     {
       "id": "Trophy-888",
-      "name": "Turtle Statue海龟博士雕像(终于被你找到了)",
+      "name": "石质海龟奖杯(Stone Turtle Trophy)",
       "command": "/place 0 0 18000230",
       "category": "Trophy"
     },
     {
       "id": "Trophy-889",
-      "name": "Megaturtle 1石质海龟奖杯",
+      "name": "钢质海龟奖杯(Iron Turtle Trophy)",
       "command": "/place 0 0 18000231",
       "category": "Trophy"
     },
     {
       "id": "Trophy-890",
-      "name": "Megaturtle 2海龟奖杯",
+      "name": "黄金海龟奖杯(Golden Turtle Trophy)",
       "command": "/place 0 0 18000232",
       "category": "Trophy"
     },
     {
       "id": "Trophy-891",
-      "name": "Megaturtle 3",
+      "name": "钻石海龟奖杯(Diamond Turtle Trophy)",
       "command": "/place 0 0 18000233",
       "category": "Trophy"
     },
@@ -5204,7 +5204,7 @@
     },
     {
       "id": "Trophy-893",
-      "name": "Megaturtle 5",
+      "name": "激光球奖杯(Lazor Ball Trophy)",
       "command": "/place 0 0 18000235",
       "category": "Trophy"
     },
@@ -5270,103 +5270,103 @@
     },
     {
       "id": "Trophy-904",
-      "name": "Megaturtle 15",
+      "name": "石质周年奖杯(Stone Anniversary Trophy)",
       "command": "/place 0 0 18000246",
       "category": "Trophy"
     },
     {
       "id": "Trophy-905",
-      "name": "Megacrab Rider 1 步兵抱蛋糕周年奖杯",
+      "name": "钢质周年奖杯(Iron Anniversary Trophy)",
       "command": "/place 0 0 18000247",
       "category": "Trophy"
     },
     {
       "id": "Trophy-906",
-      "name": "Megacrab Rider 2",
+      "name": "黄金周年奖杯(Golden Anniversary Trophy)",
       "command": "/place 0 0 18000248",
       "category": "Trophy"
     },
     {
       "id": "Trophy-907",
-      "name": "Megacrab Rider 3",
+      "name": "钻石周年奖杯(Diamond Anniversary Trophy)",
       "command": "/place 0 0 18000249",
       "category": "Trophy"
     },
     {
       "id": "Trophy-908",
-      "name": "Megacrab Rider 4",
+      "name": "传奇周年奖杯 1(Legendary Anniversary Trophy I)",
       "command": "/place 0 0 18000250",
       "category": "Trophy"
     },
     {
       "id": "Trophy-909",
-      "name": "Megacrab Rider 5",
+      "name": "传奇周年奖杯 2(Legendary Anniversary Trophy II)",
       "command": "/place 0 0 18000251",
       "category": "Trophy"
     },
     {
       "id": "Trophy-910",
-      "name": "Megacrab Rider 6",
+      "name": "传奇周年奖杯 3(Legendary Anniversary Trophy III)",
       "command": "/place 0 0 18000252",
       "category": "Trophy"
     },
     {
       "id": "Trophy-911",
-      "name": "Megacrab Rider 7",
+      "name": "传奇周年奖杯 4(Legendary Anniversary Trophy IV)",
       "command": "/place 0 0 18000253",
       "category": "Trophy"
     },
     {
       "id": "Trophy-912",
-      "name": "Megacrab Rider 8",
+      "name": "传奇周年奖杯 5(Legendary Anniversary Trophy V)",
       "command": "/place 0 0 18000254",
       "category": "Trophy"
     },
     {
       "id": "Trophy-913",
-      "name": "Megacrab Rider 9",
+      "name": "传奇周年奖杯 6(Legendary Anniversary Trophy VI)",
       "command": "/place 0 0 18000255",
       "category": "Trophy"
     },
     {
       "id": "Trophy-914",
-      "name": "Megacrab Rider 10",
+      "name": "传奇周年奖杯 7(Legendary Anniversary Trophy VII)",
       "command": "/place 0 0 18000256",
       "category": "Trophy"
     },
     {
       "id": "Trophy-915",
-      "name": "Megacrab Rider 11",
+      "name": "传奇周年奖杯 8(Legendary Anniversary Trophy VIII)",
       "command": "/place 0 0 18000257",
       "category": "Trophy"
     },
     {
       "id": "Trophy-916",
-      "name": "Megacrab Rider 12",
+      "name": "传奇周年奖杯 9(Legendary Anniversary Trophy IX)",
       "command": "/place 0 0 18000258",
       "category": "Trophy"
     },
     {
       "id": "Trophy-917",
-      "name": "Megacrab Rider 13",
+      "name": "传奇周年奖杯 10(Legendary Anniversary Trophy X)",
       "command": "/place 0 0 18000259",
       "category": "Trophy"
     },
     {
       "id": "Trophy-918",
-      "name": "Megacrab Rider 14",
+      "name": "传奇周年奖杯 11(Legendary Anniversary Trophy XI)",
       "command": "/place 0 0 18000260",
       "category": "Trophy"
     },
     {
       "id": "Trophy-919",
-      "name": "Megacrab Rider 15",
+      "name": "传奇周年奖杯 12(Legendary Anniversary Trophy XII)",
       "command": "/place 0 0 18000261",
       "category": "Trophy"
     },
     {
       "id": "Trophy-920",
-      "name": "Megacrab Rider 16",
+      "name": "10周年纪念奖杯(10th Anniversary Trophy)",
       "command": "/place 0 0 18000262",
       "category": "Trophy"
     },
@@ -5900,13 +5900,13 @@
     },
     {
       "id": "warshipSkill-1009",
-      "name": "信号弹(Flare)",
+      "name": "引导弹(Flare)",
       "command": "/spell add 01",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1010",
-      "name": "医疗包(Medkit)",
+      "name": "医药包(Medkit)",
       "command": "/spell add 02",
       "category": "warshipSkill"
     },
@@ -5924,13 +5924,13 @@
     },
     {
       "id": "warshipSkill-1013",
-      "name": "烟雾弹(Smoke)",
+      "name": "烟雾弹(Smoke Screen)",
       "command": "/spell add 05",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1014",
-      "name": "无人机(Drone)",
+      "name": "机器小怪(Critters)",
       "command": "/spell add 06",
       "category": "warshipSkill"
     },
@@ -5978,19 +5978,19 @@
     },
     {
       "id": "warshipSkill-1022",
-      "name": "超级部队(SuperTroop)",
+      "name": "超级土著勇士(Super Warrior)",
       "command": "/spell add 14",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1023",
-      "name": "炮塔箱(TurretBox)",
+      "name": "投放式炮塔(Deployable Turret)",
       "command": "/spell add 15",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1024",
-      "name": "加速血清(SpeedSerum)",
+      "name": "加速血清(Speed Serum)",
       "command": "/spell add 16",
       "category": "warshipSkill"
     },
@@ -6008,31 +6008,31 @@
     },
     {
       "id": "warshipSkill-1027",
-      "name": "黑客攻击(Hack)",
+      "name": "远程操控(Remote Hack)",
       "command": "/spell add 19",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1028",
-      "name": "小型眩晕弹(TinyStun)",
+      "name": "微型震爆弹(Tiny Shock)",
       "command": "/spell add 20",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1029",
-      "name": "自爆无人机(ExplosiveDrone)",
+      "name": "自爆小怪(Explosive Drones)",
       "command": "/spell add 21",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1030",
-      "name": "水晶护盾(CrystalShield)",
+      "name": "水晶护盾发射器(Crystal Shield Projector)",
       "command": "/spell add 22",
       "category": "warshipSkill"
     },
     {
       "id": "warshipSkill-1031",
-      "name": "复活(Resurrect)",
+      "name": "复苏水晶(Remote Defib)",
       "command": "/spell add 23",
       "category": "warshipSkill"
     },
