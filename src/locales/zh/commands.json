@@ -39,5 +39,6 @@
   "notationData": "数据参数：限定类型时可用 [Tank] 数据名 · <步兵> 中文名 · 4 实例ID · 4000001 全局ID；不限定类型时（如 /place）用 TRAP:Mine · buildings[HQ] · 3000001 全局ID，此处不能用裸实例ID",
   "repeatHint": "游戏里单发一个 / 是「重复上一条」，网页做不到，改用下方的最近执行列表重发",
   "confirmAgain": "再点一次确认",
-  "optionLabel": "选项"
+  "optionLabel": "选项",
+  "deckLabel": "选择甲板值 (0-16)"
 }

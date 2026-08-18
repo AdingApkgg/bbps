@@ -25,6 +25,8 @@ interface Props {
   searchPlaceholder?: string
   emptyText?: string
   className?: string
+  /** 选项少于这个数时不显示搜索框——2 项还弹个搜索栏是噪音 */
+  searchThreshold?: number
 }
 
 /** 一次最多渲染这么多项，避免 263 项全进 DOM */
@@ -37,7 +39,8 @@ export function SearchableSelect({
   ariaLabel,
   searchPlaceholder,
   emptyText,
-  className
+  className,
+  searchThreshold = 8
 }: Props) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -55,11 +58,12 @@ export function SearchableSelect({
   }, [options, query])
 
   const visible = filtered.slice(0, RENDER_CAP)
+  const showSearch = options.length >= searchThreshold
 
   // 打开时聚焦搜索框
   useEffect(() => {
-    if (open) inputRef.current?.focus()
-  }, [open])
+    if (open && showSearch) inputRef.current?.focus()
+  }, [open, showSearch])
 
   // 点击外部关闭
   useEffect(() => {
@@ -126,19 +130,21 @@ export function SearchableSelect({
 
       {open && (
         <div className="absolute left-0 top-[calc(100%+4px)] z-30 w-full min-w-[14rem] rounded-md border bg-popover shadow-md">
-          <div className="relative border-b">
-            <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value)
-                setActive(0)
-              }}
-              placeholder={searchPlaceholder}
-              className="h-8 w-full bg-transparent pl-7 pr-2 text-xs outline-none"
-            />
-          </div>
+          {showSearch && (
+            <div className="relative border-b">
+              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+              <input
+                ref={inputRef}
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setActive(0)
+                }}
+                placeholder={searchPlaceholder}
+                className="h-8 w-full bg-transparent pl-7 pr-2 text-xs outline-none"
+              />
+            </div>
+          )}
 
           {visible.length === 0 ? (
             <p className="px-2 py-3 text-center text-xs text-muted-foreground">

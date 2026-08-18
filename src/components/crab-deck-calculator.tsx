@@ -5,13 +5,8 @@ import Image from 'next/image'
 import { Plus, X, Trash2, Calculator } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { ASSETS } from '@/lib/assets'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+import { getDictionary } from '@/lib/i18n'
+import { SearchableSelect } from '@/components/searchable-select'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
@@ -22,6 +17,7 @@ export function CrabDeckCalculator({
 }: {
   onOutput: (v: string) => void
 }) {
+  const t = getDictionary(useLocale()).commands
   const [selectedDecks, setSelectedDecks] = useState<number[]>([])
   const [pendingValue, setPendingValue] = useState<number | null>(null)
   const [result, setResult] = useState<{ sum: number; command: string } | null>(null)
@@ -69,21 +65,18 @@ export function CrabDeckCalculator({
     <div className="space-y-4">
       {/* 选择 + 添加 */}
       <div className="flex items-center gap-2">
-        <Select
-          value={pendingValue !== null ? String(pendingValue) : undefined}
-          onValueChange={(v) => setPendingValue(parseInt(v, 10))}
-        >
-          <SelectTrigger className="flex-1">
-            <SelectValue placeholder="选择甲板值 (0-16)" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableValues.map((i) => (
-              <SelectItem key={i} value={String(i)}>
-                {i}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <SearchableSelect
+          className="h-9 flex-1"
+          value={pendingValue !== null ? String(pendingValue) : ''}
+          onChange={(v) => setPendingValue(v === '' ? null : parseInt(v, 10))}
+          ariaLabel={t.deckLabel}
+          searchPlaceholder={t.pickerSearch}
+          emptyText={t.noResults}
+          options={[
+            { value: '', label: t.deckLabel },
+            ...availableValues.map((i) => ({ value: String(i), label: String(i) }))
+          ]}
+        />
         <Button variant="outline" size="icon" onClick={handleAdd} disabled={pendingValue === null}>
           <Plus className="h-4 w-4" />
         </Button>

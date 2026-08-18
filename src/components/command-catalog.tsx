@@ -25,6 +25,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { RunButton } from '@/components/run-button'
+import { SearchableSelect } from '@/components/searchable-select'
 import { cn } from '@/lib/utils'
 
 /* ── 单条指令 ── */
@@ -161,20 +162,20 @@ function CatalogItem({
                   {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
                 </span>
                 {options ? (
-                  <select
+                  <SearchableSelect
+                    className="w-44"
                     value={values[p.value] ?? ''}
-                    onChange={(e) =>
-                      setValues((v) => ({ ...v, [p.value]: e.target.value }))
+                    onChange={(v) =>
+                      setValues((prev) => ({ ...prev, [p.value]: v }))
                     }
-                    className="h-7 max-w-[14rem] rounded-md border bg-background px-2 text-xs"
-                  >
-                    <option value="">—</option>
-                    {options.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
+                    ariaLabel={label}
+                    searchPlaceholder={t.pickerSearch}
+                    emptyText={t.noResults}
+                    options={[
+                      { value: '', label: '—' },
+                      ...options
+                    ]}
+                  />
                 ) : (
                   <Input
                     value={values[p.value] ?? ''}
