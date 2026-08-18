@@ -129,25 +129,25 @@ export const ARTIFACT_BONUS_OPTIONS: ParamOption[] = [
 ]
 
 /**
- * <layout> 取值 —— 取自 HBCheatManager.LAYOUT_NAMES 的 12 个生效值。
- * 中文岛屿名来自 data/commands.json 里已有的 `/layout xxx` 条目，
- * 只有 warship 那条没有现成中文名：全仓库 warship 一致指战斗母舰
- * （/attackwarship、/blockingmask island|warship），据此标注。
- * 英文名游戏侧没有可靠来源，故沿用原始值，不臆造译名。
+ * <layout> 取值 —— 12 个生效值取自 HBCheatManager.LAYOUT_NAMES。
+ *
+ * 中英文名直接用游戏自带的本地化表 Gamefiles/csv/texts.csv 的
+ * TID_LAYOUT_*（EN 与 ZH-HANS 两列），玩家在游戏里看到的就是这些字，
+ * 不另起译名。括号里保留原始值，那才是实际要输入的东西。
  */
 export const LAYOUT_OPTIONS: ParamOption[] = [
-  { value: 'playerbase', labelZh: '玩家默认岛屿 (playerbase)', labelEn: 'playerbase' },
-  { value: 'enemybase', labelZh: '恐怖博士的火山岛 (enemybase)', labelEn: 'enemybase' },
-  { value: 'small_a', labelZh: '袖珍岛 (small_a)', labelEn: 'small_a' },
-  { value: 'small_b', labelZh: '摩斯海德岛 (small_b)', labelEn: 'small_b' },
-  { value: 'mainland_a', labelZh: '绝岭雄风海湾 (mainland_a)', labelEn: 'mainland_a' },
-  { value: 'mainland_b', labelZh: '帕彻斯奥半岛 (mainland_b)', labelEn: 'mainland_b' },
-  { value: 'med_a', labelZh: '双子珊瑚岛 (med_a)', labelEn: 'med_a' },
-  { value: 'factory', labelZh: '工厂任务基地 (factory)', labelEn: 'factory' },
-  { value: 'harbor', labelZh: '港口任务基地 (harbor)', labelEn: 'harbor' },
-  { value: 'octobase', labelZh: '超级螃蟹 (octobase)', labelEn: 'octobase' },
-  { value: 'turtlebase', labelZh: '超级海龟 (turtlebase)', labelEn: 'turtlebase' },
-  { value: 'warship', labelZh: '战斗母舰基地 (warship)', labelEn: 'warship' }
+  { value: 'playerbase', labelZh: '玩家岛 (playerbase)', labelEn: 'Playerbase (playerbase)' },
+  { value: 'enemybase', labelZh: '黑暗卫队头目岛 (enemybase)', labelEn: 'Enemybase (enemybase)' },
+  { value: 'small_a', labelZh: '袖珍岛 (small_a)', labelEn: 'Small A (small_a)' },
+  { value: 'small_b', labelZh: '摩斯海德岛 (small_b)', labelEn: 'Small B (small_b)' },
+  { value: 'mainland_a', labelZh: '绝岭雄风海湾 (mainland_a)', labelEn: 'Mainland A (mainland_a)' },
+  { value: 'mainland_b', labelZh: '帕彻斯奥半岛 (mainland_b)', labelEn: 'Mainland B (mainland_b)' },
+  { value: 'med_a', labelZh: '双子珊瑚岛 (med_a)', labelEn: 'Med A (med_a)' },
+  { value: 'factory', labelZh: '任务工厂 (factory)', labelEn: 'Power Factory (factory)' },
+  { value: 'harbor', labelZh: '任务海港 (harbor)', labelEn: 'Power Harbor (harbor)' },
+  { value: 'octobase', labelZh: '超级螃蟹 (octobase)', labelEn: 'Mega Crab (octobase)' },
+  { value: 'turtlebase', labelZh: '超级海龟 (turtlebase)', labelEn: 'Mega Turtle (turtlebase)' },
+  { value: 'warship', labelZh: '战斗母舰 (warship)', labelEn: 'Warship (warship)' }
 ]
 
 export const LAYOUT_VALUES = LAYOUT_OPTIONS.map((o) => o.value)
