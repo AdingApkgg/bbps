@@ -30,5 +30,7 @@
   "advancedPlaceholder": "Type a command, no leading /",
   "advancedHint": "All game commands are supported, up to 2048 characters. Command output is delivered to your game client only — it is never shown on this page.",
   "send": "Run",
-  "permissionNote": "This channel does exactly what typing the command in the game chat box does — it grants no extra privileges. Admin commands are still gated by your account's own admin flag, so a regular player running one here is rejected the same way it would be in game."
+  "permissionNote": "This channel does exactly what typing the command in the game chat box does — it grants no extra privileges. Admin commands are still gated by your account's own admin flag, so a regular player running one here is rejected the same way it would be in game.",
+  "snapshotAge": "· {n}s behind",
+  "onlineIsHint": "Online status comes from a snapshot refreshed every 60 seconds. It is informational only and never blocks execution — the command result is authoritative."
 }

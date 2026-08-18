@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   AlertCircle,
   Check,
@@ -30,7 +30,7 @@ export function useCommandRunner() {
   const t = getDictionary(locale).console
   const session = useWebSession()
   // 复用已有的 /api/server 轮询，不额外发请求
-  const { players, loading: statsLoading } = useServerStats()
+  const { players, stats, loading: statsLoading } = useServerStats()
   const [busy, setBusy] = useState(false)
   const [feedback, setFeedback] = useState<Feedback>(null)
 
@@ -74,16 +74,44 @@ export function useCommandRunner() {
     [busy, t]
   )
 
+  /**
+   * 这份在线快照有多旧（秒）。datetime_utcnow 是 UTC。
+   * 用定时器驱动而不是在渲染里算 —— Date.now() 在 useMemo 里不纯。
+   */
+  const [snapshotAgeSec, setSnapshotAgeSec] = useState<number | null>(null)
+  const rawNow = stats?.datetime_utcnow
+
+  useEffect(() => {
+    if (!rawNow) return
+    const m = String(rawNow).match(
+      /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})[T ](\d{1,2}):(\d{2})(?::(\d{2}))?/
+    )
+    if (!m) return
+    const ts = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +(m[6] ?? 0))
+    const tick = () => {
+      const age = Math.round((Date.now() - ts) / 1000)
+      setSnapshotAgeSec(age >= 0 && age < 3600 ? age : null)
+    }
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [rawNow])
+
   return {
     ...session,
     isOnline,
+    snapshotAgeSec,
     statsLoading,
     busy,
     feedback,
     setFeedback,
     execute,
-    /** 可执行：已登录 + 游戏在线 + 当前没有请求在飞 */
-    canRun: session.status === 'authed' && isOnline && !busy
+    /**
+     * 可执行：已登录且当前没有请求在飞。
+     * 刻意不看在线状态 —— /api/server 的名单是 60 秒缓存快照，
+     * 拿它做准入会两头错（刚登录被误禁、刚退出点了才 409）。
+     * 让用户直接点，以 409 为权威答复。
+     */
+    canRun: session.status === 'authed' && !busy
   }
 }
 
@@ -273,11 +301,13 @@ export function VerifyPanel({
 export function SessionBar({
   playerId,
   isOnline,
+  snapshotAgeSec,
   statsLoading,
   onLogout
 }: {
   playerId: number | null
   isOnline: boolean
+  snapshotAgeSec: number | null
   statsLoading: boolean
   onLogout: () => Promise<void>
 }) {
@@ -301,14 +331,18 @@ export function SessionBar({
           <Badge variant="secondary" className="font-mono">
             ID {playerId ?? '—'}
           </Badge>
+          {/* 仅作参考：这是 60 秒刷新一次的缓存快照，不用它拦请求 */}
           {statsLoading ? (
             <Badge variant="outline">{t.checkingOnline}</Badge>
-          ) : isOnline ? (
-            <Badge className="bg-emerald-600 hover:bg-emerald-600">
-              {t.online}
-            </Badge>
           ) : (
-            <Badge variant="destructive">{t.offline}</Badge>
+            <Badge variant="outline" className="font-normal">
+              {isOnline ? t.online : t.offline}
+              {snapshotAgeSec != null && (
+                <span className="ml-1 opacity-60">
+                  {t.snapshotAge.replace('{n}', String(snapshotAgeSec))}
+                </span>
+              )}
+            </Badge>
           )}
           <Button
             variant="outline"
@@ -327,14 +361,7 @@ export function SessionBar({
         </CardContent>
       </Card>
 
-      {!isOnline && !statsLoading && (
-        <div className="flex gap-2 rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
-          <AlertCircle className="h-4 w-4 shrink-0 text-amber-600" />
-          <p className="text-sm text-amber-700 dark:text-amber-500">
-            {t.offlineHint}
-          </p>
-        </div>
-      )}
+      <p className="text-xs text-muted-foreground">{t.onlineIsHint}</p>
     </div>
   )
 }
