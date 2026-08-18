@@ -128,21 +128,29 @@ export const ARTIFACT_BONUS_OPTIONS: ParamOption[] = [
   { value: '11', labelZh: '全部产量 (11)', labelEn: 'All resources (11)' }
 ]
 
-/** /homege、/attacklevel 等的 <layout> 取值，页面上做成下拉框 */
-export const LAYOUT_VALUES = [
-  'playerbase',
-  'enemybase',
-  'small_a',
-  'small_b',
-  'mainland_a',
-  'mainland_b',
-  'med_a',
-  'factory',
-  'harbor',
-  'octobase',
-  'turtlebase',
-  'warship'
+/**
+ * <layout> 取值 —— 取自 HBCheatManager.LAYOUT_NAMES 的 12 个生效值。
+ * 中文岛屿名来自 data/commands.json 里已有的 `/layout xxx` 条目，
+ * 只有 warship 那条没有现成中文名：全仓库 warship 一致指战斗母舰
+ * （/attackwarship、/blockingmask island|warship），据此标注。
+ * 英文名游戏侧没有可靠来源，故沿用原始值，不臆造译名。
+ */
+export const LAYOUT_OPTIONS: ParamOption[] = [
+  { value: 'playerbase', labelZh: '玩家默认岛屿 (playerbase)', labelEn: 'playerbase' },
+  { value: 'enemybase', labelZh: '恐怖博士的火山岛 (enemybase)', labelEn: 'enemybase' },
+  { value: 'small_a', labelZh: '袖珍岛 (small_a)', labelEn: 'small_a' },
+  { value: 'small_b', labelZh: '摩斯海德岛 (small_b)', labelEn: 'small_b' },
+  { value: 'mainland_a', labelZh: '绝岭雄风海湾 (mainland_a)', labelEn: 'mainland_a' },
+  { value: 'mainland_b', labelZh: '帕彻斯奥半岛 (mainland_b)', labelEn: 'mainland_b' },
+  { value: 'med_a', labelZh: '双子珊瑚岛 (med_a)', labelEn: 'med_a' },
+  { value: 'factory', labelZh: '工厂任务基地 (factory)', labelEn: 'factory' },
+  { value: 'harbor', labelZh: '港口任务基地 (harbor)', labelEn: 'harbor' },
+  { value: 'octobase', labelZh: '超级螃蟹 (octobase)', labelEn: 'octobase' },
+  { value: 'turtlebase', labelZh: '超级海龟 (turtlebase)', labelEn: 'turtlebase' },
+  { value: 'warship', labelZh: '战斗母舰基地 (warship)', labelEn: 'warship' }
 ]
+
+export const LAYOUT_VALUES = LAYOUT_OPTIONS.map((o) => o.value)
 
 /** 参数写法提示，按参数名匹配（小写包含） */
 export const PARAM_HINTS: { match: string; zh: string; en: string }[] = [
@@ -168,8 +176,8 @@ export const PARAM_HINTS: { match: string; zh: string; en: string }[] = [
   },
   {
     match: 'layout',
-    zh: LAYOUT_VALUES.join(' · '),
-    en: LAYOUT_VALUES.join(' · ')
+    zh: '岛屿类型，共 12 种，见下拉',
+    en: 'Island layout — 12 options, see dropdown'
   }
 ]
 

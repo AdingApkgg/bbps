@@ -14,7 +14,7 @@ import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import {
   COMMANDS_BY_GROUP,
-  LAYOUT_VALUES,
+  LAYOUT_OPTIONS,
   paramHint,
   searchCatalog,
   type CatalogCommand
@@ -151,7 +151,10 @@ function CatalogItem({
                     .filter(Boolean)
                     .map((v) => ({ value: v, label: v }))
                 : p.value.toLowerCase().includes('layout')
-                  ? LAYOUT_VALUES.map((v) => ({ value: v, label: v }))
+                  ? LAYOUT_OPTIONS.map((o) => ({
+                      value: o.value,
+                      label: locale === 'en' ? o.labelEn : o.labelZh
+                    }))
                   : null
             // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现
             const label = p.value.includes('|') ? t.optionLabel : p.value
