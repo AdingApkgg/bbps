@@ -27,7 +27,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { SearchableSelect } from '@/components/ui/searchable-select'
+import { SearchableSelect } from '@/components/searchable-select'
 import { cn } from '@/lib/utils'
 
 /** 一次最多渲染这么多条，避免 1042 条全塞进 DOM */
