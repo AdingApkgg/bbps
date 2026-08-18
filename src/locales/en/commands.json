@@ -15,5 +15,7 @@
   "browserTitle": "Command library",
   "calculatorTitle": "Mega Crab deck calculator",
   "copyHint": "Paste the copied command into the game chat box; once verified and online you can hit Run instead",
-  "resetValues": "Reset"
+  "resetValues": "Reset",
+  "groupCount": "{n} items",
+  "collapsedHint": "Similar commands are folded into one row — pick the target from the dropdown"
 }

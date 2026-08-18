@@ -5,7 +5,11 @@ import { Check, Copy, Play, Search, X } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands, type Command } from '@/lib/commands-data'
-import { searchCommands } from '@/lib/command-search'
+import {
+  optionLabel,
+  searchEntries,
+  type CommandGroup
+} from '@/lib/command-groups'
 import {
   fillTemplate,
   isRunnable,
@@ -186,6 +190,158 @@ function CommandItem({
   )
 }
 
+/* ── 折叠组：一行 + 实体下拉框 ── */
+
+function GroupItem({
+  group,
+  matched,
+  canRun,
+  onRun
+}: {
+  group: CommandGroup
+  matched: Command[]
+  canRun: boolean
+  onRun: (command: string) => void
+}) {
+  const locale = useLocale()
+  const t = getDictionary(locale).commands
+  const [copied, setCopied] = useState(false)
+
+  // 搜索命中时下拉框只留命中项，并默认选中最相关的那个
+  const options = matched.length > 0 ? matched : group.options
+  const [selectedId, setSelectedId] = useState(options[0]?.id)
+  const current =
+    options.find((o) => o.id === selectedId) ?? options[0] ?? group.options[0]
+
+  const originalNumbers = useMemo(
+    () => extractNumbers(current.command),
+    [current.command]
+  )
+  const [numbers, setNumbers] = useState<string[]>([])
+  // 切换实体后数值回到该条目的原值
+  const effective = numbers.length ? numbers : originalNumbers
+  const final = applyNumbers(current.command, effective)
+  const edited = numbers.length > 0 && numbers.some((n, i) => n !== originalNumbers[i])
+
+  const handleSelect = (id: string) => {
+    setSelectedId(id)
+    setNumbers([])
+  }
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(final)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch {
+      /* 剪贴板不可用时静默 */
+    }
+  }
+
+  const setNumberAt = (index: number, v: string) =>
+    setNumbers((prev) => {
+      const next = [...(prev.length ? prev : originalNumbers)]
+      next[index] = v.replace(/[^\d]/g, '')
+      return next
+    })
+
+  return (
+    <li className="rounded-lg border p-3 transition-colors hover:bg-muted/40">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-medium">
+              {locale === 'en' ? group.labelEn : group.labelZh}
+            </p>
+            <Badge variant="secondary" className="text-[10px]">
+              {t.groupCount.replace('{n}', String(options.length))}
+            </Badge>
+          </div>
+          <code className="mt-0.5 block break-all font-mono text-xs text-muted-foreground">
+            {final}
+          </code>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-1.5">
+          {edited && (
+            <button
+              type="button"
+              onClick={() => setNumbers([])}
+              className="text-xs text-muted-foreground hover:text-foreground"
+            >
+              {t.resetValues}
+            </button>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            aria-label={t.copyButton}
+          >
+            {copied ? (
+              <Check className="h-3.5 w-3.5" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
+            )}
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => onRun(final)}
+            disabled={!canRun}
+            title={!canRun ? t.runNeedsLogin : undefined}
+          >
+            <Play className="mr-1 h-3.5 w-3.5" />
+            {t.runButton}
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        {/* 用原生 select：几百个选项时可打字跳转，移动端直接调系统选择器 */}
+        <select
+          value={current.id}
+          onChange={(e) => handleSelect(e.target.value)}
+          aria-label={locale === 'en' ? group.labelEn : group.labelZh}
+          className="h-7 max-w-[15rem] flex-1 rounded-md border bg-background px-2 text-xs"
+        >
+          {options.map((o) => (
+            <option key={o.id} value={o.id}>
+              {optionLabel(o, group.family)}
+            </option>
+          ))}
+        </select>
+
+        {group.family.args
+          .filter((a) => a.role === 'value')
+          .map((a) => {
+            const listId = `${group.id}-${a.index}`
+            return (
+              <label key={a.index} className="flex items-center gap-1.5">
+                <span className="text-xs text-muted-foreground">
+                  {locale === 'en' ? a.labelEn : a.labelZh}
+                </span>
+                <Input
+                  inputMode="numeric"
+                  value={effective[a.index] ?? ''}
+                  onChange={(e) => setNumberAt(a.index, e.target.value)}
+                  className="h-7 w-20 text-xs"
+                  list={a.presets ? listId : undefined}
+                />
+                {a.presets && (
+                  <datalist id={listId}>
+                    {a.presets.map((v) => (
+                      <option key={v} value={v} />
+                    ))}
+                  </datalist>
+                )}
+              </label>
+            )
+          })}
+      </div>
+    </li>
+  )
+}
+
 /* ── 指令库 ── */
 
 export function CommandBrowser({
@@ -209,7 +365,7 @@ export function CommandBrowser({
   )
 
   const filtered = useMemo(
-    () => searchCommands(query, category),
+    () => searchEntries(query, category),
     [query, category]
   )
 
@@ -278,6 +434,8 @@ export function CommandBrowser({
         ))}
       </div>
 
+      <p className="text-xs text-muted-foreground">{t.collapsedHint}</p>
+
       <div className="flex items-center justify-between">
         <p className="text-xs text-muted-foreground">
           {t.resultCount
@@ -300,14 +458,25 @@ export function CommandBrowser({
       ) : (
         <>
           <ul className="space-y-2">
-            {visible.map((cmd) => (
-              <CommandItem
-                key={cmd.id}
-                cmd={cmd}
-                canRun={canRun}
-                onRun={onRun}
-              />
-            ))}
+            {visible.map((entry) =>
+              entry.kind === 'group' ? (
+                <GroupItem
+                  // 搜索结果变化时重建，让下拉框重新选中最相关项
+                  key={entry.group.id + ':' + (entry.matched[0]?.id ?? '')}
+                  group={entry.group}
+                  matched={entry.matched}
+                  canRun={canRun}
+                  onRun={onRun}
+                />
+              ) : (
+                <CommandItem
+                  key={entry.cmd.id}
+                  cmd={entry.cmd}
+                  canRun={canRun}
+                  onRun={onRun}
+                />
+              )
+            )}
           </ul>
           {filtered.length > visible.length && (
             <Button
