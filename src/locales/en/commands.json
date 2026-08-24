@@ -40,5 +40,7 @@
   "repeatHint": "In game a lone / repeats the last command; the web cannot do that — use the recent list below instead",
   "confirmAgain": "Click once more",
   "optionLabel": "Option",
-  "deckLabel": "Pick a deck value (0-16)"
+  "deckLabel": "Pick a deck value (0-16)",
+  "fillParams": "Set params ({n})",
+  "optionalParams": "Set optional params"
 }

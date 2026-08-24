@@ -61,6 +61,24 @@ export interface CommandGroupMeta {
   collapsed?: boolean
 }
 
+/**
+ * 分组顺序与默认展开状态来自生产服务器的真实使用量
+ * （GET /api/global_statistics 的 hbcmd_run_*，2026-08 快照，总执行 54.6 万次）：
+ *
+ *   resource 60.9% · home 21.2% · map 7.3% · battle 6.2% · basic 4.3%
+ *   rescue 0.7% · debug 0.1% · admin 0.1%
+ *
+ * 规则：占比 ≥3% 的默认展开，其余默认折叠；闪退自救不参与排名 ——
+ * 它是应急入口，用得少恰恰是正常的，所以固定放在最前且展开。
+ * 折叠不影响检索：搜索时所有分组一律展开。
+ *
+ * 跑 scripts/rank-by-usage.mjs 可复算，注意它踩过的两个坑：
+ *   1. 计数只到基指令粒度 —— /resource、/resource fill、/resource proto 是三条
+ *      目录条目却共用 hbcmd_run_resource，逐条相加会算三遍（占比会加到 328%）。
+ *   2. 别名各有独立计数器，必须相加 —— /atkp 有 13,739 次而 /attackplayer 只有
+ *      2,549 次，但 C# 里 atkp 是 Redirect(CmdAttackPlayer)，是同一条指令。
+ *      只看主名会把「进攻」组算成 2%，实为 6.2%。
+ */
 export const COMMAND_GROUP_META: CommandGroupMeta[] = [
   {
     id: 'rescue',
@@ -69,11 +87,11 @@ export const COMMAND_GROUP_META: CommandGroupMeta[] = [
     noteZh: '游戏点开某个界面就闪退时，先试这里',
     noteEn: 'Try these first if the game crashes when opening a screen'
   },
-  { id: 'basic', labelZh: '基础', labelEn: 'Basics' },
-  { id: 'battle', labelZh: '进攻 / 侦察 / 回放', labelEn: 'Attack / Scout / Replay' },
   { id: 'resource', labelZh: '资源与账号', labelEn: 'Resources & account' },
   { id: 'home', labelZh: '部队与基地', labelEn: 'Troops & base' },
   { id: 'map', labelZh: '地图 / 特遣队 / 母舰', labelEn: 'Map / Task force / Warship' },
+  { id: 'battle', labelZh: '进攻 / 侦察 / 回放', labelEn: 'Attack / Scout / Replay' },
+  { id: 'basic', labelZh: '基础', labelEn: 'Basics' },
   {
     id: 'debug',
     labelZh: '调试',
@@ -483,8 +501,15 @@ export const COMMAND_CATALOG: CatalogCommand[] = [
   C({ cmd: '/pardonip', syntax: '/pardonip <IP>', group: 'admin', admin: true, desc: '解封 IP' }),
   C({ cmd: '/playerinfo', syntax: '/playerinfo [<player>]', aliases: ['/pi'], group: 'admin',
       admin: true, queryOnly: true, desc: '查看玩家详细信息' }),
-  C({ cmd: '/acccache', syntax: '/acccache [save|<player>]', group: 'admin', admin: true,
-      desc: '账号缓存：查看或落盘' }),
+  // 三条分开写：C# 里 acccache 是「无参列出 / Literal("save") / Argument("player")」三个分支，
+  // 合成 `[save|<player>]` 会被 parseTemplate 当成一个名叫 `save|<player` 的参数，
+  // 下拉里因此冒出个字面量 `<player`，选中后拼出 `/acccache <player` 这种服务端解析不了的东西。
+  C({ cmd: '/acccache', syntax: '/acccache', group: 'admin', admin: true,
+      queryOnly: true, desc: '列出当前的账号缓存' }),
+  C({ cmd: '/acccache save', syntax: '/acccache save', group: 'admin', admin: true,
+      desc: '把缓存里的账号全部落盘' }),
+  C({ cmd: '/acccache player', syntax: '/acccache <player>', group: 'admin', admin: true,
+      queryOnly: true, desc: '查看某个玩家的缓存账号' }),
   C({ cmd: '/pp', syntax: '/pp <player> <修改JSON>', group: 'admin', admin: true,
       danger: 'warn', advancedOnly: true, desc: '直接修改玩家存档' }),
   C({ cmd: '/adminmutate', syntax: '/adminmutate <player> <变异>', group: 'admin', admin: true,

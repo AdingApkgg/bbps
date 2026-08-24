@@ -40,3 +40,4 @@ bun-debug.log*
 # editor
 .history/
 .vscode-test/
+.claude/launch.json

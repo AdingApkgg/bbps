@@ -8,6 +8,7 @@ import {
   Copy,
   Search,
   ShieldAlert,
+  SlidersHorizontal,
   X
 } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
@@ -43,11 +44,18 @@ function CatalogItem({
   const t = getDictionary(locale).commands
   const [values, setValues] = useState<Record<string, string>>({})
   const [copied, setCopied] = useState(false)
+  // 参数表单默认收起 —— 常驻展开时它占了整页 17% 的高度，
+  // 而绝大多数指令用户只是路过看看
+  const [formOpen, setFormOpen] = useState(false)
 
   const params = useMemo(
     () => parseTemplate(item.syntax).filter((p) => p.type === 'param'),
     [item.syntax]
   )
+  // 只有必填参数才值得把「执行」挡在表单后面。
+  // `[<player>]` 这类可选参数留空就能跑（/attackplayer 留空即打自己），
+  // 按 params.length 判断会把 14 条本来一键可执行的指令变成两步。
+  const required = useMemo(() => params.filter((p) => !p.optional), [params])
   const final = fillTemplate(item.syntax, values)
   const ready = isTemplateReady(item.syntax, values)
   const handleCopy = async () => {
@@ -108,15 +116,36 @@ function CatalogItem({
           <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           </Button>
-          {!item.inGameOnly && !item.advancedOnly && (
-            <RunButton
-              command={final}
-              danger={item.danger}
-              canRun={canRun}
-              disabled={!ready}
-              onRun={onRun}
-            />
-          )}
+          {!item.inGameOnly && !item.advancedOnly &&
+            (required.length > 0 && !formOpen ? (
+              // 有必填参数时先展开表单，而不是直接发一条缺参数的指令
+              <Button size="sm" onClick={() => setFormOpen(true)}>
+                <SlidersHorizontal className="mr-1 h-3.5 w-3.5" />
+                {t.fillParams.replace('{n}', String(required.length))}
+              </Button>
+            ) : (
+              <>
+                {/* 全是可选参数：一键就能执行，但仍要留个入口去填它们 */}
+                {params.length > 0 && !formOpen && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setFormOpen(true)}
+                    aria-label={t.optionalParams}
+                    title={t.optionalParams}
+                  >
+                    <SlidersHorizontal className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <RunButton
+                  command={final}
+                  danger={item.danger}
+                  canRun={canRun}
+                  disabled={!ready}
+                  onRun={onRun}
+                />
+              </>
+            ))}
         </div>
       </div>
 
@@ -132,7 +161,7 @@ function CatalogItem({
       )}
 
       {/* 带参数的指令：展开小表单，而不是直接发一条缺参数的指令 */}
-      {params.length > 0 && !item.inGameOnly && !item.advancedOnly && (
+      {params.length > 0 && formOpen && !item.inGameOnly && !item.advancedOnly && (
         <div className="mt-2 space-y-1.5">
           {params.map((p) => {
             const hint = paramHint(p.value, locale)
