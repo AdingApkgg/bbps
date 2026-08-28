@@ -3,23 +3,25 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Menu, Moon, Sun, Monitor, Globe, Heart, Languages } from 'lucide-react'
+import {
+  Menu,
+  Moon,
+  Sun,
+  Monitor,
+  Globe,
+  Heart,
+  Languages,
+  ExternalLink
+} from 'lucide-react'
 import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
@@ -68,7 +70,6 @@ export function Navbar() {
   const locale = useLocale()
   const { pref, setPref } = useLocalePref()
   const dict = getDictionary(locale)
-  const [open, setOpen] = useState(false)
 
   const prefix = locale === 'en' ? '/en' : ''
 
@@ -168,58 +169,37 @@ export function Navbar() {
           <ThemeToggle isEn={locale === 'en'} />
 
           {/* Menu trigger */}
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">{dict.nav.toggleMenu}</span>
               </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <SheetHeader>
-                <SheetTitle className="flex items-center gap-2 text-left">
-                  <Image
-                    src="/assets/images/logo/logo.avif"
-                    alt={dict.site.name}
-                    width={24}
-                    height={24}
-                    className="rounded-md"
-                  />
-                  {dict.site.name}
-                </SheetTitle>
-              </SheetHeader>
-              <nav className="mt-6 flex flex-col gap-1">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      'rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent',
-                      isActive(item.href)
-                        ? 'bg-accent text-accent-foreground'
-                        : 'text-muted-foreground'
-                    )}
-                  >
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="max-h-[calc(100dvh-4.5rem)] w-44 overflow-y-auto"
+            >
+              {navItems.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className={cn(isActive(item.href) && 'bg-accent font-semibold')}
+                >
+                  <Link href={item.href}>{item.label}</Link>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator />
+              {externalItems.map((item) => (
+                <DropdownMenuItem key={item.href} asChild>
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">
                     {item.label}
-                  </Link>
-                ))}
-                <div className="my-2 h-px bg-border" />
-                {externalItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent"
-                  >
-                    {item.label}
+                    <ExternalLink className="ml-auto h-3.5 w-3.5 text-muted-foreground" />
                   </a>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
