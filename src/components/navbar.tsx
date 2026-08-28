@@ -10,9 +10,23 @@ import {
   Sun,
   Monitor,
   Globe,
-  Heart,
+  HandCoins,
   Languages,
-  ExternalLink
+  ExternalLink,
+  Download,
+  Terminal,
+  BarChart3,
+  Trophy,
+  Newspaper,
+  Shield,
+  Users,
+  Images,
+  Music,
+  MessageSquare,
+  HardDrive,
+  Map,
+  Compass,
+  type LucideIcon
 } from 'lucide-react'
 import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -73,28 +87,34 @@ export function Navbar() {
 
   const prefix = locale === 'en' ? '/en' : ''
 
-  const navItems = [
-    { href: `${prefix}/downloads`, label: dict.nav.downloads },
-    { href: `${prefix}/commands`, label: dict.nav.commands },
-    { href: `${prefix}/stats`, label: dict.nav.stats },
-    { href: `${prefix}/rank`, label: dict.nav.rank },
-    { href: `${prefix}/blog`, label: dict.nav.blog },
-    { href: `${prefix}/teams`, label: dict.nav.team },
-    { href: `${prefix}/community`, label: dict.nav.community },
-    { href: `${prefix}/gallery`, label: dict.nav.gallery },
-    { href: `${prefix}/music`, label: dict.nav.music },
-    { href: `${prefix}/comments`, label: dict.nav.comments }
+  const navItems: { href: string; label: string; icon: LucideIcon }[] = [
+    { href: `${prefix}/downloads`, label: dict.nav.downloads, icon: Download },
+    { href: `${prefix}/commands`, label: dict.nav.commands, icon: Terminal },
+    { href: `${prefix}/stats`, label: dict.nav.stats, icon: BarChart3 },
+    { href: `${prefix}/rank`, label: dict.nav.rank, icon: Trophy },
+    { href: `${prefix}/blog`, label: dict.nav.blog, icon: Newspaper },
+    { href: `${prefix}/teams`, label: dict.nav.team, icon: Shield },
+    { href: `${prefix}/community`, label: dict.nav.community, icon: Users },
+    { href: `${prefix}/gallery`, label: dict.nav.gallery, icon: Images },
+    { href: `${prefix}/music`, label: dict.nav.music, icon: Music },
+    {
+      href: `${prefix}/comments`,
+      label: dict.nav.comments,
+      icon: MessageSquare
+    }
   ]
 
-  const externalItems = [
-    { href: 'https://disk.saop.cc/', label: dict.nav.drive },
+  const externalItems: { href: string; label: string; icon: LucideIcon }[] = [
+    { href: 'https://disk.saop.cc/', label: dict.nav.drive, icon: HardDrive },
     {
       href: 'https://webapi.30hb.cn/basebuilder/Layout-Builder.htm',
-      label: dict.nav.editor
+      label: dict.nav.editor,
+      icon: Map
     },
     {
       href: 'https://disk.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98/%E8%9A%95%E8%B1%86%E6%9C%8D%E5%9C%B0%E5%9B%BE',
-      label: dict.nav.browseMaps
+      label: dict.nav.browseMaps,
+      icon: Compass
     }
   ]
 
@@ -124,14 +144,6 @@ export function Navbar() {
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center gap-1">
-          {/* Donate */}
-          <Button variant="ghost" size="icon" asChild>
-            <Link href={`${prefix}/donate`}>
-              <Heart className="h-[1.2rem] w-[1.2rem] text-pink-500" />
-              <span className="sr-only">{dict.nav.donate}</span>
-            </Link>
-          </Button>
-
           {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -186,18 +198,34 @@ export function Navbar() {
                   asChild
                   className={cn(isActive(item.href) && 'bg-accent font-semibold')}
                 >
-                  <Link href={item.href}>{item.label}</Link>
+                  <Link href={item.href}>
+                    <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                    {item.label}
+                  </Link>
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />
               {externalItems.map((item) => (
                 <DropdownMenuItem key={item.href} asChild>
                   <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     {item.label}
                     <ExternalLink className="ml-auto h-3.5 w-3.5 text-muted-foreground" />
                   </a>
                 </DropdownMenuItem>
               ))}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                asChild
+                className={cn(
+                  isActive(`${prefix}/donate`) && 'bg-accent font-semibold'
+                )}
+              >
+                <Link href={`${prefix}/donate`}>
+                  <HandCoins className="mr-2 h-4 w-4 text-amber-500" />
+                  {dict.nav.donate}
+                </Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
