@@ -41,6 +41,9 @@ export function sortPosts(posts: WPPost[], key: BlogSortKey): WPPost[] {
   })
 }
 
+/** 重试间隔（共 1 + RETRY_DELAYS.length 次尝试），吸收构建时的瞬时网络故障 */
+const RETRY_DELAYS_MS = [1000, 3000]
+
 export async function fetchBlogPosts(
   options?: { perPage?: number; page?: number }
 ): Promise<WPPost[]> {
@@ -48,18 +51,33 @@ export async function fetchBlogPosts(
   const page = options?.page ?? 1
   const url = `${WP_API}/posts?per_page=${perPage}&page=${page}&_embed`
 
-  const res = await fetch(url, {
-    next: { revalidate: 600 },
-    headers: { 'Content-Type': 'application/json' }
-  })
+  let lastError: unknown
+  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
+    if (attempt > 0) {
+      await new Promise((r) => setTimeout(r, RETRY_DELAYS_MS[attempt - 1]))
+    }
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: 600 },
+        headers: { 'Content-Type': 'application/json' }
+      })
 
-  if (!res.ok) {
-    if (res.status === 404) return []
-    throw new Error(`WordPress API error: ${res.status}`)
+      if (!res.ok) {
+        if (res.status === 404) return []
+        throw new Error(`WordPress API error: ${res.status}`)
+      }
+
+      const data = await res.json()
+      return Array.isArray(data) ? data : []
+    } catch (err) {
+      lastError = err
+      console.warn(
+        `[blog] 拉取文章列表失败（第 ${attempt + 1}/${RETRY_DELAYS_MS.length + 1} 次）：`,
+        err instanceof Error ? err.message : err
+      )
+    }
   }
-
-  const data = await res.json()
-  return Array.isArray(data) ? data : []
+  throw lastError
 }
 
 /* ---------- 工具 ---------- */
