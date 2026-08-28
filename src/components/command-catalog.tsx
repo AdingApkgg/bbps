@@ -21,6 +21,8 @@ import {
   type CatalogCommand
 } from '@/lib/commands'
 import { fillTemplate, isTemplateReady, parseTemplate } from '@/lib/command-template'
+import { entityOptions, entityParamLabel } from '@/lib/entity-options'
+import { commandNote } from '@/lib/generated/command-notes'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -101,7 +103,11 @@ function CatalogItem({
               <Badge variant="secondary" className="text-[10px]">{t.needsHome}</Badge>
             )}
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">{item.desc}</p>
+          {/* 说明来自 src/content/command-notes.zh.md（可由 AI 维护），
+              commands.ts 的 desc 仅作兜底。语法与危险标记不在 md 里。 */}
+          <p className="mt-1 text-sm text-muted-foreground">
+            {commandNote(item.cmd) ?? item.desc}
+          </p>
           {item.aliases.length > 0 && (
             <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
               <span>{t.aliases}</span>
@@ -165,14 +171,17 @@ function CatalogItem({
         <div className="mt-2 space-y-1.5">
           {params.map((p) => {
             const hint = paramHint(p.value, locale)
+            const label2 = (o: { value: string; labelZh: string; labelEn: string }) => ({
+              value: o.value,
+              label: locale === 'en' ? o.labelEn : o.labelZh
+            })
             // 取值来源优先级：条目自带的 paramOptions（带中文标签）→
-            // 参数名本身是枚举（如 island|warship）→ layout 类
+            // 参数名本身是枚举（如 island|warship）→ layout 类 →
+            // 游戏实体（部队/建筑/资源/雕刻/母舰技能，复用「指令库」那份数据）
             const declared = item.paramOptions?.[p.value]
+            const entity = declared ? null : entityOptions(p.value)
             const options: { value: string; label: string }[] | null = declared
-              ? declared.map((o) => ({
-                  value: o.value,
-                  label: locale === 'en' ? o.labelEn : o.labelZh
-                }))
+              ? declared.map(label2)
               : p.value.includes('|')
                 ? p.value
                     .split('|')
@@ -180,13 +189,15 @@ function CatalogItem({
                     .filter(Boolean)
                     .map((v) => ({ value: v, label: v }))
                 : p.value.toLowerCase().includes('layout')
-                  ? LAYOUT_OPTIONS.map((o) => ({
-                      value: o.value,
-                      label: locale === 'en' ? o.labelEn : o.labelZh
-                    }))
-                  : null
-            // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现
-            const label = p.value.includes('|') ? t.optionLabel : p.value
+                  ? LAYOUT_OPTIONS.map(label2)
+                  : entity
+                    ? entity.map(label2)
+                    : null
+            // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现；
+            // 实体参数沿用服务端形参名（character…），换成看得懂的说法
+            const label = p.value.includes('|')
+              ? t.optionLabel
+              : (entityParamLabel(p.value, locale) ?? p.value)
             return (
               <div key={p.value} className="flex flex-wrap items-center gap-2">
                 <span className="w-20 shrink-0 text-xs text-muted-foreground">

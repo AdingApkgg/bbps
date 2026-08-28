@@ -25,6 +25,7 @@ import {
 import { PlayerName } from '@/components/player-name'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { RunButton } from '@/components/run-button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { SearchableSelect } from '@/components/searchable-select'
@@ -118,19 +119,23 @@ function CommandItem({
               <Copy className="h-3.5 w-3.5" />
             )}
           </Button>
-          {runnable && (
-            <Button
-              size="sm"
-              onClick={() => onRun(final)}
-              disabled={!canRun || !ready}
-              title={!canRun ? t.runNeedsLogin : undefined}
-            >
-              <Play className="mr-1 h-3.5 w-3.5" />
-              {t.runButton}
-            </Button>
+          {runnable && !cmd.copyOnly && (
+            // 走 RunButton，危险级别由 findCatalogEntry 从目录反查。
+            // 之前这里是裸 Button，一键就能发 /resource clear、/map clear 这类
+            // 不可撤销指令 —— 目录里同一条要点两次确认，两个入口标准不一致。
+            <RunButton
+              command={final}
+              canRun={canRun}
+              disabled={!ready}
+              onRun={onRun}
+            />
           )}
         </div>
       </div>
+
+      {runnable && cmd.copyOnly && (
+        <p className="mt-1 text-xs text-muted-foreground">{t.copyOnlyHint}</p>
+      )}
 
       {/* 家族数值：把写死的数量/等级/坐标开放成输入框，实体位保持不动 */}
       {family && (
@@ -285,17 +290,15 @@ function GroupItem({
               <Copy className="h-3.5 w-3.5" />
             )}
           </Button>
-          <Button
-            size="sm"
-            onClick={() => onRun(final)}
-            disabled={!canRun}
-            title={!canRun ? t.runNeedsLogin : undefined}
-          >
-            <Play className="mr-1 h-3.5 w-3.5" />
-            {t.runButton}
-          </Button>
+          {!group.family.copyOnly && (
+            <RunButton command={final} canRun={canRun} onRun={onRun} />
+          )}
         </div>
       </div>
+
+      {group.family.copyOnly && (
+        <p className="mt-1 text-xs text-muted-foreground">{t.copyOnlyHint}</p>
+      )}
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
         {/* 可搜索下拉：奖杯有 263 项，原生 select 打字跳转只匹配开头，中文名跳不动 */}

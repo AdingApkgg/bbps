@@ -98,7 +98,20 @@ function scoreOf(cmd: Command, term: string): number | null {
   const bare = cmd.command.toLowerCase().replace(/^\//, '')
   const ni = name.indexOf(term)
   const ci = bare.indexOf(term)
-  if (ni < 0 && ci < 0) return null
+
+  if (ni < 0 && ci < 0) {
+    // 别名也要能搜到：/basebuilder 的别名是 /bb，搜 bb 得命中。
+    // 折叠掉预展开数据后别名不再单独占行，不进索引就等于搜不出来了。
+    for (const a of cmd.aliases ?? []) {
+      const al = a.toLowerCase().replace(/^\//, '')
+      const ai = al.indexOf(term)
+      if (ai < 0) continue
+      // 排在主名命中之后：精确等于别名给 5，前缀 15，其余 45
+      return (al === term ? 5 : ai === 0 ? 15 : 45) +
+        Math.min(cmd.name.length, 60) / 1000
+    }
+    return null
+  }
 
   let score: number
   if (bare === term) score = 0

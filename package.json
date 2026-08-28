@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "check": "bun run lint && bun run typecheck",
     "download-assets": "node scripts/download-assets.mjs",
-    "migrate-blog": "node scripts/migrate-blog.mjs"
+    "migrate-blog": "node scripts/migrate-blog.mjs",
+    "check:data": "node scripts/gen-entities.mjs --check && node scripts/gen-command-notes.mjs --check"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",

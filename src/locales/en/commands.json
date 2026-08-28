@@ -42,5 +42,6 @@
   "optionLabel": "Option",
   "deckLabel": "Pick a deck value (0-16)",
   "fillParams": "Set params ({n})",
-  "optionalParams": "Set optional params"
+  "optionalParams": "Set optional params",
+  "copyOnlyHint": "Not registered on the server — copy it into the game instead"
 }

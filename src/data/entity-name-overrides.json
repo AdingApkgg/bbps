@@ -1,0 +1,992 @@
+{
+  "building:1000000": {
+    "zh": "司令部",
+    "en": "Headquarters",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "HQ"
+  },
+  "building:1000016": {
+    "zh": "补给",
+    "en": "Supply Drop",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Barrels"
+  },
+  "building:1000019": {
+    "zh": "城墙",
+    "en": "Walls",
+    "why": "占位 TID (空)",
+    "raw": "Wall"
+  },
+  "building:1000027": {
+    "zh": "教程司令部",
+    "en": "Tutorial HQ",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "Tutorial HQ"
+  },
+  "building:1000032": {
+    "zh": "补给1",
+    "en": "Supply Drop 1",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Crates1"
+  },
+  "building:1000033": {
+    "zh": "补给2",
+    "en": "Supply Drop 2",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Crates2"
+  },
+  "building:1000034": {
+    "zh": "补给3",
+    "en": "Supply Drop 3",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Crates3"
+  },
+  "building:1000035": {
+    "zh": "补给4",
+    "en": "Supply Drop 4",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Crates4"
+  },
+  "building:1000036": {
+    "zh": "补给5",
+    "en": "Supply Drop 5",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Crates5"
+  },
+  "building:1000037": {
+    "zh": "水晶溶液",
+    "en": "Crystal Solution",
+    "why": "TID TID_TERROR_TANK 被多行共用",
+    "raw": "Dr Terror Tank"
+  },
+  "building:1000038": {
+    "zh": "邪恶的计划",
+    "en": "Evil Plan",
+    "why": "TID TID_TERROR_HATCH 被多行共用",
+    "raw": "Dr Terror Hatch"
+  },
+  "building:1000039": {
+    "zh": "蓝小巧神像",
+    "en": "Blue Small Statue",
+    "why": "TID TID_BUILDING_ARTIFACT1_ICE 被多行共用",
+    "raw": "Common Artifact Ice"
+  },
+  "building:1000040": {
+    "zh": "蓝精良神像",
+    "en": "Blue Good Statue",
+    "why": "TID TID_BUILDING_ARTIFACT2_ICE 被多行共用",
+    "raw": "Rare Artifact Ice"
+  },
+  "building:1000041": {
+    "zh": "蓝极品神像",
+    "en": "Blue Great Statue",
+    "why": "TID TID_BUILDING_ARTIFACT3_ICE 被多行共用",
+    "raw": "Epic Artifact Ice"
+  },
+  "building:1000071": {
+    "zh": "博士补给1",
+    "en": "Dr. Tako Supply 1",
+    "why": "TID TID_TERROR_TANK 被多行共用",
+    "raw": "Terror Object1"
+  },
+  "building:1000072": {
+    "zh": "博士补给2",
+    "en": "Dr. Tako Supply 2",
+    "why": "TID TID_TERROR_HATCH 被多行共用",
+    "raw": "Terror Object2"
+  },
+  "building:1000074": {
+    "zh": "机器小怪监狱",
+    "en": "Machine Cub Prison",
+    "why": "TID TID_CRITTER_PRISON 被多行共用",
+    "raw": "CritterPrison"
+  },
+  "building:1000077": {
+    "zh": "Disruptor",
+    "en": "Disruptor",
+    "why": "占位 TID (空)",
+    "raw": "Disruptor"
+  },
+  "building:1000078": {
+    "zh": "WalkingTurret",
+    "en": "Walking Turret",
+    "why": "占位 TID (空)",
+    "raw": "WalkingTurret"
+  },
+  "building:1000079": {
+    "zh": "哈莫曼雕像",
+    "en": "Hammy Statue",
+    "why": "TID TID_AI_HUT 被多行共用",
+    "raw": "Hammerman statue"
+  },
+  "building:1000089": {
+    "zh": "蝙蝠小怪监狱",
+    "en": "Bat Cub Prison",
+    "why": "TID TID_CRITTER_PRISON 被多行共用",
+    "raw": "CritterPrisonHalloween"
+  },
+  "building:1000090": {
+    "zh": "10级博士岛司令部",
+    "en": "Dr. Tako Island HQ Lv.10",
+    "why": "TID TID_DRT_HQ 被多行共用",
+    "raw": "DrTbossHQ1"
+  },
+  "building:1000091": {
+    "zh": "20级博士岛司令部",
+    "en": "Dr. Tako Island HQ Lv.20",
+    "why": "TID TID_DRT_HQ 被多行共用",
+    "raw": "DrTbossHQ2"
+  },
+  "building:1000093": {
+    "zh": "哈莫曼的司令部",
+    "en": "Hammy's HQ",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "HammermanbossHQ"
+  },
+  "building:1000094": {
+    "zh": "铁丝网",
+    "en": "顶点)(Barbed Wire Vertex",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1"
+  },
+  "building:1000095": {
+    "zh": "铁丝网1b",
+    "en": "↘)(Barbed Wire 1b",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1_1_b"
+  },
+  "building:1000096": {
+    "zh": "铁丝网2b",
+    "en": "↗)(Barbed Wire 2b",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1_2_b"
+  },
+  "building:1000097": {
+    "zh": "铁丝网3",
+    "en": "\\/)(Barbed Wire 3",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1_3"
+  },
+  "building:1000098": {
+    "zh": "铁丝网1a",
+    "en": "↘+顶点)(Barbed Wire 1a",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1_1_a"
+  },
+  "building:1000099": {
+    "zh": "铁丝网2a",
+    "en": "顶点+↗)(Barbed Wire 2a",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Barbed Wire_lvl1_2_a"
+  },
+  "building:1000101": {
+    "zh": "克隆岛司令部",
+    "en": "Clone Island HQ",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "ImitationHQ"
+  },
+  "building:1000126": {
+    "zh": "音响",
+    "en": "Sound System",
+    "why": "占位 TID (空)",
+    "raw": "Speaker"
+  },
+  "building:1000201": {
+    "zh": "分基地司令部",
+    "en": "Outpost HQ",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder201"
+  },
+  "building:1000202": {
+    "zh": "恐怖博士司令部",
+    "en": "Dr. Terror's HQ",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "Terror HQ"
+  },
+  "building:1000203": {
+    "zh": "吉尔哈特司令部",
+    "en": "Gilhart's HQ",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "Gearheart HQ"
+  },
+  "building:1000204": {
+    "zh": "喷火器I",
+    "en": "Flamethrower I",
+    "why": "TID TID_BUILDING_PALACE 被多行共用",
+    "raw": "Sandbox HQ"
+  },
+  "building:1000205": {
+    "zh": "喷火器II",
+    "en": "Flamethrower II",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder205"
+  },
+  "building:1000206": {
+    "zh": "喷火器III",
+    "en": "Flamethrower III",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder206"
+  },
+  "building:1000207": {
+    "zh": "火炮发射器I",
+    "en": "Artillery Launcher I",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder207"
+  },
+  "building:1000208": {
+    "zh": "火炮发射器II",
+    "en": "Artillery Launcher II",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder208"
+  },
+  "building:1000209": {
+    "zh": "火炮发射器III",
+    "en": "Artillery Launcher III",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder209"
+  },
+  "building:1000210": {
+    "zh": "多管火箭炮发射器I",
+    "en": "MRL Launcher I",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder210"
+  },
+  "building:1000211": {
+    "zh": "多管火箭炮发射器II",
+    "en": "MRL Launcher II",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder211"
+  },
+  "building:1000212": {
+    "zh": "多管火箭炮发射器III",
+    "en": "MRL Launcher III",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder212"
+  },
+  "building:1000213": {
+    "zh": "猪猪炸弹",
+    "en": "Pig Bomb",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder213"
+  },
+  "building:1000214": {
+    "zh": "冷冻迫击炮",
+    "en": "Freeze Mortar",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder214"
+  },
+  "building:1000215": {
+    "zh": "超级疯狂南瓜炮",
+    "en": "Super Crazy Pumpkin Cannon",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder215"
+  },
+  "building:1000216": {
+    "zh": "CritterCritterPrison",
+    "en": "Critter Prison",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder216"
+  },
+  "building:1000217": {
+    "zh": "英雄教官容器",
+    "en": "Hero Container Drill Sergeant",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder217"
+  },
+  "building:1000218": {
+    "zh": "英雄机械师容器",
+    "en": "Hero Container Mechromancer",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder218"
+  },
+  "building:1000219": {
+    "zh": "英雄巫医容器",
+    "en": "Hero Container Witch Doctor",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder219"
+  },
+  "building:1000220": {
+    "zh": "英雄狂战士容器",
+    "en": "Hero Container Berserker",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder220"
+  },
+  "deco:18000001": {
+    "zh": "Cage奴隶监狱",
+    "en": "Cage奴隶监狱",
+    "why": "TID TID_ISLANDER_HUT 被多行共用",
+    "raw": "Old Native Hut"
+  },
+  "deco:18000002": {
+    "zh": "Old Native Hut河姆渡人小屋",
+    "en": "Old Native Hut河姆渡人小屋",
+    "why": "TID TID_ISLANDER_HUT 被多行共用",
+    "raw": "New Native Hut1"
+  },
+  "deco:18000003": {
+    "zh": "New Native Hut1原著居民小屋2",
+    "en": "New Native Hut1原著居民小屋2",
+    "why": "TID TID_ISLANDER_HUT 被多行共用",
+    "raw": "New Native Hut2"
+  },
+  "deco:18000004": {
+    "zh": "New Native Hut2原著居民小屋3",
+    "en": "New Native Hut2原著居民小屋3",
+    "why": "TID TID_ISLANDER_HUT 被多行共用",
+    "raw": "New Native Hut3"
+  },
+  "deco:18000007": {
+    "zh": "Campfire篝火",
+    "en": "Campfire篝火",
+    "why": "TID TID_DEBRIS 被多行共用",
+    "raw": "Debris2"
+  },
+  "deco:18000008": {
+    "zh": "Debris2占位符电池",
+    "en": "Debris2占位符电池",
+    "why": "TID TID_DEBRIS 被多行共用",
+    "raw": "Debris3"
+  },
+  "deco:18000009": {
+    "zh": "Debris3",
+    "en": "Debris3",
+    "why": "TID TID_DEBRIS 被多行共用",
+    "raw": "Debris4"
+  },
+  "deco:18000010": {
+    "zh": "Debris4",
+    "en": "Debris4",
+    "why": "TID TID_DEBRIS 被多行共用",
+    "raw": "Debris5"
+  },
+  "deco:18000234": {
+    "zh": "Megaturtle 4",
+    "en": "Megaturtle 4",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 5"
+  },
+  "deco:18000236": {
+    "zh": "Lazor Ball ---闪电雷达发射器奖杯",
+    "en": "Lazor Ball ---闪电雷达发射器奖杯",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 6"
+  },
+  "deco:18000237": {
+    "zh": "Megaturtle 6",
+    "en": "Megaturtle 6",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 7"
+  },
+  "deco:18000238": {
+    "zh": "Megaturtle 7",
+    "en": "Megaturtle 7",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 8"
+  },
+  "deco:18000239": {
+    "zh": "Megaturtle 8",
+    "en": "Megaturtle 8",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 9"
+  },
+  "deco:18000240": {
+    "zh": "Megaturtle 9",
+    "en": "Megaturtle 9",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 10"
+  },
+  "deco:18000241": {
+    "zh": "Megaturtle 10",
+    "en": "Megaturtle 10",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 11"
+  },
+  "deco:18000242": {
+    "zh": "Megaturtle 11",
+    "en": "Megaturtle 11",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 12"
+  },
+  "deco:18000243": {
+    "zh": "Megaturtle 12",
+    "en": "Megaturtle 12",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 13"
+  },
+  "deco:18000244": {
+    "zh": "Megaturtle 13",
+    "en": "Megaturtle 13",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 14"
+  },
+  "deco:18000245": {
+    "zh": "Megaturtle 14",
+    "en": "Megaturtle 14",
+    "why": "TID TID_MEGABASE_TURTLE_5 被多行共用",
+    "raw": "Megaturtle 15"
+  },
+  "resource:35": {
+    "zh": "获取9百万已弃用（不要点我）",
+    "en": "获取9百万已弃用（不要点我）",
+    "why": "TID 字段不是 TID_ 开头：DEPRECATED",
+    "raw": "SkipTicketLong"
+  },
+  "resource:44": {
+    "zh": "获取9百万T_经验药水（不要选我）",
+    "en": "获取9百万T_经验药水（不要选我）",
+    "why": "TID 字段不是 TID_ 开头：T_Experience Potion",
+    "raw": "ExpToken"
+  },
+  "spell:0": {
+    "zh": "导弹",
+    "en": "Artillery",
+    "why": "TID TID_ARTILLERY 被多行共用",
+    "raw": "Artillery"
+  },
+  "spell:3": {
+    "zh": "眩晕弹",
+    "en": "Stun",
+    "why": "TID TID_STUN 被多行共用",
+    "raw": "Stun"
+  },
+  "spell:4": {
+    "zh": "空袭",
+    "en": "Airstrike",
+    "why": "TID TID_BARRAGE 被多行共用",
+    "raw": "Airstrike"
+  },
+  "spell:7": {
+    "zh": "英雄速度伤害",
+    "en": "HeroSpeedDamage",
+    "why": "占位 TID (空)",
+    "raw": "HeroSpeedDamage"
+  },
+  "spell:8": {
+    "zh": "英雄伤害抗性",
+    "en": "HeroDamageResistance",
+    "why": "占位 TID (空)",
+    "raw": "HeroDamageResistance"
+  },
+  "spell:9": {
+    "zh": "英雄机械师",
+    "en": "HeroMechanic",
+    "why": "占位 TID (空)",
+    "raw": "HeroMechanic"
+  },
+  "spell:10": {
+    "zh": "英雄机械群",
+    "en": "HeroMechanicSwarm",
+    "why": "占位 TID (空)",
+    "raw": "HeroMechanicSwarm"
+  },
+  "spell:11": {
+    "zh": "英雄巫医群",
+    "en": "HeroWitchDoctorSwarm",
+    "why": "占位 TID (空)",
+    "raw": "HeroWitchDoctorSwarm"
+  },
+  "spell:12": {
+    "zh": "英雄护盾部队",
+    "en": "HeroShieldTroops",
+    "why": "占位 TID (空)",
+    "raw": "HeroShieldTroops"
+  },
+  "spell:13": {
+    "zh": "英雄巫医除颤",
+    "en": "HeroWitchDoctorDefib",
+    "why": "占位 TID (空)",
+    "raw": "HeroWitchDoctorDefib"
+  },
+  "spell:17": {
+    "zh": "治疗生物",
+    "en": "HealingCritters",
+    "why": "TID TID_TEMPGBA_HEALING_CRITTERS 被多行共用",
+    "raw": "HealingCritters"
+  },
+  "spell:18": {
+    "zh": "冷冻炸弹",
+    "en": "CryoBomb",
+    "why": "TID TID_TEMPGBA_CRYO_BOMB 被多行共用",
+    "raw": "CryoBomb"
+  },
+  "spell:24": {
+    "zh": "装甲运兵车小队",
+    "en": "APCSquad",
+    "why": "占位 TID (空)",
+    "raw": "APCSquad"
+  },
+  "spell:25": {
+    "zh": "生物迫击炮无人机",
+    "en": "CritterMortarDrone",
+    "why": "占位 TID (空)",
+    "raw": "CritterMortarDrone"
+  },
+  "spell:26": {
+    "zh": "眩晕手雷",
+    "en": "StunGrenade",
+    "why": "TID TID_STUN 被多行共用",
+    "raw": "StunGrenade"
+  },
+  "spell:27": {
+    "zh": "英雄冷冻炸弹",
+    "en": "HeroCryoBomb",
+    "why": "TID TID_TEMPGBA_CRYO_BOMB 被多行共用",
+    "raw": "HeroCryoBomb"
+  },
+  "spell:28": {
+    "zh": "英雄飞行机械群",
+    "en": "HeroFlyingMechanicSwarm",
+    "why": "占位 TID (空)",
+    "raw": "HeroFlyingMechanicSwarm"
+  },
+  "spell:29": {
+    "zh": "投掷追踪器",
+    "en": "CastSeekers",
+    "why": "TID TID_TEMPGBA_HEALING_CRITTERS 被多行共用",
+    "raw": "CastSeekers"
+  },
+  "spell:41": {
+    "zh": "步枪兵",
+    "en": "Rifleman",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder41"
+  },
+  "spell:42": {
+    "zh": "重型机枪手",
+    "en": "Heavy",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder42"
+  },
+  "spell:43": {
+    "zh": "火箭炮手",
+    "en": "Zooka",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder43"
+  },
+  "spell:44": {
+    "zh": "战士",
+    "en": "Warrior",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder44"
+  },
+  "troop:4000000": {
+    "zh": "步枪手",
+    "en": "Rifleman",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "Rifleman"
+  },
+  "troop:4000001": {
+    "zh": "重机枪手",
+    "en": "Heavy",
+    "why": "TID TID_HEAVY 被多行共用",
+    "raw": "Heavy"
+  },
+  "troop:4000002": {
+    "zh": "火箭筒手",
+    "en": "Zooka",
+    "why": "TID TID_ZOOKA 被多行共用",
+    "raw": "Zooka"
+  },
+  "troop:4000003": {
+    "zh": "勇士",
+    "en": "Warrior",
+    "why": "TID TID_WARRIOR 被多行共用",
+    "raw": "Warrior"
+  },
+  "troop:4000004": {
+    "zh": "坦克",
+    "en": "Tank",
+    "why": "TID TID_TANK 被多行共用",
+    "raw": "Tank"
+  },
+  "troop:4000005": {
+    "zh": "AI单位",
+    "en": "AI Units",
+    "why": "占位 TID TID_UNUSED",
+    "raw": "AI Units"
+  },
+  "troop:4000006": {
+    "zh": "医疗兵",
+    "en": "Healer",
+    "why": "TID TID_MEDIC 被多行共用",
+    "raw": "Healer"
+  },
+  "troop:4000007": {
+    "zh": "掷弹兵",
+    "en": "Grenadier",
+    "why": "TID TID_GRENADIER 被多行共用",
+    "raw": "Grenadier"
+  },
+  "troop:4000010": {
+    "zh": "步行机甲",
+    "en": "Walker",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "Walker"
+  },
+  "troop:4000011": {
+    "zh": "中士",
+    "en": "Sergeant",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "Sergeant"
+  },
+  "troop:4000013": {
+    "zh": "蝙蝠无人机",
+    "en": "DroneBat",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "DroneBat"
+  },
+  "troop:4000016": {
+    "zh": "超级步枪手",
+    "en": "SuperRifleman",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "SuperRifleman"
+  },
+  "troop:4000017": {
+    "zh": "超级医疗兵",
+    "en": "SuperMedic",
+    "why": "TID TID_MEDIC 被多行共用",
+    "raw": "SuperMedic"
+  },
+  "troop:4000018": {
+    "zh": "超级勇士",
+    "en": "SuperWarrior",
+    "why": "TID TID_WARRIOR 被多行共用",
+    "raw": "SuperWarrior"
+  },
+  "troop:4000019": {
+    "zh": "超级重机枪手",
+    "en": "SuperHeavy",
+    "why": "TID TID_HEAVY 被多行共用",
+    "raw": "SuperHeavy"
+  },
+  "troop:4000020": {
+    "zh": "超级无人机",
+    "en": "SuperDrone",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "SuperDrone"
+  },
+  "troop:4000021": {
+    "zh": "超级掷弹兵",
+    "en": "SuperGrenadier",
+    "why": "TID TID_GRENADIER 被多行共用",
+    "raw": "SuperGrenadier"
+  },
+  "troop:4000023": {
+    "zh": "巫医无人机",
+    "en": "WitchDoctorDrone",
+    "why": "TID TID_RIFLEMAN 被多行共用",
+    "raw": "WitchDoctorDrone"
+  },
+  "troop:4000024": {
+    "zh": "炮塔",
+    "en": "Turret",
+    "why": "TID TID_TANK 被多行共用",
+    "raw": "Turret"
+  },
+  "troop:4000030": {
+    "zh": "重型狙击手",
+    "en": "HeavySniper",
+    "why": "TID TID_HEAVY 被多行共用",
+    "raw": "HeavySniper"
+  },
+  "troop:4000031": {
+    "zh": "投弹兵",
+    "en": "Bombardier",
+    "why": "TID TID_BOMBARDIER 被多行共用",
+    "raw": "Bombardier"
+  },
+  "troop:4000033": {
+    "zh": "突击直升机",
+    "en": "AssaultHelicopter",
+    "why": "TID TID_ASSAULT_HELICOPTER 被多行共用",
+    "raw": "AssaultHelicopter"
+  },
+  "troop:4000034": {
+    "zh": "坦克直升机",
+    "en": "TankHelicopter",
+    "why": "TID TID_TANK_HELICOPTER 被多行共用",
+    "raw": "TankHelicopter"
+  },
+  "troop:4000035": {
+    "zh": "投弹兵2号",
+    "en": "Bombardier2",
+    "why": "TID TID_BOMBARDIER 被多行共用",
+    "raw": "Bombardier2"
+  },
+  "troop:4000037": {
+    "zh": "克隆步枪手1倍",
+    "en": "Rifleman_Clone1x",
+    "why": "TID TID_RIFLEMAN_CLONE 被多行共用",
+    "raw": "Rifleman_Clone1x"
+  },
+  "troop:4000038": {
+    "zh": "克隆步枪手2倍",
+    "en": "Rifleman_Clone2x",
+    "why": "TID TID_RIFLEMAN_CLONE 被多行共用",
+    "raw": "Rifleman_Clone2x"
+  },
+  "troop:4000039": {
+    "zh": "克隆步枪手3倍",
+    "en": "Rifleman_Clone3x",
+    "why": "TID TID_RIFLEMAN_CLONE 被多行共用",
+    "raw": "Rifleman_Clone3x"
+  },
+  "troop:4000042": {
+    "zh": "维生素医生",
+    "en": "护盾型)(Healer_DrVitamin_DamageShield",
+    "why": "TID TID_DR_VITAMIN 被多行共用",
+    "raw": "Healer_DrVitamin_DamageShield"
+  },
+  "troop:4000047": {
+    "zh": "工程炮塔",
+    "en": "Turret_Engineer",
+    "why": "TID TID_TANK 被多行共用",
+    "raw": "Turret_Engineer"
+  },
+  "troop:4000050": {
+    "zh": "护盾火箭筒手",
+    "en": "Zooka_Shield",
+    "why": "TID TID_ZOOKA 被多行共用",
+    "raw": "Zooka_Shield"
+  },
+  "troop:4000051": {
+    "zh": "突击直升机2号",
+    "en": "AssaultHelicopter2",
+    "why": "TID TID_ASSAULT_HELICOPTER 被多行共用",
+    "raw": "AssaultHelicopter2"
+  },
+  "troop:4000052": {
+    "zh": "坦克直升机2号",
+    "en": "TankHelicopter2",
+    "why": "TID TID_TANK_HELICOPTER 被多行共用",
+    "raw": "TankHelicopter2"
+  },
+  "troop:4000054": {
+    "zh": "维生素医生",
+    "en": "射速型)(Healer_DrVitamin_SpeedFiringRate",
+    "why": "TID TID_DR_VITAMIN 被多行共用",
+    "raw": "Healer_DrVitamin_SpeedFiringRate"
+  },
+  "troop:4000055": {
+    "zh": "僵尸步枪手1号",
+    "en": "Rifleman_Zombie1",
+    "why": "TID TID_RIFLEMAN_ZOMBIE 被多行共用",
+    "raw": "Rifleman_Zombie1"
+  },
+  "troop:4000056": {
+    "zh": "僵尸步枪手2号",
+    "en": "Rifleman_Zombie2",
+    "why": "TID TID_RIFLEMAN_ZOMBIE 被多行共用",
+    "raw": "Rifleman_Zombie2"
+  },
+  "troop:4000057": {
+    "zh": "维生素医生",
+    "en": "攻防型)(Healer_DrVitamin_HealthAttack",
+    "why": "TID TID_DR_VITAMIN 被多行共用",
+    "raw": "Healer_DrVitamin_HealthAttack"
+  },
+  "troop:4000058": {
+    "zh": "维生素医生",
+    "en": "速血型)(Healer_DrVitamin_SpeedHealth",
+    "why": "TID TID_DR_VITAMIN 被多行共用",
+    "raw": "Healer_DrVitamin_SpeedHealth"
+  },
+  "troop:4000065": {
+    "zh": "飞行无人机",
+    "en": "FlyingDrone",
+    "why": "占位 TID (空)",
+    "raw": "FlyingDrone"
+  },
+  "troop:4000068": {
+    "zh": "坦克重机枪手",
+    "en": "HeavyOfcTank",
+    "why": "TID TID_HEAVY_OFC_TANK 被多行共用",
+    "raw": "HeavyOfcTank"
+  },
+  "troop:4000076": {
+    "zh": "占位符76",
+    "en": "Placeholder76",
+    "why": "TID TID_HEAVY_OFC_TANK 被多行共用",
+    "raw": "LeaderHeavy_Tank"
+  },
+  "troop:4000077": {
+    "zh": "占位符77",
+    "en": "Placeholder77",
+    "why": "texts 里查不到 TID_TANK_OFC_SMOKE",
+    "raw": "LeaderTank_Smoke"
+  },
+  "troop:4000078": {
+    "zh": "占位符78",
+    "en": "Placeholder78",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder78"
+  },
+  "troop:4000079": {
+    "zh": "占位符79",
+    "en": "Placeholder79",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder79"
+  },
+  "troop:4000080": {
+    "zh": "占位符80",
+    "en": "Placeholder80",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder80"
+  },
+  "troop:4000081": {
+    "zh": "英雄坦克直升机",
+    "en": "HeroTankHelicopter",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder81"
+  },
+  "troop:4000082": {
+    "zh": "绿色坦克",
+    "en": "Green_Tank",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder82"
+  },
+  "troop:4000083": {
+    "zh": "特殊重机枪手",
+    "en": "Heavy_SB",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder83"
+  },
+  "troop:4000084": {
+    "zh": "特殊医疗兵",
+    "en": "Medic_SB",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder84"
+  },
+  "troop:4000085": {
+    "zh": "强化喷火器",
+    "en": "Scorcher_Fortified",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder85"
+  },
+  "troop:4000086": {
+    "zh": "谢尔曼坦克",
+    "en": "Tank_Sherman",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder86"
+  },
+  "troop:4000087": {
+    "zh": "守卫塔",
+    "en": "Guard Tower",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder87"
+  },
+  "troop:4000088": {
+    "zh": "迫击炮",
+    "en": "Mortar",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder88"
+  },
+  "troop:4000089": {
+    "zh": "机枪巢",
+    "en": "Machine Gun Nest",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder89"
+  },
+  "troop:4000090": {
+    "zh": "导弹发射器",
+    "en": "Missile Launcher",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder90"
+  },
+  "troop:4000091": {
+    "zh": "火焰喷射器",
+    "en": "Flame Thrower",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder91"
+  },
+  "troop:4000092": {
+    "zh": "加农炮",
+    "en": "Cannon",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder92"
+  },
+  "troop:4000093": {
+    "zh": "大白鲨",
+    "en": "Big Bertha",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder93"
+  },
+  "troop:4000094": {
+    "zh": "Boss机枪",
+    "en": "Boss Machine Gun",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder94"
+  },
+  "troop:4000095": {
+    "zh": "Boss迫击炮",
+    "en": "Boss Mortar",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder95"
+  },
+  "troop:4000096": {
+    "zh": "电击发射器",
+    "en": "Shock Launcher",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder96"
+  },
+  "troop:4000097": {
+    "zh": "3级电击塔",
+    "en": "ShockTurret3",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder97"
+  },
+  "troop:4000098": {
+    "zh": "3级激光塔",
+    "en": "Laser3",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder98"
+  },
+  "troop:4000099": {
+    "zh": "3级末日加农炮",
+    "en": "DoomCannon3",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder99"
+  },
+  "troop:4000100": {
+    "zh": "3级鱼叉炮",
+    "en": "Harpoon3",
+    "why": "占位 TID TID_PLACEHOLDER",
+    "raw": "Placeholder100"
+  },
+  "troop:4000128": {
+    "zh": "3级炮塔",
+    "en": "Turret_lvl3",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1"
+  },
+  "troop:4000129": {
+    "zh": "4级炮塔",
+    "en": "Turret_lvl4",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1_1_b"
+  },
+  "troop:4000130": {
+    "zh": "5级炮塔",
+    "en": "Turret_lvl5",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1_2_b"
+  },
+  "troop:4000131": {
+    "zh": "6级炮塔",
+    "en": "Turret_lvl6",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1_3"
+  },
+  "troop:4000132": {
+    "zh": "7级炮塔",
+    "en": "Turret_lvl7",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1_1_a"
+  },
+  "troop:4000133": {
+    "zh": "8级炮塔",
+    "en": "Turret_lvl8",
+    "why": "TID TID_BARBED_WIRE 被多行共用",
+    "raw": "Bd_Barbed Wire_lvl1_2_a"
+  }
+}

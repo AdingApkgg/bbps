@@ -3,7 +3,7 @@
  *
  * 注意与 lib/commands-data.ts 区分：
  *   - 本文件：指令「定义」——语法、别名、分组、权限、危险级别，约 150 条
- *   - commands-data.ts：指令「实例」——由 data/commands.json 提供的
+ *   - commands-data.ts：指令「实例」——由实体表与本目录合成的
  *     /place 1 1 1000000 1 这类填好 ID 的具体可用指令，约 1000 条
  *
  * 服务端新增指令时只改这一个文件。

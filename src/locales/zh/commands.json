@@ -42,5 +42,6 @@
   "optionLabel": "选项",
   "deckLabel": "选择甲板值 (0-16)",
   "fillParams": "填参数 ({n})",
-  "optionalParams": "填可选参数"
+  "optionalParams": "填可选参数",
+  "copyOnlyHint": "服务端未注册该指令，只能复制到游戏里用"
 }

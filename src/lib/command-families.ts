@@ -1,7 +1,7 @@
 /**
  * 指令家族：把写死的数值参数变成可编辑字段。
  *
- * commands.json 里 70%（732/1042）的条目其实是同一条指令的 ID 排列，
+ * 指令库里大部分条目其实是同一条指令的取值排列，
  * 每条都把数量/等级/品质/坐标冻死了：
  *   /setboat 1 4000000 1   数量永远是 1
  *   /resource 1 9999999    数量永远是 999 万
@@ -30,6 +30,8 @@ export interface CommandFamily {
   args: FamilyArg[]
   /** 名字里写死的值，展示时剥掉：「获取9百万金币」→「金币」 */
   stripName?: RegExp
+  /** 只给复制，不给「执行」。服务端没注册的指令属于这一类 */
+  copyOnly?: boolean
 }
 
 const AMOUNT_PRESETS = [999, 99999, 9999999]
@@ -37,6 +39,28 @@ const COUNT_PRESETS = [1, 10, 50]
 const LEVEL_PRESETS = [1, 10, 25]
 
 export const COMMAND_FAMILIES: CommandFamily[] = [
+  {
+    // 12 个岛屿各占一行没意义，取值是同一个封闭集合，折叠成「一行 + 下拉」。
+    // 注意它没有数字参数：extractNumbers 返回空数组，applyNumbers 原样返回，
+    // 所以 args 里只放 entity，不放 value。
+    id: 'layout',
+    labelZh: '岛屿阵型',
+    labelEn: 'Base layout',
+    match: /^\/layout\s+[a-z_]+\s*$/i,
+    args: [{ index: 0, role: 'entity', labelZh: '岛屿', labelEn: 'Layout' }]
+  },
+  {
+    // 同理，34 个母舰技能是一个封闭集合
+    // 只读：C# 的 dispatcher 里没有顶层 /spell（CheatGroupHome.cs:1501 那个
+    // Literal("spell") 挂在 /rule 下面）。文档标着【需要魔改客户端】，
+    // 网页发过去必然失败，所以只给复制，不给「执行」。
+    id: 'spell-add',
+    labelZh: '母舰技能',
+    labelEn: 'Warship ability',
+    match: /^\/spell\s+add\s+\d+\s*$/i,
+    copyOnly: true,
+    args: [{ index: 0, role: 'entity', labelZh: '技能', labelEn: 'Ability' }]
+  },
   {
     id: 'resource',
     labelZh: '资源',
