@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Noto_Sans, Noto_Sans_SC } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LocaleProvider } from '@/contexts/locale-context'
 import { MusicPlayerProvider } from '@/contexts/music-player-context'
@@ -13,9 +14,22 @@ import {
   SITE_LOCALE_ALT,
   SITE_LOGO
 } from '@/lib/site'
-import '@fontsource-variable/noto-sans'
-import '@fontsource-variable/noto-sans-sc'
 import '@/app/globals.css'
+
+/* 可变字体（wght 轴），构建时从 Google Fonts 下载并自托管到 _next/static/media */
+const notoSans = Noto_Sans({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-noto-sans',
+  display: 'swap'
+})
+
+/* 中文字形按 unicode-range 拆成子集按需加载，体积大且非首屏关键，不做 preload */
+const notoSansSC = Noto_Sans_SC({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-sc',
+  display: 'swap',
+  preload: false
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -98,7 +112,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      suppressHydrationWarning
+      className={`${notoSans.variable} ${notoSansSC.variable}`}
+    >
       <head>
         <link
           rel="alternate"
