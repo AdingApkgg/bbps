@@ -40,7 +40,9 @@ export function setToken(token: string | null): void {
   } catch {
     /* 隐私模式下 localStorage 可能不可用 */
   }
-  tokenListeners.forEach((fn) => fn(token))
+  tokenListeners.forEach((fn) => {
+    fn(token)
+  })
 }
 
 /** 订阅令牌失效（401 会自动清除并触发） */

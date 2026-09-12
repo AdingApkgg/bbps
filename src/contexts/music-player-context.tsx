@@ -9,8 +9,7 @@ import {
   loadPlaylists, savePlaylists as persistPlaylists,
   loadVolume, saveVolume as persistVolume,
   loadPlayMode, savePlayMode as persistPlayMode,
-  fetchMetingPlaylist, fetchLrc,
-  DEFAULT_API, DEFAULT_PLAYLISTS,
+  fetchMetingPlaylist, fetchLrc,DEFAULT_PLAYLISTS,
   type MetingTrack, type PlaylistConfig, type PlayMode, type LrcLine
 } from '@/lib/music'
 
@@ -75,7 +74,7 @@ export function useMusicTime() {
     const audio = getAudio()
     if (!audio) return
     const onTime = () => setTime(audio.currentTime)
-    const onDur = () => { if (isFinite(audio.duration)) setDuration(audio.duration) }
+    const onDur = () => { if (Number.isFinite(audio.duration)) setDuration(audio.duration) }
     audio.addEventListener('timeupdate', onTime)
     audio.addEventListener('durationchange', onDur)
     return () => {

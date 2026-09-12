@@ -113,16 +113,17 @@ const contraband = [...notes.entries()].filter(([, v]) => CONTRABAND.test(v))
 console.log(`目录 ${catalog.length} 条 · md ${notes.size} 条`)
 if (orphans.length) {
   console.log(`\n✗ md 里有 ${orphans.length} 个标题在目录里不存在：`)
-  orphans.forEach((o) => console.log(`    ${o}`))
+  for (const o of orphans) console.log(`    ${o}`)
 }
 if (missing.length) {
   console.log(`\n· 目录里有 ${missing.length} 条还没写说明${missingDangerous.length ? `（其中 ${missingDangerous.length} 条带危险标记，必须补）` : ''}：`)
-  missing.slice(0, 12).forEach((c) => console.log(`    ${c.cmd}${c.danger ? '  ← ' + c.danger : ''}`))
+  for (const c of missing.slice(0, 12))
+    console.log(`    ${c.cmd}${c.danger ? `  ← ${c.danger}` : ''}`)
   if (missing.length > 12) console.log(`    … 另 ${missing.length - 12} 条`)
 }
 if (contraband.length) {
   console.log(`\n✗ ${contraband.length} 条说明里写了本该留在 commands.ts 的东西：`)
-  contraband.forEach(([k]) => console.log(`    ${k}`))
+  for (const [k] of contraband) console.log(`    ${k}`)
 }
 
 const fatal = orphans.length + missingDangerous.length + contraband.length

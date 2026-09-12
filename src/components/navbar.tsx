@@ -67,7 +67,7 @@ export function Navbar() {
   ]
 
   function isActive(href: string) {
-    return pathname === href || pathname === href + '/'
+    return pathname === href || pathname === `${href}/`
   }
 
   return (

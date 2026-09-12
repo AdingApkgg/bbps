@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Check, Copy, Play, Search, X } from 'lucide-react'
+import { Check, Copy, Search, X } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands, type Command } from '@/lib/commands-data'
@@ -466,7 +466,7 @@ export function CommandBrowser({
               entry.kind === 'group' ? (
                 <GroupItem
                   // 搜索结果变化时重建，让下拉框重新选中最相关项
-                  key={entry.group.id + ':' + (entry.matched[0]?.id ?? '')}
+                  key={`${entry.group.id}:${entry.matched[0]?.id ?? ''}`}
                   group={entry.group}
                   matched={entry.matched}
                   canRun={canRun}

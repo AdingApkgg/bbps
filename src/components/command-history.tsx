@@ -54,7 +54,9 @@ function write(next: string[]) {
     /* 隐私模式下不可用 */
   }
   cachedRaw = null // 强制下次重读
-  listeners.forEach((f) => f())
+  listeners.forEach((f) => {
+    f()
+  })
 }
 
 export function useCommandHistory() {

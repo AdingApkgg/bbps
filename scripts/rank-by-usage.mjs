@@ -60,7 +60,7 @@ const entries = [...src.matchAll(/C\(\{([\s\S]*?)\}\)/g)].map((m) => {
   const b = m[1]
   const cmd = (b.match(/cmd:\s*'([^']+)'/) || [])[1]
   const group = (b.match(/group:\s*'([^']+)'/) || [])[1]
-  const al = (b.match(/aliases:\s*\[([^\]]*)\]/) || [, ''])[1]
+  const al = (b.match(/aliases:\s*\[([^\]]*)\]/)?.[1] ?? '')
   const aliases = [...al.matchAll(/'([^']+)'/g)].map((x) => x[1])
   return { cmd, group, aliases, n: usageOf(cmd || '', aliases) }
 }).filter((e) => e.cmd)
@@ -74,7 +74,8 @@ const counted = {}
 for (const e of entries) {
   groupSum[e.group] ??= 0
   const key = e.cmd.replace(/^\//, '').split(/\s+/)[0].toLowerCase()
-  const seen = (counted[e.group] ??= new Set())
+  counted[e.group] ??= new Set()
+  const seen = counted[e.group]
   if (seen.has(key)) continue
   seen.add(key)
   groupSum[e.group] += e.n
@@ -131,7 +132,7 @@ for (const b of blocks) {
 }
 const missing = ordered.filter((g) => !byId[g])
 if (missing.length) {
-  console.error('这些组在 meta 里找不到：' + missing.join(', '))
+  console.error(`这些组在 meta 里找不到：${missing.join(', ')}`)
   process.exit(1)
 }
 const rest = Object.keys(byId).filter((g) => !ordered.includes(g))

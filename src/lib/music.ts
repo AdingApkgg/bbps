@@ -100,9 +100,9 @@ export function parseLrc(raw: string): LrcLine[] {
   for (const line of raw.split('\n')) {
     const match = line.match(/\[(\d{2}):(\d{2})(?:\.(\d{2,3}))?\](.*)/)
     if (!match) continue
-    const min = parseInt(match[1])
-    const sec = parseInt(match[2])
-    const ms = match[3] ? parseInt(match[3].padEnd(3, '0')) : 0
+    const min = parseInt(match[1], 10)
+    const sec = parseInt(match[2], 10)
+    const ms = match[3] ? parseInt(match[3].padEnd(3, '0'), 10) : 0
     const text = match[4].trim()
     if (text) lines.push({ time: min * 60 + sec + ms / 1000, text })
   }

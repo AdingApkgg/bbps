@@ -272,7 +272,7 @@ export function MusicPage() {
                           >
                             <div className="relative size-10 flex-shrink-0 overflow-hidden rounded bg-muted">
                               {track.pic ? (
-                                /* eslint-disable-next-line @next/next/no-img-element */
+                                /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                                 <img src={track.pic} alt="" className="size-full object-cover" loading="lazy" />
                               ) : (
                                 <div className="flex size-full items-center justify-center">

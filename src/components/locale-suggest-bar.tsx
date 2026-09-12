@@ -68,7 +68,9 @@ function dismiss() {
   } catch {
     /* 存不下也无所谓，最多下次再出现一遍 */
   }
-  listeners.forEach((fn) => fn())
+  listeners.forEach((fn) => {
+    fn()
+  })
 }
 
 export function LocaleSuggestBar() {

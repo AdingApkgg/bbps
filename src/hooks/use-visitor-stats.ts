@@ -16,7 +16,7 @@ interface Stats {
 let stats: Stats = { sitePv: null, siteUv: null, pagePv: null }
 const listeners = new Set<() => void>()
 let fetchedPathname = ''
-let pending: Promise<void> | null = null
+let _pending: Promise<void> | null = null
 
 function getSnapshot(): Stats {
   return stats
@@ -29,7 +29,9 @@ function subscribe(cb: () => void) {
 
 function setStats(next: Stats) {
   stats = next
-  listeners.forEach((cb) => cb())
+  listeners.forEach((cb) => {
+    cb()
+  })
 }
 
 function fetchStats(pathname: string) {
@@ -39,7 +41,7 @@ function fetchStats(pathname: string) {
 
   setStats({ ...stats, pagePv: null })
 
-  pending = (async () => {
+  _pending = (async () => {
     try {
       const res = await fetch(BSZ_API, {
         method: 'POST',
@@ -57,7 +59,7 @@ function fetchStats(pathname: string) {
     } catch {
       // silently ignore
     } finally {
-      pending = null
+      _pending = null
     }
   })()
 }

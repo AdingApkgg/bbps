@@ -126,7 +126,8 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     if (stored !== locale) {
       router.replace(toLocalePath(pathname ?? '/', stored))
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
+  }, [])
 
   const setPref = useCallback(
     (p: Locale) => {

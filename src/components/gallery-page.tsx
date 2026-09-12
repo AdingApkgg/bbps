@@ -11,7 +11,7 @@ interface GalleryPageProps {
   images: GalleryImage[]
 }
 
-function useMasonryColumns(containerRef: React.RefObject<HTMLDivElement | null>, gap: number) {
+function useMasonryColumns(containerRef: React.RefObject<HTMLDivElement | null>, _gap: number) {
   const [cols, setCols] = useState(3)
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
           </button>
 
           <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */}
             <img
               src={images[lightboxIndex].src}
               alt={`${dict.gallery.title} ${lightboxIndex + 1}`}

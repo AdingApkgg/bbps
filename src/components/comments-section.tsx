@@ -45,7 +45,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
       artalkRef.current = null
       el.innerHTML = ''
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
   }, [])
 
   useEffect(() => {

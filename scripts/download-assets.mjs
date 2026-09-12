@@ -8,9 +8,9 @@
  * 否则回退到 Fandom 维基。
  * 运行: bun run download-assets
  */
-import { mkdir, writeFile } from 'fs/promises'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { mkdir, writeFile } from 'node:fs/promises'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUT_DIR = join(__dirname, '..', 'public', 'assets', 'images', 'game')
@@ -35,12 +35,11 @@ function parseFankitUrls(html, baseUrl) {
   const urls = []
   const showRegex = /(?:href|src)="([^"]*\/d\/pZyVfhcaMuFD[^"]*\/show\/[^"]+)"/g
   const imgRegex = /(?:href|src)="(https:\/\/[^"]*fankit\.supercell\.com[^"]*\.(?:png|jpg|jpeg|webp))"/gi
-  let m
-  while ((m = showRegex.exec(html)) !== null) {
+  for (const m of html.matchAll(showRegex)) {
     const u = m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href
     if (!urls.includes(u)) urls.push(u)
   }
-  while ((m = imgRegex.exec(html)) !== null) {
+  for (const m of html.matchAll(imgRegex)) {
     if (!urls.includes(m[1])) urls.push(m[1])
   }
   return urls
@@ -77,7 +76,7 @@ async function tryFankit() {
 async function loadFankitUrlsFromFile() {
   try {
     const path = join(__dirname, 'fankit-urls.json')
-    const { readFile } = await import('fs/promises')
+    const { readFile } = await import('node:fs/promises')
     const raw = await readFile(path, 'utf8')
     const arr = JSON.parse(raw)
     if (Array.isArray(arr) && arr.length >= OUTPUT_FILES.length) {

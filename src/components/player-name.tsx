@@ -25,9 +25,8 @@ export function parsePlayerName(raw: string): NameSegment[] {
   const segments: NameSegment[] = []
   let lastIndex = 0
 
-  SEGMENT_RE.lastIndex = 0
-  let match: RegExpExecArray | null
-  while ((match = SEGMENT_RE.exec(raw)) !== null) {
+  // matchAll 内部会克隆正则，不再需要手动重置模块级 /g 正则的 lastIndex
+  for (const match of raw.matchAll(SEGMENT_RE)) {
     if (match.index > lastIndex) {
       const plain = raw.slice(lastIndex, match.index).replace(STRAY_TAG_RE, '')
       if (plain) segments.push({ text: plain })

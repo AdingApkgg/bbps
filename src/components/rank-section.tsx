@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { type RankEntry, type LeaderboardScope } from '@/lib/rank'
+import type { RankEntry, LeaderboardScope } from '@/lib/rank'
 import { PlayerName } from '@/components/player-name'
 import {
   PlayerBaseSheet,

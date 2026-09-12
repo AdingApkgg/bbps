@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 function formatTime(sec: number): string {
-  if (!isFinite(sec) || sec < 0) return '0:00'
+  if (!Number.isFinite(sec) || sec < 0) return '0:00'
   const m = Math.floor(sec / 60)
   const s = Math.floor(sec % 60)
   return `${m}:${s.toString().padStart(2, '0')}`
@@ -153,7 +153,7 @@ export function MusicPlayerBar() {
               {/* Cover */}
               <div className="size-40 flex-shrink-0 overflow-hidden rounded-2xl bg-muted shadow-lg md:size-56">
                 {currentTrack.pic ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
+                  /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                   <img src={currentTrack.pic} alt="" className="size-full object-cover" />
                 ) : (
                   <div className="flex size-full items-center justify-center">
@@ -256,7 +256,7 @@ export function MusicPlayerBar() {
           >
             <div className="relative size-12 flex-shrink-0 overflow-hidden rounded-md bg-muted shadow-sm">
               {currentTrack.pic ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
+                /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                 <img src={currentTrack.pic} alt="" className="size-full object-cover" />
               ) : (
                 <div className="flex size-full items-center justify-center">

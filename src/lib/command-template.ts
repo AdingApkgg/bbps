@@ -10,7 +10,7 @@ export interface TemplatePart {
   optional?: boolean
 }
 
-const PLACEHOLDER_RE = /<([^<>]+)>|\[([^\[\]]+)\]/g
+const PLACEHOLDER_RE = /<([^<>]+)>|\[([^[\]]+)\]/g
 
 /** 彩色字体那类条目本身就是 `<cRRGGBB>文字</c>`，不是占位符，别误判 */
 const COLOR_TAG_RE = /^<\/?c(?:[0-9A-Fa-f]{6})?>$/
@@ -19,10 +19,8 @@ export function parseTemplate(command: string): TemplatePart[] {
   if (!command) return []
   const parts: TemplatePart[] = []
   let last = 0
-  PLACEHOLDER_RE.lastIndex = 0
-  let m: RegExpExecArray | null
-
-  while ((m = PLACEHOLDER_RE.exec(command)) !== null) {
+  // matchAll 内部会克隆正则，不再需要手动重置模块级 /g 正则的 lastIndex
+  for (const m of command.matchAll(PLACEHOLDER_RE)) {
     if (COLOR_TAG_RE.test(m[0])) continue
     if (m.index > last) {
       parts.push({ type: 'text', value: command.slice(last, m.index) })

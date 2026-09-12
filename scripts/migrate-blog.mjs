@@ -13,7 +13,7 @@
  */
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
-import { join, dirname, extname, basename } from 'node:path'
+import { join, dirname, extname, } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { XMLParser } from 'fast-xml-parser'
 import TurndownService from 'turndown'
@@ -183,7 +183,7 @@ async function main() {
     frontmatter.push(`wpId: ${id}`)
     frontmatter.push('---')
 
-    const mdxContent = frontmatter.join('\n') + '\n\n' + markdown + '\n'
+    const mdxContent = `${frontmatter.join('\n')}\n\n${markdown}\n`
     const mdxPath = join(BLOG_CONTENT_DIR, `${slug}.mdx`)
     await writeFile(mdxPath, mdxContent, 'utf-8')
     console.log(`✓ ${slug}.mdx (id=${id}) — ${rawTitle}`)

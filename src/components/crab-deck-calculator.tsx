@@ -48,7 +48,7 @@ export function CrabDeckCalculator({
 
   const handleGenerate = useCallback(() => {
     if (selectedDecks.length === 0) return
-    const sum = selectedDecks.reduce((acc, v) => acc + Math.pow(2, v), 0)
+    const sum = selectedDecks.reduce((acc, v) => acc + 2 ** v, 0)
     const command = `/blockingmask ${sum}`
     setResult({ sum, command })
     onOutput(command)
