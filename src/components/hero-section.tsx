@@ -30,11 +30,17 @@ function HeroPoster({
         onClick={onPlay}
         className="group relative block w-full overflow-hidden rounded-lg border bg-muted shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
+        {/*
+          priority：这张图在首屏正中，多半就是 LCP 元素。next/image 默认
+          loading="lazy"，要等交叉观察器触发才开始下载，白白推迟 LCP。
+          priority 会改成 eager + fetchpriority=high 并预加载。
+        */}
         <Image
           src={HERO_POSTER_URL}
           alt="Video preview"
           width={1280}
           height={720}
+          priority
           className="w-full transition-transform duration-300 group-hover:scale-[1.02]"
         />
         {/* 播放图标 */}
