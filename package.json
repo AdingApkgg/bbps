@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --hostname 0.0.0.0",
-    "build": "next build && node scripts/build-sw.mjs && node scripts/generate-feed.mjs",
+    "build": "next build && node scripts/generate-feed.mjs",
     "start": "next start",
     "lint": "eslint src --max-warnings 0",
     "lint:fix": "eslint src --fix",
@@ -32,18 +32,14 @@
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "serwist": "^9.5.12",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
-    "@serwist/build": "^9.5.12",
-    "@serwist/cli": "^9.5.12",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.1.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "esbuild": "^0.28.1",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.0",
     "fast-xml-parser": "^5.10.1",
@@ -54,7 +50,6 @@
     "typescript": "^5.9.3"
   },
   "trustedDependencies": [
-    "esbuild",
     "sharp",
     "unrs-resolver"
   ]

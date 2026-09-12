@@ -38,7 +38,6 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`
   },
   description: SITE_DESCRIPTION,
-  manifest: '/manifest.json',
   icons: {
     icon: [
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
@@ -47,11 +46,6 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }
     ]
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: SITE_NAME
   },
   openGraph: {
     type: 'website',
@@ -126,11 +120,6 @@ export default function RootLayout({
           type="application/rss+xml"
           title={SITE_NAME}
           href={`${SITE_URL}/feed.xml`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: 'if(location.hostname!==\'localhost\'&&\'serviceWorker\'in navigator){window.addEventListener(\'load\',function(){navigator.serviceWorker.register(\'/sw.js\')})}'
-          }}
         />
       </head>
       <body className="font-sans antialiased">
