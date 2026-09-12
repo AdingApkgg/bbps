@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Commands | Horsebean Private Server',
-    description: 'In-game commands for Horsebean Private Server — find and generate commands easily',
+    description:
+      'In-game commands for Horsebean Private Server — find and generate commands easily',
     url: `${SITE_URL}/en/commands/`,
     locale: 'en_US'
   }

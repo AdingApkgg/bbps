@@ -12,9 +12,7 @@
  */
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE ??
-  (process.env.NODE_ENV === 'development'
-    ? '/gameapi'
-    : 'https://webapi.30hb.cn')
+  (process.env.NODE_ENV === 'development' ? '/gameapi' : 'https://webapi.30hb.cn')
 
 const TOKEN_KEY = 'bbps-web-token'
 
@@ -156,10 +154,7 @@ export interface ChatResponse {
  * 接口刻意不支持翻页/游标 —— 那等于给匿名访问者一个导出全服聊天历史的入口。
  * 准实时刷新请重取最近 N 条，按 seq 在前端去重。
  */
-export async function fetchChat(
-  limit: number,
-  signal?: AbortSignal
-): Promise<ChatResponse> {
+export async function fetchChat(limit: number, signal?: AbortSignal): Promise<ChatResponse> {
   const capped = Math.min(Math.max(1, Math.trunc(limit)), 500)
   return request<ChatResponse>(`/api/chat?limit=${capped}`, { signal })
 }
@@ -202,9 +197,7 @@ export interface ServerStatusBody {
   [key: string]: unknown
 }
 
-export async function fetchServerStatus(
-  signal?: AbortSignal
-): Promise<ServerStatusBody> {
+export async function fetchServerStatus(signal?: AbortSignal): Promise<ServerStatusBody> {
   const json = await request<Record<string, unknown>>('/api/server', { signal })
   const data = (json?.body ?? json) as ServerStatusBody
   if (!data?.server_version) throw new ApiError(0, 'server', 'invalid payload')
@@ -233,9 +226,7 @@ export interface GlobalStatistics {
   ServerCloseTime: string[]
 }
 
-export async function fetchGlobalStatistics(
-  signal?: AbortSignal
-): Promise<GlobalStatistics> {
+export async function fetchGlobalStatistics(signal?: AbortSignal): Promise<GlobalStatistics> {
   const json = await request<Record<string, unknown>>('/api/global_statistics', {
     signal
   })
@@ -285,14 +276,8 @@ export interface PlayerBase {
  * 注意：这组接口按来源 IP 限速 60 次/分钟，超出返回 429。
  * 只允许「点击某个玩家」这种交互触发，**不要**写循环批量拉取。
  */
-export async function fetchPlayerBase(
-  playerId: number,
-  signal?: AbortSignal
-): Promise<PlayerBase> {
-  const json = await request<Record<string, unknown>>(
-    `/api/base/${playerId}`,
-    { signal }
-  )
+export async function fetchPlayerBase(playerId: number, signal?: AbortSignal): Promise<PlayerBase> {
+  const json = await request<Record<string, unknown>>(`/api/base/${playerId}`, { signal })
   const data = (json?.body ?? json) as PlayerBase
   if (!data?.home) throw new ApiError(0, 'server', 'invalid payload')
   return data
@@ -319,10 +304,7 @@ export interface CommandResponse {
 }
 
 /** 用游戏内 /webcode 拿到的 6 位验证码换取 7 天令牌 */
-export async function verifyCode(
-  playerId: number,
-  code: string
-): Promise<VerifyResponse> {
+export async function verifyCode(playerId: number, code: string): Promise<VerifyResponse> {
   return request<VerifyResponse>('/api/web/verify', {
     method: 'POST',
     body: { player_id: playerId, code }
@@ -435,9 +417,7 @@ export interface CustomBaseFacets {
  * 注意：同一个「没有类型」的概念，列表项里是 null，这里是空字符串 ""。
  * 空串不能当 level 参数传回去（那等于不筛选），调用方需自行剔除。
  */
-export async function fetchCustomBaseFacets(
-  signal?: AbortSignal
-): Promise<CustomBaseFacets> {
+export async function fetchCustomBaseFacets(signal?: AbortSignal): Promise<CustomBaseFacets> {
   return request<CustomBaseFacets>('/api/bases_facets', { signal })
 }
 

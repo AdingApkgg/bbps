@@ -37,13 +37,13 @@ function TelegramIcon({ className }: { className?: string }) {
 const PLATFORM_ICONS: Record<string, React.FC<{ className?: string }>> = {
   qq: QQIcon,
   discord: DiscordIcon,
-  telegram: TelegramIcon,
+  telegram: TelegramIcon
 }
 
 const PLATFORM_COLORS: Record<string, string> = {
   qq: 'text-blue-500',
   discord: 'text-indigo-500',
-  telegram: 'text-sky-500',
+  telegram: 'text-sky-500'
 }
 
 export function CommunitySection() {

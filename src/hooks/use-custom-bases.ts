@@ -64,10 +64,7 @@ export function useCustomBases(query: CustomBaseQuery): BasesState {
 
     const run = async () => {
       try {
-        const data = await fetchCustomBases(
-          { q, level, sort, page, pageSize },
-          controller.signal
-        )
+        const data = await fetchCustomBases({ q, level, sort, page, pageSize }, controller.signal)
         if (cancelled) return
         setSnapshot({
           key,
@@ -83,8 +80,7 @@ export function useCustomBases(query: CustomBaseQuery): BasesState {
           key,
           items: [],
           total: 0,
-          error:
-            e instanceof ApiError && e.kind === 'rate_limited' ? 'rate' : 'other'
+          error: e instanceof ApiError && e.kind === 'rate_limited' ? 'rate' : 'other'
         })
       }
     }

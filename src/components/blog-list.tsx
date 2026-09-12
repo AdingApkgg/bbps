@@ -5,13 +5,7 @@ import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import {
-  stripHtml,
-  sortPosts,
-  BLOG_SORT_KEYS,
-  type WPPost,
-  type BlogSortKey
-} from '@/lib/blog'
+import { stripHtml, sortPosts, BLOG_SORT_KEYS, type WPPost, type BlogSortKey } from '@/lib/blog'
 import type { Dict } from '@/lib/i18n'
 
 function formatDate(iso: string, locale: string): string {
@@ -55,11 +49,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
 
       <div className="mt-8 flex flex-wrap items-center gap-2">
         <span className="text-sm text-muted-foreground">{dict.sortBy}</span>
-        <div
-          role="group"
-          aria-label={dict.sortBy}
-          className="inline-flex rounded-lg bg-muted p-1"
-        >
+        <div role="group" aria-label={dict.sortBy} className="inline-flex rounded-lg bg-muted p-1">
           {BLOG_SORT_KEYS.map((key) => {
             const active = key === sortKey
             return (
@@ -85,27 +75,16 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
       <ul className="mt-6 space-y-4">
         {sorted.map((post) => {
           const excerpt = stripHtml(post.excerpt?.rendered ?? '')
-          const thumb =
-            post._embedded?.['wp:featuredmedia']?.[0]?.source_url
+          const thumb = post._embedded?.['wp:featuredmedia']?.[0]?.source_url
 
           return (
             <li key={post.id}>
-              <a
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
+              <a href={post.link} target="_blank" rel="noopener noreferrer" className="block">
                 <Card className="overflow-hidden transition-colors hover:bg-muted/50">
                   <div className="flex flex-col sm:flex-row">
                     {thumb && (
                       <div className="relative h-40 w-full shrink-0 bg-muted sm:h-auto sm:w-48">
-                        <Image
-                          src={thumb}
-                          alt=""
-                          fill
-                          className="object-cover"
-                        />
+                        <Image src={thumb} alt="" fill className="object-cover" />
                       </div>
                     )}
                     <div className="flex-1">
@@ -121,9 +100,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
                       </CardHeader>
                       {excerpt && (
                         <CardContent className="pt-0">
-                          <p className="line-clamp-2 text-sm text-muted-foreground">
-                            {excerpt}
-                          </p>
+                          <p className="line-clamp-2 text-sm text-muted-foreground">{excerpt}</p>
                           <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium">
                             {dict.openPost}
                             <ExternalLink className="size-3.5" aria-hidden />

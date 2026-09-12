@@ -1,14 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import {
-  Terminal,
-  Map,
-  HardDrive,
-  MessageSquare,
-  Trophy,
-  BarChart3
-} from 'lucide-react'
+import { Terminal, Map, HardDrive, MessageSquare, Trophy, BarChart3 } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
@@ -79,9 +72,7 @@ export function CtaSection() {
   return (
     <section className="container mx-auto max-w-screen-2xl px-4 py-16 md:py-24">
       <FadeIn className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight">
-          {dict.cta.title}
-        </h2>
+        <h2 className="text-3xl font-bold tracking-tight">{dict.cta.title}</h2>
         <p className="mt-4 text-muted-foreground">{dict.hero.subtitle}</p>
       </FadeIn>
 
@@ -94,9 +85,7 @@ export function CtaSection() {
                   {feature.icon}
                 </div>
                 <h3 className="font-semibold">{feature.title}</h3>
-                <p className="line-clamp-2 text-sm text-muted-foreground">
-                  {feature.description}
-                </p>
+                <p className="line-clamp-2 text-sm text-muted-foreground">{feature.description}</p>
               </CardContent>
             </Card>
           )

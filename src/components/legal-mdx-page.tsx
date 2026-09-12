@@ -41,14 +41,9 @@ const mdxComponents = {
     <p className="mt-3 leading-relaxed text-muted-foreground" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul
-      className="mt-3 list-disc space-y-1 pl-6 text-muted-foreground"
-      {...props}
-    />
+    <ul className="mt-3 list-disc space-y-1 pl-6 text-muted-foreground" {...props} />
   ),
-  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className="leading-relaxed" {...props} />
-  ),
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="leading-relaxed" {...props} />,
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
       className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
@@ -90,9 +85,7 @@ export async function LegalMdxPage({ locale, legalKey }: LegalMdxPageProps) {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="mt-8 text-3xl font-bold tracking-tight">
-        {frontmatter.title}
-      </h1>
+      <h1 className="mt-8 text-3xl font-bold tracking-tight">{frontmatter.title}</h1>
       <div className="mt-10">{content}</div>
       <p className="mt-10 text-sm text-muted-foreground">
         {lastUpdatedLabel}

@@ -1,9 +1,5 @@
 import { categories, commands, type Command } from '@/lib/commands-data'
-import {
-  displayName,
-  matchFamily,
-  type CommandFamily
-} from '@/lib/command-families'
+import { displayName, matchFamily, type CommandFamily } from '@/lib/command-families'
 
 /**
  * 把「同一条指令的 ID 排列」折叠成一行 + 实体下拉框。
@@ -107,8 +103,7 @@ function scoreOf(cmd: Command, term: string): number | null {
       const ai = al.indexOf(term)
       if (ai < 0) continue
       // 排在主名命中之后：精确等于别名给 5，前缀 15，其余 45
-      return (al === term ? 5 : ai === 0 ? 15 : 45) +
-        Math.min(cmd.name.length, 60) / 1000
+      return (al === term ? 5 : ai === 0 ? 15 : 45) + Math.min(cmd.name.length, 60) / 1000
     }
     return null
   }
@@ -135,13 +130,7 @@ function scoreAll(cmd: Command, terms: string[]): number | null {
 }
 
 function groupLabels(group: CommandGroup): string[] {
-  return [
-    group.labelZh,
-    group.labelEn,
-    group.family.labelZh,
-    group.family.labelEn,
-    group.category
-  ]
+  return [group.labelZh, group.labelEn, group.family.labelZh, group.family.labelEn, group.category]
 }
 
 export function searchEntries(query: string, category: string): ListEntry[] {

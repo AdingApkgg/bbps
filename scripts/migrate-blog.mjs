@@ -13,7 +13,7 @@
  */
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
-import { join, dirname, extname, } from 'node:path'
+import { join, dirname, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { XMLParser } from 'fast-xml-parser'
 import TurndownService from 'turndown'
@@ -43,7 +43,7 @@ const SLUG_MAP = {
   143: 'deploy-30hb-server',
   46: 'some-help',
   44: 'important-notice',
-  37: 'common-commands',
+  37: 'common-commands'
 }
 
 async function main() {
@@ -61,7 +61,7 @@ async function main() {
     cdataPropName: '__cdata',
     textNodeName: '#text',
     processEntities: true,
-    htmlEntities: true,
+    htmlEntities: true
   })
 
   const parsed = parser.parse(xmlContent)
@@ -94,13 +94,12 @@ async function main() {
   const td = new TurndownService({
     headingStyle: 'atx',
     codeBlockStyle: 'fenced',
-    bulletListMarker: '-',
+    bulletListMarker: '-'
   })
 
   td.addRule('wpCaption', {
     filter: (node) =>
-      node.nodeName === 'DIV' &&
-      (node.getAttribute('class') || '').includes('wp-caption'),
+      node.nodeName === 'DIV' && (node.getAttribute('class') || '').includes('wp-caption'),
     replacement: (_content, node) => {
       const img = node.querySelector('img')
       const caption = node.querySelector('.wp-caption-text')
@@ -108,7 +107,7 @@ async function main() {
       const src = img.getAttribute('data-original') || img.getAttribute('src') || ''
       const alt = caption ? caption.textContent : img.getAttribute('alt') || ''
       return `\n\n![${alt}](${src})\n\n`
-    },
+    }
   })
 
   const redirects = []
@@ -175,7 +174,7 @@ async function main() {
       `title: "${rawTitle.replace(/"/g, '\\"')}"`,
       `date: "${date}"`,
       `slug: "${slug}"`,
-      `excerpt: "${excerpt.replace(/"/g, '\\"').slice(0, 200)}"`,
+      `excerpt: "${excerpt.replace(/"/g, '\\"').slice(0, 200)}"`
     ]
     if (featuredImage) {
       frontmatter.push(`featuredImage: "${featuredImage}"`)

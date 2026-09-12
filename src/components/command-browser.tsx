@@ -5,23 +5,9 @@ import { Check, Copy, Search, X } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { categories, commands, type Command } from '@/lib/commands-data'
-import {
-  optionLabel,
-  searchEntries,
-  type CommandGroup
-} from '@/lib/command-groups'
-import {
-  fillTemplate,
-  isRunnable,
-  isTemplateReady,
-  parseTemplate
-} from '@/lib/command-template'
-import {
-  applyNumbers,
-  displayName,
-  extractNumbers,
-  matchFamily
-} from '@/lib/command-families'
+import { optionLabel, searchEntries, type CommandGroup } from '@/lib/command-groups'
+import { fillTemplate, isRunnable, isTemplateReady, parseTemplate } from '@/lib/command-template'
+import { applyNumbers, displayName, extractNumbers, matchFamily } from '@/lib/command-families'
 import { PlayerName } from '@/components/player-name'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -61,9 +47,7 @@ function CommandItem({
   const parts = useMemo(() => parseTemplate(cmd.command), [cmd.command])
   const params = parts.filter((p) => p.type === 'param')
 
-  const final = family
-    ? applyNumbers(cmd.command, numbers)
-    : fillTemplate(cmd.command, values)
+  const final = family ? applyNumbers(cmd.command, numbers) : fillTemplate(cmd.command, values)
   const ready = family ? true : isTemplateReady(cmd.command, values)
   const runnable = isRunnable(cmd.command)
   const isColorSnippet = /^<c[0-9A-Fa-f]{6}>/.test(cmd.command)
@@ -107,28 +91,14 @@ function CommandItem({
               {t.resetValues}
             </button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            aria-label={t.copyButton}
-          >
-            {copied ? (
-              <Check className="h-3.5 w-3.5" />
-            ) : (
-              <Copy className="h-3.5 w-3.5" />
-            )}
+          <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           </Button>
           {runnable && !cmd.copyOnly && (
             // 走 RunButton，危险级别由 findCatalogEntry 从目录反查。
             // 之前这里是裸 Button，一键就能发 /resource clear、/map clear 这类
             // 不可撤销指令 —— 目录里同一条要点两次确认，两个入口标准不一致。
-            <RunButton
-              command={final}
-              canRun={canRun}
-              disabled={!ready}
-              onRun={onRun}
-            />
+            <RunButton command={final} canRun={canRun} disabled={!ready} onRun={onRun} />
           )}
         </div>
       </div>
@@ -176,15 +146,11 @@ function CommandItem({
             <label key={p.value} className="flex items-center gap-1.5">
               <span className="text-xs text-muted-foreground">
                 {p.value}
-                {p.optional && (
-                  <span className="ml-0.5 opacity-60">({t.optional})</span>
-                )}
+                {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
               </span>
               <Input
                 value={values[p.value] ?? ''}
-                onChange={(e) =>
-                  setValues((v) => ({ ...v, [p.value]: e.target.value }))
-                }
+                onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
                 className="h-7 w-28 text-xs"
                 placeholder={p.value}
               />
@@ -216,13 +182,9 @@ function GroupItem({
   // 搜索命中时下拉框只留命中项，并默认选中最相关的那个
   const options = matched.length > 0 ? matched : group.options
   const [selectedId, setSelectedId] = useState(options[0]?.id)
-  const current =
-    options.find((o) => o.id === selectedId) ?? options[0] ?? group.options[0]
+  const current = options.find((o) => o.id === selectedId) ?? options[0] ?? group.options[0]
 
-  const originalNumbers = useMemo(
-    () => extractNumbers(current.command),
-    [current.command]
-  )
+  const originalNumbers = useMemo(() => extractNumbers(current.command), [current.command])
   const [numbers, setNumbers] = useState<string[]>([])
   // 切换实体后数值回到该条目的原值
   const effective = numbers.length ? numbers : originalNumbers
@@ -256,9 +218,7 @@ function GroupItem({
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-sm font-medium">
-              {locale === 'en' ? group.labelEn : group.labelZh}
-            </p>
+            <p className="text-sm font-medium">{locale === 'en' ? group.labelEn : group.labelZh}</p>
             <Badge variant="secondary" className="text-[10px]">
               {t.groupCount.replace('{n}', String(options.length))}
             </Badge>
@@ -278,21 +238,10 @@ function GroupItem({
               {t.resetValues}
             </button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            aria-label={t.copyButton}
-          >
-            {copied ? (
-              <Check className="h-3.5 w-3.5" />
-            ) : (
-              <Copy className="h-3.5 w-3.5" />
-            )}
+          <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           </Button>
-          {!group.family.copyOnly && (
-            <RunButton command={final} canRun={canRun} onRun={onRun} />
-          )}
+          {!group.family.copyOnly && <RunButton command={final} canRun={canRun} onRun={onRun} />}
         </div>
       </div>
 
@@ -363,15 +312,9 @@ export function CommandBrowser({
   const [limit, setLimit] = useState(PAGE_SIZE)
 
   // 螃蟹甲板是个计算器而不是指令集，这里不列
-  const pickable = useMemo(
-    () => categories.filter((c) => c.id !== 'calculator'),
-    []
-  )
+  const pickable = useMemo(() => categories.filter((c) => c.id !== 'calculator'), [])
 
-  const filtered = useMemo(
-    () => searchEntries(query, category),
-    [query, category]
-  )
+  const filtered = useMemo(() => searchEntries(query, category), [query, category])
 
   const visible = filtered.slice(0, limit)
 
@@ -388,10 +331,7 @@ export function CommandBrowser({
         <Input
           value={query}
           onChange={(e) => reset(() => setQuery(e.target.value))}
-          placeholder={t.searchPlaceholder.replace(
-            '{count}',
-            String(commands.length)
-          )}
+          placeholder={t.searchPlaceholder.replace('{count}', String(commands.length))}
           className="pl-9 pr-9"
           aria-label={t.searchPlaceholder.replace('{count}', String(commands.length))}
         />
@@ -473,12 +413,7 @@ export function CommandBrowser({
                   onRun={onRun}
                 />
               ) : (
-                <CommandItem
-                  key={entry.cmd.id}
-                  cmd={entry.cmd}
-                  canRun={canRun}
-                  onRun={onRun}
-                />
+                <CommandItem key={entry.cmd.id} cmd={entry.cmd} canRun={canRun} onRun={onRun} />
               )
             )}
           </ul>

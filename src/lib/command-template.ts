@@ -48,10 +48,7 @@ export function hasParams(command: string): boolean {
 }
 
 /** 用填好的值拼回指令；未填的可选参数直接丢弃 */
-export function fillTemplate(
-  command: string,
-  values: Record<string, string>
-): string {
+export function fillTemplate(command: string, values: Record<string, string>): string {
   const parts = parseTemplate(command)
   if (!parts.some((p) => p.type === 'param')) return command
   return parts
@@ -66,10 +63,7 @@ export function fillTemplate(
 }
 
 /** 参数是否都已填妥（可选参数不算） */
-export function isTemplateReady(
-  command: string,
-  values: Record<string, string>
-): boolean {
+export function isTemplateReady(command: string, values: Record<string, string>): boolean {
   return parseTemplate(command)
     .filter((p) => p.type === 'param' && !p.optional)
     .every((p) => (values[p.value] ?? '').trim().length > 0)

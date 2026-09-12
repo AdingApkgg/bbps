@@ -58,12 +58,7 @@ interface StaggerProps {
   delay?: number
 }
 
-export function Stagger({
-  children,
-  className,
-  stagger = 0.08,
-  delay = 0
-}: StaggerProps) {
+export function Stagger({ children, className, stagger = 0.08, delay = 0 }: StaggerProps) {
   return (
     <motion.div
       className={className}

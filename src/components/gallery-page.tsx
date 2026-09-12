@@ -46,7 +46,8 @@ export function GalleryPage({ images }: GalleryPageProps) {
     if (lightboxIndex === null) return
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') setLightboxIndex(null)
-      if (e.key === 'ArrowLeft') setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)
+      if (e.key === 'ArrowLeft')
+        setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)
       if (e.key === 'ArrowRight') setLightboxIndex((prev) => (prev! + 1) % images.length)
     }
     window.addEventListener('keydown', onKeyDown)
@@ -75,26 +76,26 @@ export function GalleryPage({ images }: GalleryPageProps) {
         {columns.map((column, colIdx) => (
           <div key={colIdx} className="flex flex-1 flex-col gap-3">
             {column.map(({ img, idx }) => (
-                <button
-                  key={img.src}
-                  type="button"
-                  className="group relative w-full overflow-hidden rounded-lg border bg-muted transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  style={{ aspectRatio: `${img.width} / ${img.height}` }}
-                  onClick={() => setLightboxIndex(idx)}
-                >
-                  {/* Shimmer placeholder */}
-                  {!loaded.has(idx) && (
-                    <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-muted via-muted-foreground/5 to-muted" />
-                  )}
-                  <Image
-                    src={img.src}
-                    alt={`${dict.gallery.title} ${idx + 1}`}
-                    width={img.width}
-                    height={img.height}
-                    className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                    onLoad={() => markLoaded(idx)}
-                  />
-                </button>
+              <button
+                key={img.src}
+                type="button"
+                className="group relative w-full overflow-hidden rounded-lg border bg-muted transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                style={{ aspectRatio: `${img.width} / ${img.height}` }}
+                onClick={() => setLightboxIndex(idx)}
+              >
+                {/* Shimmer placeholder */}
+                {!loaded.has(idx) && (
+                  <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-muted via-muted-foreground/5 to-muted" />
+                )}
+                <Image
+                  src={img.src}
+                  alt={`${dict.gallery.title} ${idx + 1}`}
+                  width={img.width}
+                  height={img.height}
+                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  onLoad={() => markLoaded(idx)}
+                />
+              </button>
             ))}
           </div>
         ))}
@@ -115,7 +116,19 @@ export function GalleryPage({ images }: GalleryPageProps) {
               setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
           </button>
 
           <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
@@ -138,7 +151,19 @@ export function GalleryPage({ images }: GalleryPageProps) {
               setLightboxIndex((prev) => (prev! + 1) % images.length)
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
           </button>
 
           <button
@@ -146,7 +171,20 @@ export function GalleryPage({ images }: GalleryPageProps) {
             className="absolute right-4 top-4 rounded-full bg-background/80 p-2 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
             onClick={() => setLightboxIndex(null)}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
         </div>
       )}

@@ -43,9 +43,7 @@ export const metadata: Metadata = {
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
     ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }
-    ]
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }]
   },
   openGraph: {
     type: 'website',
@@ -74,7 +72,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
     languages: {
       zh: SITE_URL,
-      'en': `${SITE_URL}/en`,
+      en: `${SITE_URL}/en`,
       'x-default': `${SITE_URL}/en`
     },
     types: {

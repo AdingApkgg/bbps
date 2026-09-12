@@ -19,10 +19,7 @@ import {
 } from '@/components/ui/table'
 import type { RankEntry, LeaderboardScope } from '@/lib/rank'
 import { PlayerName } from '@/components/player-name'
-import {
-  PlayerBaseSheet,
-  type PlayerBaseTarget
-} from '@/components/player-base-sheet'
+import { PlayerBaseSheet, type PlayerBaseTarget } from '@/components/player-base-sheet'
 import { cn } from '@/lib/utils'
 import { FadeIn } from '@/components/motion'
 
@@ -61,11 +58,7 @@ function RankTable({
   }
 
   if (!list.length) {
-    return (
-      <p className="py-12 text-center text-sm text-muted-foreground">
-        {noData}
-      </p>
-    )
+    return <p className="py-12 text-center text-sm text-muted-foreground">{noData}</p>
   }
 
   return (
@@ -95,15 +88,11 @@ function RankTable({
                       #{entry.rank}
                     </Badge>
                   ) : (
-                    <span className="text-muted-foreground">
-                      #{entry.rank}
-                    </span>
+                    <span className="text-muted-foreground">#{entry.rank}</span>
                   )}
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm text-muted-foreground">
-                    {entry.level || '—'}
-                  </span>
+                  <span className="text-sm text-muted-foreground">{entry.level || '—'}</span>
                 </TableCell>
                 <TableCell className="max-w-[200px] truncate">
                   {entry.playerId ? (
@@ -169,17 +158,11 @@ export function RankSection() {
         <p className="mt-2 text-sm text-muted-foreground">{r.subtitle}</p>
       </FadeIn>
 
-      {error && (
-        <p className="mt-4 text-center text-sm text-destructive">{r.error}</p>
-      )}
+      {error && <p className="mt-4 text-center text-sm text-destructive">{r.error}</p>}
 
       {/* 全球 / 本地切换。阵亡榜没有本地档，两边共用同一份数据 */}
       <div className="mt-8 flex justify-center">
-        <div
-          role="group"
-          className="inline-flex rounded-lg bg-muted p-1"
-          aria-label={r.title}
-        >
+        <div role="group" className="inline-flex rounded-lg bg-muted p-1" aria-label={r.title}>
           {scopes.map((s) => (
             <button
               key={s.id}
@@ -221,29 +204,19 @@ export function RankSection() {
               </TabsTrigger>
             </TabsList>
 
-            <p className="mb-3 text-xs text-muted-foreground">
-              {dict.stats.baseViewHint}
-            </p>
+            <p className="mb-3 text-xs text-muted-foreground">{dict.stats.baseViewHint}</p>
 
             <TabsContent value="vp">
               <RankTable {...shared} list={vpList} scoreLabel={r.scoreLabelVp} />
             </TabsContent>
             <TabsContent value="megacrab">
-              <RankTable
-                {...shared}
-                list={megacrabList}
-                scoreLabel={r.scoreLabelCrab}
-              />
+              <RankTable {...shared} list={megacrabList} scoreLabel={r.scoreLabelCrab} />
             </TabsContent>
             <TabsContent value="coe">
               <RankTable {...shared} list={coeList} scoreLabel={r.colValue} />
             </TabsContent>
             <TabsContent value="casualties">
-              <RankTable
-                {...shared}
-                list={casualtiesList}
-                scoreLabel={r.scoreLabelCasualties}
-              />
+              <RankTable {...shared} list={casualtiesList} scoreLabel={r.scoreLabelCasualties} />
             </TabsContent>
           </Tabs>
         </CardContent>

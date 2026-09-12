@@ -81,9 +81,7 @@ function CatalogItem({
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <code className="break-all font-mono text-sm font-medium">
-              {item.syntax}
-            </code>
+            <code className="break-all font-mono text-sm font-medium">{item.syntax}</code>
             {item.danger === 'destructive' && (
               <Badge variant="destructive" className="gap-1 text-[10px]">
                 <ShieldAlert className="h-3 w-3" />
@@ -97,22 +95,26 @@ function CatalogItem({
               </Badge>
             )}
             {item.queryOnly && (
-              <Badge variant="secondary" className="text-[10px]">{t.queryOnly}</Badge>
+              <Badge variant="secondary" className="text-[10px]">
+                {t.queryOnly}
+              </Badge>
             )}
             {item.needsHome && (
-              <Badge variant="secondary" className="text-[10px]">{t.needsHome}</Badge>
+              <Badge variant="secondary" className="text-[10px]">
+                {t.needsHome}
+              </Badge>
             )}
           </div>
           {/* 说明来自 src/content/command-notes.zh.md（可由 AI 维护），
               commands.ts 的 desc 仅作兜底。语法与危险标记不在 md 里。 */}
-          <p className="mt-1 text-sm text-muted-foreground">
-            {commandNote(item.cmd) ?? item.desc}
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">{commandNote(item.cmd) ?? item.desc}</p>
           {item.aliases.length > 0 && (
             <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
               <span>{t.aliases}</span>
               {item.aliases.map((a) => (
-                <code key={a} className="rounded bg-muted px-1 font-mono">{a}</code>
+                <code key={a} className="rounded bg-muted px-1 font-mono">
+                  {a}
+                </code>
               ))}
             </p>
           )}
@@ -122,7 +124,8 @@ function CatalogItem({
           <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           </Button>
-          {!item.inGameOnly && !item.advancedOnly &&
+          {!item.inGameOnly &&
+            !item.advancedOnly &&
             (required.length > 0 && !formOpen ? (
               // 有必填参数时先展开表单，而不是直接发一条缺参数的指令
               <Button size="sm" onClick={() => setFormOpen(true)}>
@@ -208,23 +211,16 @@ function CatalogItem({
                   <SearchableSelect
                     className="w-44"
                     value={values[p.value] ?? ''}
-                    onChange={(v) =>
-                      setValues((prev) => ({ ...prev, [p.value]: v }))
-                    }
+                    onChange={(v) => setValues((prev) => ({ ...prev, [p.value]: v }))}
                     ariaLabel={label}
                     searchPlaceholder={t.pickerSearch}
                     emptyText={t.noResults}
-                    options={[
-                      { value: '', label: '—' },
-                      ...options
-                    ]}
+                    options={[{ value: '', label: '—' }, ...options]}
                   />
                 ) : (
                   <Input
                     value={values[p.value] ?? ''}
-                    onChange={(e) =>
-                      setValues((v) => ({ ...v, [p.value]: e.target.value }))
-                    }
+                    onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
                     placeholder={p.value}
                     className="h-7 w-40 text-xs"
                   />
@@ -324,12 +320,7 @@ export function CommandCatalog({
               <CardContent>
                 <ul className="space-y-2">
                   {visible.map((item) => (
-                    <CatalogItem
-                      key={item.cmd}
-                      item={item}
-                      canRun={canRun}
-                      onRun={onRun}
-                    />
+                    <CatalogItem key={item.cmd} item={item} canRun={canRun} onRun={onRun} />
                   ))}
                 </ul>
               </CardContent>

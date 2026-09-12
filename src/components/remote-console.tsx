@@ -1,14 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import {
-  AlertCircle,
-  Check,
-  Loader2,
-  LogOut,
-  ShieldAlert,
-  Terminal
-} from 'lucide-react'
+import { AlertCircle, Check, Loader2, LogOut, ShieldAlert, Terminal } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { useWebSession } from '@/hooks/use-web-session'
@@ -60,9 +53,12 @@ export function useCommandRunner() {
       } catch (err) {
         if (err instanceof ApiError) {
           if (err.kind === 'offline') setFeedback({ kind: 'error', text: t.resultOffline })
-          else if (err.kind === 'unauthorized') return // 令牌已清，自动退回验证页
-          else if (err.kind === 'bad_request') setFeedback({ kind: 'error', text: t.resultBadRequest })
-          else if (err.kind === 'rate_limited') setFeedback({ kind: 'error', text: t.resultRateLimited })
+          else if (err.kind === 'unauthorized')
+            return // 令牌已清，自动退回验证页
+          else if (err.kind === 'bad_request')
+            setFeedback({ kind: 'error', text: t.resultBadRequest })
+          else if (err.kind === 'rate_limited')
+            setFeedback({ kind: 'error', text: t.resultRateLimited })
           else setFeedback({ kind: 'error', text: t.errorNetwork })
         } else {
           setFeedback({ kind: 'error', text: t.errorNetwork })
@@ -178,11 +174,7 @@ export function VerifyPanel({
     } catch (err) {
       // 服务端刻意不区分「码错了 / 码过期了 / 没要过码」——
       // 能区分就等于泄露哪些账号正在等待验证。统一提示。
-      setError(
-        err instanceof ApiError && err.kind === 'network'
-          ? t.errorNetwork
-          : t.verifyFailed
-      )
+      setError(err instanceof ApiError && err.kind === 'network' ? t.errorNetwork : t.verifyFailed)
     } finally {
       setBusy(false)
     }
@@ -227,9 +219,7 @@ export function VerifyPanel({
         {/* 防诈骗提示 —— 与游戏内发码时的提示对齐 */}
         <div className="flex gap-2 rounded-md border border-destructive/40 bg-destructive/5 p-3">
           <ShieldAlert className="h-4 w-4 shrink-0 text-destructive" />
-          <p className="text-xs leading-relaxed text-destructive">
-            {t.scamWarning}
-          </p>
+          <p className="text-xs leading-relaxed text-destructive">{t.scamWarning}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -244,9 +234,7 @@ export function VerifyPanel({
                 autoComplete="off"
                 placeholder={t.playerIdPlaceholder}
                 value={playerId}
-                onChange={(e) =>
-                  setPlayerId(e.target.value.replace(/\D/g, '').slice(0, 12))
-                }
+                onChange={(e) => setPlayerId(e.target.value.replace(/\D/g, '').slice(0, 12))}
               />
             </div>
             <div className="space-y-1.5">
@@ -260,9 +248,7 @@ export function VerifyPanel({
                 placeholder="000000"
                 className="font-mono tracking-[0.3em]"
                 value={code}
-                onChange={(e) =>
-                  setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
-                }
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
               />
             </div>
           </div>
@@ -274,11 +260,7 @@ export function VerifyPanel({
             </p>
           )}
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={!idValid || !codeValid || busy}
-          >
+          <Button type="submit" className="w-full" disabled={!idValid || !codeValid || busy}>
             {busy ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

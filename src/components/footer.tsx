@@ -12,8 +12,7 @@ export function Footer() {
   const prefix = locale === 'en' ? '/en' : ''
   const { sitePv, siteUv, pagePv } = useVisitorStats()
 
-  const linkClass =
-    'text-sm text-muted-foreground transition-colors hover:text-foreground'
+  const linkClass = 'text-sm text-muted-foreground transition-colors hover:text-foreground'
 
   return (
     <footer className="border-t">
@@ -41,8 +40,7 @@ export function Footer() {
           </div>
           <p>{dict.site.copyright}</p>
           <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed">
-            {dict.footer.disclaimer}
-            {' '}
+            {dict.footer.disclaimer}{' '}
             <a
               href={dict.footer.fanContentPolicyUrl}
               target="_blank"

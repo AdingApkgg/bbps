@@ -63,7 +63,11 @@ export function Navbar() {
 
   /* 地图编辑器已并入「自制地图」页，不再单列外链 */
   const externalItems: { href: string; label: string; icon: LucideIcon }[] = [
-    { href: 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98', label: dict.nav.drive, icon: HardDrive }
+    {
+      href: 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98',
+      label: dict.nav.drive,
+      icon: HardDrive
+    }
   ]
 
   function isActive(href: string) {
@@ -74,10 +78,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 max-w-screen-2xl items-center px-4">
         {/* Logo */}
-        <Link
-          href={locale === 'en' ? '/en' : '/'}
-          className="flex items-center gap-2"
-        >
+        <Link href={locale === 'en' ? '/en' : '/'} className="flex items-center gap-2">
           <Image
             src="/assets/images/logo/logo.avif"
             alt={dict.site.name}
@@ -85,9 +86,7 @@ export function Navbar() {
             height={28}
             className="rounded-md"
           />
-          <span className="font-semibold">
-            {dict.site.name}
-          </span>
+          <span className="font-semibold">{dict.site.name}</span>
         </Link>
 
         {/* Right side actions */}
@@ -155,9 +154,7 @@ export function Navbar() {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 asChild
-                className={cn(
-                  isActive(`${prefix}/donate`) && 'bg-accent font-semibold'
-                )}
+                className={cn(isActive(`${prefix}/donate`) && 'bg-accent font-semibold')}
               >
                 <Link href={`${prefix}/donate`}>
                   <HandCoins className="mr-2 h-4 w-4 text-amber-500" />

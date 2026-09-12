@@ -36,7 +36,9 @@ function ArtalkPanel({ lang }: { lang: string }) {
       })
       artalkRef.current = instance
       setLoaded(true)
-    })().catch(() => { /* dynamic import aborted on unmount */ })
+    })().catch(() => {
+      /* dynamic import aborted on unmount */
+    })
     return () => {
       cancelled = true
       // 必须 destroy：Artalk 会把弹层挂到 document.body 上，只清空 el 会让旧实例
@@ -75,9 +77,7 @@ export function CommentsSection() {
 
   return (
     <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <h1 className="text-center text-3xl font-bold tracking-tight">
-        {dict.comments.title}
-      </h1>
+      <h1 className="text-center text-3xl font-bold tracking-tight">{dict.comments.title}</h1>
 
       <Card className="mt-10">
         <CardContent className="p-6">

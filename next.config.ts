@@ -20,9 +20,7 @@ const nextConfig: NextConfig = {
    */
   ...(isDev
     ? {
-        rewrites: async () => [
-          { source: '/gameapi/:path*', destination: `${GAME_API}/:path*` }
-        ]
+        rewrites: async () => [{ source: '/gameapi/:path*', destination: `${GAME_API}/:path*` }]
       }
     : {})
 }

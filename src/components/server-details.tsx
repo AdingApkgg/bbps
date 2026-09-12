@@ -4,12 +4,7 @@ import { Server } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { useServerStats } from '@/hooks/use-server-stats'
-import {
-  formatBytes,
-  formatDuration,
-  formatServerTime,
-  parseUptimeSeconds
-} from '@/lib/format'
+import { formatBytes, formatDuration, formatServerTime, parseUptimeSeconds } from '@/lib/format'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -31,8 +26,7 @@ export function ServerDetails() {
         },
         {
           label: t.detailMemory,
-          value:
-            stats.memory_used != null ? formatBytes(stats.memory_used) : '—'
+          value: stats.memory_used != null ? formatBytes(stats.memory_used) : '—'
         },
         {
           label: t.detailConnections,
@@ -61,9 +55,7 @@ export function ServerDetails() {
         {
           label: t.detailPatch,
           value: stats.use_patch
-            ? `${t.detailPatchOn}${
-                stats.patch_sha ? ` · ${String(stats.patch_sha)}` : ''
-              }`
+            ? `${t.detailPatchOn}${stats.patch_sha ? ` · ${String(stats.patch_sha)}` : ''}`
             : t.detailPatchOff
         },
         {
@@ -108,12 +100,8 @@ export function ServerDetails() {
                 key={row.label}
                 className="flex items-baseline justify-between gap-4 border-b py-2 last:border-b-0"
               >
-                <dt className="shrink-0 text-sm text-muted-foreground">
-                  {row.label}
-                </dt>
-                <dd className="truncate text-sm font-medium tabular-nums">
-                  {row.value}
-                </dd>
+                <dt className="shrink-0 text-sm text-muted-foreground">{row.label}</dt>
+                <dd className="truncate text-sm font-medium tabular-nums">{row.value}</dd>
               </div>
             ))}
           </dl>

@@ -12,11 +12,7 @@ import {
 } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
-import {
-  useBaseLevels,
-  useCustomBases,
-  useDebounced
-} from '@/hooks/use-custom-bases'
+import { useBaseLevels, useCustomBases, useDebounced } from '@/hooks/use-custom-bases'
 import { customBaseDownloadUrl, type CustomBase, type CustomBaseSort } from '@/lib/api'
 import { baseLevelLabel } from '@/lib/custom-bases'
 import { formatBytes, formatServerTime } from '@/lib/format'
@@ -135,10 +131,7 @@ export function CustomBasesPage() {
               ))}
             </SelectContent>
           </Select>
-          <Select
-            value={sort}
-            onValueChange={(v) => setSort(v as CustomBaseSort)}
-          >
+          <Select value={sort} onValueChange={(v) => setSort(v as CustomBaseSort)}>
             <SelectTrigger className="sm:w-40">
               <SelectValue />
             </SelectTrigger>
@@ -169,30 +162,20 @@ export function CustomBasesPage() {
               {error === 'rate' ? t.rateLimited : t.error}
             </p>
           ) : !items.length ? (
-            <p className="py-12 text-center text-sm text-muted-foreground">
-              {t.empty}
-            </p>
+            <p className="py-12 text-center text-sm text-muted-foreground">{t.empty}</p>
           ) : (
             <div className="overflow-x-auto rounded-md border">
               <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t.colName}</TableHead>
-                    <TableHead className="hidden sm:table-cell">
-                      {t.colType}
-                    </TableHead>
+                    <TableHead className="hidden sm:table-cell">{t.colType}</TableHead>
                     <TableHead className="hidden text-right md:table-cell">
                       {t.colBuildings}
                     </TableHead>
-                    <TableHead className="hidden text-right md:table-cell">
-                      {t.colTraps}
-                    </TableHead>
-                    <TableHead className="hidden text-right lg:table-cell">
-                      {t.colSize}
-                    </TableHead>
-                    <TableHead className="text-right">
-                      {t.colDownloads}
-                    </TableHead>
+                    <TableHead className="hidden text-right md:table-cell">{t.colTraps}</TableHead>
+                    <TableHead className="hidden text-right lg:table-cell">{t.colSize}</TableHead>
+                    <TableHead className="text-right">{t.colDownloads}</TableHead>
                     <TableHead className="hidden text-right lg:table-cell">
                       {t.colUpdated}
                     </TableHead>
@@ -208,9 +191,7 @@ export function CustomBasesPage() {
                     >
                       <TableCell className="font-medium">
                         <span className="flex items-center gap-1.5">
-                          <span className="line-clamp-1 break-all">
-                            {base.name}
-                          </span>
+                          <span className="line-clamp-1 break-all">{base.name}</span>
                           {base.locked && (
                             <Lock className="h-3 w-3 shrink-0 text-muted-foreground" />
                           )}
@@ -218,11 +199,7 @@ export function CustomBasesPage() {
                       </TableCell>
                       <TableCell className="hidden sm:table-cell">
                         <Badge variant="secondary" className="font-normal">
-                          {baseLevelLabel(
-                            base.base_level,
-                            locale,
-                            t.uncategorized
-                          )}
+                          {baseLevelLabel(base.base_level, locale, t.uncategorized)}
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden text-right tabular-nums md:table-cell">
@@ -248,10 +225,7 @@ export function CustomBasesPage() {
                           size="icon"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <a
-                            href={customBaseDownloadUrl(base.name)}
-                            aria-label={t.download}
-                          >
+                          <a href={customBaseDownloadUrl(base.name)} aria-label={t.download}>
                             <Download className="h-4 w-4" />
                           </a>
                         </Button>
@@ -281,9 +255,7 @@ export function CustomBasesPage() {
                 {t.previous}
               </Button>
               <span className="text-sm tabular-nums text-muted-foreground">
-                {t.pageInfo
-                  .replace('{page}', String(page))
-                  .replace('{total}', String(totalPages))}
+                {t.pageInfo.replace('{page}', String(page)).replace('{total}', String(totalPages))}
               </span>
               <Button
                 variant="outline"
@@ -299,10 +271,7 @@ export function CustomBasesPage() {
         )}
       </div>
 
-      <CustomBaseSheet
-        base={selected}
-        onOpenChange={(open) => !open && setSelected(null)}
-      />
+      <CustomBaseSheet base={selected} onOpenChange={(open) => !open && setSelected(null)} />
     </div>
   )
 }

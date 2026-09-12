@@ -1,7 +1,17 @@
 'use client'
 
 import type { LucideIcon } from 'lucide-react'
-import { Download, HardDrive, Sparkles, Cat, Flower2, CloudFog, Monitor, Apple, Smartphone } from 'lucide-react'
+import {
+  Download,
+  HardDrive,
+  Sparkles,
+  Cat,
+  Flower2,
+  CloudFog,
+  Monitor,
+  Apple,
+  Smartphone
+} from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,10 +24,10 @@ const DOWNLOAD_URL = 'https://30hb.cn/latest'
 const DRIVE_URL = 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98'
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  'sparkles': Sparkles,
-  'cat': Cat,
+  sparkles: Sparkles,
+  cat: Cat,
   'flower-2': Flower2,
-  'cloud-fog': CloudFog,
+  'cloud-fog': CloudFog
 }
 
 export function DownloadsSection() {
@@ -127,11 +137,7 @@ export function DownloadsSection() {
                       <p className="text-sm text-muted-foreground">{meta.desc}</p>
                     </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    className="w-full shrink-0 sm:w-auto"
-                    asChild
-                  >
+                  <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
                     <a href={server.url} target="_blank" rel="noopener noreferrer">
                       {d.downloadApk}
                     </a>
@@ -156,11 +162,7 @@ export function DownloadsSection() {
                   </p>
                 </div>
               </div>
-              <Button
-                variant="outline"
-                className="w-full shrink-0 sm:w-auto"
-                asChild
-              >
+              <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
                 <a href={DRIVE_URL} target="_blank" rel="noopener noreferrer">
                   {dict.nav.drive}
                 </a>

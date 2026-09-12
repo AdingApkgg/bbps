@@ -1,11 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import {
-  fetchAllRanks,
-  type LeaderboardScope,
-  type RankData
-} from '@/lib/rank'
+import { fetchAllRanks, type LeaderboardScope, type RankData } from '@/lib/rank'
 
 const POLL_INTERVAL = 60000
 const EMPTY_RANKS: RankData = {

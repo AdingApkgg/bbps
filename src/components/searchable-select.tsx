@@ -147,9 +147,7 @@ export function SearchableSelect({
           )}
 
           {visible.length === 0 ? (
-            <p className="px-2 py-3 text-center text-xs text-muted-foreground">
-              {emptyText}
-            </p>
+            <p className="px-2 py-3 text-center text-xs text-muted-foreground">{emptyText}</p>
           ) : (
             <ul
               ref={listRef}

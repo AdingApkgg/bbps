@@ -65,8 +65,7 @@ export function PlayerBaseSheet({
         if (cancelled || (e instanceof DOMException && e.name === 'AbortError')) return
         setEntry({
           id: target.id,
-          error:
-            e instanceof ApiError && e.kind === 'rate_limited' ? 'rate' : 'other'
+          error: e instanceof ApiError && e.kind === 'rate_limited' ? 'rate' : 'other'
         })
       }
     }
@@ -143,9 +142,7 @@ export function PlayerBaseSheet({
                     {t.baseHq} {summary.hqLevel}
                   </Badge>
                 )}
-                {summary.seasonName && (
-                  <Badge variant="secondary">{summary.seasonName}</Badge>
-                )}
+                {summary.seasonName && <Badge variant="secondary">{summary.seasonName}</Badge>}
               </div>
 
               <dl className="grid grid-cols-2 gap-x-6">
@@ -164,35 +161,25 @@ export function PlayerBaseSheet({
                     key={row.label}
                     className="flex items-baseline justify-between gap-3 border-b py-2"
                   >
-                    <dt className="text-sm text-muted-foreground">
-                      {row.label}
-                    </dt>
-                    <dd className="text-sm font-medium tabular-nums">
-                      {row.value}
-                    </dd>
+                    <dt className="text-sm text-muted-foreground">{row.label}</dt>
+                    <dd className="text-sm font-medium tabular-nums">{row.value}</dd>
                   </div>
                 ))}
               </dl>
 
               {summary.top.length > 0 && (
                 <div>
-                  <h3 className="mb-2 text-sm font-semibold">
-                    {t.baseComposition}
-                  </h3>
+                  <h3 className="mb-2 text-sm font-semibold">{t.baseComposition}</h3>
                   <ul className="space-y-1">
                     {summary.top.map((b) => (
                       <li
                         key={b.id}
                         className="flex items-baseline justify-between gap-3 border-b py-1.5 text-sm"
                       >
-                        <span className="truncate text-muted-foreground">
-                          {buildingName(b.id)}
-                        </span>
+                        <span className="truncate text-muted-foreground">{buildingName(b.id)}</span>
                         <span className="shrink-0 tabular-nums">
                           ×{b.count}
-                          <span className="ml-2 text-xs text-muted-foreground">
-                            Lv.{b.maxLvl}
-                          </span>
+                          <span className="ml-2 text-xs text-muted-foreground">Lv.{b.maxLvl}</span>
                         </span>
                       </li>
                     ))}

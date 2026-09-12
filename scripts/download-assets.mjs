@@ -34,7 +34,8 @@ async function downloadUrl(url) {
 function parseFankitUrls(html, baseUrl) {
   const urls = []
   const showRegex = /(?:href|src)="([^"]*\/d\/pZyVfhcaMuFD[^"]*\/show\/[^"]+)"/g
-  const imgRegex = /(?:href|src)="(https:\/\/[^"]*fankit\.supercell\.com[^"]*\.(?:png|jpg|jpeg|webp))"/gi
+  const imgRegex =
+    /(?:href|src)="(https:\/\/[^"]*fankit\.supercell\.com[^"]*\.(?:png|jpg|jpeg|webp))"/gi
   for (const m of html.matchAll(showRegex)) {
     const u = m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href
     if (!urls.includes(u)) urls.push(u)
@@ -53,7 +54,8 @@ async function fetchImageFromUrl(url) {
     return Buffer.from(await res.arrayBuffer())
   }
   const html = await res.text()
-  const imgMatch = html.match(/<img[^>]+src="(https:\/\/[^"]+)"/) ||
+  const imgMatch =
+    html.match(/<img[^>]+src="(https:\/\/[^"]+)"/) ||
     html.match(/src="(https:\/\/[^"]*fankit[^"]*\.(?:png|jpg|jpeg|webp))"/i)
   if (imgMatch) {
     const buf = await downloadUrl(imgMatch[1])
@@ -65,7 +67,10 @@ async function fetchImageFromUrl(url) {
 async function tryFankit() {
   const res = await fetch(FANKIT_URL, {
     redirect: 'follow',
-    headers: { Accept: 'text/html', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' }
+    headers: {
+      Accept: 'text/html',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    }
   })
   const html = await res.text()
   const urls = parseFankitUrls(html, FANKIT_URL)
@@ -80,7 +85,9 @@ async function loadFankitUrlsFromFile() {
     const raw = await readFile(path, 'utf8')
     const arr = JSON.parse(raw)
     if (Array.isArray(arr) && arr.length >= OUTPUT_FILES.length) {
-      return arr.filter((u) => typeof u === 'string' && u.includes('fankit')).slice(0, OUTPUT_FILES.length)
+      return arr
+        .filter((u) => typeof u === 'string' && u.includes('fankit'))
+        .slice(0, OUTPUT_FILES.length)
     }
   } catch {
     // no file or invalid
@@ -144,7 +151,14 @@ const BOSS_BASES = [
   rev(`${WIKI_V1}/9/93/Boss_Base_7.png`, '20161125192758'),
   rev(`${WIKI_V4}/2/28/Boss_Base_8.png`, '20161125192758')
 ]
-const MAP_SLOTS = [...BOSS_BASES, BOSS_BASES[0], BOSS_BASES[1], BOSS_BASES[2], BOSS_BASES[3], BOSS_BASES[4]]
+const MAP_SLOTS = [
+  ...BOSS_BASES,
+  BOSS_BASES[0],
+  BOSS_BASES[1],
+  BOSS_BASES[2],
+  BOSS_BASES[3],
+  BOSS_BASES[4]
+]
 const FALLBACK_TASKS = [
   { url: ARCHIPELAGO_MAP, file: 'commander.png' },
   { url: BOSS_BASES[0], file: 'hammerman.png' },

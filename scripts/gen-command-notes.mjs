@@ -45,7 +45,11 @@ function loadCatalog() {
     const out = execFileSync('bun', ['run', probe], { cwd: ROOT, encoding: 'utf8' })
     return JSON.parse(out.trim().split('\n').pop())
   } finally {
-    try { execFileSync('rm', ['-f', probe]) } catch { /* ignore */ }
+    try {
+      execFileSync('rm', ['-f', probe])
+    } catch {
+      /* ignore */
+    }
   }
 }
 
@@ -96,7 +100,11 @@ const flush = () => {
 }
 for (const line of raw.split('\n')) {
   const m = line.match(/^##\s+(\S.*?)\s*$/)
-  if (m) { flush(); cur = m[1]; continue }
+  if (m) {
+    flush()
+    cur = m[1]
+    continue
+  }
   if (cur !== null) buf.push(line)
 }
 flush()
@@ -116,7 +124,9 @@ if (orphans.length) {
   for (const o of orphans) console.log(`    ${o}`)
 }
 if (missing.length) {
-  console.log(`\n· 目录里有 ${missing.length} 条还没写说明${missingDangerous.length ? `（其中 ${missingDangerous.length} 条带危险标记，必须补）` : ''}：`)
+  console.log(
+    `\n· 目录里有 ${missing.length} 条还没写说明${missingDangerous.length ? `（其中 ${missingDangerous.length} 条带危险标记，必须补）` : ''}：`
+  )
   for (const c of missing.slice(0, 12))
     console.log(`    ${c.cmd}${c.danger ? `  ← ${c.danger}` : ''}`)
   if (missing.length > 12) console.log(`    … 另 ${missing.length - 12} 条`)

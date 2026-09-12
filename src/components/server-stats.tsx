@@ -21,24 +21,14 @@ import { PlayerName } from '@/components/player-name'
 import { ChatFeed } from '@/components/chat-feed'
 import { ServerDetails } from '@/components/server-details'
 import { GlobalStats } from '@/components/global-stats'
-import {
-  PlayerBaseSheet,
-  type PlayerBaseTarget
-} from '@/components/player-base-sheet'
+import { PlayerBaseSheet, type PlayerBaseTarget } from '@/components/player-base-sheet'
 
 export function ServerStats() {
   const locale = useLocale()
   const dict = getDictionary(locale)
   const [target, setTarget] = useState<PlayerBaseTarget | null>(null)
-  const {
-    serverVersion,
-    onlinePlayers,
-    totalPlayers,
-    totalReplays,
-    players,
-    loading,
-    error
-  } = useServerStats()
+  const { serverVersion, onlinePlayers, totalPlayers, totalReplays, players, loading, error } =
+    useServerStats()
 
   const statCards = [
     {
@@ -67,9 +57,7 @@ export function ServerStats() {
   return (
     <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
       <FadeIn className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {dict.stats.onlinePlayers}
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">{dict.stats.onlinePlayers}</h1>
       </FadeIn>
 
       {/* Stat cards */}
@@ -78,9 +66,7 @@ export function ServerStats() {
           <StaggerItem key={stat.label}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {stat.label}
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">{stat.label}</CardTitle>
                 {stat.icon}
               </CardHeader>
               <CardContent>
@@ -103,9 +89,7 @@ export function ServerStats() {
       <FadeIn delay={0.3}>
         <Card className="mt-6">
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-base">
-              {dict.stats.onlinePlayers}
-            </CardTitle>
+            <CardTitle className="text-base">{dict.stats.onlinePlayers}</CardTitle>
             <Badge variant="secondary">{players.length}</Badge>
           </CardHeader>
           <CardContent>
@@ -122,9 +106,7 @@ export function ServerStats() {
             )}
 
             {!loading && error && (
-              <p className="py-8 text-center text-sm text-destructive">
-                {dict.stats.error}
-              </p>
+              <p className="py-8 text-center text-sm text-destructive">{dict.stats.error}</p>
             )}
 
             {!loading && !error && players.length === 0 && (
@@ -135,44 +117,36 @@ export function ServerStats() {
 
             {!loading && players.length > 0 && (
               <>
-                <p className="mb-3 text-xs text-muted-foreground">
-                  {dict.stats.baseViewHint}
-                </p>
+                <p className="mb-3 text-xs text-muted-foreground">{dict.stats.baseViewHint}</p>
                 <div className="max-h-[400px] overflow-y-auto rounded-md border">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-12">#</TableHead>
-                      <TableHead>
-                        {locale === 'zh' ? '玩家' : 'Player'}
-                      </TableHead>
-                      <TableHead className="text-right">ID</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {players.map((player, index) => (
-                      <TableRow key={player.id}>
-                        <TableCell className="font-medium">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setTarget({ id: player.id, name: player.name })
-                            }
-                            className="text-left hover:underline"
-                          >
-                            <PlayerName name={player.name} />
-                          </button>
-                        </TableCell>
-                        <TableCell className="text-right text-muted-foreground">
-                          {player.id}
-                        </TableCell>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-12">#</TableHead>
+                        <TableHead>{locale === 'zh' ? '玩家' : 'Player'}</TableHead>
+                        <TableHead className="text-right">ID</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {players.map((player, index) => (
+                        <TableRow key={player.id}>
+                          <TableCell className="font-medium">{index + 1}</TableCell>
+                          <TableCell>
+                            <button
+                              type="button"
+                              onClick={() => setTarget({ id: player.id, name: player.name })}
+                              className="text-left hover:underline"
+                            >
+                              <PlayerName name={player.name} />
+                            </button>
+                          </TableCell>
+                          <TableCell className="text-right text-muted-foreground">
+                            {player.id}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
               </>
             )}

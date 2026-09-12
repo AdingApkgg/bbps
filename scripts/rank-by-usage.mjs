@@ -50,20 +50,22 @@ const src = readFileSync(FILE, 'utf8')
  * 取 max 会漏掉别名那部分 —— 曾因此把「进攻」组的占比算成 2%（实为 5.5%）。
  */
 function usageOf(cmd, aliases) {
-  const keys = [...new Set(
-    [cmd, ...aliases].map((c) => c.replace(/^\//, '').split(/\s+/)[0].toLowerCase())
-  )]
+  const keys = [
+    ...new Set([cmd, ...aliases].map((c) => c.replace(/^\//, '').split(/\s+/)[0].toLowerCase()))
+  ]
   return keys.reduce((sum, k) => sum + (usage.get(k) ?? 0), 0)
 }
 
-const entries = [...src.matchAll(/C\(\{([\s\S]*?)\}\)/g)].map((m) => {
-  const b = m[1]
-  const cmd = (b.match(/cmd:\s*'([^']+)'/) || [])[1]
-  const group = (b.match(/group:\s*'([^']+)'/) || [])[1]
-  const al = (b.match(/aliases:\s*\[([^\]]*)\]/)?.[1] ?? '')
-  const aliases = [...al.matchAll(/'([^']+)'/g)].map((x) => x[1])
-  return { cmd, group, aliases, n: usageOf(cmd || '', aliases) }
-}).filter((e) => e.cmd)
+const entries = [...src.matchAll(/C\(\{([\s\S]*?)\}\)/g)]
+  .map((m) => {
+    const b = m[1]
+    const cmd = (b.match(/cmd:\s*'([^']+)'/) || [])[1]
+    const group = (b.match(/group:\s*'([^']+)'/) || [])[1]
+    const al = b.match(/aliases:\s*\[([^\]]*)\]/)?.[1] ?? ''
+    const aliases = [...al.matchAll(/'([^']+)'/g)].map((x) => x[1])
+    return { cmd, group, aliases, n: usageOf(cmd || '', aliases) }
+  })
+  .filter((e) => e.cmd)
 
 /* ── 组间排序：按组内使用量之和，但闪退自救固定置顶（应急入口，低使用是正常的）。
    求和必须按基指令去重 —— /resource、/resource fill、/resource proto 是三条目录
@@ -91,12 +93,17 @@ console.log(`目录 ${entries.length} 条，零使用 ${entries.filter((e) => e.
 console.log()
 console.log('组排序（闪退自救固定置顶）：')
 for (const g of ordered) {
-  console.log(`  ${g.padEnd(10)}${String(groupSum[g]).padStart(10)}  ${(groupSum[g] / grandTotal * 100).toFixed(1)}%`)
+  console.log(
+    `  ${g.padEnd(10)}${String(groupSum[g]).padStart(10)}  ${((groupSum[g] / grandTotal) * 100).toFixed(1)}%`
+  )
 }
 console.log()
 console.log('各组内前 3（组内也按使用量排）：')
 for (const g of ordered) {
-  const top = entries.filter((e) => e.group === g).sort((a, b) => b.n - a.n).slice(0, 3)
+  const top = entries
+    .filter((e) => e.group === g)
+    .sort((a, b) => b.n - a.n)
+    .slice(0, 3)
   console.log(`  ${g.padEnd(10)}${top.map((t) => `${t.cmd}(${t.n.toLocaleString()})`).join('  ')}`)
 }
 
@@ -119,11 +126,17 @@ if (!metaMatch) {
 }
 const metaBody = metaMatch[1]
 const blocks = []
-let depth = 0, start = -1
+let depth = 0,
+  start = -1
 for (let i = 0; i < metaBody.length; i++) {
   const c = metaBody[i]
-  if (c === '{') { if (depth === 0) start = i; depth++ }
-  else if (c === '}') { depth--; if (depth === 0) blocks.push(metaBody.slice(start, i + 1)) }
+  if (c === '{') {
+    if (depth === 0) start = i
+    depth++
+  } else if (c === '}') {
+    depth--
+    if (depth === 0) blocks.push(metaBody.slice(start, i + 1))
+  }
 }
 const byId = {}
 for (const b of blocks) {
@@ -137,7 +150,10 @@ if (missing.length) {
 }
 const rest = Object.keys(byId).filter((g) => !ordered.includes(g))
 const reordered = [...ordered, ...rest].map((g) => byId[g]).join(',\n  ')
-out = out.replace(metaRe, `export const COMMAND_GROUP_META: CommandGroupMeta[] = [\n  ${reordered}\n]`)
+out = out.replace(
+  metaRe,
+  `export const COMMAND_GROUP_META: CommandGroupMeta[] = [\n  ${reordered}\n]`
+)
 
 writeFileSync(FILE, out, 'utf8')
 console.log('\n已写入 src/lib/commands.ts')

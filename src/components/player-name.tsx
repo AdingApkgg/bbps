@@ -59,14 +59,12 @@ interface PlayerNameProps {
   fallback?: string
 }
 
-export function PlayerName({
-  name,
-  className,
-  plain = false,
-  fallback = '—'
-}: PlayerNameProps) {
+export function PlayerName({ name, className, plain = false, fallback = '—' }: PlayerNameProps) {
   const segments = parsePlayerName(name)
-  const text = segments.map((s) => s.text).join('').trim()
+  const text = segments
+    .map((s) => s.text)
+    .join('')
+    .trim()
 
   if (!text) return <span className={className}>{fallback}</span>
   if (plain) return <span className={className}>{text}</span>
@@ -75,11 +73,7 @@ export function PlayerName({
     <span className={className} title={text}>
       {segments.map((seg, i) => (
         <Fragment key={i}>
-          {seg.color ? (
-            <span style={{ color: seg.color }}>{seg.text}</span>
-          ) : (
-            seg.text
-          )}
+          {seg.color ? <span style={{ color: seg.color }}>{seg.text}</span> : seg.text}
         </Fragment>
       ))}
     </span>

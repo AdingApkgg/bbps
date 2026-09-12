@@ -76,9 +76,7 @@ export function CustomBaseSheet({
           <div className="space-y-6 px-4 pb-6">
             <div className="flex flex-wrap gap-2">
               <Badge variant={base.locked ? 'secondary' : 'default'}>
-                {base.locked ? (
-                  <Lock className="mr-1 h-3 w-3" />
-                ) : null}
+                {base.locked ? <Lock className="mr-1 h-3 w-3" /> : null}
                 {base.locked ? t.locked : t.editable}
               </Badge>
               {base.has_password && (
@@ -96,9 +94,7 @@ export function CustomBaseSheet({
                   className="flex items-baseline justify-between gap-3 border-b py-2"
                 >
                   <dt className="text-sm text-muted-foreground">{row.label}</dt>
-                  <dd className="text-sm font-medium tabular-nums">
-                    {row.value}
-                  </dd>
+                  <dd className="text-sm font-medium tabular-nums">{row.value}</dd>
                 </div>
               ))}
             </dl>

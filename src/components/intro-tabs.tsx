@@ -20,23 +20,15 @@ export function IntroTabs() {
   const [active, setActive] = useState(0)
 
   /* 每个 tab 对应的 CTA 链接 */
-  const ctaHrefs = [
-    `${prefix}/downloads`,
-    `${prefix}/commands`,
-    `${prefix}/downloads`
-  ]
+  const ctaHrefs = [`${prefix}/downloads`, `${prefix}/commands`, `${prefix}/downloads`]
 
   return (
     <section className="border-b bg-muted/30">
       <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:py-24">
         {/* 标题 */}
         <FadeIn className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {dict.intro.title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            {dict.intro.subtitle}
-          </p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{dict.intro.title}</h2>
+          <p className="mt-4 text-lg text-muted-foreground">{dict.intro.subtitle}</p>
         </FadeIn>
 
         {/* Tab 按钮 */}
@@ -73,15 +65,11 @@ export function IntroTabs() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <div className="rounded-xl border bg-background p-8 shadow-sm md:p-10">
-                <h3 className="text-xl font-semibold md:text-2xl">
-                  {tabs[active].heading}
-                </h3>
+                <h3 className="text-xl font-semibold md:text-2xl">{tabs[active].heading}</h3>
                 <div className="mt-4 space-y-3 text-muted-foreground">
-                  {(tabs[active].content as string)
-                    .split('\n')
-                    .map((line: string, j: number) => (
-                      <p key={j}>{line}</p>
-                    ))}
+                  {(tabs[active].content as string).split('\n').map((line: string, j: number) => (
+                    <p key={j}>{line}</p>
+                  ))}
                 </div>
                 <Button className="mt-6" asChild>
                   <Link href={ctaHrefs[active]}>

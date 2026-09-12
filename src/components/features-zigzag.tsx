@@ -7,12 +7,7 @@ import { getDictionary } from '@/lib/i18n'
 import { ASSETS } from '@/lib/assets'
 import { FadeIn } from '@/components/motion'
 
-const FEATURE_IMAGES = [
-  ASSETS.hero,
-  ASSETS.commands,
-  ASSETS.community,
-  ASSETS.builder
-]
+const FEATURE_IMAGES = [ASSETS.hero, ASSETS.commands, ASSETS.community, ASSETS.builder]
 
 interface FeatureItem {
   heading: string
@@ -57,12 +52,8 @@ function FeatureRow({
         className="mx-auto max-w-xl md:col-span-7 md:max-w-none lg:col-span-6"
       >
         <div className={reverse ? 'md:pr-4 lg:pr-12 xl:pr-16' : 'md:pl-4 lg:pl-12 xl:pl-16'}>
-          <h3 className="mb-3 text-2xl font-bold tracking-tight">
-            {item.heading}
-          </h3>
-          <p className="mb-4 text-lg text-muted-foreground">
-            {item.description}
-          </p>
+          <h3 className="mb-3 text-2xl font-bold tracking-tight">{item.heading}</h3>
+          <p className="mb-4 text-lg text-muted-foreground">{item.description}</p>
           <ul className="space-y-2 text-muted-foreground">
             {item.bullets.map((bullet, i) => (
               <li key={i} className="flex items-center gap-2">
@@ -90,9 +81,7 @@ export function FeaturesZigzag() {
           <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
             {dict.features.title}
           </h2>
-          <p className="text-lg text-muted-foreground">
-            {dict.features.subtitle}
-          </p>
+          <p className="text-lg text-muted-foreground">{dict.features.subtitle}</p>
         </FadeIn>
 
         {/* 交错排列的 feature 行 */}

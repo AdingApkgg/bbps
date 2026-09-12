@@ -49,10 +49,11 @@ interface DeployItem {
 
 async function fetchVpOrCrab(type: string): Promise<RankEntry[]> {
   const json = await fetchLeaderboard<unknown>(type)
-  const list = (Array.isArray(json)
-    ? json
-    : (json as { body?: { RankingEntries?: VPOrCrabItem[] } })?.body
-        ?.RankingEntries) as VPOrCrabItem[] | undefined
+  const list = (
+    Array.isArray(json)
+      ? json
+      : (json as { body?: { RankingEntries?: VPOrCrabItem[] } })?.body?.RankingEntries
+  ) as VPOrCrabItem[] | undefined
   if (!Array.isArray(list)) return []
   return list.map((item, i) => ({
     rank: item.Order ?? i + 1,
@@ -92,9 +93,7 @@ export interface RankData {
  * 一次取回某一档（全球 / 本地）的三个榜 + 阵亡统计。
  * 阵亡统计没有 LOCAL 之分，两档共用。
  */
-export async function fetchAllRanks(
-  scope: LeaderboardScope = 'GLOBAL'
-): Promise<RankData> {
+export async function fetchAllRanks(scope: LeaderboardScope = 'GLOBAL'): Promise<RankData> {
   const [vp, megacrab, coe, casualties] = await Promise.all([
     fetchVpOrCrab(`VP_${scope}`),
     fetchVpOrCrab(`CRAB_${scope}`),

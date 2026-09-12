@@ -44,9 +44,10 @@ export function sortPosts(posts: WPPost[], key: BlogSortKey): WPPost[] {
 /** 重试间隔（共 1 + RETRY_DELAYS.length 次尝试），吸收构建时的瞬时网络故障 */
 const RETRY_DELAYS_MS = [1000, 3000]
 
-export async function fetchBlogPosts(
-  options?: { perPage?: number; page?: number }
-): Promise<WPPost[]> {
+export async function fetchBlogPosts(options?: {
+  perPage?: number
+  page?: number
+}): Promise<WPPost[]> {
   const perPage = options?.perPage ?? 20
   const page = options?.page ?? 1
   const url = `${WP_API}/posts?per_page=${perPage}&page=${page}&_embed`
@@ -104,9 +105,10 @@ const HTML_ENTITIES: Record<string, string> = {
 function decodeEntities(text: string): string {
   return text.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (match, entity: string) => {
     if (entity.startsWith('#')) {
-      const code = entity[1] === 'x' || entity[1] === 'X'
-        ? parseInt(entity.slice(2), 16)
-        : parseInt(entity.slice(1), 10)
+      const code =
+        entity[1] === 'x' || entity[1] === 'X'
+          ? parseInt(entity.slice(2), 16)
+          : parseInt(entity.slice(1), 10)
       return Number.isFinite(code) ? String.fromCodePoint(code) : match
     }
     return HTML_ENTITIES[entity.toLowerCase()] ?? match

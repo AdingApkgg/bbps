@@ -1,16 +1,31 @@
 'use client'
 
 import {
-  createContext, useContext, useState, useRef, useEffect,
-  useCallback, useMemo, type ReactNode
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+  type ReactNode
 } from 'react'
 import {
-  loadApiEndpoint, saveApiEndpoint as persistApi,
-  loadPlaylists, savePlaylists as persistPlaylists,
-  loadVolume, saveVolume as persistVolume,
-  loadPlayMode, savePlayMode as persistPlayMode,
-  fetchMetingPlaylist, fetchLrc,DEFAULT_PLAYLISTS,
-  type MetingTrack, type PlaylistConfig, type PlayMode, type LrcLine
+  loadApiEndpoint,
+  saveApiEndpoint as persistApi,
+  loadPlaylists,
+  savePlaylists as persistPlaylists,
+  loadVolume,
+  saveVolume as persistVolume,
+  loadPlayMode,
+  savePlayMode as persistPlayMode,
+  fetchMetingPlaylist,
+  fetchLrc,
+  DEFAULT_PLAYLISTS,
+  type MetingTrack,
+  type PlaylistConfig,
+  type PlayMode,
+  type LrcLine
 } from '@/lib/music'
 
 interface MusicPlayerContextValue {
@@ -74,7 +89,9 @@ export function useMusicTime() {
     const audio = getAudio()
     if (!audio) return
     const onTime = () => setTime(audio.currentTime)
-    const onDur = () => { if (Number.isFinite(audio.duration)) setDuration(audio.duration) }
+    const onDur = () => {
+      if (Number.isFinite(audio.duration)) setDuration(audio.duration)
+    }
     audio.addEventListener('timeupdate', onTime)
     audio.addEventListener('durationchange', onDur)
     return () => {
@@ -116,10 +133,18 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   const modeRef = useRef<PlayMode>('sequential')
   const allTracksRef = useRef<MetingTrack[][]>([])
 
-  useEffect(() => { playlistIdxRef.current = playingPlaylist }, [playingPlaylist])
-  useEffect(() => { trackIdxRef.current = currentTrackIdx }, [currentTrackIdx])
-  useEffect(() => { modeRef.current = mode }, [mode])
-  useEffect(() => { allTracksRef.current = playlistTracks }, [playlistTracks])
+  useEffect(() => {
+    playlistIdxRef.current = playingPlaylist
+  }, [playingPlaylist])
+  useEffect(() => {
+    trackIdxRef.current = currentTrackIdx
+  }, [currentTrackIdx])
+  useEffect(() => {
+    modeRef.current = mode
+  }, [mode])
+  useEffect(() => {
+    allTracksRef.current = playlistTracks
+  }, [playlistTracks])
 
   const currentTrack = useMemo(() => {
     if (currentTrackIdx === null) return null
@@ -168,7 +193,10 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         next = tIdx + 1
         if (next >= tracks.length) {
           if (m === 'repeat-all') next = 0
-          else { setPlaying(false); return }
+          else {
+            setPlaying(false)
+            return
+          }
         }
       }
       setCurrentTrackIdx(next)
@@ -217,8 +245,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       const pIdx = playlistIdxRef.current
       const tIdx = trackIdxRef.current
       const tracks = allTracksRef.current[pIdx]
-      if (tIdx !== null && tracks && tIdx < tracks.length - 1)
-        playTrack(pIdx, tIdx + 1)
+      if (tIdx !== null && tracks && tIdx < tracks.length - 1) playTrack(pIdx, tIdx + 1)
     })
   }, [currentTrack, playTrack])
 
@@ -232,20 +259,20 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       setError(false)
       const endpoint = loadApiEndpoint()
       const results = await Promise.allSettled(
-        playlists.map(p => fetchMetingPlaylist(endpoint, p))
+        playlists.map((p) => fetchMetingPlaylist(endpoint, p))
       )
       if (cancelled) return
-      const perPlaylist = results.map(r =>
-        r.status === 'fulfilled' ? r.value : []
-      )
-      if (perPlaylist.every(t => t.length === 0) && results.every(r => r.status === 'rejected'))
+      const perPlaylist = results.map((r) => (r.status === 'fulfilled' ? r.value : []))
+      if (perPlaylist.every((t) => t.length === 0) && results.every((r) => r.status === 'rejected'))
         setError(true)
       setPlaylistTracks(perPlaylist)
       setLoading(false)
     }
     run()
 
-    return () => { cancelled = true }
+    return () => {
+      cancelled = true
+    }
   }, [playlists, configVer])
 
   /* fetch lyrics on track change */
@@ -273,7 +300,9 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     }
     run()
 
-    return () => { cancelled = true }
+    return () => {
+      cancelled = true
+    }
   }, [currentTrackIdx, playingPlaylist])
 
   /* controls */
@@ -282,7 +311,10 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     if (!audio) return
     if (currentTrackIdx === null) {
       for (let i = 0; i < allTracksRef.current.length; i++) {
-        if (allTracksRef.current[i]?.length > 0) { playTrack(i, 0); return }
+        if (allTracksRef.current[i]?.length > 0) {
+          playTrack(i, 0)
+          return
+        }
       }
       return
     }
@@ -314,11 +346,13 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     if (audio) audio.currentTime = t
   }, [])
 
-  const setVolume = useCallback((v: number) => { setVolumeState(v) }, [])
+  const setVolume = useCallback((v: number) => {
+    setVolumeState(v)
+  }, [])
 
   const cycleMode = useCallback(() => {
     const modes: PlayMode[] = ['sequential', 'repeat-all', 'repeat-one', 'shuffle']
-    setModeState(prev => {
+    setModeState((prev) => {
       const next = modes[(modes.indexOf(prev) + 1) % modes.length]
       persistPlayMode(next)
       return next
@@ -326,7 +360,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const addPlaylist = useCallback((p: PlaylistConfig) => {
-    setPlaylists(prev => {
+    setPlaylists((prev) => {
       const updated = [...prev, p]
       persistPlaylists(updated)
       return updated
@@ -334,7 +368,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const removePlaylist = useCallback((i: number) => {
-    setPlaylists(prev => {
+    setPlaylists((prev) => {
       const updated = prev.filter((_, idx) => idx !== i)
       const result = updated.length > 0 ? updated : DEFAULT_PLAYLISTS
       persistPlaylists(result)
@@ -344,34 +378,75 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
 
   const saveApiAndRefetch = useCallback((url: string) => {
     persistApi(url)
-    setConfigVer(v => v + 1)
+    setConfigVer((v) => v + 1)
   }, [])
 
-  const retry = useCallback(() => { setConfigVer(v => v + 1) }, [])
+  const retry = useCallback(() => {
+    setConfigVer((v) => v + 1)
+  }, [])
 
-  const toggleLyrics = useCallback(() => { setShowLyrics(prev => !prev) }, [])
+  const toggleLyrics = useCallback(() => {
+    setShowLyrics((prev) => !prev)
+  }, [])
 
-  const value = useMemo<MusicPlayerContextValue>(() => ({
-    playlistTracks, loading, error,
-    playingPlaylist, currentTrackIdx, currentTrack,
-    playing, volume, mode, buffering,
-    lyrics, lyricsLoading, showLyrics,
-    playlists,
-    playTrack, togglePlay, prevTrack, nextTrack,
-    seek, setVolume, cycleMode,
-    toggleLyrics,
-    addPlaylist, removePlaylist, saveApiAndRefetch, retry
-  }), [
-    playlistTracks, loading, error,
-    playingPlaylist, currentTrackIdx, currentTrack,
-    playing, volume, mode, buffering,
-    lyrics, lyricsLoading, showLyrics,
-    playlists,
-    playTrack, togglePlay, prevTrack, nextTrack,
-    seek, setVolume, cycleMode,
-    toggleLyrics,
-    addPlaylist, removePlaylist, saveApiAndRefetch, retry
-  ])
+  const value = useMemo<MusicPlayerContextValue>(
+    () => ({
+      playlistTracks,
+      loading,
+      error,
+      playingPlaylist,
+      currentTrackIdx,
+      currentTrack,
+      playing,
+      volume,
+      mode,
+      buffering,
+      lyrics,
+      lyricsLoading,
+      showLyrics,
+      playlists,
+      playTrack,
+      togglePlay,
+      prevTrack,
+      nextTrack,
+      seek,
+      setVolume,
+      cycleMode,
+      toggleLyrics,
+      addPlaylist,
+      removePlaylist,
+      saveApiAndRefetch,
+      retry
+    }),
+    [
+      playlistTracks,
+      loading,
+      error,
+      playingPlaylist,
+      currentTrackIdx,
+      currentTrack,
+      playing,
+      volume,
+      mode,
+      buffering,
+      lyrics,
+      lyricsLoading,
+      showLyrics,
+      playlists,
+      playTrack,
+      togglePlay,
+      prevTrack,
+      nextTrack,
+      seek,
+      setVolume,
+      cycleMode,
+      toggleLyrics,
+      addPlaylist,
+      removePlaylist,
+      saveApiAndRefetch,
+      retry
+    ]
+  )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

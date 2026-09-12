@@ -16,13 +16,7 @@ const HERO_POSTER_URL = ASSETS.heroPoster
 
 /* ── 封面缩略图 + 播放按钮 ── */
 
-function HeroPoster({
-  className,
-  onPlay
-}: {
-  className?: string
-  onPlay: () => void
-}) {
+function HeroPoster({ className, onPlay }: { className?: string; onPlay: () => void }) {
   return (
     <div className={className}>
       <button
@@ -140,9 +134,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <p className="mb-4 text-sm font-medium text-muted-foreground">
-                {dict.hero.welcome}
-              </p>
+              <p className="mb-4 text-sm font-medium text-muted-foreground">{dict.hero.welcome}</p>
             </motion.div>
 
             <motion.h1
@@ -220,9 +212,7 @@ export function HeroSection() {
       </section>
 
       {/* 全屏播放器遮罩 */}
-      <AnimatePresence>
-        {playing && <VideoOverlay onClose={closePlayer} />}
-      </AnimatePresence>
+      <AnimatePresence>{playing && <VideoOverlay onClose={closePlayer} />}</AnimatePresence>
     </>
   )
 }

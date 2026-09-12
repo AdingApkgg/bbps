@@ -3,9 +3,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Settings, Plus, Trash2,
-  Music, Loader2, ChevronDown, ChevronUp,
-  AlertCircle, RefreshCw
+  Settings,
+  Plus,
+  Trash2,
+  Music,
+  Loader2,
+  ChevronDown,
+  ChevronUp,
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -16,7 +22,11 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { loadApiEndpoint, DEFAULT_API } from '@/lib/music'
@@ -25,11 +35,8 @@ export function MusicPage() {
   const locale = useLocale()
   const dict = getDictionary(locale)
   const player = useMusicPlayer()
-  const {
-    playlistTracks, loading, error,
-    playingPlaylist, currentTrackIdx, playing,
-    playlists
-  } = player
+  const { playlistTracks, loading, error, playingPlaylist, currentTrackIdx, playing, playlists } =
+    player
 
   const [activeTab, setActiveTab] = useState('0')
   const [showSettings, setShowSettings] = useState(false)
@@ -83,9 +90,11 @@ export function MusicPage() {
         >
           <Settings className="size-4" />
           {dict.music.settings}
-          {showSettings
-            ? <ChevronUp className="ml-auto size-4" />
-            : <ChevronDown className="ml-auto size-4" />}
+          {showSettings ? (
+            <ChevronUp className="ml-auto size-4" />
+          ) : (
+            <ChevronDown className="ml-auto size-4" />
+          )}
         </button>
 
         <AnimatePresence>
@@ -105,7 +114,7 @@ export function MusicPage() {
                     <div className="flex gap-2">
                       <Input
                         value={apiUrl}
-                        onChange={e => setApiUrl(e.target.value)}
+                        onChange={(e) => setApiUrl(e.target.value)}
                         placeholder={DEFAULT_API}
                         className="flex-1"
                       />
@@ -120,7 +129,10 @@ export function MusicPage() {
                     <label className="text-sm font-medium">{dict.music.playlists}</label>
                     <div className="space-y-2">
                       {playlists.map((p, i) => (
-                        <div key={i} className="flex items-center gap-2 rounded-md bg-muted/50 px-3 py-1.5 text-sm">
+                        <div
+                          key={i}
+                          className="flex items-center gap-2 rounded-md bg-muted/50 px-3 py-1.5 text-sm"
+                        >
                           <span className="font-medium">{p.label}</span>
                           <span className="text-muted-foreground">—</span>
                           <span className="truncate font-mono text-xs text-muted-foreground">
@@ -145,7 +157,7 @@ export function MusicPage() {
                           </label>
                           <Input
                             value={newLabel}
-                            onChange={e => setNewLabel(e.target.value)}
+                            onChange={(e) => setNewLabel(e.target.value)}
                             placeholder={dict.music.tabName}
                             className="h-8 text-xs"
                           />
@@ -188,10 +200,10 @@ export function MusicPage() {
                           <label className="mb-1 block text-xs text-muted-foreground">ID</label>
                           <Input
                             value={newId}
-                            onChange={e => setNewId(e.target.value)}
+                            onChange={(e) => setNewId(e.target.value)}
                             placeholder="ID"
                             className="h-8 text-xs"
-                            onKeyDown={e => e.key === 'Enter' && handleAddPlaylist()}
+                            onKeyDown={(e) => e.key === 'Enter' && handleAddPlaylist()}
                           />
                         </div>
                         <Button
@@ -273,7 +285,12 @@ export function MusicPage() {
                             <div className="relative size-10 flex-shrink-0 overflow-hidden rounded bg-muted">
                               {track.pic ? (
                                 /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
-                                <img src={track.pic} alt="" className="size-full object-cover" loading="lazy" />
+                                <img
+                                  src={track.pic}
+                                  alt=""
+                                  className="size-full object-cover"
+                                  loading="lazy"
+                                />
                               ) : (
                                 <div className="flex size-full items-center justify-center">
                                   <Music className="size-4 text-muted-foreground" />
@@ -282,11 +299,14 @@ export function MusicPage() {
                               {isActive && playing && (
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                                   <div className="flex items-end gap-0.5">
-                                    {[0, 1, 2].map(j => (
+                                    {[0, 1, 2].map((j) => (
                                       <span
                                         key={j}
                                         className="inline-block w-0.5 animate-pulse rounded-full bg-white"
-                                        style={{ height: `${8 + j * 4}px`, animationDelay: `${j * 150}ms` }}
+                                        style={{
+                                          height: `${8 + j * 4}px`,
+                                          animationDelay: `${j * 150}ms`
+                                        }}
                                       />
                                     ))}
                                   </div>
@@ -295,13 +315,22 @@ export function MusicPage() {
                             </div>
 
                             <div className="min-w-0 flex-1">
-                              <p className={cn('truncate text-sm font-medium', isActive && 'text-primary')}>
+                              <p
+                                className={cn(
+                                  'truncate text-sm font-medium',
+                                  isActive && 'text-primary'
+                                )}
+                              >
                                 {track.name}
                               </p>
-                              <p className="truncate text-xs text-muted-foreground">{track.artist}</p>
+                              <p className="truncate text-xs text-muted-foreground">
+                                {track.artist}
+                              </p>
                             </div>
 
-                            <span className="text-xs tabular-nums text-muted-foreground">{tIdx + 1}</span>
+                            <span className="text-xs tabular-nums text-muted-foreground">
+                              {tIdx + 1}
+                            </span>
                           </button>
                         )
                       })}

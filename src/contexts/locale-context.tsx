@@ -54,11 +54,7 @@ export function detectBrowserLocale(): Locale {
 export function toLocalePath(pathname: string, target: Locale): string {
   // 去掉现有 /en 前缀
   const bare =
-    pathname === '/en'
-      ? '/'
-      : pathname.startsWith('/en/')
-        ? pathname.slice(3) || '/'
-        : pathname
+    pathname === '/en' ? '/' : pathname.startsWith('/en/') ? pathname.slice(3) || '/' : pathname
 
   return target === 'en' ? (bare === '/' ? '/en' : `/en${bare}`) : bare
 }
@@ -95,10 +91,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   // 当前 URL 决定的实际 locale
-  const locale: Locale = useMemo(
-    () => (pathname?.startsWith('/en') ? 'en' : 'zh'),
-    [pathname]
-  )
+  const locale: Locale = useMemo(() => (pathname?.startsWith('/en') ? 'en' : 'zh'), [pathname])
 
   // 从 localStorage 读取偏好，无 setState-in-effect
   const pref = useSyncExternalStore(subscribePref, getPrefSnapshot, getPrefServerSnapshot)
@@ -126,7 +119,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     if (stored !== locale) {
       router.replace(toLocalePath(pathname ?? '/', stored))
     }
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
+    // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
   }, [])
 
   const setPref = useCallback(
@@ -140,14 +133,9 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     [locale, pathname, router]
   )
 
-  const ctx = useMemo<LocaleCtx>(
-    () => ({ locale, pref, setPref }),
-    [locale, pref, setPref]
-  )
+  const ctx = useMemo<LocaleCtx>(() => ({ locale, pref, setPref }), [locale, pref, setPref])
 
-  return (
-    <LocaleContext.Provider value={ctx}>{children}</LocaleContext.Provider>
-  )
+  return <LocaleContext.Provider value={ctx}>{children}</LocaleContext.Provider>
 }
 
 export function useLocale(): Locale {

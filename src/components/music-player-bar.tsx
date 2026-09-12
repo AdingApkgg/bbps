@@ -3,10 +3,21 @@
 import { useRef, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Play, Pause, SkipBack, SkipForward,
-  Volume2, VolumeX, Volume1,
-  Repeat, Repeat1, Shuffle,
-  Music, Loader2, Mic2, X, ArrowRight
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  VolumeX,
+  Volume1,
+  Repeat,
+  Repeat1,
+  Shuffle,
+  Music,
+  Loader2,
+  Mic2,
+  X,
+  ArrowRight
 } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -23,7 +34,12 @@ function formatTime(sec: number): string {
 
 /* ── Seek Bar ── */
 
-function SeekBar({ value, max, onChange, className }: {
+function SeekBar({
+  value,
+  max,
+  onChange,
+  className
+}: {
   value: number
   max: number
   onChange: (v: number) => void
@@ -33,19 +49,30 @@ function SeekBar({ value, max, onChange, className }: {
   const dragging = useRef(false)
   const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0
 
-  const calc = useCallback((clientX: number) => {
-    const el = barRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
-    onChange(ratio * max)
-  }, [max, onChange])
+  const calc = useCallback(
+    (clientX: number) => {
+      const el = barRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+      onChange(ratio * max)
+    },
+    [max, onChange]
+  )
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => { if (dragging.current) calc(e.clientX) }
-    const onUp = () => { dragging.current = false }
-    const onTouchMove = (e: TouchEvent) => { if (dragging.current) calc(e.touches[0].clientX) }
-    const onTouchEnd = () => { dragging.current = false }
+    const onMove = (e: MouseEvent) => {
+      if (dragging.current) calc(e.clientX)
+    }
+    const onUp = () => {
+      dragging.current = false
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      if (dragging.current) calc(e.touches[0].clientX)
+    }
+    const onTouchEnd = () => {
+      dragging.current = false
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     window.addEventListener('touchmove', onTouchMove)
@@ -62,8 +89,14 @@ function SeekBar({ value, max, onChange, className }: {
     <div
       ref={barRef}
       className={cn('group relative h-1.5 w-full cursor-pointer rounded-full bg-muted', className)}
-      onMouseDown={(e) => { dragging.current = true; calc(e.clientX) }}
-      onTouchStart={(e) => { dragging.current = true; calc(e.touches[0].clientX) }}
+      onMouseDown={(e) => {
+        dragging.current = true
+        calc(e.clientX)
+      }}
+      onTouchStart={(e) => {
+        dragging.current = true
+        calc(e.touches[0].clientX)
+      }}
     >
       <div
         className="absolute inset-y-0 left-0 rounded-full bg-primary"
@@ -85,10 +118,8 @@ export function MusicPlayerBar() {
   const player = useMusicPlayer()
   const { time, duration } = useMusicTime()
 
-  const {
-    currentTrack, playing, buffering, volume, mode,
-    lyrics, lyricsLoading, showLyrics
-  } = player
+  const { currentTrack, playing, buffering, volume, mode, lyrics, lyricsLoading, showLyrics } =
+    player
 
   const currentLineRef = useRef<HTMLParagraphElement>(null)
 
@@ -115,10 +146,14 @@ export function MusicPlayerBar() {
     return () => window.removeEventListener('keydown', handler)
   }, [showLyrics, player])
 
-  const ModeIcon = mode === 'repeat-one' ? Repeat1
-    : mode === 'shuffle' ? Shuffle
-      : mode === 'repeat-all' ? Repeat
-        : ArrowRight
+  const ModeIcon =
+    mode === 'repeat-one'
+      ? Repeat1
+      : mode === 'shuffle'
+        ? Shuffle
+        : mode === 'repeat-all'
+          ? Repeat
+          : ArrowRight
 
   const modeLabel = {
     sequential: dict.music.sequential,
@@ -175,9 +210,7 @@ export function MusicPlayerBar() {
                     <Loader2 className="size-5 animate-spin text-muted-foreground" />
                   </div>
                 ) : lyrics.length === 0 ? (
-                  <p className="py-8 text-center text-muted-foreground">
-                    {dict.music.noLyrics}
-                  </p>
+                  <p className="py-8 text-center text-muted-foreground">{dict.music.noLyrics}</p>
                 ) : (
                   <div className="space-y-5 py-16 text-center">
                     {lyrics.map((line, i) => (
@@ -210,16 +243,14 @@ export function MusicPlayerBar() {
                 <Button variant="ghost" size="icon" className="size-10" onClick={player.prevTrack}>
                   <SkipBack className="size-5" />
                 </Button>
-                <Button
-                  size="icon"
-                  className="size-14 rounded-full"
-                  onClick={player.togglePlay}
-                >
-                  {buffering
-                    ? <Loader2 className="size-7 animate-spin" />
-                    : playing
-                      ? <Pause className="size-7" />
-                      : <Play className="size-7" />}
+                <Button size="icon" className="size-14 rounded-full" onClick={player.togglePlay}>
+                  {buffering ? (
+                    <Loader2 className="size-7 animate-spin" />
+                  ) : playing ? (
+                    <Pause className="size-7" />
+                  ) : (
+                    <Play className="size-7" />
+                  )}
                 </Button>
                 <Button variant="ghost" size="icon" className="size-10" onClick={player.nextTrack}>
                   <SkipForward className="size-5" />
@@ -272,15 +303,37 @@ export function MusicPlayerBar() {
 
           {/* Controls */}
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="size-8" onClick={player.prevTrack} title={dict.music.prevTrack}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-8"
+              onClick={player.prevTrack}
+              title={dict.music.prevTrack}
+            >
               <SkipBack className="size-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="size-9" onClick={player.togglePlay} title={playing ? dict.music.pause : dict.music.play}>
-              {buffering
-                ? <Loader2 className="size-5 animate-spin" />
-                : playing ? <Pause className="size-5" /> : <Play className="size-5" />}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-9"
+              onClick={player.togglePlay}
+              title={playing ? dict.music.pause : dict.music.play}
+            >
+              {buffering ? (
+                <Loader2 className="size-5 animate-spin" />
+              ) : playing ? (
+                <Pause className="size-5" />
+              ) : (
+                <Play className="size-5" />
+              )}
             </Button>
-            <Button variant="ghost" size="icon" className="size-8" onClick={player.nextTrack} title={dict.music.nextTrack}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-8"
+              onClick={player.nextTrack}
+              title={dict.music.nextTrack}
+            >
               <SkipForward className="size-4" />
             </Button>
           </div>

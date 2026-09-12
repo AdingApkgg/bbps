@@ -4,7 +4,8 @@ import { RankSection } from '@/components/rank-section'
 
 export const metadata: Metadata = {
   title: 'Rankings',
-  description: 'Horsebean Private Server player rankings — VP, Mega Crab, and Casualties leaderboards',
+  description:
+    'Horsebean Private Server player rankings — VP, Mega Crab, and Casualties leaderboards',
   alternates: {
     canonical: `${SITE_URL}/en/rank/`,
     languages: {
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Rankings | Horsebean Private Server',
-    description: 'Horsebean Private Server player rankings — VP, Mega Crab, and Casualties leaderboards',
+    description:
+      'Horsebean Private Server player rankings — VP, Mega Crab, and Casualties leaderboards',
     url: `${SITE_URL}/en/rank/`,
     locale: 'en_US'
   }

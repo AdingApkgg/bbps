@@ -77,11 +77,7 @@ export function LocaleSuggestBar() {
   const locale = useLocale()
   const pathname = usePathname()
   const { pref, setPref } = useLocalePref()
-  const dismissed = useSyncExternalStore(
-    subscribe,
-    getDismissed,
-    getDismissedServerSnapshot
-  )
+  const dismissed = useSyncExternalStore(subscribe, getDismissed, getDismissedServerSnapshot)
 
   // 选过语言的人不需要被提示；关掉过的也不再打扰
   if (pref || dismissed) return null

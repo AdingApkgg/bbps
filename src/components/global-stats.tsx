@@ -137,9 +137,7 @@ export function GlobalStats() {
           if (rows.length === 0) return null
           return (
             <div key={group.id}>
-              <h3 className="mb-2 text-sm font-semibold">
-                {statLabels[group.id] ?? group.id}
-              </h3>
+              <h3 className="mb-2 text-sm font-semibold">{statLabels[group.id] ?? group.id}</h3>
               <dl className="grid gap-x-6 gap-y-0 sm:grid-cols-2">
                 {rows.map((row) => (
                   <div
@@ -168,9 +166,7 @@ export function GlobalStats() {
                   key={r.id}
                   className="flex items-baseline justify-between gap-4 border-b py-2 last:border-b-0"
                 >
-                  <dt className="shrink-0 text-sm text-muted-foreground">
-                    {r.name}
-                  </dt>
+                  <dt className="shrink-0 text-sm text-muted-foreground">{r.name}</dt>
                   <dd className="text-sm font-medium tabular-nums">
                     {formatCompact(r.value, locale)}
                   </dd>
@@ -194,9 +190,7 @@ export function GlobalStats() {
                     <span className="w-5 shrink-0 text-xs text-muted-foreground tabular-nums">
                       {i + 1}
                     </span>
-                    <code className="w-32 shrink-0 truncate font-mono text-xs">
-                      /{cmd.name}
-                    </code>
+                    <code className="w-32 shrink-0 truncate font-mono text-xs">/{cmd.name}</code>
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
                       <div
                         className="h-full rounded-full bg-primary/70"

@@ -57,9 +57,7 @@ export function ChatFeed() {
           <CardTitle className="text-base">{dict.stats.chatTitle}</CardTitle>
         </div>
         <div className="flex items-center gap-2">
-          {!loading && !error && (
-            <Badge variant="secondary">{entries.length}</Badge>
-          )}
+          {!loading && !error && <Badge variant="secondary">{entries.length}</Badge>}
           <Button
             variant="ghost"
             size="icon"
@@ -69,17 +67,13 @@ export function ChatFeed() {
             aria-label={dict.stats.chatRefresh}
             title={dict.stats.chatRefresh}
           >
-            <RefreshCw
-              className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`}
-            />
+            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           </Button>
         </div>
       </CardHeader>
 
       <CardContent>
-        <p className="mb-3 text-xs text-muted-foreground">
-          {dict.stats.chatHint}
-        </p>
+        <p className="mb-3 text-xs text-muted-foreground">{dict.stats.chatHint}</p>
 
         {loading && (
           <div className="space-y-3">
@@ -93,15 +87,11 @@ export function ChatFeed() {
         )}
 
         {!loading && error && (
-          <p className="py-8 text-center text-sm text-destructive">
-            {dict.stats.chatError}
-          </p>
+          <p className="py-8 text-center text-sm text-destructive">{dict.stats.chatError}</p>
         )}
 
         {!loading && !error && newestFirst.length === 0 && (
-          <p className="py-8 text-center text-sm text-muted-foreground">
-            {dict.stats.chatEmpty}
-          </p>
+          <p className="py-8 text-center text-sm text-muted-foreground">{dict.stats.chatEmpty}</p>
         )}
 
         {!loading && newestFirst.length > 0 && (
@@ -115,20 +105,13 @@ export function ChatFeed() {
             {newestFirst.map((entry) => (
               <div key={entry.seq} className="text-sm">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <PlayerName
-                    name={entry.sender_name}
-                    className="font-medium break-all"
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    Lv.{entry.sender_level}
-                  </span>
+                  <PlayerName name={entry.sender_name} className="font-medium break-all" />
+                  <span className="text-xs text-muted-foreground">Lv.{entry.sender_level}</span>
                   <span className="ml-auto shrink-0 text-xs text-muted-foreground tabular-nums">
                     {formatTime(entry.time, locale)}
                   </span>
                 </div>
-                <p className="mt-0.5 break-words text-muted-foreground">
-                  {entry.message}
-                </p>
+                <p className="mt-0.5 break-words text-muted-foreground">{entry.message}</p>
               </div>
             ))}
           </div>

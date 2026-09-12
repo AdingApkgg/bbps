@@ -12,11 +12,7 @@ import { Badge } from '@/components/ui/badge'
 
 /* ── 螃蟹甲板计算器 ── */
 
-export function CrabDeckCalculator({
-  onOutput
-}: {
-  onOutput: (v: string) => void
-}) {
+export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void }) {
   const t = getDictionary(useLocale()).commands
   const [selectedDecks, setSelectedDecks] = useState<number[]>([])
   const [pendingValue, setPendingValue] = useState<number | null>(null)
@@ -28,10 +24,7 @@ export function CrabDeckCalculator({
     [selectedDecks]
   )
 
-  const sorted = useMemo(
-    () => [...selectedDecks].sort((a, b) => a - b),
-    [selectedDecks]
-  )
+  const sorted = useMemo(() => [...selectedDecks].sort((a, b) => a - b), [selectedDecks])
 
   const handleAdd = useCallback(() => {
     if (pendingValue === null) return
@@ -40,11 +33,14 @@ export function CrabDeckCalculator({
     setResult(null)
   }, [pendingValue])
 
-  const handleRemove = useCallback((val: number) => {
-    setSelectedDecks((prev) => prev.filter((v) => v !== val))
-    setResult(null)
-    onOutput('')
-  }, [onOutput])
+  const handleRemove = useCallback(
+    (val: number) => {
+      setSelectedDecks((prev) => prev.filter((v) => v !== val))
+      setResult(null)
+      onOutput('')
+    },
+    [onOutput]
+  )
 
   const handleGenerate = useCallback(() => {
     if (selectedDecks.length === 0) return
@@ -108,7 +104,11 @@ export function CrabDeckCalculator({
           <Calculator className="mr-2 h-4 w-4" />
           生成指令
         </Button>
-        <Button variant="outline" onClick={handleClear} disabled={sorted.length === 0 && result === null}>
+        <Button
+          variant="outline"
+          onClick={handleClear}
+          disabled={sorted.length === 0 && result === null}
+        >
           <Trash2 className="mr-2 h-4 w-4" />
           清空
         </Button>
@@ -121,7 +121,8 @@ export function CrabDeckCalculator({
             计算总和: <span className="font-mono font-medium text-foreground">{result.sum}</span>
           </p>
           <p className="text-sm text-muted-foreground">
-            生成指令: <code className="font-mono font-medium text-foreground">{result.command}</code>
+            生成指令:{' '}
+            <code className="font-mono font-medium text-foreground">{result.command}</code>
           </p>
         </div>
       )}

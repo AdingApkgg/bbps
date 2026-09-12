@@ -5,12 +5,7 @@ import { Info, Send, Terminal, Zap } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { QUICK_COMMANDS } from '@/lib/quick-commands'
-import {
-  useCommandRunner,
-  RunFeedback,
-  SessionBar,
-  VerifyPanel
-} from '@/components/remote-console'
+import { useCommandRunner, RunFeedback, SessionBar, VerifyPanel } from '@/components/remote-console'
 import { CommandCatalog } from '@/components/command-catalog'
 import { CommandBrowser } from '@/components/command-browser'
 import { CommandHistory, useCommandHistory } from '@/components/command-history'

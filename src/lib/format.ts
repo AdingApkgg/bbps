@@ -11,12 +11,7 @@ export function parseUptimeSeconds(raw: unknown): number | null {
   const m = raw.match(/^(?:(\d+)\.)?(\d+):(\d{2}):(\d{2})(?:\.\d+)?$/)
   if (!m) return null
   const [, d, h, mi, sec] = m
-  return (
-    Number(d ?? 0) * 86400 +
-    Number(h) * 3600 +
-    Number(mi) * 60 +
-    Number(sec)
-  )
+  return Number(d ?? 0) * 86400 + Number(h) * 3600 + Number(mi) * 60 + Number(sec)
 }
 
 /** 秒 → 「3天 4小时 5分」 */
@@ -82,19 +77,10 @@ export function formatCompact(n: number, locale: string): string {
  */
 export function formatServerTime(raw: string, locale: string): string {
   if (!raw) return '—'
-  const m = raw.match(
-    /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})[T ](\d{1,2}):(\d{2})(?::(\d{2}))?/
-  )
+  const m = raw.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})[T ](\d{1,2}):(\d{2})(?::(\d{2}))?/)
   if (!m) return raw
   const [, y, mo, d, h, mi, sec] = m
-  const ts = Date.UTC(
-    Number(y),
-    Number(mo) - 1,
-    Number(d),
-    Number(h),
-    Number(mi),
-    Number(sec ?? 0)
-  )
+  const ts = Date.UTC(Number(y), Number(mo) - 1, Number(d), Number(h), Number(mi), Number(sec ?? 0))
   if (Number.isNaN(ts)) return raw
   return new Date(ts).toLocaleString(locale === 'en' ? 'en-US' : 'zh-CN', {
     year: 'numeric',

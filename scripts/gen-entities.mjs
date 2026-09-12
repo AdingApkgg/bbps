@@ -43,9 +43,8 @@ const argv = process.argv.slice(2)
 const write = argv.includes('--write')
 const check = argv.includes('--check')
 const csvIdx = argv.indexOf('--csv')
-const CSV = csvIdx > -1
-  ? argv[csvIdx + 1]
-  : join(__dirname, '../../bb/HorsebeachServer/Gamefiles/csv')
+const CSV =
+  csvIdx > -1 ? argv[csvIdx + 1] : join(__dirname, '../../bb/HorsebeachServer/Gamefiles/csv')
 const SERVER_CFG = join(CSV, '../../Config')
 const OUT = join(ROOT, 'src/lib/generated/entities.ts')
 const OVERRIDES = join(ROOT, 'src/data/entity-name-overrides.json')
@@ -58,18 +57,33 @@ if (!existsSync(join(CSV, 'texts.csv'))) {
 /* ── CSV 解析 ── */
 function parseCSV(text) {
   const rows = []
-  let row = [], field = '', q = false
+  let row = [],
+    field = '',
+    q = false
   for (let i = 0; i < text.length; i++) {
     const c = text[i]
     if (q) {
-      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++ } else q = false }
-      else field += c
+      if (c === '"') {
+        if (text[i + 1] === '"') {
+          field += '"'
+          i++
+        } else q = false
+      } else field += c
     } else if (c === '"') q = true
-    else if (c === ',') { row.push(field); field = '' }
-    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = '' }
-    else if (c !== '\r') field += c
+    else if (c === ',') {
+      row.push(field)
+      field = ''
+    } else if (c === '\n') {
+      row.push(field)
+      rows.push(row)
+      row = []
+      field = ''
+    } else if (c !== '\r') field += c
   }
-  if (field || row.length) { row.push(field); rows.push(row) }
+  if (field || row.length) {
+    row.push(field)
+    rows.push(row)
+  }
   return rows
 }
 const sha = (p) => createHash('sha256').update(readFileSync(p)).digest('hex').slice(0, 16)
@@ -97,9 +111,7 @@ let LANG_I = { en: 1, zh: 8 }
 }
 
 const PLACEHOLDER_TIDS = new Set(['TID_UNUSED', 'TID_TODO', 'TID_PLACEHOLDER', ''])
-const overrides = existsSync(OVERRIDES)
-  ? JSON.parse(readFileSync(OVERRIDES, 'utf8'))
-  : {}
+const overrides = existsSync(OVERRIDES) ? JSON.parse(readFileSync(OVERRIDES, 'utf8')) : {}
 
 /** 一张表：具名行 → { index, raw, tid } */
 function readTable(file) {
@@ -141,13 +153,41 @@ function resolveName(tableId, value, row) {
            slug = 字符串取值（/layout）                             */
 const SPECS = [
   { id: 'building', file: 'buildings.csv', type: 1, idKind: 'global', zh: '建筑', en: 'Building' },
-  { id: 'resource', file: 'resources.csv', type: 3, idKind: 'instance', zh: '资源', en: 'Resource' },
+  {
+    id: 'resource',
+    file: 'resources.csv',
+    type: 3,
+    idKind: 'instance',
+    zh: '资源',
+    en: 'Resource'
+  },
   { id: 'troop', file: 'characters.csv', type: 4, idKind: 'global', zh: '部队', en: 'Troop' },
-  { id: 'obstacle', file: 'obstacles.csv', type: 8, idKind: 'global', zh: '障碍物', en: 'Obstacle' },
+  {
+    id: 'obstacle',
+    file: 'obstacles.csv',
+    type: 8,
+    idKind: 'global',
+    zh: '障碍物',
+    en: 'Obstacle'
+  },
   { id: 'trap', file: 'traps.csv', type: 12, idKind: 'global', zh: '地雷', en: 'Trap' },
   { id: 'deco', file: 'decos.csv', type: 18, idKind: 'global', zh: '装饰', en: 'Decoration' },
-  { id: 'spell', file: 'spells.csv', type: 26, idKind: 'instance', zh: '母舰技能', en: 'Warship ability' },
-  { id: 'engraving', file: 'artifact_epics.csv', type: 74, idKind: 'instance', zh: '雕刻', en: 'Engraving' }
+  {
+    id: 'spell',
+    file: 'spells.csv',
+    type: 26,
+    idKind: 'instance',
+    zh: '母舰技能',
+    en: 'Warship ability'
+  },
+  {
+    id: 'engraving',
+    file: 'artifact_epics.csv',
+    type: 74,
+    idKind: 'instance',
+    zh: '雕刻',
+    en: 'Engraving'
+  }
 ]
 
 /* ── 哪些取值提供给用户 ──
@@ -173,9 +213,7 @@ const stats = []
 for (const spec of SPECS) {
   const rows = readTable(spec.file)
   const options = rows.map((r) => {
-    const value = spec.idKind === 'global'
-      ? String(spec.type * 1000000 + r.index)
-      : String(r.index)
+    const value = spec.idKind === 'global' ? String(spec.type * 1000000 + r.index) : String(r.index)
     const n = resolveName(spec.id, value, r)
     const ex = exposed[spec.id]
     const same = (a) => String(Number(a)) === String(Number(value))
@@ -195,23 +233,48 @@ for (const spec of SPECS) {
   // int.TryParse 两者等价，不能当成「CSV 里没有」
   const norm = (v) => String(Number(v))
   const have = new Set(options.map((o) => norm(o.value)))
-  const uiOnly = exposed[spec.id]
-    ? [...exposed[spec.id]].filter((v) => !have.has(norm(v)))
-    : []
+  const uiOnly = exposed[spec.id] ? [...exposed[spec.id]].filter((v) => !have.has(norm(v))) : []
   tables.push({ ...spec, options })
   stats.push({ id: spec.id, total: options.length, exposed: exCount, by, uiOnly })
 }
 
 /* layout：不是实体表，名字挂在 TID_LAYOUT_<取值> 上 */
-const LAYOUT_VALUES = ['playerbase', 'enemybase', 'small_a', 'small_b', 'mainland_a',
-  'mainland_b', 'med_a', 'factory', 'harbor', 'octobase', 'turtlebase', 'warship']
+const LAYOUT_VALUES = [
+  'playerbase',
+  'enemybase',
+  'small_a',
+  'small_b',
+  'mainland_a',
+  'mainland_b',
+  'med_a',
+  'factory',
+  'harbor',
+  'octobase',
+  'turtlebase',
+  'warship'
+]
 const layoutOptions = LAYOUT_VALUES.map((v) => {
   const t = TEXTS.get(`TID_LAYOUT_${v.toUpperCase()}`)
-  if (!t) { console.error(`✗ layout ${v} 没有 TID_LAYOUT_${v.toUpperCase()}`); process.exit(1) }
+  if (!t) {
+    console.error(`✗ layout ${v} 没有 TID_LAYOUT_${v.toUpperCase()}`)
+    process.exit(1)
+  }
   return { value: v, zh: t.zh, en: t.en, source: 'tid', raw: v, exposed: true }
 })
-tables.push({ id: 'layout', idKind: 'slug', zh: '岛屿阵型', en: 'Base layout', options: layoutOptions })
-stats.push({ id: 'layout', total: 12, exposed: 12, by: { override: 0, tid: 12, 'csv-name': 0 }, uiOnly: [] })
+tables.push({
+  id: 'layout',
+  idKind: 'slug',
+  zh: '岛屿阵型',
+  en: 'Base layout',
+  options: layoutOptions
+})
+stats.push({
+  id: 'layout',
+  total: 12,
+  exposed: 12,
+  by: { override: 0, tid: 12, 'csv-name': 0 },
+  uiOnly: []
+})
 
 /* ── 报告 ── */
 console.log(`CSV: ${CSV}\n`)
@@ -219,14 +282,16 @@ console.log('表          总数  UI暴露   官方名  手写覆盖  仅内部�
 for (const s of stats) {
   console.log(
     `  ${s.id.padEnd(10)}${String(s.total).padStart(4)}${String(s.exposed).padStart(7)}` +
-    `${String(s.by.tid).padStart(8)}${String(s.by.override).padStart(9)}${String(s.by['csv-name']).padStart(9)}`
+      `${String(s.by.tid).padStart(8)}${String(s.by.override).padStart(9)}${String(s.by['csv-name']).padStart(9)}`
   )
 }
 const orphaned = stats.filter((s) => s.uiOnly.length)
 if (orphaned.length) {
   console.log('\n✗ UI 里有、CSV 里没有的取值（服务端会拒绝，属于坏行）：')
   for (const s of orphaned) {
-    console.log(`  ${s.id}: ${s.uiOnly.length} 个 —— ${s.uiOnly.slice(0, 6).join(', ')}${s.uiOnly.length > 6 ? ' …' : ''}`)
+    console.log(
+      `  ${s.id}: ${s.uiOnly.length} 个 —— ${s.uiOnly.slice(0, 6).join(', ')}${s.uiOnly.length > 6 ? ' …' : ''}`
+    )
   }
 }
 const needName = stats.filter((s) => s.by['csv-name'] > 0)
@@ -239,18 +304,24 @@ if (needName.length) {
 const hashes = ['texts.csv', ...SPECS.map((s) => s.file)]
   .map((f) => `//   ${f} sha256:${sha(join(CSV, f))}`)
   .join('\n')
-const body = tables.map((t) =>
-  `  ${t.id}: {\n` +
-  `    id: '${t.id}',\n` +
-  `    labelZh: ${JSON.stringify(t.zh)},\n` +
-  `    labelEn: ${JSON.stringify(t.en)},\n` +
-  `    idKind: '${t.idKind}',\n` +
-  `    options: [\n` +
-  t.options.map((o) =>
-    `      { value: ${JSON.stringify(o.value)}, zh: ${JSON.stringify(o.zh)}, en: ${JSON.stringify(o.en)}, source: '${o.source}', exposed: ${o.exposed} }`
-  ).join(',\n') +
-  `\n    ]\n  }`
-).join(',\n')
+const body = tables
+  .map(
+    (t) =>
+      `  ${t.id}: {\n` +
+      `    id: '${t.id}',\n` +
+      `    labelZh: ${JSON.stringify(t.zh)},\n` +
+      `    labelEn: ${JSON.stringify(t.en)},\n` +
+      `    idKind: '${t.idKind}',\n` +
+      `    options: [\n` +
+      t.options
+        .map(
+          (o) =>
+            `      { value: ${JSON.stringify(o.value)}, zh: ${JSON.stringify(o.zh)}, en: ${JSON.stringify(o.en)}, source: '${o.source}', exposed: ${o.exposed} }`
+        )
+        .join(',\n') +
+      `\n    ]\n  }`
+  )
+  .join(',\n')
 
 const generated =
   `// 由 scripts/gen-entities.mjs 从游戏自带 CSV 生成，勿手改。\n` +
