@@ -33,7 +33,7 @@ export function CommandsPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <FadeIn className="text-center">
+      <FadeIn eager className="text-center">
         <h1 className="text-3xl font-bold tracking-tight">{t.title}</h1>
         <p className="mt-2 text-muted-foreground">{t.subtitle}</p>
       </FadeIn>

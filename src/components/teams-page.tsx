@@ -15,7 +15,7 @@ export function TeamsPage() {
 
   return (
     <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <FadeIn className="mx-auto max-w-2xl text-center">
+      <FadeIn eager className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{dict.teams.title}</h1>
         <p className="mt-4 text-lg text-muted-foreground">{dict.teams.subtitle}</p>
       </FadeIn>

@@ -49,6 +49,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
 
       <div className="mt-8 flex flex-wrap items-center gap-2">
         <span className="text-sm text-muted-foreground">{dict.sortBy}</span>
+        {/* biome-ignore lint/a11y/useSemanticElements: 这是按钮组不是表单控件组，fieldset 会带来无关的表单语义 */}
         <div role="group" aria-label={dict.sortBy} className="inline-flex rounded-lg bg-muted p-1">
           {BLOG_SORT_KEYS.map((key) => {
             const active = key === sortKey

@@ -14,6 +14,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
   const isDark = usePrefersDark()
   const artalkLocale = lang === 'en' ? 'en' : 'zh-CN'
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次，依赖取自闭包的初始值
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -47,7 +48,6 @@ function ArtalkPanel({ lang }: { lang: string }) {
       artalkRef.current = null
       el.innerHTML = ''
     }
-    // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
   }, [])
 
   useEffect(() => {

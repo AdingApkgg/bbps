@@ -15,6 +15,8 @@ interface FadeInProps extends HTMLMotionProps<'div'> {
   distance?: number
   /** Duration in seconds */
   duration?: number
+  /** 挂载即播放，不等 IntersectionObserver。首屏元素应当开启 */
+  eager?: boolean
 }
 
 const directionOffset = {
@@ -31,14 +33,28 @@ export function FadeIn({
   direction = 'up',
   distance = 24,
   duration = 0.5,
+  eager = false,
   ...props
 }: FadeInProps) {
   const offset = directionOffset[direction]
+  const shown = { opacity: 1, x: 0, y: 0 }
+
+  /*
+   * eager：挂载即播放，不等 IntersectionObserver。
+   *
+   * 首屏元素本来就在视口里，却要等 IO 回调才开始动画，白白推迟一帧以上。
+   * 更要紧的是 IO 在页面不渲染时根本不触发（后台标签页、无头/不合成帧的环境），
+   * 那种情况下元素会永久停在 initial 的 opacity: 0 —— 内容等于不可见。
+   * 首屏内容不该把可见性押在 IO 上。
+   */
+  const trigger = eager
+    ? { animate: shown }
+    : { whileInView: shown, viewport: { once: true, margin: '-64px' } as const }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: offset.x * distance, y: offset.y * distance }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '-64px' }}
+      {...trigger}
       transition={{ duration, delay, ease: 'easeOut' }}
       {...props}
     >

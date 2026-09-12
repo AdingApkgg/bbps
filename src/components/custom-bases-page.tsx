@@ -94,7 +94,7 @@ export function CustomBasesPage() {
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:py-24">
-      <FadeIn className="mx-auto max-w-2xl text-center">
+      <FadeIn eager className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-bold tracking-tight">{t.title}</h1>
         <p className="mt-4 text-muted-foreground">{t.description}</p>
         <Button asChild className="mt-6">

@@ -113,13 +113,13 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
    *
    * 直接读 localStorage，避免 hydration 闭包捕获到服务端快照 'system'。
    */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次，依赖取自闭包的初始值
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored !== 'zh' && stored !== 'en') return
     if (stored !== locale) {
       router.replace(toLocalePath(pathname ?? '/', stored))
     }
-    // biome-ignore lint/correctness/useExhaustiveDependencies: 刻意只在挂载时跑一次
   }, [])
 
   const setPref = useCallback(

@@ -24,5 +24,7 @@
   "repeatAll": "列表循环",
   "repeatOne": "单曲循环",
   "lyrics": "歌词",
-  "noLyrics": "暂无歌词"
+  "noLyrics": "暂无歌词",
+  "seekLabel": "播放进度",
+  "volumeLabel": "音量"
 }

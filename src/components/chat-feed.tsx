@@ -35,6 +35,7 @@ export function ChatFeed() {
   const newestFirst = useMemo(() => [...entries].reverse(), [entries])
 
   // 新消息进来时，若用户没有主动向下翻，保持贴在顶部（最新处）
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 该依赖是触发器而非函数体读取的值，删掉会让 effect 只在挂载时跑一次
   useEffect(() => {
     const el = scrollRef.current
     if (el && pinnedToBottomRef.current) el.scrollTop = 0

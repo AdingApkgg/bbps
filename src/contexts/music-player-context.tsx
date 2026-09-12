@@ -250,6 +250,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [currentTrack, playTrack])
 
   /* fetch tracks per playlist */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 该依赖是触发器而非函数体读取的值，删掉会让 effect 只在挂载时跑一次
   useEffect(() => {
     if (playlists.length === 0) return
     let cancelled = false
@@ -276,6 +277,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   }, [playlists, configVer])
 
   /* fetch lyrics on track change */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 该依赖是触发器而非函数体读取的值，删掉会让 effect 只在挂载时跑一次
   useEffect(() => {
     let cancelled = false
 

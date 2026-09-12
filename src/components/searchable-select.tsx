@@ -47,7 +47,7 @@ export function SearchableSelect({
   const [active, setActive] = useState(0)
   const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
 
   const current = options.find((o) => o.value === value) ?? options[0]
 
@@ -115,6 +115,7 @@ export function SearchableSelect({
   }
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: 组合框惯例，键盘事件代内部的触发按钮与选项列表捕获，根节点本身不是控件
     <div ref={rootRef} className={cn('relative', className)} onKeyDown={onKeyDown}>
       <button
         type="button"
@@ -149,34 +150,40 @@ export function SearchableSelect({
           {visible.length === 0 ? (
             <p className="px-2 py-3 text-center text-xs text-muted-foreground">{emptyText}</p>
           ) : (
-            <ul
+            /*
+              用 div 而不是 ul/li：listbox / option 是交互角色，套在列表语义
+              元素上会和它们自带的语义打架。
+            */
+            <div
               ref={listRef}
               role="listbox"
               aria-label={ariaLabel}
               className="max-h-56 overflow-y-auto py-1"
             >
               {visible.map((o, i) => (
-                <li key={o.value} role="option" aria-selected={o.value === value}>
-                  <button
-                    type="button"
-                    onMouseEnter={() => setActive(i)}
-                    onClick={() => commit(o.value)}
+                /* role 挂在真正可聚焦的按钮上，不再套一层只为承载 role 的 div */
+                <button
+                  key={o.value}
+                  type="button"
+                  role="option"
+                  aria-selected={o.value === value}
+                  onMouseEnter={() => setActive(i)}
+                  onClick={() => commit(o.value)}
+                  className={cn(
+                    'flex w-full items-center gap-1.5 px-2 py-1.5 text-left text-xs',
+                    i === active && 'bg-muted'
+                  )}
+                >
+                  <Check
                     className={cn(
-                      'flex w-full items-center gap-1.5 px-2 py-1.5 text-left text-xs',
-                      i === active && 'bg-muted'
+                      'h-3 w-3 shrink-0',
+                      o.value === value ? 'opacity-100' : 'opacity-0'
                     )}
-                  >
-                    <Check
-                      className={cn(
-                        'h-3 w-3 shrink-0',
-                        o.value === value ? 'opacity-100' : 'opacity-0'
-                      )}
-                    />
-                    <span className="truncate">{o.label}</span>
-                  </button>
-                </li>
+                  />
+                  <span className="truncate">{o.label}</span>
+                </button>
               ))}
-            </ul>
+            </div>
           )}
 
           {filtered.length > visible.length && (

@@ -66,7 +66,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
 
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:py-24">
-      <FadeIn className="mx-auto max-w-2xl text-center">
+      <FadeIn eager className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-bold tracking-tight">{dict.gallery.title}</h1>
         <p className="mt-4 text-muted-foreground">{dict.gallery.description}</p>
       </FadeIn>
@@ -105,18 +105,28 @@ export function GalleryPage({ images }: GalleryPageProps) {
       {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-          onClick={() => setLightboxIndex(null)}
           role="dialog"
+          aria-modal="true"
+          aria-label={dict.gallery.viewer}
         >
+          {/*
+            遮罩做成独立的绝对定位按钮，而不是给外层 div 挂 onClick：
+            后者对键盘用户不可达，而且要靠内容层 stopPropagation 才不会误关。
+          */}
           <button
             type="button"
+            aria-label={dict.gallery.close}
+            className="absolute inset-0 cursor-default"
+            onClick={() => setLightboxIndex(null)}
+          />
+          <button
+            type="button"
+            aria-label={dict.gallery.prev}
             className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 p-2 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
-            onClick={(e) => {
-              e.stopPropagation()
-              setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)
-            }}
+            onClick={() => setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)}
           >
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -131,7 +141,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
             </svg>
           </button>
 
-          <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-h-[85vh] max-w-[90vw]">
             {/* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */}
             <img
               src={images[lightboxIndex].src}
@@ -145,13 +155,12 @@ export function GalleryPage({ images }: GalleryPageProps) {
 
           <button
             type="button"
+            aria-label={dict.gallery.next}
             className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-background/80 p-2 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
-            onClick={(e) => {
-              e.stopPropagation()
-              setLightboxIndex((prev) => (prev! + 1) % images.length)
-            }}
+            onClick={() => setLightboxIndex((prev) => (prev! + 1) % images.length)}
           >
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -168,10 +177,12 @@ export function GalleryPage({ images }: GalleryPageProps) {
 
           <button
             type="button"
+            aria-label={dict.gallery.close}
             className="absolute right-4 top-4 rounded-full bg-background/80 p-2 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
             onClick={() => setLightboxIndex(null)}
           >
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

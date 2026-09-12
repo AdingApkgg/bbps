@@ -53,10 +53,13 @@ BreadcrumbLink.displayName = 'BreadcrumbLink'
 
 const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<'span'>>(
   ({ className, ...props }, ref) => (
+    /*
+      当前页不是链接，去掉 shadcn 默认带的 role="link" 与 aria-disabled ——
+      aria-current="page" 本身就足以表达「这是当前所在页」，
+      而 role="link" 会让读屏把它读成一个不可用的链接。
+    */
     <span
       ref={ref}
-      role="link"
-      aria-disabled="true"
       aria-current="page"
       className={cn('font-normal text-foreground', className)}
       {...props}

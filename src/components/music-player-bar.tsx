@@ -38,11 +38,14 @@ function SeekBar({
   value,
   max,
   onChange,
+  label,
   className
 }: {
   value: number
   max: number
   onChange: (v: number) => void
+  /** 无障碍名称 —— 这个组件同时用于播放进度和音量，读屏得能区分 */
+  label: string
   className?: string
 }) {
   const barRef = useRef<HTMLDivElement>(null)
@@ -86,9 +89,38 @@ function SeekBar({
   }, [calc])
 
   return (
+    /*
+      role="slider" + tabIndex 让它进入 Tab 序列，方向键可调 ——
+      在此之前键盘用户完全无法调整进度和音量，只能用鼠标拖。
+    */
     <div
       ref={barRef}
-      className={cn('group relative h-1.5 w-full cursor-pointer rounded-full bg-muted', className)}
+      role="slider"
+      tabIndex={0}
+      aria-label={label}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-valuenow={value}
+      className={cn(
+        'group relative h-1.5 w-full cursor-pointer rounded-full bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+        className
+      )}
+      onKeyDown={(e) => {
+        const step = max / 20
+        if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+          e.preventDefault()
+          onChange(Math.min(max, value + step))
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+          e.preventDefault()
+          onChange(Math.max(0, value - step))
+        } else if (e.key === 'Home') {
+          e.preventDefault()
+          onChange(0)
+        } else if (e.key === 'End') {
+          e.preventDefault()
+          onChange(max)
+        }
+      }}
       onMouseDown={(e) => {
         dragging.current = true
         calc(e.clientX)
@@ -121,7 +153,7 @@ export function MusicPlayerBar() {
   const { currentTrack, playing, buffering, volume, mode, lyrics, lyricsLoading, showLyrics } =
     player
 
-  const currentLineRef = useRef<HTMLParagraphElement>(null)
+  const currentLineRef = useRef<HTMLButtonElement>(null)
 
   const currentLyricIdx = useMemo(() => {
     let idx = -1
@@ -132,6 +164,7 @@ export function MusicPlayerBar() {
     return idx
   }, [lyrics, time])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 该依赖是触发器而非函数体读取的值，删掉会让 effect 只在挂载时跑一次
   useEffect(() => {
     currentLineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [currentLyricIdx])
@@ -214,11 +247,12 @@ export function MusicPlayerBar() {
                 ) : (
                   <div className="space-y-5 py-16 text-center">
                     {lyrics.map((line, i) => (
-                      <p
+                      <button
+                        type="button"
                         key={`${i}-${line.time}`}
                         ref={i === currentLyricIdx ? currentLineRef : undefined}
                         className={cn(
-                          'cursor-pointer transition-all duration-300',
+                          'w-full cursor-pointer transition-all duration-300',
                           i === currentLyricIdx
                             ? 'text-lg font-semibold text-foreground'
                             : 'text-sm text-muted-foreground/40 hover:text-muted-foreground/70'
@@ -226,7 +260,7 @@ export function MusicPlayerBar() {
                         onClick={() => player.seek(line.time)}
                       >
                         {line.text}
-                      </p>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -235,7 +269,13 @@ export function MusicPlayerBar() {
 
             {/* Bottom controls */}
             <div className="border-t px-4 pb-6 pt-3">
-              <SeekBar value={time} max={duration} onChange={player.seek} className="mb-4" />
+              <SeekBar
+                value={time}
+                max={duration}
+                onChange={player.seek}
+                label={dict.music.seekLabel}
+                className="mb-4"
+              />
               <div className="flex items-center justify-center gap-4">
                 <span className="w-12 text-right text-xs tabular-nums text-muted-foreground">
                   {formatTime(time)}
@@ -275,6 +315,7 @@ export function MusicPlayerBar() {
           value={time}
           max={duration}
           onChange={player.seek}
+          label={dict.music.seekLabel}
           className="absolute -top-0.5 left-0 h-1 rounded-none"
         />
 
@@ -376,7 +417,13 @@ export function MusicPlayerBar() {
             >
               <VolIcon className="size-4" />
             </Button>
-            <SeekBar value={volume} max={1} onChange={player.setVolume} className="w-20" />
+            <SeekBar
+              value={volume}
+              max={1}
+              onChange={player.setVolume}
+              label={dict.music.volumeLabel}
+              className="w-20"
+            />
           </div>
         </div>
       </motion.div>

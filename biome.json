@@ -45,18 +45,17 @@
       "style": {
         "noNonNullAssertion": "off"
       },
-      "correctness": {
-        "useExhaustiveDependencies": "warn"
-      },
       "a11y": {
-        "noLabelWithoutControl": "warn",
-        "noSvgWithoutTitle": "warn",
-        "useSemanticElements": "warn",
-        "useKeyWithClickEvents": "warn",
-        "noStaticElementInteractions": "warn",
-        "noNoninteractiveElementToInteractiveRole": "warn",
-        "useFocusableInteractive": "warn",
-        "useMediaCaption": "warn"
+        "noLabelWithoutControl": {
+          "level": "error",
+          "options": {
+            "inputComponents": [
+              "Input",
+              "Textarea",
+              "SearchableSelect"
+            ]
+          }
+        }
       }
     }
   },

@@ -56,7 +56,7 @@ export function ServerStats() {
 
   return (
     <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <FadeIn className="text-center">
+      <FadeIn eager className="text-center">
         <h1 className="text-3xl font-bold tracking-tight">{dict.stats.onlinePlayers}</h1>
       </FadeIn>
 

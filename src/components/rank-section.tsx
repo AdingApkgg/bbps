@@ -153,7 +153,7 @@ export function RankSection() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <FadeIn className="text-center">
+      <FadeIn eager className="text-center">
         <h1 className="text-3xl font-bold tracking-tight">{r.title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{r.subtitle}</p>
       </FadeIn>
@@ -162,6 +162,7 @@ export function RankSection() {
 
       {/* 全球 / 本地切换。阵亡榜没有本地档，两边共用同一份数据 */}
       <div className="mt-8 flex justify-center">
+        {/* biome-ignore lint/a11y/useSemanticElements: 这是按钮组不是表单控件组，fieldset 会带来无关的表单语义 */}
         <div role="group" className="inline-flex rounded-lg bg-muted p-1" aria-label={r.title}>
           {scopes.map((s) => (
             <button

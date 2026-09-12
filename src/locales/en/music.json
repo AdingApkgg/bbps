@@ -24,5 +24,7 @@
   "repeatAll": "Repeat all",
   "repeatOne": "Repeat one",
   "lyrics": "Lyrics",
-  "noLyrics": "No lyrics available"
+  "noLyrics": "No lyrics available",
+  "seekLabel": "Playback position",
+  "volumeLabel": "Volume"
 }

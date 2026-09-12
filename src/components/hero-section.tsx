@@ -93,6 +93,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="overflow-hidden rounded-lg shadow-2xl">
+          {/* biome-ignore lint/a11y/useMediaCaption: 游戏实录画面，只有背景音乐没有对白 */}
           <video
             className="w-full"
             src={HERO_VIDEO_URL}

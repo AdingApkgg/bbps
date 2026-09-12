@@ -76,7 +76,7 @@ export function MusicPage() {
   return (
     <div className="container mx-auto max-w-screen-2xl px-4 py-16 md:py-24">
       {/* Header */}
-      <FadeIn className="mx-auto max-w-2xl text-center">
+      <FadeIn eager className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-bold tracking-tight">{dict.music.title}</h1>
         <p className="mt-4 text-muted-foreground">{dict.music.description}</p>
       </FadeIn>
@@ -110,9 +110,12 @@ export function MusicPage() {
                 <CardContent className="space-y-4 p-4">
                   {/* API endpoint */}
                   <div className="space-y-1.5">
-                    <label className="text-sm font-medium">{dict.music.apiEndpoint}</label>
+                    <label htmlFor="music-api-endpoint" className="text-sm font-medium">
+                      {dict.music.apiEndpoint}
+                    </label>
                     <div className="flex gap-2">
                       <Input
+                        id="music-api-endpoint"
                         value={apiUrl}
                         onChange={(e) => setApiUrl(e.target.value)}
                         placeholder={DEFAULT_API}
@@ -126,7 +129,7 @@ export function MusicPage() {
 
                   {/* Playlists */}
                   <div className="space-y-1.5">
-                    <label className="text-sm font-medium">{dict.music.playlists}</label>
+                    <p className="text-sm font-medium">{dict.music.playlists}</p>
                     <div className="space-y-2">
                       {playlists.map((p, i) => (
                         <div
@@ -152,10 +155,14 @@ export function MusicPage() {
                       {/* Add new playlist */}
                       <div className="flex flex-wrap items-end gap-2">
                         <div className="min-w-[80px] flex-1">
-                          <label className="mb-1 block text-xs text-muted-foreground">
+                          <label
+                            htmlFor="music-new-label"
+                            className="mb-1 block text-xs text-muted-foreground"
+                          >
                             {dict.music.tabName}
                           </label>
                           <Input
+                            id="music-new-label"
                             value={newLabel}
                             onChange={(e) => setNewLabel(e.target.value)}
                             placeholder={dict.music.tabName}
@@ -163,11 +170,11 @@ export function MusicPage() {
                           />
                         </div>
                         <div className="w-28">
-                          <label className="mb-1 block text-xs text-muted-foreground">
+                          <p className="mb-1 block text-xs text-muted-foreground">
                             {dict.music.server}
-                          </label>
+                          </p>
                           <Select value={newServer} onValueChange={setNewServer}>
-                            <SelectTrigger className="h-8 text-xs">
+                            <SelectTrigger aria-label={dict.music.server} className="h-8 text-xs">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -180,11 +187,11 @@ export function MusicPage() {
                           </Select>
                         </div>
                         <div className="w-28">
-                          <label className="mb-1 block text-xs text-muted-foreground">
+                          <p className="mb-1 block text-xs text-muted-foreground">
                             {dict.music.type}
-                          </label>
+                          </p>
                           <Select value={newType} onValueChange={setNewType}>
-                            <SelectTrigger className="h-8 text-xs">
+                            <SelectTrigger aria-label={dict.music.type} className="h-8 text-xs">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -197,8 +204,14 @@ export function MusicPage() {
                           </Select>
                         </div>
                         <div className="min-w-[100px] flex-1">
-                          <label className="mb-1 block text-xs text-muted-foreground">ID</label>
+                          <label
+                            htmlFor="music-new-id"
+                            className="mb-1 block text-xs text-muted-foreground"
+                          >
+                            ID
+                          </label>
                           <Input
+                            id="music-new-id"
                             value={newId}
                             onChange={(e) => setNewId(e.target.value)}
                             placeholder="ID"
