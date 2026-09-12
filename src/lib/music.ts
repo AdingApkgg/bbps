@@ -3,7 +3,15 @@ const STORAGE_PLAYLISTS_KEY = 'music-playlists'
 const STORAGE_VOLUME_KEY = 'music-volume'
 const STORAGE_MODE_KEY = 'music-play-mode'
 
-export const DEFAULT_API = 'https://api.i-meto.com/meting/api'
+export const DEFAULT_API = 'https://meting-api.saop.cc/api'
+
+/**
+ * 换掉的旧公共实例。设置面板的输入框默认填的就是当时的 DEFAULT_API，
+ * 有人没改内容直接点了保存，就把旧默认值写进了 localStorage ——
+ * 那不是「我就要用 i-meto」，只是把默认值抄了一份，换默认值时得跟着走，
+ * 否则这批人会一直卡在旧接口上。
+ */
+const LEGACY_API = 'https://api.i-meto.com/meting/api'
 
 export const DEFAULT_PLAYLISTS: PlaylistConfig[] = [
   { label: 'Asuna', server: 'netease', type: 'playlist', id: '8464409595' },
@@ -31,7 +39,9 @@ export type PlayMode = 'sequential' | 'repeat-all' | 'repeat-one' | 'shuffle'
 
 export function loadApiEndpoint(): string {
   if (typeof window === 'undefined') return DEFAULT_API
-  return localStorage.getItem(STORAGE_API_KEY) || DEFAULT_API
+  const stored = localStorage.getItem(STORAGE_API_KEY)
+  if (!stored || stored === LEGACY_API) return DEFAULT_API
+  return stored
 }
 
 export function saveApiEndpoint(url: string) {

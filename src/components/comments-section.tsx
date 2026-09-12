@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useTheme } from 'next-themes'
 import { useLocale } from '@/contexts/locale-context'
+import { usePrefersDark } from '@/hooks/use-prefers-dark'
 import { getDictionary } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -11,7 +11,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const artalkRef = useRef<ReturnType<typeof import('artalk').default.init> | null>(null)
   const [loaded, setLoaded] = useState(false)
-  const { resolvedTheme } = useTheme()
+  const isDark = usePrefersDark()
   const artalkLocale = lang === 'en' ? 'en' : 'zh-CN'
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function ArtalkPanel({ lang }: { lang: string }) {
         pageKey: '/comments/',
         pageTitle: '评论',
         locale: artalkLocale,
-        darkMode: resolvedTheme === 'dark',
+        darkMode: isDark,
         // 服务端配置里带着 locale: 'zh-CN'，会盖掉英文站的 locale。
         // 该项默认就是 false（本地配置优先），这里显式写死，避免后端改动或默认值变化导致英文站变中文。
         preferRemoteConf: false
@@ -49,8 +49,8 @@ function ArtalkPanel({ lang }: { lang: string }) {
   }, [])
 
   useEffect(() => {
-    artalkRef.current?.update({ darkMode: resolvedTheme === 'dark' })
-  }, [resolvedTheme])
+    artalkRef.current?.update({ darkMode: isDark })
+  }, [isDark])
 
   return (
     <>

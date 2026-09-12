@@ -36,10 +36,9 @@ export function CtaSection() {
     },
     {
       icon: <Map className="h-5 w-5" />,
-      title: dict.nav.editor,
+      title: dict.nav.maps,
       description: dict.cta.editorDescription,
-      href: 'https://webapi.30hb.cn/basebuilder/Layout-Builder.htm',
-      external: true
+      href: `${prefix}/maps`
     },
     {
       icon: <HardDrive className="h-5 w-5" />,
@@ -48,7 +47,7 @@ export function CtaSection() {
         locale === 'zh'
           ? '访问网盘获取更多资源和工具'
           : 'Access the drive for more resources and tools',
-      href: 'https://disk.saop.cc/',
+      href: 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98',
       external: true
     },
     {

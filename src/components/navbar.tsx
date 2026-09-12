@@ -3,12 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
 import {
   Menu,
-  Moon,
-  Sun,
-  Monitor,
   Globe,
   HandCoins,
   Languages,
@@ -25,7 +21,6 @@ import {
   MessageSquare,
   HardDrive,
   Map,
-  Compass,
   type LucideIcon
 } from 'lucide-react'
 import { useLocale, useLocalePref } from '@/contexts/locale-context'
@@ -40,45 +35,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 
-function ThemeToggle({ isEn }: { isEn: boolean }) {
-  const { setTheme, theme } = useTheme()
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => setTheme('light')}
-          className={cn(theme === 'light' && 'font-semibold')}
-        >
-          <Sun className="mr-2 h-4 w-4" />
-          {isEn ? 'Light' : '浅色'}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('dark')}
-          className={cn(theme === 'dark' && 'font-semibold')}
-        >
-          <Moon className="mr-2 h-4 w-4" />
-          {isEn ? 'Dark' : '深色'}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme('system')}
-          className={cn(theme === 'system' && 'font-semibold')}
-        >
-          <Monitor className="mr-2 h-4 w-4" />
-          {isEn ? 'System' : '跟随系统'}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
-
 export function Navbar() {
   const pathname = usePathname()
   const locale = useLocale()
@@ -92,6 +48,7 @@ export function Navbar() {
     { href: `${prefix}/commands`, label: dict.nav.commands, icon: Terminal },
     { href: `${prefix}/stats`, label: dict.nav.stats, icon: BarChart3 },
     { href: `${prefix}/rank`, label: dict.nav.rank, icon: Trophy },
+    { href: `${prefix}/maps`, label: dict.nav.maps, icon: Map },
     { href: `${prefix}/blog`, label: dict.nav.blog, icon: Newspaper },
     { href: `${prefix}/teams`, label: dict.nav.team, icon: Shield },
     { href: `${prefix}/community`, label: dict.nav.community, icon: Users },
@@ -104,18 +61,9 @@ export function Navbar() {
     }
   ]
 
+  /* 地图编辑器已并入「自制地图」页，不再单列外链 */
   const externalItems: { href: string; label: string; icon: LucideIcon }[] = [
-    { href: 'https://disk.saop.cc/', label: dict.nav.drive, icon: HardDrive },
-    {
-      href: 'https://webapi.30hb.cn/basebuilder/Layout-Builder.htm',
-      label: dict.nav.editor,
-      icon: Map
-    },
-    {
-      href: 'https://disk.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98/%E8%9A%95%E8%B1%86%E6%9C%8D%E5%9C%B0%E5%9B%BE',
-      label: dict.nav.browseMaps,
-      icon: Compass
-    }
+    { href: 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98', label: dict.nav.drive, icon: HardDrive }
   ]
 
   function isActive(href: string) {
@@ -167,18 +115,8 @@ export function Navbar() {
                 <Languages className="mr-2 h-4 w-4" />
                 English
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => setPref('system')}
-                className={cn(pref === 'system' && 'font-semibold')}
-              >
-                <Monitor className="mr-2 h-4 w-4" />
-                {locale === 'zh' ? '跟随系统' : 'System'}
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Theme toggle */}
-          <ThemeToggle isEn={locale === 'en'} />
 
           {/* Menu trigger */}
           <DropdownMenu>

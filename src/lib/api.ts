@@ -356,3 +356,96 @@ export async function logout(): Promise<void> {
     setToken(null)
   }
 }
+
+/* ---------- 玩家自制基地 ---------- */
+
+export interface CustomBase {
+  /** 主键，同时是访问下载接口用的标识；七成是中文名，进 URL 必须编码 */
+  name: string
+  /** 关卡类型。可能为 null —— 有相当一部分基地没有这个字段 */
+  base_level: string | null
+  /** 神器类型。纯前端往返字段，服务端逻辑不读它 */
+  artifact_type: number | null
+  building_count: number
+  trap_count: number
+  /** 基地 JSON 的字节数 */
+  byte_size: number
+  /** 累计下载次数，只有下载接口会 +1 */
+  download_count: number
+  /** 只说明有没有设编辑口令，不透露口令任何信息 */
+  has_password: boolean
+  /** 只读。从文件迁移来的无主基地默认为 true */
+  locked: boolean
+  owner_id: number | null
+  owner_name: string | null
+  /** ISO 8601 UTC */
+  created_at: string
+  /** ISO 8601 UTC */
+  updated_at: string
+}
+
+export interface CustomBaseList {
+  /** 当前筛选条件下的总数，总页数自己算 */
+  total: number
+  page: number
+  page_size: number
+  items: CustomBase[]
+}
+
+export type CustomBaseSort = 'updated' | 'created' | 'downloads' | 'size' | 'name'
+
+export interface CustomBaseQuery {
+  /** 名字模糊匹配，大小写不敏感，支持中文 */
+  q?: string
+  /** 按类型精确筛选，取值来自 fetchCustomBaseFacets */
+  level?: string
+  sort?: CustomBaseSort
+  page?: number
+  pageSize?: number
+}
+
+/**
+ * 基地列表。page/page_size 越界由服务端夹紧、sort 无法识别时回落到 updated，
+ * 都不报错，所以这里不做额外校验。
+ */
+export async function fetchCustomBases(
+  query: CustomBaseQuery = {},
+  signal?: AbortSignal
+): Promise<CustomBaseList> {
+  const params = new URLSearchParams()
+  if (query.q) params.set('q', query.q)
+  if (query.level) params.set('level', query.level)
+  if (query.sort) params.set('sort', query.sort)
+  if (query.page) params.set('page', String(query.page))
+  if (query.pageSize) params.set('page_size', String(query.pageSize))
+  const qs = params.toString()
+  return request<CustomBaseList>(`/api/bases${qs ? `?${qs}` : ''}`, { signal })
+}
+
+export interface CustomBaseFacets {
+  total: number
+  base_levels: { base_level: string; count: number }[]
+}
+
+/**
+ * 类型分布，给筛选下拉用。
+ *
+ * 注意：同一个「没有类型」的概念，列表项里是 null，这里是空字符串 ""。
+ * 空串不能当 level 参数传回去（那等于不筛选），调用方需自行剔除。
+ */
+export async function fetchCustomBaseFacets(
+  signal?: AbortSignal
+): Promise<CustomBaseFacets> {
+  return request<CustomBaseFacets>('/api/bases_facets', { signal })
+}
+
+/**
+ * 下载地址。用 <a href> 直接下载 —— 导航请求不走 CORS，
+ * 服务端 Content-Disposition 里的 UTF-8 文件名直接生效，
+ * 不必依赖跨源 fetch 能否读到该响应头。
+ *
+ * 每次调用都会让该基地的 download_count +1，所以只在用户点下载时用它。
+ */
+export function customBaseDownloadUrl(name: string): string {
+  return `${API_BASE}/api/bases/${encodeURIComponent(name)}/download`
+}

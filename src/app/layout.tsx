@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { Noto_Sans, Noto_Sans_SC } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
 import { LocaleProvider } from '@/contexts/locale-context'
 import { MusicPlayerProvider } from '@/contexts/music-player-context'
 import { Navbar } from '@/components/navbar'
+import { LocaleSuggestBar } from '@/components/locale-suggest-bar'
 import { Footer } from '@/components/footer'
 import { MusicPlayerBar, PlayerSpacer } from '@/components/music-player-bar'
 import {
@@ -79,8 +79,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
     languages: {
-      'zh-CN': SITE_URL,
-      'en': `${SITE_URL}/en`
+      zh: SITE_URL,
+      'en': `${SITE_URL}/en`,
+      'x-default': `${SITE_URL}/en`
     },
     types: {
       'application/rss+xml': `${SITE_URL}/feed.xml`
@@ -113,7 +114,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="zh-CN"
+      // BCP 47：中文内容的实质差别是简繁而非国别，W3C i18n 建议用文字子标签。
+      // 注意这只管「内容是什么语言」；og:locale 和 toLocaleString 各有各的格式要求
+      lang="zh-Hans"
       suppressHydrationWarning
       className={`${notoSans.variable} ${notoSansSC.variable}`}
     >
@@ -131,24 +134,18 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <LocaleProvider>
-            <MusicPlayerProvider>
-              <div className="relative flex min-h-svh flex-col">
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <PlayerSpacer />
-              </div>
-              <MusicPlayerBar />
-            </MusicPlayerProvider>
-          </LocaleProvider>
-        </ThemeProvider>
+        <LocaleProvider>
+          <MusicPlayerProvider>
+            <div className="relative flex min-h-svh flex-col">
+              <Navbar />
+              <LocaleSuggestBar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <PlayerSpacer />
+            </div>
+            <MusicPlayerBar />
+          </MusicPlayerProvider>
+        </LocaleProvider>
       </body>
     </html>
   )

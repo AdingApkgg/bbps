@@ -13,6 +13,7 @@ const STATIC_ROUTES = [
   '/comments/',
   '/downloads/',
   '/rank/',
+  '/maps/',
   '/blog/',
   '/teams/',
   '/community/',

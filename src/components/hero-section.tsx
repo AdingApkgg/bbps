@@ -9,9 +9,10 @@ import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { useVisitorStats } from '@/hooks/use-visitor-stats'
+import { ASSETS } from '@/lib/assets'
 
 const HERO_VIDEO_URL = 'https://r2.30hb.cn/hero.mp4'
-const HERO_POSTER_URL = 'https://r2.30hb.cn/hero.avif'
+const HERO_POSTER_URL = ASSETS.heroPoster
 
 /* ── 封面缩略图 + 播放按钮 ── */
 

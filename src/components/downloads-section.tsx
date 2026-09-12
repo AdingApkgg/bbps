@@ -11,7 +11,7 @@ import { FadeIn } from '@/components/motion'
 import privateServers from '@/data/private-servers.json'
 
 const DOWNLOAD_URL = 'https://30hb.cn/latest'
-const DRIVE_URL = 'https://disk.saop.cc/'
+const DRIVE_URL = 'https://drive.saop.cc/%E7%99%BD%E9%B9%85%E7%BD%91%E7%9B%98'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   'sparkles': Sparkles,
