@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '查看蚕豆私服实时在线人数和服务器状态',
   alternates: {
     canonical: `${SITE_URL}/stats/`,
-    languages: { en: `${SITE_URL}/en/stats/` }
+    languages: {
+      zh: `${SITE_URL}/stats/`,
+      en: `${SITE_URL}/en/stats/`,
+      'x-default': `${SITE_URL}/en/stats/`
+    }
   },
   openGraph: {
     title: '在线玩家 | 蚕豆私服',

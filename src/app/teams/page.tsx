@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '认识蚕豆私服背后的团队——是他们让这一切成为可能。',
   alternates: {
     canonical: `${SITE_URL}/teams/`,
-    languages: { en: `${SITE_URL}/en/teams/` }
+    languages: {
+      zh: `${SITE_URL}/teams/`,
+      en: `${SITE_URL}/en/teams/`,
+      'x-default': `${SITE_URL}/en/teams/`
+    }
   },
   openGraph: {
     title: '团队成员 | 蚕豆私服',

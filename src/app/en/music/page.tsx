@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Online music player',
   alternates: {
     canonical: `${SITE_URL}/en/music/`,
-    languages: { 'zh-CN': `${SITE_URL}/music/` }
+    languages: {
+      zh: `${SITE_URL}/music/`,
+      en: `${SITE_URL}/en/music/`,
+      'x-default': `${SITE_URL}/en/music/`
+    }
   },
   openGraph: {
     title: `Music | ${SITE_NAME_EN}`,

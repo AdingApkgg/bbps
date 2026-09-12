@@ -8,7 +8,11 @@ import { FeaturesZigzag } from '@/components/features-zigzag'
 export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/`,
-    languages: { en: `${SITE_URL}/en/` }
+    languages: {
+      zh: `${SITE_URL}/`,
+      en: `${SITE_URL}/en/`,
+      'x-default': `${SITE_URL}/en/`
+    }
   },
   openGraph: {
     title: `${SITE_NAME} | 海岛奇兵私服`,

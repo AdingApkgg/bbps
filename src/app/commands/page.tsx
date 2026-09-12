@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服游戏内指令大全，快速查阅各类命令用法',
   alternates: {
     canonical: `${SITE_URL}/commands/`,
-    languages: { en: `${SITE_URL}/en/commands/` }
+    languages: {
+      zh: `${SITE_URL}/commands/`,
+      en: `${SITE_URL}/en/commands/`,
+      'x-default': `${SITE_URL}/en/commands/`
+    }
   },
   openGraph: {
     title: '游戏指令 | 蚕豆私服',

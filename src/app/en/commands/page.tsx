@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'In-game commands for Horsebean Private Server — find and generate commands easily',
   alternates: {
     canonical: `${SITE_URL}/en/commands/`,
-    languages: { 'zh-CN': `${SITE_URL}/commands/` }
+    languages: {
+      zh: `${SITE_URL}/commands/`,
+      en: `${SITE_URL}/en/commands/`,
+      'x-default': `${SITE_URL}/en/commands/`
+    }
   },
   openGraph: {
     title: 'Commands | Horsebean Private Server',

@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Community comments for Horsebean Private Server players',
   alternates: {
     canonical: `${SITE_URL}/en/comments/`,
-    languages: { 'zh-CN': `${SITE_URL}/comments/` }
+    languages: {
+      zh: `${SITE_URL}/comments/`,
+      en: `${SITE_URL}/en/comments/`,
+      'x-default': `${SITE_URL}/en/comments/`
+    }
   },
   openGraph: {
     title: 'Comments | Horsebean Private Server',

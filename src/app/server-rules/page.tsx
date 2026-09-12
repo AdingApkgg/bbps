@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服服务器规则与社区公约',
   alternates: {
     canonical: `${SITE_URL}/server-rules/`,
-    languages: { en: `${SITE_URL}/en/server-rules/` }
+    languages: {
+      zh: `${SITE_URL}/server-rules/`,
+      en: `${SITE_URL}/en/server-rules/`,
+      'x-default': `${SITE_URL}/en/server-rules/`
+    }
   },
   openGraph: {
     title: '服务器规则 | 蚕豆私服',

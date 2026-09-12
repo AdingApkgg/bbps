@@ -8,7 +8,11 @@ export const metadata: Metadata = {
     'Meet the people behind Horsebean Private Server — they make it all possible.',
   alternates: {
     canonical: `${SITE_URL}/en/teams/`,
-    languages: { zh: `${SITE_URL}/teams/` }
+    languages: {
+      zh: `${SITE_URL}/teams/`,
+      en: `${SITE_URL}/en/teams/`,
+      'x-default': `${SITE_URL}/en/teams/`
+    }
   },
   openGraph: {
     title: 'Our Team | Horsebean Private Server',

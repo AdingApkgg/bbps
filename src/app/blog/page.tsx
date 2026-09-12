@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服最新公告、更新日志与攻略分享',
   alternates: {
     canonical: `${SITE_URL}/blog/`,
-    languages: { en: `${SITE_URL}/en/blog/` }
+    languages: {
+      zh: `${SITE_URL}/blog/`,
+      en: `${SITE_URL}/en/blog/`,
+      'x-default': `${SITE_URL}/en/blog/`
+    }
   },
   openGraph: {
     title: '博客 | 蚕豆私服',

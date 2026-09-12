@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   description: 'Latest announcements, changelogs and guides for Horsebean Private Server',
   alternates: {
     canonical: `${SITE_URL}/en/blog/`,
-    languages: { 'zh-CN': `${SITE_URL}/blog/` }
+    languages: {
+      zh: `${SITE_URL}/blog/`,
+      en: `${SITE_URL}/en/blog/`,
+      'x-default': `${SITE_URL}/en/blog/`
+    }
   },
   openGraph: {
     title: 'Blog | Horsebean Private Server',

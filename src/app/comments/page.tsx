@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服玩家社区评论区',
   alternates: {
     canonical: `${SITE_URL}/comments/`,
-    languages: { en: `${SITE_URL}/en/comments/` }
+    languages: {
+      zh: `${SITE_URL}/comments/`,
+      en: `${SITE_URL}/en/comments/`,
+      'x-default': `${SITE_URL}/en/comments/`
+    }
   },
   openGraph: {
     title: '评论 | 蚕豆私服',

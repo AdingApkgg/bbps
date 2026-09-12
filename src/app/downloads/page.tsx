@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '下载蚕豆私服客户端，支持 Android 和 iOS',
   alternates: {
     canonical: `${SITE_URL}/downloads/`,
-    languages: { en: `${SITE_URL}/en/downloads/` }
+    languages: {
+      zh: `${SITE_URL}/downloads/`,
+      en: `${SITE_URL}/en/downloads/`,
+      'x-default': `${SITE_URL}/en/downloads/`
+    }
   },
   openGraph: {
     title: '下载 | 蚕豆私服',

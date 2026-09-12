@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Horsebean Private Server server rules and community guidelines',
   alternates: {
     canonical: `${SITE_URL}/en/server-rules/`,
-    languages: { 'zh-CN': `${SITE_URL}/server-rules/` }
+    languages: {
+      zh: `${SITE_URL}/server-rules/`,
+      en: `${SITE_URL}/en/server-rules/`,
+      'x-default': `${SITE_URL}/en/server-rules/`
+    }
   },
   openGraph: {
     title: 'Server Rules | Horsebean Private Server',

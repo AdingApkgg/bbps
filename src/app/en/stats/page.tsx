@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'View real-time online players and server status for Horsebean Private Server',
   alternates: {
     canonical: `${SITE_URL}/en/stats/`,
-    languages: { 'zh-CN': `${SITE_URL}/stats/` }
+    languages: {
+      zh: `${SITE_URL}/stats/`,
+      en: `${SITE_URL}/en/stats/`,
+      'x-default': `${SITE_URL}/en/stats/`
+    }
   },
   openGraph: {
     title: 'Online Players | Horsebean Private Server',

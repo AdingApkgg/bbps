@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '加入蚕豆私服社区，与其他玩家交流',
   alternates: {
     canonical: `${SITE_URL}/community/`,
-    languages: { en: `${SITE_URL}/en/community/` }
+    languages: {
+      zh: `${SITE_URL}/community/`,
+      en: `${SITE_URL}/en/community/`,
+      'x-default': `${SITE_URL}/en/community/`
+    }
   },
   openGraph: {
     title: '社区 | 蚕豆私服',

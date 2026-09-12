@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服玩家排行榜 — VP、螃蟹、伤亡排名',
   alternates: {
     canonical: `${SITE_URL}/rank/`,
-    languages: { en: `${SITE_URL}/en/rank/` }
+    languages: {
+      zh: `${SITE_URL}/rank/`,
+      en: `${SITE_URL}/en/rank/`,
+      'x-default': `${SITE_URL}/en/rank/`
+    }
   },
   openGraph: {
     title: '排行榜 | 蚕豆私服',

@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Horsebean Private Server privacy policy — learn how we handle your data',
   alternates: {
     canonical: `${SITE_URL}/en/privacy-policy/`,
-    languages: { 'zh-CN': `${SITE_URL}/privacy-policy/` }
+    languages: {
+      zh: `${SITE_URL}/privacy-policy/`,
+      en: `${SITE_URL}/en/privacy-policy/`,
+      'x-default': `${SITE_URL}/en/privacy-policy/`
+    }
   },
   openGraph: {
     title: 'Privacy Policy | Horsebean Private Server',

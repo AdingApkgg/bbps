@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Download Horsebean Private Server client for Android and iOS',
   alternates: {
     canonical: `${SITE_URL}/en/downloads/`,
-    languages: { 'zh-CN': `${SITE_URL}/downloads/` }
+    languages: {
+      zh: `${SITE_URL}/downloads/`,
+      en: `${SITE_URL}/en/downloads/`,
+      'x-default': `${SITE_URL}/en/downloads/`
+    }
   },
   openGraph: {
     title: 'Downloads | Horsebean Private Server',

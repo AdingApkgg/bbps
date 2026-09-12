@@ -8,7 +8,11 @@ export const metadata: Metadata = {
   description: '蚕豆私服玩家创意基地地图与作品图集',
   alternates: {
     canonical: `${SITE_URL}/gallery/`,
-    languages: { en: `${SITE_URL}/en/gallery/` }
+    languages: {
+      zh: `${SITE_URL}/gallery/`,
+      en: `${SITE_URL}/en/gallery/`,
+      'x-default': `${SITE_URL}/en/gallery/`
+    }
   },
   openGraph: {
     title: `图集 | ${SITE_NAME}`,

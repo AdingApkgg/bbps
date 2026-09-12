@@ -8,7 +8,11 @@ export const metadata: Metadata = {
   description: 'Player-created base maps and creative works gallery',
   alternates: {
     canonical: `${SITE_URL}/en/gallery/`,
-    languages: { 'zh-CN': `${SITE_URL}/gallery/` }
+    languages: {
+      zh: `${SITE_URL}/gallery/`,
+      en: `${SITE_URL}/en/gallery/`,
+      'x-default': `${SITE_URL}/en/gallery/`
+    }
   },
   openGraph: {
     title: `Gallery | ${SITE_NAME_EN}`,

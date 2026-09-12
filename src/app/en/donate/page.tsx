@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Support Horsebean Private Server with a donation',
   alternates: {
     canonical: `${SITE_URL}/en/donate/`,
-    languages: { 'zh-CN': `${SITE_URL}/donate/` }
+    languages: {
+      zh: `${SITE_URL}/donate/`,
+      en: `${SITE_URL}/en/donate/`,
+      'x-default': `${SITE_URL}/en/donate/`
+    }
   },
   openGraph: {
     title: 'Donate | Horsebean Private Server',

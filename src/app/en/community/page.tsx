@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Join the Horsebean Private Server community and connect with other players',
   alternates: {
     canonical: `${SITE_URL}/en/community/`,
-    languages: { 'zh-CN': `${SITE_URL}/community/` }
+    languages: {
+      zh: `${SITE_URL}/community/`,
+      en: `${SITE_URL}/en/community/`,
+      'x-default': `${SITE_URL}/en/community/`
+    }
   },
   openGraph: {
     title: 'Community | Horsebean Private Server',

@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: 'Horsebean Private Server player rankings — VP, Mega Crab, and Casualties leaderboards',
   alternates: {
     canonical: `${SITE_URL}/en/rank/`,
-    languages: { 'zh-CN': `${SITE_URL}/rank/` }
+    languages: {
+      zh: `${SITE_URL}/rank/`,
+      en: `${SITE_URL}/en/rank/`,
+      'x-default': `${SITE_URL}/en/rank/`
+    }
   },
   openGraph: {
     title: 'Rankings | Horsebean Private Server',

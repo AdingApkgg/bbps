@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '捐赠支持蚕豆私服',
   alternates: {
     canonical: `${SITE_URL}/donate/`,
-    languages: { en: `${SITE_URL}/en/donate/` }
+    languages: {
+      zh: `${SITE_URL}/donate/`,
+      en: `${SITE_URL}/en/donate/`,
+      'x-default': `${SITE_URL}/en/donate/`
+    }
   },
   openGraph: {
     title: '捐赠 | 蚕豆私服',

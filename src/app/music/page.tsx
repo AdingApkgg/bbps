@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: '在线音乐播放器',
   alternates: {
     canonical: `${SITE_URL}/music/`,
-    languages: { en: `${SITE_URL}/en/music/` }
+    languages: {
+      zh: `${SITE_URL}/music/`,
+      en: `${SITE_URL}/en/music/`,
+      'x-default': `${SITE_URL}/en/music/`
+    }
   },
   openGraph: {
     title: `音乐 | ${SITE_NAME}`,

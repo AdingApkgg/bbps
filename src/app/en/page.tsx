@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION_EN,
   alternates: {
     canonical: `${SITE_URL}/en/`,
-    languages: { 'zh-CN': `${SITE_URL}/` }
+    languages: {
+      zh: `${SITE_URL}/`,
+      en: `${SITE_URL}/en/`,
+      'x-default': `${SITE_URL}/en/`
+    }
   },
   openGraph: {
     title: SITE_NAME_EN,
