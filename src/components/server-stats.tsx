@@ -9,12 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
+ Table,
+ TableBody,
+ TableCell,
+ TableHead,
+ TableHeader,
+ TableRow
 } from '@/components/ui/table'
 import { FadeIn, Stagger, StaggerItem } from '@/components/motion'
 import { PlayerName } from '@/components/player-name'
@@ -24,157 +24,157 @@ import { GlobalStats } from '@/components/global-stats'
 import { PlayerBaseSheet, type PlayerBaseTarget } from '@/components/player-base-sheet'
 
 export function ServerStats() {
-  const locale = useLocale()
-  const dict = getDictionary(locale)
-  const [target, setTarget] = useState<PlayerBaseTarget | null>(null)
-  const { serverVersion, onlinePlayers, totalPlayers, totalReplays, players, loading, error } =
-    useServerStats()
+ const locale = useLocale()
+ const dict = getDictionary(locale)
+ const [target, setTarget] = useState<PlayerBaseTarget | null>(null)
+ const { serverVersion, onlinePlayers, totalPlayers, totalReplays, players, loading, error } =
+ useServerStats()
 
-  const statCards = [
-    {
-      icon: <Server className="h-4 w-4 text-muted-foreground" />,
-      label: locale === 'zh' ? '服务器版本' : 'Server Version',
-      value: serverVersion || '-',
-      raw: true
-    },
-    {
-      icon: <Users className="h-4 w-4 text-muted-foreground" />,
-      label: dict.stats.onlinePlayers,
-      value: onlinePlayers
-    },
-    {
-      icon: <Trophy className="h-4 w-4 text-muted-foreground" />,
-      label: dict.stats.totalPlayers,
-      value: totalPlayers
-    },
-    {
-      icon: <Video className="h-4 w-4 text-muted-foreground" />,
-      label: dict.stats.totalReplays,
-      value: totalReplays
-    }
-  ]
+ const statCards = [
+ {
+ icon: <Server className="h-4 w-4 text-on-surface-medium" />,
+ label: locale === 'zh' ? '服务器版本' : 'Server Version',
+ value: serverVersion || '-',
+ raw: true
+ },
+ {
+ icon: <Users className="h-4 w-4 text-on-surface-medium" />,
+ label: dict.stats.onlinePlayers,
+ value: onlinePlayers
+ },
+ {
+ icon: <Trophy className="h-4 w-4 text-on-surface-medium" />,
+ label: dict.stats.totalPlayers,
+ value: totalPlayers
+ },
+ {
+ icon: <Video className="h-4 w-4 text-on-surface-medium" />,
+ label: dict.stats.totalReplays,
+ value: totalReplays
+ }
+ ]
 
-  return (
-    <section className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <FadeIn eager className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight">{dict.stats.onlinePlayers}</h1>
-      </FadeIn>
+ return (
+ <section className="container-m2 max-w-4xl py-16 md:py-24">
+ <FadeIn eager className="text-center">
+ <h1 className="text-headline-md font-normal">{dict.stats.onlinePlayers}</h1>
+ </FadeIn>
 
-      {/* Stat cards */}
-      <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-        {statCards.map((stat) => (
-          <StaggerItem key={stat.label}>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{stat.label}</CardTitle>
-                {stat.icon}
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <Skeleton className="h-8 w-20" />
-                ) : (
-                  <div className="text-2xl font-bold">
-                    {'raw' in stat && stat.raw
-                      ? String(stat.value)
-                      : Number(stat.value).toLocaleString()}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </StaggerItem>
-        ))}
-      </Stagger>
+ {/* Stat cards */}
+ <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+ {statCards.map((stat) => (
+ <StaggerItem key={stat.label}>
+ <Card>
+ <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+ <CardTitle className="text-body-02 font-medium">{stat.label}</CardTitle>
+ {stat.icon}
+ </CardHeader>
+ <CardContent>
+ {loading ? (
+ <Skeleton className="h-8 w-20" />
+ ) : (
+ <div className="text-headline-md font-normal">
+ {'raw' in stat && stat.raw
+ ? String(stat.value)
+ : Number(stat.value).toLocaleString()}
+ </div>
+ )}
+ </CardContent>
+ </Card>
+ </StaggerItem>
+ ))}
+ </Stagger>
 
-      {/* Online players list */}
-      <FadeIn delay={0.3}>
-        <Card className="mt-6">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-base">{dict.stats.onlinePlayers}</CardTitle>
-            <Badge variant="secondary">{players.length}</Badge>
-          </CardHeader>
-          <CardContent>
-            {loading && (
-              <div className="space-y-3">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <Skeleton className="h-6 w-6 rounded-full" />
-                    <Skeleton className="h-4 w-32" />
-                    <Skeleton className="ml-auto h-4 w-16" />
-                  </div>
-                ))}
-              </div>
-            )}
+ {/* Online players list */}
+ <FadeIn delay={0.3}>
+ <Card className="mt-6">
+ <CardHeader className="flex flex-row items-center justify-between space-y-0">
+ <CardTitle className="text-body-02">{dict.stats.onlinePlayers}</CardTitle>
+ <Badge variant="secondary">{players.length}</Badge>
+ </CardHeader>
+ <CardContent>
+ {loading && (
+ <div className="space-y-3">
+ {Array.from({ length: 5 }).map((_, i) => (
+ <div key={i} className="flex items-center gap-3">
+ <Skeleton className="h-6 w-6 rounded-full" />
+ <Skeleton className="h-4 w-32" />
+ <Skeleton className="ml-auto h-4 w-16" />
+ </div>
+ ))}
+ </div>
+ )}
 
-            {!loading && error && (
-              <p className="py-8 text-center text-sm text-destructive">{dict.stats.error}</p>
-            )}
+ {!loading && error && (
+ <p className="py-8 text-center text-body-02 text-error">{dict.stats.error}</p>
+ )}
 
-            {!loading && !error && players.length === 0 && (
-              <p className="py-8 text-center text-sm text-muted-foreground">
-                {dict.stats.noPlayers}
-              </p>
-            )}
+ {!loading && !error && players.length === 0 && (
+ <p className="py-8 text-center text-body-02 text-on-surface-medium">
+ {dict.stats.noPlayers}
+ </p>
+ )}
 
-            {!loading && players.length > 0 && (
-              <>
-                <p className="mb-3 text-xs text-muted-foreground">{dict.stats.baseViewHint}</p>
-                <div className="max-h-[400px] overflow-y-auto rounded-md border">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-12">#</TableHead>
-                        <TableHead>{locale === 'zh' ? '玩家' : 'Player'}</TableHead>
-                        <TableHead className="text-right">ID</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {players.map((player, index) => (
-                        <TableRow key={player.id}>
-                          <TableCell className="font-medium">{index + 1}</TableCell>
-                          <TableCell>
-                            <button
-                              type="button"
-                              onClick={() => setTarget({ id: player.id, name: player.name })}
-                              className="text-left hover:underline"
-                            >
-                              <PlayerName name={player.name} />
-                            </button>
-                          </TableCell>
-                          <TableCell className="text-right text-muted-foreground">
-                            {player.id}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </>
-            )}
-          </CardContent>
-        </Card>
-      </FadeIn>
+ {!loading && players.length > 0 && (
+ <>
+ <p className="mb-3 text-label text-on-surface-medium">{dict.stats.baseViewHint}</p>
+ <div className="max-h-[400px] overflow-y-auto rounded-sm bg-surface-01 shadow-sm">
+ <Table>
+ <TableHeader>
+ <TableRow>
+ <TableHead className="w-12">#</TableHead>
+ <TableHead>{locale === 'zh' ? '玩家' : 'Player'}</TableHead>
+ <TableHead className="text-right">ID</TableHead>
+ </TableRow>
+ </TableHeader>
+ <TableBody>
+ {players.map((player, index) => (
+ <TableRow key={player.id}>
+ <TableCell className="font-medium">{index + 1}</TableCell>
+ <TableCell>
+ <button
+ type="button"
+ onClick={() => setTarget({ id: player.id, name: player.name })}
+ className="text-left hover:underline"
+ >
+ <PlayerName name={player.name} />
+ </button>
+ </TableCell>
+ <TableCell className="text-right text-on-surface-medium">
+ {player.id}
+ </TableCell>
+ </TableRow>
+ ))}
+ </TableBody>
+ </Table>
+ </div>
+ </>
+ )}
+ </CardContent>
+ </Card>
+ </FadeIn>
 
-      {/* 最近聊天 */}
-      <FadeIn delay={0.4}>
-        <ChatFeed />
-      </FadeIn>
+ {/* 最近聊天 */}
+ <FadeIn delay={0.4}>
+ <ChatFeed />
+ </FadeIn>
 
-      {/* 服务器详情：/api/server 里此前未展示的字段 */}
-      <FadeIn delay={0.45}>
-        <ServerDetails />
-      </FadeIn>
+ {/* 服务器详情：/api/server 里此前未展示的字段 */}
+ <FadeIn delay={0.45}>
+ <ServerDetails />
+ </FadeIn>
 
-      {/* 全服统计 */}
-      <FadeIn delay={0.5}>
-        <GlobalStats />
-      </FadeIn>
+ {/* 全服统计 */}
+ <FadeIn delay={0.5}>
+ <GlobalStats />
+ </FadeIn>
 
-      <PlayerBaseSheet
-        target={target}
-        onOpenChange={(open) => {
-          if (!open) setTarget(null)
-        }}
-      />
-    </section>
-  )
+ <PlayerBaseSheet
+ target={target}
+ onOpenChange={(open) => {
+ if (!open) setTarget(null)
+ }}
+ />
+ </section>
+ )
 }

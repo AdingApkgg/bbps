@@ -11,6 +11,16 @@ const POLL_LIMIT = 50
 const POLL_INTERVAL = 12000
 /** 前端保留上限，避免长时间挂着无限增长 */
 const MAX_ENTRIES = 500
+/** 自动刷新的偏好键；关掉只是不轮询，手动刷新照常 */
+const STORAGE_POLL_KEY = 'bbps-chat-poll'
+
+function loadPolling(): boolean {
+  try {
+    return window.localStorage.getItem(STORAGE_POLL_KEY) !== 'off'
+  } catch {
+    return true
+  }
+}
 
 /** 按 seq 合并去重；seq 单调递增，直接当排序键和 React key */
 function mergeBySeq(prev: ChatEntry[], incoming: ChatEntry[]): ChatEntry[] {
@@ -26,7 +36,22 @@ export function useChat() {
   const [entries, setEntries] = useState<ChatEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [polling, setPollingState] = useState(true)
   const loadedOnceRef = useRef(false)
+
+  const setPolling = useCallback((next: boolean) => {
+    setPollingState(next)
+    try {
+      window.localStorage.setItem(STORAGE_POLL_KEY, next ? 'on' : 'off')
+    } catch {
+      /* 隐私模式下不可用 */
+    }
+  }, [])
+
+  // 偏好是外部存储，挂载后才读得到；先按默认 true 渲染，再对齐一次
+  useEffect(() => {
+    setPollingState(loadPolling())
+  }, [])
 
   const refresh = useCallback(async () => {
     try {
@@ -61,12 +86,13 @@ export function useChat() {
     }
 
     run(INITIAL_LIMIT)
+    if (!polling) return
     const id = setInterval(() => run(POLL_LIMIT), POLL_INTERVAL)
     return () => {
       cancelled = true
       clearInterval(id)
     }
-  }, [])
+  }, [polling])
 
-  return { entries, loading, error, refresh }
+  return { entries, loading, error, refresh, polling, setPolling }
 }

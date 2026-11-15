@@ -6,28 +6,28 @@ import { CtaSection } from '@/components/cta-section'
 import { FeaturesZigzag } from '@/components/features-zigzag'
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: `${SITE_URL}/`,
-    languages: {
-      zh: `${SITE_URL}/`,
-      en: `${SITE_URL}/en/`,
-      'x-default': `${SITE_URL}/en/`
-    }
-  },
-  openGraph: {
-    title: `${SITE_NAME} | 海岛奇兵私服`,
-    description: SITE_DESCRIPTION,
-    url: `${SITE_URL}/`
-  }
+ alternates: {
+ canonical: `${SITE_URL}/`,
+ languages: {
+ zh: `${SITE_URL}/`,
+ en: `${SITE_URL}/en/`,
+ 'x-default': `${SITE_URL}/en/`
+ }
+ },
+ openGraph: {
+ title: `${SITE_NAME} | 海岛奇兵私服`,
+ description: SITE_DESCRIPTION,
+ url: `${SITE_URL}/`
+ }
 }
 
 export default function HomePage() {
-  return (
-    <div className="overflow-x-hidden">
-      <HeroSection />
-      <IntroTabs />
-      <FeaturesZigzag />
-      <CtaSection />
-    </div>
-  )
+ return (
+ <div className="overflow-x-hidden">
+ <HeroSection />
+ <IntroTabs />
+ <FeaturesZigzag />
+ <CtaSection />
+ </div>
+ )
 }

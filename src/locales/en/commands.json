@@ -1,6 +1,8 @@
 {
   "title": "Command Tool",
   "subtitle": "Search commands, copy them, or run them straight from the web",
+  "copyFailed": "Could not copy",
+  "copied": "Copied to clipboard",
   "copyButton": "Copy Command",
   "searchPlaceholder": "Search {count} commands by name or syntax…",
   "clearSearch": "Clear search",
@@ -41,7 +43,11 @@
   "confirmAgain": "Click once more",
   "optionLabel": "Option",
   "deckLabel": "Pick a deck value (0-16)",
+  "deckSelectAll": "Select all",
   "fillParams": "Set params ({n})",
   "optionalParams": "Set optional params",
-  "copyOnlyHint": "Not registered on the server — copy it into the game instead"
+  "copyOnlyHint": "Not registered on the server — copy it into the game instead",
+  "historySelectAll": "Select all",
+  "historyDelete": "Delete selected",
+  "historyExitSelect": "Cancel"
 }

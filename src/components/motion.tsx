@@ -1,7 +1,30 @@
 'use client'
 
-import { type HTMLMotionProps, motion } from 'framer-motion'
+import { type HTMLMotionProps, motion, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
+
+/* 动效
+ *
+ * 进场一律 decelerate，时长按场景取 M2 motion 表：
+ *  - 展开 / 揭示类（本文件的滚动进场）= medium-2（300ms）；
+ *  - 位移距离很短，成组的元素才用 stagger，单项不会飞很远。
+ * 曲线就是 M2 的 --md-sys-motion-ease-decelerate / -accelerate，数值一致到每一位；
+ * 前段起手快、末段收得干净，没有回弹（framer 的 'easeOut' 会被替换掉）。
+ * framer 只吃数字，读不了 CSS 变量，所以这里复制一份常量，改令牌时必须同步。
+ */
+export const DURATION_REVEAL = 0.3 // = --md-sys-motion-medium-2
+export const DURATION_FAST = 0.15 // = --md-sys-motion-short-3
+/* 展开 / 折叠（手风琴、设置面板）：M2 的 short-4（200ms） */
+export const DURATION_DISCLOSURE = 0.2 // = --md-sys-motion-short-4
+export const EASE_ENTRANCE = [0, 0, 0.2, 1] as const // = --md-sys-motion-ease-decelerate
+export const EASE_EXIT = [0.4, 0, 1, 1] as const // = --md-sys-motion-ease-accelerate
+
+/* framer 自己用 JS 跑动画，全局 CSS 里那条 reduce 覆盖管不到它，
+ * 所以每个过渡都要过一遍这个钩子：reduce 下时长归零，位移和缩放直接落位。 */
+export function useMotionDuration(duration: number) {
+  const reduce = useReducedMotion()
+  return reduce ? 0 : duration
+}
 
 /* ── Fade-in on scroll (viewport-triggered) ── */
 
@@ -31,13 +54,14 @@ export function FadeIn({
   children,
   delay = 0,
   direction = 'up',
-  distance = 24,
-  duration = 0.5,
+  distance = 8,
+  duration = DURATION_REVEAL,
   eager = false,
   ...props
 }: FadeInProps) {
   const offset = directionOffset[direction]
   const shown = { opacity: 1, x: 0, y: 0 }
+  const ms = useMotionDuration(duration)
 
   /*
    * eager：挂载即播放，不等 IntersectionObserver。
@@ -55,7 +79,7 @@ export function FadeIn({
     <motion.div
       initial={{ opacity: 0, x: offset.x * distance, y: offset.y * distance }}
       {...trigger}
-      transition={{ duration, delay, ease: 'easeOut' }}
+      transition={{ duration: ms, delay, ease: EASE_ENTRANCE }}
       {...props}
     >
       {children}
@@ -74,7 +98,8 @@ interface StaggerProps {
   delay?: number
 }
 
-export function Stagger({ children, className, stagger = 0.08, delay = 0 }: StaggerProps) {
+export function Stagger({ children, className, stagger = 0.04, delay = 0 }: StaggerProps) {
+  const reduce = useReducedMotion()
   return (
     <motion.div
       className={className}
@@ -85,7 +110,7 @@ export function Stagger({ children, className, stagger = 0.08, delay = 0 }: Stag
         hidden: {},
         visible: {
           transition: {
-            staggerChildren: stagger,
+            staggerChildren: reduce ? 0 : stagger,
             delayChildren: delay
           }
         }
@@ -101,11 +126,12 @@ interface StaggerItemProps extends HTMLMotionProps<'div'> {
 }
 
 export function StaggerItem({ children, ...props }: StaggerItemProps) {
+  const ms = useMotionDuration(DURATION_REVEAL)
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+        hidden: { opacity: 0, y: 8 },
+        visible: { opacity: 1, y: 0, transition: { duration: ms, ease: EASE_ENTRANCE } }
       }}
       {...props}
     >

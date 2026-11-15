@@ -7,6 +7,7 @@
   "noPlayers": "No players online",
   "chatTitle": "Recent Chat",
   "chatHint": "The latest 500 server-wide messages, refreshed every 12 seconds",
+  "chatAutoRefresh": "Auto refresh",
   "chatEmpty": "No messages yet",
   "chatError": "Failed to load chat",
   "chatRefresh": "Refresh",

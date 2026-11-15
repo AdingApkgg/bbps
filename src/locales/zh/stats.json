@@ -7,6 +7,7 @@
   "noPlayers": "暂无在线玩家",
   "chatTitle": "最近聊天",
   "chatHint": "展示全服最近 500 条聊天，每 12 秒自动刷新",
+  "chatAutoRefresh": "自动刷新",
   "chatEmpty": "暂无聊天记录",
   "chatError": "聊天记录加载失败",
   "chatRefresh": "刷新",

@@ -1,6 +1,8 @@
 {
   "title": "指令工具",
   "subtitle": "搜索指令，复制到游戏，或验证后直接在网页执行",
+  "copyFailed": "无法写入剪贴板",
+  "copied": "已复制到剪贴板",
   "copyButton": "复制指令",
   "searchPlaceholder": "搜索 {count} 条指令（名称或指令均可）…",
   "clearSearch": "清空搜索",
@@ -41,7 +43,11 @@
   "confirmAgain": "再点一次确认",
   "optionLabel": "选项",
   "deckLabel": "选择甲板值 (0-16)",
+  "deckSelectAll": "全选",
   "fillParams": "填参数 ({n})",
   "optionalParams": "填可选参数",
-  "copyOnlyHint": "服务端未注册该指令，只能复制到游戏里用"
+  "copyOnlyHint": "服务端未注册该指令，只能复制到游戏里用",
+  "historySelectAll": "全选",
+  "historyDelete": "删除所选",
+  "historyExitSelect": "取消"
 }

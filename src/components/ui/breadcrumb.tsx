@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { ChevronRight, MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -17,7 +17,7 @@ const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWi
     <ol
       ref={ref}
       className={cn(
-        'flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5',
+        'flex flex-wrap items-center gap-2 text-body-02 text-on-surface-medium',
         className
       )}
       {...props}
@@ -28,7 +28,7 @@ BreadcrumbList.displayName = 'BreadcrumbList'
 
 const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
   ({ className, ...props }, ref) => (
-    <li ref={ref} className={cn('inline-flex items-center gap-1.5', className)} {...props} />
+    <li ref={ref} className={cn('inline-flex items-center gap-2', className)} {...props} />
   )
 )
 BreadcrumbItem.displayName = 'BreadcrumbItem'
@@ -44,7 +44,11 @@ const BreadcrumbLink = React.forwardRef<
   return (
     <Comp
       ref={ref}
-      className={cn('transition-colors hover:text-foreground', className)}
+      className={cn(
+        'text-link underline-offset-4 transition-colors duration-fast-01 hover:text-link-hover hover:underline',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        className
+      )}
       {...props}
     />
   )
@@ -61,7 +65,7 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
     <span
       ref={ref}
       aria-current="page"
-      className={cn('font-normal text-foreground', className)}
+      className={cn('text-on-surface', className)}
       {...props}
     />
   )
@@ -72,10 +76,11 @@ const BreadcrumbSeparator = ({ children, className, ...props }: React.ComponentP
   <li
     role="presentation"
     aria-hidden="true"
-    className={cn('[&>svg]:w-3.5 [&>svg]:h-3.5', className)}
+    className={cn('text-on-surface [&>svg]:size-4', className)}
     {...props}
   >
-    {children ?? <ChevronRight />}
+    {/* 分隔符是斜杠，不是箭头 */}
+    {children ?? '/'}
   </li>
 )
 BreadcrumbSeparator.displayName = 'BreadcrumbSeparator'
@@ -84,10 +89,13 @@ const BreadcrumbEllipsis = ({ className, ...props }: React.ComponentProps<'span'
   <span
     role="presentation"
     aria-hidden="true"
-    className={cn('flex h-9 w-9 items-center justify-center', className)}
+    className={cn(
+      'flex size-6 items-center justify-center text-link transition-colors duration-fast-01 hover:text-link-hover',
+      className
+    )}
     {...props}
   >
-    <MoreHorizontal className="h-4 w-4" />
+    <MoreHorizontal className="size-4" />
     <span className="sr-only">More</span>
   </span>
 )
