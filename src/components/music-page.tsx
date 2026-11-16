@@ -75,7 +75,7 @@ export function MusicPage() {
  const totalTracks = playlistTracks.reduce((s, t) => s + t.length, 0)
 
  return (
- <div className="container-m2 py-16 md:py-24">
+ <div className="container-page py-16 md:py-24">
  {/* Header */}
  <FadeIn eager className="mx-auto max-w-2xl text-center">
  <h1 className="text-headline-lg font-normal">{dict.music.title}</h1>

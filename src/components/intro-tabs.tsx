@@ -25,7 +25,7 @@ export function IntroTabs() {
 
  return (
  <section className="border-b bg-surface-01">
- <div className="container-m2 py-16 md:py-24">
+ <div className="container-page py-16 md:py-24">
  {/* 标题 */}
  <FadeIn className="mx-auto max-w-3xl text-center">
  <h2 className="text-headline-md font-normal sm:text-headline-lg">{dict.intro.title}</h2>

@@ -70,7 +70,7 @@ export function CtaSection() {
  ]
 
  return (
- <section className="container-m2 py-16 md:py-24">
+ <section className="container-page py-16 md:py-24">
  <FadeIn className="mx-auto max-w-2xl text-center">
  <h2 className="text-headline-md font-normal">{dict.cta.title}</h2>
  <p className="mt-4 text-on-surface-medium">{dict.hero.subtitle}</p>

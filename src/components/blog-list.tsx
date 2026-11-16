@@ -34,14 +34,14 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
 
  if (posts.length === 0) {
  return (
- <div className="container-m2 max-w-3xl py-16 text-center text-on-surface-medium">
+ <div className="container-page max-w-3xl py-16 text-center text-on-surface-medium">
  <p>{dict.error}</p>
  </div>
  )
  }
 
  return (
- <div className="container-m2 max-w-3xl py-16 md:py-24">
+ <div className="container-page max-w-3xl py-16 md:py-24">
  <div>
  <h1 className="text-headline-md font-normal">{dict.title}</h1>
  <p className="mt-2 text-on-surface-medium">{dict.description}</p>

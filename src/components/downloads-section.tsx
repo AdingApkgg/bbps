@@ -36,7 +36,7 @@ export function DownloadsSection() {
  const d = dict.downloads
 
  return (
- <div className="container-m2 max-w-2xl py-16 md:py-24">
+ <div className="container-page max-w-2xl py-16 md:py-24">
  <FadeIn eager className="text-center">
  <h1 className="text-headline-md font-normal">{d.title}</h1>
  <p className="mt-2 text-on-surface-medium">{d.subtitle}</p>

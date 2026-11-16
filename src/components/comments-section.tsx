@@ -76,7 +76,7 @@ export function CommentsSection() {
  const dict = getDictionary(locale)
 
  return (
- <section className="container-m2 max-w-4xl py-16 md:py-24">
+ <section className="container-page max-w-4xl py-16 md:py-24">
  <h1 className="text-center text-headline-md font-normal">{dict.comments.title}</h1>
 
  <Card className="mt-10">

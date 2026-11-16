@@ -89,7 +89,7 @@ export function LocaleSuggestBar() {
 
  return (
  <div className="border-b bg-surface-01" lang={suggested === 'en' ? 'en' : 'zh-Hans'}>
- <div className="container-m2 flex items-center gap-3 py-2 text-body-02">
+ <div className="container-page flex items-center gap-3 py-2 text-body-02">
  <p className="text-on-surface-medium">{copy.text}</p>
  <Link
  href={toLocalePath(pathname ?? '/', suggested)}

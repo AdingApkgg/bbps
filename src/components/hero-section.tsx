@@ -138,7 +138,7 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
  <div className="absolute inset-0 -z-10 bg-gradient-to-b from-surface via-surface to-surface-01" />
 
- <div className="container-m2 py-16 md:py-24 lg:py-32">
+ <div className="container-page py-16 md:py-24 lg:py-32">
  <div className="mx-auto max-w-3xl text-center">
  <motion.div
  initial={{ opacity: 0, y: 20 }}

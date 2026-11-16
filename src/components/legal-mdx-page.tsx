@@ -70,7 +70,7 @@ export async function LegalMdxPage({ locale, legalKey }: LegalMdxPageProps) {
  const homeLabel = locale === 'zh' ? '首页' : 'Home'
 
  return (
- <div className="container-m2 max-w-3xl py-16 md:py-24">
+ <div className="container-page max-w-3xl py-16 md:py-24">
  <Breadcrumb>
  <BreadcrumbList>
  <BreadcrumbItem>
