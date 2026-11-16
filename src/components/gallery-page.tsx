@@ -65,7 +65,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
  }
 
  return (
- <div className="container-m2 py-16 md:py-24">
+ <div className="container-page py-16 md:py-24">
  <FadeIn eager className="mx-auto max-w-2xl text-center">
  <h1 className="text-headline-lg font-normal">{dict.gallery.title}</h1>
  <p className="mt-4 text-on-surface-medium">{dict.gallery.description}</p>

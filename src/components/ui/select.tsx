@@ -17,6 +17,7 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
+    data-slot="select-trigger"
     className={cn(
       'flex h-12 w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-t-sm border-0 bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
       'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',
@@ -73,6 +74,7 @@ const SelectContent = React.forwardRef<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
+      data-slot="select-content"
       className={cn(
         'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface shadow-scrim',
         // M2 菜单浮层：8dp 影 + short-2 淡入，位移只有 2dp

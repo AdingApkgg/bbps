@@ -16,7 +16,7 @@ export function Footer() {
 
  return (
  <footer className="border-t">
- <div className="container-m2 py-8 md:py-12">
+ <div className="container-page py-8 md:py-12">
  <div className="text-center text-body-02 text-on-surface-medium">
  <div className="mb-3 flex items-center justify-center gap-6">
  <span className="inline-flex items-center gap-1">

@@ -59,7 +59,7 @@
   --md-sys-color-on-surface-medium: rgba(0, 0, 0, 0.6);
   --md-sys-color-on-surface-helper: rgba(0, 0, 0, 0.6);
   --md-sys-color-on-surface-placeholder: rgba(0, 0, 0, 0.42);
-  --md-sys-color-on-surface-disabled: rgba(0, 0, 0, 0.38);
+  --md-sys-color-on-surface-disabled: rgba(0, 0, 0, 0.6);
   --md-sys-color-on-inverse-surface: #ffffff;
   /* 反色 surface 上的强调色（Snackbar 操作用），light 取 purple 200、dark 取 purple 700 */
   --md-sys-color-on-inverse-primary: #bb86fc;
@@ -140,7 +140,7 @@
     --md-sys-color-on-surface-medium: rgba(255, 255, 255, 0.6);
     --md-sys-color-on-surface-helper: rgba(255, 255, 255, 0.6);
     --md-sys-color-on-surface-placeholder: rgba(255, 255, 255, 0.42);
-    --md-sys-color-on-surface-disabled: rgba(255, 255, 255, 0.38);
+    --md-sys-color-on-surface-disabled: rgba(255, 255, 255, 0.6);
     --md-sys-color-on-inverse-surface: #121212;
     --md-sys-color-on-inverse-primary: #6200ee;
     --md-sys-color-on-warning: rgba(0, 0, 0, 0.87);

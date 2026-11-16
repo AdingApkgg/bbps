@@ -75,7 +75,7 @@ export function FeaturesZigzag() {
 
  return (
  <section className="border-b">
- <div className="container-m2 py-16 md:py-24">
+ <div className="container-page py-16 md:py-24">
  {/* 标题 */}
  <FadeIn className="mx-auto max-w-3xl pb-12 text-center md:pb-16">
  <h2 className="mb-4 text-headline-md font-normal sm:text-headline-lg">

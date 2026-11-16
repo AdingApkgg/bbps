@@ -7,7 +7,13 @@ import { cn } from '@/lib/utils'
  * reduced-motion 时静止。
  */
 function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('skeleton-sweep h-4 w-full rounded-sm', className)} {...props} />
+  return (
+    <div
+      data-slot="skeleton"
+      className={cn('skeleton-sweep h-4 w-full rounded-sm', className)}
+      {...props}
+    />
+  )
 }
 
 export { Skeleton }

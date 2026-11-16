@@ -262,7 +262,7 @@ export function CommandCatalog({
  const searching = query.trim().length > 0
 
  return (
- <div className="space-y-4">
+ <div className="space-y-4" data-list-group>
  <div className="relative">
  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
  <Input
@@ -291,7 +291,7 @@ export function CommandCatalog({
  const expanded = searching || (open[meta.id] ?? !meta.collapsed)
 
  return (
- <Card key={meta.id}>
+ <Card key={meta.id} data-list-item>
  <CardHeader
  className="cursor-pointer select-none"
  onClick={() => setOpen((o) => ({ ...o, [meta.id]: !expanded }))}

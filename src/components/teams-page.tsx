@@ -14,7 +14,7 @@ export function TeamsPage() {
  const dict = getDictionary(locale)
 
  return (
- <section className="container-m2 max-w-4xl py-16 md:py-24">
+ <section className="container-page max-w-4xl py-16 md:py-24">
  <FadeIn eager className="mx-auto max-w-2xl text-center">
  <h1 className="text-headline-md font-normal sm:text-headline-lg">{dict.teams.title}</h1>
  <p className="mt-4 text-body-02 text-on-surface-medium">{dict.teams.subtitle}</p>

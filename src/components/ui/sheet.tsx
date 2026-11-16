@@ -40,7 +40,9 @@ const sheetVariants = cva(
     'fixed z-50 flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
     'data-[state=open]:animate-in data-[state=closed]:animate-out',
     'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
-    'data-[state=open]:ease-entrance data-[state=closed]:ease-exit'
+    'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
+    // 导航抽屉（[data-drawer]）：各皮肤自定影、圆角、贴边距离与动效时长
+    'data-[drawer]:gap-0 data-[drawer]:p-0'
   ].join(' '),
   {
     variants: {
@@ -69,7 +71,13 @@ const SheetContent = React.forwardRef<
 >(({ side = 'right', className, children, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
-    <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
+    <SheetPrimitive.Content
+      ref={ref}
+      data-slot="sheet"
+      data-side={side}
+      className={cn(sheetVariants({ side }), className)}
+      {...props}
+    >
       <SheetPrimitive.Close
         className={cn(
           'absolute top-0 right-0 flex size-12 items-center justify-center text-on-surface',
