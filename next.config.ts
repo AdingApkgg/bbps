@@ -20,7 +20,18 @@ const nextConfig: NextConfig = {
    */
   ...(isDev
     ? {
-        rewrites: async () => [{ source: '/gameapi/:path*', destination: `${GAME_API}/:path*` }]
+        rewrites: async () => [{ source: '/gameapi/:path*', destination: `${GAME_API}/:path*` }],
+        /**
+         * dev 下跨源加载 dev 资源（HMR 的 WebSocket、/__nextjs_font/* 字体）会被拦成 403。
+         * 从 tailnet 域名或局域网 IP 打开预览时必须放行，否则热更新静默失效、字体 403。
+         */
+        allowedDevOrigins: [
+          'localhost-1.tailac9c6f.ts.net',
+          '127.0.0.1',
+          'localhost',
+          '192.168.*.*',
+          '10.*.*.*'
+        ]
       }
     : {})
 }
