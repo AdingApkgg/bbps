@@ -22,7 +22,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        'group peer relative inline-flex size-[18px] shrink-0 items-center justify-center rounded-[2px]',
+        'group peer relative inline-flex size-[18px] shrink-0 items-center justify-center rounded-xs',
         'border-2 border-on-surface-medium bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
         'before:absolute before:-inset-[11px] before:rounded-full before:content-[""]',

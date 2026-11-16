@@ -24,7 +24,10 @@ function Progress({
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
-      className={cn('relative h-1 w-full overflow-hidden bg-primary/24', className)}
+      className={cn(
+        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden bg-primary/24',
+        className,
+      )}
       value={value}
       {...props}
     >
@@ -45,7 +48,10 @@ function ProgressIndeterminate({ className, ...props }: React.ComponentProps<'di
       data-slot="progress-indeterminate"
       role="progressbar"
       aria-valuetext="loading"
-      className={cn('relative h-1 w-full overflow-hidden bg-primary/24', className)}
+      className={cn(
+        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden bg-primary/24',
+        className,
+      )}
       {...props}
     >
       <span className="md-linear-indeterminate-1 absolute inset-y-0 w-full bg-primary" />

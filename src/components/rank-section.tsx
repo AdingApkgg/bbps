@@ -153,7 +153,7 @@ export function RankSection() {
  ]
 
  return (
- <div className="container-m2 max-w-4xl py-16 md:py-24">
+ <div className="container-page max-w-4xl py-16 md:py-24" data-page="rank">
  <FadeIn eager className="text-center">
  <h1 className="text-headline-md font-normal">{r.title}</h1>
  <p className="mt-2 text-body-02 text-on-surface-medium">{r.subtitle}</p>
@@ -162,7 +162,7 @@ export function RankSection() {
  {error && <p className="mt-4 text-center text-body-02 text-error">{r.error}</p>}
 
  {/* 全球 / 本地切换。阵亡榜没有本地档，两边共用同一份数据 */}
- <div className="mt-8 flex justify-center">
+ <div className="mt-8 flex justify-center" data-toolbar>
  <RadioGroup
  variant="segmented"
  value={scope}
