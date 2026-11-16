@@ -2,6 +2,12 @@
 @import "tw-animate-css";
 /* 令牌层（主题色彩 / 圆角 / 动效），亮色、暗色各一套 */
 @import "../styles/tokens.css";
+/* 皮肤：data-skin 缺省即 apple（SKIN_BOOT_SCRIPT 保证有值）；其余三套按属性生效 */
+@import "../styles/skins/fluent.css";
+@import "../styles/skins/carbon.css";
+@import "../styles/skins/apple.css";
+/* 样式修饰符：与皮肤正交，走 <html data-style="pointer underline|compact|text-xl"> */
+@import "../styles/modifiers.css";
 
 /* ============================================================================
  * 与 Tailwind 的接线
@@ -428,8 +434,8 @@
   }
 }
 
-/* 网格：沿用 12 列口径的 4/8/16 列递进（M2 的 4dp 栅格） */
-@utility grid-m2 {
+/* 网格：12 列口径的 4/8/12 列递进（4/8dp 基准，各皮肤共用） */
+@utility grid-page {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 1rem;
@@ -446,8 +452,8 @@
   }
 }
 
-/* 页面容器：M2 的 fluid margin 是 16dp 起、平板 24dp、桌面 24dp 并随视口放宽 */
-@utility container-m2 {
+/* 页面容器：fluid margin 16dp 起、平板 24dp、桌面 32dp 并随视口放宽 */
+@utility container-page {
   inline-size: 100%;
   max-inline-size: 90rem;
   margin-inline: auto;
@@ -463,16 +469,43 @@
 /* ============================================================================
  * 玩家昵称的彩色片段
  * 颜色由玩家在游戏里自选（<cRRGGBB>），原值常常压不住底色（§b 青 #33ffff 压白底
- * 只有 1.24:1）。player-name.tsx 已按 4.5:1 二分出明暗两套可读色写进变量，
- * 这里只负责按当前主题选一套。
+ * 只有 1.24:1）。player-name.tsx 已按 4.5:1 为「每套皮肤 × 明暗」二分出可读色
+ * 写进变量，这里只负责按当前皮肤与主题挑一个。
  * ========================================================================= */
+/* 默认（apple）用本色阶，其余皮肤各取各的层色 */
 .mc-name-segment {
-  color: var(--seg-light);
+  color: var(--seg-light-m2);
 }
 
 @media (prefers-color-scheme: dark) {
   .mc-name-segment {
-    color: var(--seg-dark);
+    color: var(--seg-dark-m2);
+  }
+}
+
+html[data-skin='fluent'] .mc-name-segment {
+  color: var(--seg-light-fluent);
+}
+
+html[data-skin='carbon'] .mc-name-segment {
+  color: var(--seg-light-carbon);
+}
+
+html[data-skin='apple'] .mc-name-segment {
+  color: var(--seg-light-apple);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-skin='fluent'] .mc-name-segment {
+    color: var(--seg-dark-fluent);
+  }
+
+  html[data-skin='carbon'] .mc-name-segment {
+    color: var(--seg-dark-carbon);
+  }
+
+  html[data-skin='apple'] .mc-name-segment {
+    color: var(--seg-dark-apple);
   }
 }
 
@@ -668,6 +701,73 @@
   .animate-spin {
     animation: spin 1400ms linear infinite !important;
   }
+}
+
+/* 导航常驻左侧栏（>= 50rem）；窄屏退回顶栏菜单。皮肤菜单只走顶栏（不掉进抽屉） */
+@media (min-width: 50rem) {
+  [data-rail] {
+    display: block;
+  }
+  [data-shell] {
+    padding-inline-start: 16rem;
+  }
+  header.sticky [data-menu] {
+    display: none;
+  }
+  [data-drawer-appearance] {
+    display: none;
+  }
+}
+/* 窄屏把皮肤入口挤出头栏（语言 / 皮肤 / 菜单三个图标放不下） */
+@media (max-width: 47.99rem) {
+  header.sticky [data-look] {
+    display: none;
+  }
+}
+/* 栏内条目（M2 navigation drawer：40dp 行、pill 指示器、选中实底） */
+/* 侧栏固定，主体让出它的宽度（栅格由各皮肤给带宽） */
+[data-rail] {
+  position: fixed;
+  inset-block-start: 3.5rem;
+  inset-inline-start: 0;
+  block-size: calc(100dvh - 3.5rem);
+  z-index: 30;
+  overflow-y: auto;
+  background: var(--md-sys-color-surface-01);
+}
+[data-rail] nav {
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.5rem;
+}
+[data-rail] nav > a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.5rem;
+  margin-inline: 0.5rem;
+  padding-inline: 0.75rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  color: var(--md-sys-color-on-surface-medium);
+}
+[data-rail] nav > a:hover {
+  background: var(--md-sys-color-surface-hover-01);
+  color: var(--md-sys-color-on-surface);
+}
+[data-rail] nav > a[aria-current='page'] {
+  background: var(--md-sys-color-surface-selected-01);
+  color: var(--md-sys-color-on-surface);
+}
+/* 栏内条目紧贴相邻行：焦点环收进行内，避免压到上下条目 */
+[data-rail] nav > a:focus-visible,
+[data-drawer] nav > a:focus-visible {
+  outline-offset: -2px;
+}
+
+/* 跳转链接自身是实底块，全局焦点环与底色同色会被吃掉：内嵌描边 + 外扩环 */
+[data-skip-link]:focus-visible {
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary);
 }
 
 /* 滚动条（8px 细条 + 42% 灰拇指，M2 的细滚动条口径） */
