@@ -14,9 +14,27 @@ const SEGMENT_RE = /<c([0-9A-Fa-f]{6})>([\s\S]*?)<\/c>/g
 /** 剥离残留的孤立标记（未闭合、或 </c> 多出来的情况） */
 const STRAY_TAG_RE = /<\/?c(?:[0-9A-Fa-f]{6})?>/g
 
-/** 正文实际压住的底色：light 的 layer-01 是纯白，dark 的 layer-01 是 #1E1E1E */
-const BG_LIGHT = '#ffffff'
-const BG_DARK = '#1e1e1e'
+/**
+ * 正文实际压住的底色（layer-01 / card），按「亮, 暗」成对列出，键与 data-skin 一致。
+ * 各皮肤的值必须与对应 css 的 --md-sys-color-surface-01/-02 保持一致。
+ */
+const LAYERS = [
+  ['m2', '#ffffff', '#1e1e1e'],
+  ['fluent', '#ffffff', '#292929'],
+  ['carbon', '#ffffff', '#161616'],
+  ['apple', '#ffffff', '#1c1c1e']
+] as const
+const SKIN_LAYERS: ReadonlyArray<readonly [string, string, string]> = LAYERS
+/** 每个片段的 CSS 变量：各皮肤 × 明暗的可读色，交给 CSS 按当前皮肤/主题选 */
+function segmentStyle(color: string): React.CSSProperties {
+  return Object.fromEntries(
+    SKIN_LAYERS.flatMap(([key, light, dark]) => [
+      [`--seg-light-${key}`, readableColor(color, light)],
+      [`--seg-dark-${key}`, readableColor(color, dark)]
+    ])
+  ) as React.CSSProperties
+}
+
 /** WCAG AA 正文阈值 */
 const MIN_RATIO = 4.5
 
@@ -82,8 +100,8 @@ function toHex(h: number, s: number, l: number): string {
  * 把玩家自选色压到能读：保留色相与饱和度，只沿亮度方向二分，
  * 直到对给定底色达到 4.5:1。已经达标的颜色原样返回。
  *
- * 之所以要算两套，是因为站点的暗色主题走 prefers-color-scheme，
- * 组件在渲染期拿不到当前主题，只能两个值都写进 style，交给 CSS 选。
+ * 之所以要算这么多套，是因为暗色主题走 prefers-color-scheme、皮肤走 data-skin，
+ * 组件在渲染期两者都拿不到，只能把每个底色的可读色都写进 style，交给 CSS 选。
  */
 export function readableColor(hex: string, background: string): string {
   if (contrast(hex, background) >= MIN_RATIO) return hex
@@ -177,12 +195,7 @@ export function PlayerName({ name, className, plain = false, fallback = '—' }:
  {seg.color ? (
  <span
  className="mc-name-segment"
- style={
- {
- '--seg-light': readableColor(seg.color, BG_LIGHT),
- '--seg-dark': readableColor(seg.color, BG_DARK)
- } as React.CSSProperties
- }
+ style={segmentStyle(seg.color)}
  >
  {seg.text}
  </span>
