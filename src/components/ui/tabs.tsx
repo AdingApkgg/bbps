@@ -34,7 +34,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex h-12 flex-none items-center justify-center gap-2 whitespace-nowrap px-4 text-button text-on-surface-medium uppercase',
+      'inline-flex h-(--md-sys-size-control-xl) flex-none items-center justify-center gap-2 whitespace-nowrap px-4 text-button text-on-surface-medium uppercase',
       'transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
       'hover:bg-state-hover hover:text-link',
       'data-[state=active]:text-link data-[state=active]:shadow-[inset_0_-2px_0_0_var(--md-sys-color-interactive)]',

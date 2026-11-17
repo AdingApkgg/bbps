@@ -164,6 +164,7 @@ html[data-skin='fluent'] {
   --md-sys-size-progress-height: 0.125rem;
   --md-sys-size-field: 2rem;
   --md-sys-size-touch-target: 2.5rem;
+  --md-sys-size-row: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -398,25 +399,11 @@ html[data-skin='fluent'] .text-button {
   text-transform: none;
 }
 
-/* ── 圆角：控件 4dp、容器 8dp ─────────────────────────────────────────── */
-html[data-skin='fluent'] .rounded-xs,
-html[data-skin='fluent'] .rounded-sm,
-html[data-skin='fluent'] .rounded-t-sm {
-  border-radius: var(--md-sys-shape-control);
-}
-html[data-skin='fluent'] .rounded-t-sm {
-  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
-}
-/* chip/标签：Fluent 的 Tag 是 4dp 圆角，不是药丸；圆形保留给 rounded-full */
+/* ── 圆角：--md-sys-shape-control/container 已在 :root 覆盖（4dp / 8dp），通用块自动生效；
+   只剩"chip 不是药丸"这一条 Fluent 口径 ────────────────── */
+/* Fluent 的 Tag 是 4dp 圆角，不是药丸；圆形保留给 rounded-full */
 html[data-skin='fluent'] .rounded-pill {
   border-radius: var(--md-sys-shape-control);
-}
-html[data-skin='fluent'] .rounded-xl,
-html[data-skin='fluent'] .rounded-t-xl {
-  border-radius: var(--md-sys-shape-container);
-}
-html[data-skin='fluent'] .rounded-t-xl {
-  border-radius: var(--md-sys-shape-container) var(--md-sys-shape-container) 0 0;
 }
 
 /* ── 亚克力：导航、播放条、抽屉、浮层 ─────────────────────────────────── */
@@ -645,13 +632,13 @@ html[data-skin='fluent'] [data-variant='segmented'] [data-slot='radio-group-item
   height: 2rem;
   width: auto;
   border: 0;
-  border-radius: 0.25rem;
+  border-radius: var(--md-sys-shape-control);
   box-shadow: none;
 }
 
 /* ── 标签页：圆顶 + 悬停底 + 2px 选中指示（Fluent 枢轴口径） ──────────── */
 html[data-skin='fluent'] [role='tab'] {
-  border-radius: 4px 4px 0 0;
+  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
   box-shadow: none;
 }
 html[data-skin='fluent'] [role='tab']:hover {
@@ -713,7 +700,7 @@ html[data-skin='fluent'] .atk-comment.atk-comment > .atk-main > .atk-body > .atk
 /* 滚动条：轨道透明、拇指用该皮肤的描边色，圆角随皮肤 */
 html[data-skin='fluent'] ::-webkit-scrollbar-thumb {
   background: var(--md-sys-color-outline-01);
-  border-radius: 4px;
+  border-radius: var(--md-sys-shape-control);
 }
 html[data-skin='fluent'] ::-webkit-scrollbar-thumb:hover {
   background: var(--md-sys-color-outline-emphasis-01);
@@ -724,7 +711,7 @@ html[data-skin='fluent'] * {
 
 /* 表格：Fluent list——4dp 圆角、1px 描边、行 hover 用状态底 */
 html[data-skin='fluent'] [data-slot='table-wrap'] {
-  border-radius: 0.25rem;
+  border-radius: var(--md-sys-shape-control);
   box-shadow: inset 0 0 0 1px var(--skin-stroke-1);
 }
 html[data-skin='fluent'] [data-slot='table-row'] {
@@ -749,7 +736,7 @@ html[data-skin='fluent'] [data-pivot] nav {
 }
 html[data-skin='fluent'] [data-pivot] a {
   border-bottom: 2px solid transparent;
-  border-radius: 4px 4px 0 0;
+  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
   transition: background-color 120ms ease;
 }
 html[data-skin='fluent'] [data-pivot] a:hover {
@@ -793,8 +780,8 @@ html[data-skin='fluent'] [data-rail] {
   }
   html[data-skin='fluent'] [data-rail] nav > a {
     margin-inline: 0.5rem;
-    border-radius: 4px;
-    min-height: 2.25rem;
+    border-radius: var(--md-sys-shape-control);
+    min-height: var(--md-sys-size-control-lg);
     font-size: 0.875rem;
   }
   /* 侧栏条目是 4dp 的 pivot 行：焦点环改 2dp 内嵌，避免贴边偏移被相邻行吃掉 */
@@ -842,7 +829,7 @@ html[data-skin='fluent'] [data-list-group] {
 }
 html[data-skin='fluent'] [data-list-group] [data-list-item] {
   border: 1px solid var(--md-sys-color-outline-variant-01);
-  border-radius: 0.5rem;
+  border-radius: var(--md-sys-shape-container);
   box-shadow: none;
   transition: border-color 100ms cubic-bezier(0.33, 0, 0.67, 1), box-shadow 100ms cubic-bezier(0.33, 0, 0.67, 1);
 }
@@ -871,7 +858,7 @@ html[data-skin='fluent'] [data-toolbar] [role='radiogroup'] label {
   border-radius: 0;
   border-bottom: 2px solid transparent;
   padding-inline: 1rem;
-  min-height: 2.75rem;
+  min-height: var(--md-sys-size-control-xl);
   display: inline-flex;
   align-items: center;
 }
@@ -888,8 +875,8 @@ html[data-skin='fluent'] [data-toolbar] [role='radiogroup'] label:has(input:chec
  * 浮层是亚克力 8 圆角；滑块 focus 在拇指中心点出 5dp 的点；开关 focus 走 1px 内描边。
  */
 html[data-skin='fluent'] [data-slot='select-trigger'] {
-  height: 2rem;
-  border-radius: 0.25rem 0.25rem 0 0;
+  height: var(--md-sys-size-control-sm);
+  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
   background: var(--md-sys-color-surface-01);
   box-shadow: inset 0 -1px 0 var(--skin-stroke-3);
   padding-inline: 0.75rem 0.5rem;
@@ -905,7 +892,7 @@ html[data-skin='fluent'] [data-slot='select-trigger']:focus-visible {
   box-shadow: inset 0 -2px 0 var(--md-sys-color-interactive);
 }
 html[data-skin='fluent'] [data-slot='select-content'] {
-  border-radius: 0.5rem;
+  border-radius: var(--md-sys-shape-container);
   border: 1px solid var(--skin-stroke-1);
   background: var(--skin-acrylic);
   backdrop-filter: blur(30px) saturate(160%);
@@ -920,7 +907,7 @@ html[data-skin='fluent'] [data-slot='slider-thumb']:focus-visible::after {
   content: '';
   position: absolute;
   inset: calc(50% - 2.5px);
-  border-radius: 999px;
+  border-radius: var(--md-sys-shape-max);
   background: var(--md-sys-color-primary);
 }
 html[data-skin='fluent'] [data-slot='switch']:focus-visible {
@@ -951,7 +938,7 @@ html[data-skin='fluent'] [data-drawer] {
   -webkit-backdrop-filter: blur(30px) saturate(160%);
   backdrop-filter: blur(30px) saturate(160%);
   border-right: 1px solid var(--skin-stroke-1);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 var(--md-sys-shape-container) var(--md-sys-shape-container) 0;
 }
 /* 亚克力面板会透出下层浅色，次级前景（#616161）在 78% 白片上只有 4.02:1：
    flyout / 皮肤菜单内一律用主前景，hover / 激活再由 aria-current 与底色区分 */

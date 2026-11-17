@@ -30,18 +30,18 @@
     system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-roboto-mono), ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  /* ── 圆角：M2 形状刻度，控件与容器默认 4px、chip 16px ── */
-  --radius: 0.25rem;
-  --radius-xs: 0.125rem;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.25rem;
-  --radius-xl: 0.5rem;
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
-  --radius-full: 50%;
+  /* ── 圆角：接 --md-sys-shape-* 令牌，皮肤改令牌即可打穿到组件 ── */
+  --radius: var(--md-sys-shape-control);
+  --radius-xs: var(--md-sys-shape-02);
+  --radius-sm: var(--md-sys-shape-control);
+  --radius-md: var(--md-sys-shape-control);
+  --radius-lg: var(--md-sys-shape-container);
+  --radius-xl: var(--md-sys-shape-container);
+  --radius-2xl: var(--md-sys-shape-container);
+  --radius-3xl: var(--md-sys-shape-container);
+  --radius-full: var(--md-sys-shape-max);
   /* 胶囊（Chip / 进度条等真胶囊语义沿用全圆头的 9999px） */
-  --radius-pill: 999999px;
+  --radius-pill: var(--md-sys-shape-max);
   /* 圆角档位（与 M2 形状刻度同值，按需显式取用） */
   --radius-00: 0;
   --radius-02: var(--md-sys-shape-02);
@@ -424,7 +424,7 @@
     block-size: 100%;
     inline-size: 100%;
     background: var(--md-sys-color-skeleton-element);
-    border-radius: 0.25rem;
+    border-radius: var(--md-sys-shape-control);
     content: '';
     animation: md-skeleton 1500ms var(--md-sys-motion-ease-standard) infinite;
     will-change: transform-origin, transform, opacity;
@@ -744,10 +744,10 @@ html[data-skin='apple'] .mc-name-segment {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  min-height: 2.5rem;
+  min-height: var(--md-sys-size-control-lg);
   margin-inline: 0.5rem;
   padding-inline: 0.75rem;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--md-sys-shape-full);
   color: var(--md-sys-color-on-surface-medium);
 }
 [data-rail] nav > a:hover {

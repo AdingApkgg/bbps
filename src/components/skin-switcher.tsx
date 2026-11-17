@@ -175,7 +175,6 @@ export function SkinSwitcher({ inline = false }: { inline?: boolean }) {
             onCheckedChange={() => toggleStyle(s.id)}
             // 勾选一项不该收起菜单，方便连着开几项
             onSelect={(e) => e.preventDefault()}
-            className="h-10"
           >
             {s.label}
           </DropdownMenuCheckboxItem>

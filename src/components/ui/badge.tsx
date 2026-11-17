@@ -32,9 +32,9 @@ const badgeVariants = cva(
       },
       /* 24dp 小记号 / 32dp 标准 chip / 40dp 大 chip */
       size: {
-        sm: 'h-6 px-2 text-caption',
-        md: 'h-8',
-        lg: 'h-10 px-4'
+        sm: 'h-(--md-sys-size-chip-sm) px-2 text-caption',
+        md: 'h-(--md-sys-size-control-sm)',
+        lg: 'h-(--md-sys-size-control-lg) px-4'
       }
     },
     defaultVariants: {

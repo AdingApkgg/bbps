@@ -66,16 +66,16 @@ const buttonVariants = cva(
         ].join(' '),
         link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-link hover:enabled:text-link-hover hover:enabled:underline'
       },
-      /* M2 高度：small 32dp / default 36dp / large 40dp；图标按钮是 48dp 触达区 */
+      /* 高度档位接令牌：皮肤改 --md-sys-size-lg 即整体缩放；图标按钮是 48dp 触达区 */
       size: {
-        xs: 'h-7 px-2 text-caption',
-        sm: 'h-8 px-3',
-        default: 'h-9 px-4',
-        lg: 'h-10 px-6',
-        xl: 'h-12 px-8',
-        icon: 'size-12 p-0',
-        'icon-sm': 'size-9 p-0',
-        'icon-lg': 'size-14 p-0'
+        xs: 'h-(--md-sys-size-control-xs) px-2 text-caption',
+        sm: 'h-(--md-sys-size-control-sm) px-3',
+        default: 'h-(--md-sys-size-control) px-4',
+        lg: 'h-(--md-sys-size-control-lg) px-6',
+        xl: 'h-(--md-sys-size-control-xl) px-8',
+        icon: 'size-(--md-sys-size-control-xl) p-0',
+        'icon-sm': 'size-(--md-sys-size-control) p-0',
+        'icon-lg': 'size-(--md-sys-size-control-2xl) p-0'
       }
     },
     defaultVariants: {
@@ -95,7 +95,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp
+        data-slot="button"
+        data-variant={variant ?? 'default'}
+        data-size={size ?? 'default'}
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
     )
   }
 )

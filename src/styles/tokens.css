@@ -225,9 +225,13 @@
   --md-sys-shape-16: 1rem;
   --md-sys-shape-24: 1.5rem;
   --md-sys-shape-max: 999999px;
+  /* 全圆头别名（rail 条目等需要"圆形"语义而非"胶囊"语义时用） */
+  --md-sys-shape-full: 999999px;
   /* 组件默认形状：按钮、卡片、输入框底座、对话框统一 4px */
   --md-sys-shape-control: 0.25rem;
   --md-sys-shape-container: 0.25rem;
+  /* 浮层形状（菜单/对话框/抽屉/snackbar）：默认跟容器同值，皮肤可改大 */
+  --md-sys-shape-overlay: var(--md-sys-shape-container);
 }
 
 /* ── 高度：25 级 elevation 的三段影（umbra / penumbra / ambient） ─────── */
@@ -285,7 +289,18 @@
 /* ── 尺寸：M2 组件高度与触达区（dp → px 1:1） ─────────────────────────── */
 :root {
   --md-sys-size-lg: 2.25rem; /* 36px 主按钮 / 输入框底座 */
+  /* 控件高度档位：锚在 --md-sys-size-lg 上，皮肤改 lg 即可整体缩放 */
+  --md-sys-size-control-xs: calc(var(--md-sys-size-lg) - 0.5rem); /* 28px */
+  --md-sys-size-control-sm: calc(var(--md-sys-size-lg) - 0.25rem); /* 32px */
+  --md-sys-size-control: var(--md-sys-size-lg); /* 36px 默认 */
+  --md-sys-size-control-lg: calc(var(--md-sys-size-lg) + 0.25rem); /* 40px */
+  --md-sys-size-control-xl: calc(var(--md-sys-size-lg) + 0.75rem); /* 48px */
+  --md-sys-size-control-2xl: calc(var(--md-sys-size-lg) + 1.25rem); /* 56px 大图标按钮 */
   --md-sys-size-field: 3.5rem; /* 56px filled text field 高度 */
   --md-sys-size-touch-target: 3rem; /* 48px 最小触达区 */
+  --md-sys-size-row: 3rem; /* 48px 列表/菜单行高（皮肤按各自规范收窄） */
+  --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 0.75rem); /* 24px 小记号 */
+  --md-sys-size-switch-track-h: 0.875rem; /* 14px 开关轨道 */
+  --md-sys-size-switch-track-w: 2.125rem; /* 34px 开关轨道 */
   --md-sys-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
 }

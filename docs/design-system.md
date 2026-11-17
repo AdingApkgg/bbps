@@ -43,12 +43,31 @@
 
 每套皮肤文件顶部必须有一段头注释写清来源规范与理由（现有四份都是这个格式），新皮肤照写。
 
-## 四、修饰符与皮肤正交
+## 四、皮肤差异签名
+
+皮肤不是配色方案：四套必须在**至少三件事**上与其它三套同时不同（形状 + 层级 + 密度），否则新皮肤不成立。当前签名即回归基线，改皮肤要能对着这张表说出改了什么：
+
+| | 形状 | 层级 | 密度 / 触达 | 标志性细节 |
+| --- | --- | --- | --- | --- |
+| M2 | 4px 圆角，小写字母两行留白 | 卡片 1dp elevation，无描边 | 48dp，居中大标题 | 按钮大写 + 0.089em 字距 |
+| Carbon | 0 圆角，1dp 结构线切块 | 只靠 layer 阶梯，零阴影 | productive 14/20，12rem 直角栏 | 页头 20/28 400 + 底线（`carbon.css:787-802`） |
+| Fluent | 4px 圆角，1dp 描边 | 8px 偏移双层阴影 + 亚克力 78% | 32–36dp 紧凑行 | `<50rem` 才用 pivot 横排（`fluent.css:772-806`） |
+| Apple（默认） | 10px sheet 圆角，分段控件内片 | 半像素发丝 + `--skin-shadow-thumb` 小件实体 | 44–48dp，`<48rem` 底部 tab bar | 分组背景 82% + `blur(20px) saturate(180%)` |
+
+三件容易退化的东西，改皮肤时优先盯：
+
+- **圆角**：不允许出现裸值，一律 `--md-sys-shape-control | -container | -overlay`。
+- **阴影**：不允许用 `box-shadow: none` 压制通用块，压了就由本皮肤自己的层级语汇接管（Carbon 用结构线，不是靠「什么都不加」）。
+- **控件高度**：`--md-sys-size-control-*`，档位可以整体缩放，不能逐个组件写 px。
+
+导航搬运点固定在 50rem：谁在哪一侧承载导航由皮肤决定（Carbon/Apple/Fluent 宽屏走 rail，Apple 窄屏走 tab bar，Fluent 窄屏走 pivot），但断点数值和 `[data-rail]` / `[data-pivot]` / `[data-tabbar]` 的语义不变；宽屏不出现 pivot 是设计，不是漏写。
+
+## 五、修饰符与皮肤正交
 
 `data-style` 放在 `<html>` 上，取值来自 `pointer | underline | compact | text-xl`（`src/styles/modifiers.css`）。
 修饰符改的是「同一皮肤下的可读性/密度偏好」，不要把它做成第 5 套皮肤；新增修饰符要有默认关闭、可组合、不引发布局溢出的证明。
 
-## 五、可访问性钩子
+## 六、可访问性钩子
 
 - 跳转链接：`[data-skip-link]`，Tab 首焦点，实底块上必须带自身内衬（`box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary)`），否则焦点环被自己的 primary 底色吃掉。
 - 侧栏 `[data-rail] nav > a`、抽屉 `[data-drawer] nav > a`、手机底栏 `[data-tabbar] a` 的焦点环一律内收：`outline-offset: -2px`，贴边容器改成 `box-shadow` 内环（外扩环会压到相邻行、被屏幕或抽屉边缘裁掉）。
@@ -56,7 +75,7 @@
 - 焦点只能内嵌、不能删：`outline: none` 的规则必须补等价的 `box-shadow`。
 - 语义结构：一个 `<h1>`；导航区 `<nav>` 带 `aria-label`；当前项 `aria-current="page"`；纯图标按钮带 `sr-only` 文案。
 
-## 六、校验（提交前）
+## 七、校验（提交前）
 
 ```bash
 bun run typecheck
@@ -65,7 +84,6 @@ bun scripts/shots.mjs   # 四皮肤 × 明暗 × 1280/390，含三道闸门
 ```
 
 `scripts/shots.mjs` 会在四皮肤 × 明暗 × 1280/390 下逐页截图，并同时输出三道闸门，任一非 0 都要处理：
-
 - `overflow` —— 横向溢出 px（必须全 0，含抽屉打开态）。
 - `drawerFail` —— 手机端抽屉、宽屏皮肤菜单没打开（必须 0）。
 - `lowContrast` —— 对比度低于 4.5:1（大字 3:1）的文字节点，附选择器与实测比值。
@@ -74,6 +92,6 @@ bun scripts/shots.mjs   # 四皮肤 × 明暗 × 1280/390，含三道闸门
 
 截图默认落在 `public/_preview/`，`public/preview.html` 可整页速览（目录在 `.gitignore` 里，跑完重生成）。
 
-## 七、新增页面配方
+## 八、新增页面配方
 
 用现有组件（`Card`、`Button`、`Input`、`Sheet`、`Table`…）而不是手搓类名组合；容器用 `container-page`，区块间距用 `space-y-5` 级别的一档并保持页内统一。纯展示区可以直连令牌，但禁止出现第三套自造色板。

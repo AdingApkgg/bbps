@@ -123,7 +123,7 @@ export function SearchableSelect({
  aria-haspopup="listbox"
  aria-expanded={open}
  aria-label={ariaLabel}
- className="flex h-12 min-h-0 w-full items-center justify-between gap-1 rounded-t-sm bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)] transition-[background-color,box-shadow] duration-fast-02 ease-standard outline-none hover:bg-field-hover-01 focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)]"
+ className="flex h-(--md-sys-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-t-sm bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)] transition-[background-color,box-shadow] duration-fast-02 ease-standard outline-none hover:bg-field-hover-01 focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)]"
  >
  <span className="truncate">{current?.label ?? ''}</span>
  <ChevronsUpDown className="size-4 shrink-0 text-on-surface-medium" />
@@ -167,7 +167,7 @@ export function SearchableSelect({
  onMouseEnter={() => setActive(i)}
  onClick={() => commit(o.value)}
  className={cn(
- 'flex h-12 w-full items-center gap-2 pl-4 pr-2 text-left text-body-01 transition-colors duration-fast-02',
+ 'flex h-(--md-sys-size-row) w-full items-center gap-2 pl-4 pr-2 text-left text-body-01 transition-colors duration-fast-02',
  i === active && 'bg-state-pressed'
  )}
  >

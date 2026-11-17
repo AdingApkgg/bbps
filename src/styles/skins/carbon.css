@@ -165,6 +165,7 @@ html[data-skin='carbon'] {
   --md-sys-size-progress-height: 0.25rem;
   --md-sys-size-field: 2.5rem;
   --md-sys-size-touch-target: 2.5rem;
+  --md-sys-size-row: 2.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -373,18 +374,8 @@ html[data-skin='carbon'] .text-button {
   text-transform: none;
 }
 
-/* ── 圆角：全部归零（Carbon 是直角系统） ─────────────────────────────── */
-html[data-skin='carbon'] .rounded-xs,
-html[data-skin='carbon'] .rounded-sm,
-html[data-skin='carbon'] .rounded-md,
-html[data-skin='carbon'] .rounded-lg,
-html[data-skin='carbon'] .rounded-xl,
-html[data-skin='carbon'] .rounded-2xl,
-html[data-skin='carbon'] .rounded-t-sm,
-html[data-skin='carbon'] .rounded-t-xl,
-html[data-skin='carbon'] .rounded-pill {
-  border-radius: 0;
-}
+/* ── 圆角：--md-sys-shape-control/container 已在 :root 覆盖为 0，通用块自动生效；
+   只剩"圆形"这一条 shell 差异 ─────────────────────────────── */
 html[data-skin='carbon'] .rounded-full {
   border-radius: 50%;
 }
@@ -755,8 +746,9 @@ html[data-skin='carbon'] [data-rail] {
 }
 html[data-skin='carbon'] [data-rail] nav > a {
   margin-inline: 0;
-  border-radius: 0;
-  min-height: 2rem;
+  /* 通用块把 rail 条目做成 pill；Carbon 的导航是直角行，靠左色条表选中 */
+  border-radius: var(--md-sys-shape-control);
+  min-height: var(--md-sys-size-control-xs);
   padding-inline: 1rem;
   font-size: 0.875rem;
 }
@@ -840,7 +832,7 @@ html[data-skin='carbon'] [data-list-group] [data-list-item]:hover {
 }
 html[data-skin='carbon'] [data-list-item] > [data-slot='card-header'] {
   padding: 0.75rem 1rem;
-  min-height: 3rem;
+  min-height: var(--md-sys-size-touch-target);
 }
 html[data-skin='carbon'] [data-list-item] [data-slot='card-title'] {
   font-size: 0.75rem;
@@ -883,12 +875,12 @@ html[data-skin='carbon'] [data-toolbar] [role='radiogroup'] label:has(input:chec
 html[data-skin='carbon'] [data-slot='switch'] {
   height: 1.5rem;
   width: 3rem;
-  border-radius: 999px;
+  border-radius: var(--md-sys-shape-max);
   background: var(--md-sys-color-on-surface-medium);
 }
 html[data-skin='carbon'] [data-slot='switch']::before {
   inset: 0;
-  border-radius: 999px;
+  border-radius: var(--md-sys-shape-max);
 }
 html[data-skin='carbon'] [data-slot='switch'][data-state='checked'] {
   background: var(--skin-support-success, #24a148);
@@ -898,7 +890,7 @@ html[data-skin='carbon'] [data-slot='switch'] > span {
   width: 1rem;
   box-shadow: none;
   background: var(--md-sys-color-on-button-contained);
-  border-radius: 999px;
+  border-radius: var(--md-sys-shape-max);
   transform: translateX(0.25rem);
 }
 html[data-skin='carbon'] [data-slot='switch'][data-state='checked'] > span {

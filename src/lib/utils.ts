@@ -6,6 +6,9 @@ import { extendTailwindMerge } from 'tailwind-merge'
  * 这类「字号 + 颜色」写法会让字号被判定为冲突而整条丢弃。
  * 这里把字号刻度显式登记进 font-size 组，颜色组维持默认。
  * 新增 --text-* 令牌时同步补进 FONT_SIZES。
+ *
+ * 圆角与高度同理：`rounded-*` / `h-*` 是本项目自建刻度（值全部是 var(--md-sys-*)），
+ * 不登记的话 `rounded-sm rounded-lg` 会两条都留下、后者才生效，调试时看不到真实来源。
  */
 const FONT_SIZES = [
   'display-lg',
@@ -26,10 +29,13 @@ const FONT_SIZES = [
   'button'
 ]
 
+const RADII = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full', 'pill']
+
 const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
-      'font-size': [{ text: FONT_SIZES }]
+      'font-size': [{ text: FONT_SIZES }],
+      rounded: [{ rounded: RADII }]
     }
   }
 })

@@ -27,7 +27,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      'flex h-12 cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+      'flex h-(--md-sys-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
       'hover:bg-surface-hover-02 focus:bg-state-pressed data-[state=open]:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       inset && 'pl-12',
@@ -91,7 +91,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex h-12 cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
+      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       inset && 'pl-12',
@@ -109,7 +109,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex h-12 cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
+      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className
@@ -134,7 +134,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex h-12 cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
+      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className

@@ -44,7 +44,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
       data-slot="toast"
       className={cn(
         toastVariants,
-        'min-h-12 max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-[344px]',
+        'min-h-(--md-sys-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-[344px]',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:slide-in-from-bottom-full data-[state=closed]:slide-out-to-bottom-full',

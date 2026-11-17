@@ -210,7 +210,7 @@ export function MusicPlayerBar() {
  <Button variant="ghost" size="icon" className="size-10" onClick={player.prevTrack}>
  <SkipBack className="size-5" />
  </Button>
- <Button size="icon" className="size-14" onClick={player.togglePlay}>
+ <Button size="icon" className="size-(--md-sys-size-control-2xl)" onClick={player.togglePlay}>
  {buffering ? (
  <Loader2 className="size-7 animate-spin" />
  ) : playing ? (

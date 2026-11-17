@@ -18,7 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
       <input
         type={type}
         className={cn(
-          'flex h-12 min-h-0 w-full rounded-t-sm border-0 bg-field-01 px-4 py-0 text-body-01',
+          'flex h-(--md-sys-size-field) min-h-0 w-full rounded-t-sm border-0 bg-field-01 px-4 py-0 text-body-01',
           'text-on-surface caret-on-surface',
           'outline-none',
           'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',

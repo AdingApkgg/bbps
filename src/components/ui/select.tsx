@@ -19,7 +19,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     data-slot="select-trigger"
     className={cn(
-      'flex h-12 w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-t-sm border-0 bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
+      'flex h-(--md-sys-size-field) w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-t-sm border-0 bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
       'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',
       'transition-[background-color,box-shadow] duration-fast-02 ease-standard hover:bg-field-hover-01 hover:shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface)]',
       'focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)] focus:outline-none',
@@ -123,7 +123,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex h-12 w-full cursor-pointer select-none items-center pl-4 pr-8 text-body-01',
+      'relative flex h-(--md-sys-size-row) w-full cursor-pointer select-none items-center pl-4 pr-8 text-body-01',
       'transition-colors duration-fast-02 ease-standard',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[state=checked]:bg-surface-selected-02 data-[state=checked]:font-medium',

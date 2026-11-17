@@ -21,7 +21,7 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
     <SwitchPrimitive.Root
       data-slot="switch"
       className={cn(
-        'peer relative inline-flex h-[14px] w-[34px] shrink-0 items-center rounded-full',
+        'peer relative inline-flex h-(--md-sys-size-switch-track-h) w-(--md-sys-size-switch-track-w) shrink-0 items-center rounded-full',
         'border-0 bg-on-surface-medium/38 transition-colors duration-fast-01 ease-standard',
         'data-[state=checked]:bg-primary/38',
         'before:absolute before:-inset-x-[7px] before:-inset-y-[17px] before:rounded-full before:content-[""]',
