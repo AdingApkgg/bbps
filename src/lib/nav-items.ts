@@ -20,7 +20,7 @@ type Dict = ReturnType<typeof getDictionary>
 
 export type NavItem = { href: string; label: string; icon: LucideIcon }
 
-/* 导航数据集中在这里：顶栏下拉（M2 默认 / 小屏）与各皮肤的桌面结构导航共用一份 */
+/* 导航数据集中在这里：顶栏、桌面侧栏与窄屏抽屉共用一份 */
 export function getNavItems(prefix: string, dict: Dict): NavItem[] {
   return [
     { href: `${prefix}/downloads`, label: dict.nav.downloads, icon: Download },
@@ -33,9 +33,14 @@ export function getNavItems(prefix: string, dict: Dict): NavItem[] {
     { href: `${prefix}/community`, label: dict.nav.community, icon: Users },
     { href: `${prefix}/gallery`, label: dict.nav.gallery, icon: Images },
     { href: `${prefix}/music`, label: dict.nav.music, icon: Music },
-    { href: `${prefix}/comments`, label: dict.nav.comments, icon: MessageSquare },
-    { href: `${prefix}/donate`, label: dict.nav.donate, icon: Heart }
+    { href: `${prefix}/comments`, label: dict.nav.comments, icon: MessageSquare }
   ]
+}
+
+/* 捐赠单独走顶栏图标入口（只留爱心，用 error 色吸引目光），
+ * 所以不进 getNavItems —— 否则侧栏、抽屉、枢轴导航、底部标签栏各来一份。 */
+export function getDonateItem(prefix: string, dict: Dict): NavItem {
+  return { href: `${prefix}/donate`, label: dict.nav.donate, icon: Heart }
 }
 
 /* 地图编辑器已并入「自制地图」页，不再单列外链 */

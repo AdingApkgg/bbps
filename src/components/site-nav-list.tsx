@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 /* 导航条目列表：桌面侧栏与窄屏抽屉共用，避免两份写死的名单
  *
  * 密度、圆角、指示条全部由各皮肤 CSS 决定（[data-rail] / [data-drawer] 下的 a）。
+ * 捐赠不在这里 —— 它只走顶栏那个爱心图标（窄屏也看得见，不必重复）。
  */
 export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()
@@ -19,9 +20,6 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
   const prefix = locale === 'en' ? '/en' : ''
   const items = getNavItems(prefix, dict)
   const external = getExternalItems(dict)
-  /* 捐赠在 nav-items 里固定排最后：分隔线与外链组之后单独渲染，所以先摘出来 */
-  const donate = items[items.length - 1]
-  const primary = items.slice(0, -1)
 
   const isActive = (href: string) => pathname === href || pathname === `${href}/`
   const cls = (active: boolean) =>
@@ -33,7 +31,7 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <>
-      {primary.map((item) => (
+      {items.map((item) => (
         <Link
           key={item.href}
           href={item.href}
@@ -60,16 +58,6 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
           <ExternalLink className="ml-auto h-3.5 w-3.5" />
         </a>
       ))}
-      <Link
-        key={donate.href}
-        href={donate.href}
-        onClick={onNavigate}
-        aria-current={isActive(donate.href) ? 'page' : undefined}
-        className={cls(isActive(donate.href))}
-      >
-        <donate.icon className="h-4 w-4 shrink-0" />
-        {donate.label}
-      </Link>
     </>
   )
 }

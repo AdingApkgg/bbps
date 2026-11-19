@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Globe, Languages } from 'lucide-react'
+import { Globe, Heart, Languages } from 'lucide-react'
 import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
+import { getDonateItem } from '@/lib/nav-items'
 import { SiteDrawer } from '@/components/site-drawer'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,6 +20,7 @@ export function Navbar() {
   const locale = useLocale()
   const { pref, setPref } = useLocalePref()
   const dict = getDictionary(locale)
+  const donate = getDonateItem(locale === 'en' ? '/en' : '', dict)
 
   return (
     <header className="sticky top-0 z-(--md-sys-layer-header) h-14 w-full bg-surface-01 shadow-sm">
@@ -38,6 +40,19 @@ export function Navbar() {
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center gap-1">
+          {/* 捐赠：唯一常驻的彩色入口，实心爱心 + error 色，光靠颜色就跳到眼里 */}
+          <Link
+            href={donate.href}
+            aria-label={donate.label}
+            className={cn(
+              'inline-flex size-(--md-sys-size-control-xl) items-center justify-center rounded-sm',
+              'text-error transition-colors duration-fast-02 ease-standard',
+              'hover:bg-chip-background-red active:bg-chip-background-red'
+            )}
+          >
+            <Heart className="h-[1.35rem] w-[1.35rem] fill-current" />
+          </Link>
+
           {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
