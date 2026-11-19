@@ -297,7 +297,7 @@
 :root input:not([type="checkbox"]):not([type="radio"]),
 :root textarea,
 :root select {
-  border: 0.5px solid transparent;
+  border: 1px solid var(--md-sys-color-outline-field);
   border-radius: var(--md-sys-shape-control);
   background-color: var(--md-sys-color-field-01);
   box-shadow: none;
@@ -305,6 +305,7 @@
 }
 :root input:not([type="checkbox"]):not([type="radio"]):hover,
 :root textarea:hover {
+  border-color: var(--md-sys-color-outline-emphasis-01);
   background-color: var(--md-sys-color-field-hover-01);
   box-shadow: none;
 }
@@ -317,7 +318,7 @@
 /* 下拉触发器是 button：HIG 是四角全圆填充底，无底边线 */
 :root [role="combobox"],
 :root [aria-haspopup="listbox"] {
-  border: 0;
+  border: 1px solid var(--md-sys-color-outline-field);
   border-radius: var(--md-sys-shape-control);
   background-color: var(--md-sys-color-field-01);
   box-shadow: none;

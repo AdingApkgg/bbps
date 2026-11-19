@@ -35,8 +35,11 @@
   --md-sys-color-surface-variant-01: #eeeef3;
   --md-sys-color-surface-disabled-01: #f2f2f7;
 
-  --md-sys-color-field-01: #f2f2f7;
-  --md-sys-color-field-hover-01: #eaeaef;
+  /* 输入底：必须比页面分组底（surface #f2f2f7）更亮，否则字段在页面上「消失」 */
+  --md-sys-color-field-01: #ffffff;
+  --md-sys-color-field-hover-01: #f4f4f8;
+  /* 字段描边：与分隔线同族但更实 —— 控件靠它被看见，不只靠底色差 */
+  --md-sys-color-outline-field: rgba(60, 60, 67, 0.4);
 
   /* 描边：HIG 用分隔线，不给控件描边框 */
   --md-sys-color-outline-disabled: rgba(60, 60, 67, 0.18);
@@ -53,7 +56,7 @@
   --md-sys-color-on-surface: #000000;
   --md-sys-color-on-surface-medium: rgba(60, 60, 67, 0.8);
   --md-sys-color-on-surface-helper: rgba(60, 60, 67, 0.76);
-  --md-sys-color-on-surface-placeholder: rgba(60, 60, 67, 0.55);
+  --md-sys-color-on-surface-placeholder: rgba(60, 60, 67, 0.72);
   --md-sys-color-on-surface-disabled: rgba(60, 60, 67, 0.78);
   --md-sys-color-on-inverse-surface: #ffffff;
   --md-sys-color-on-inverse-primary: #0a84ff;
@@ -135,8 +138,9 @@
     --md-sys-color-surface-variant-01: #2c2c2e;
     --md-sys-color-surface-disabled-01: #1c1c1e;
 
-    --md-sys-color-field-01: #1c1c1e;
-    --md-sys-color-field-hover-01: #262628;
+    --md-sys-color-field-01: #2c2c2e;
+    --md-sys-color-field-hover-01: #363638;
+    --md-sys-color-outline-field: rgba(140, 140, 150, 0.55);
 
     --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
     --md-sys-color-outline-active: #4aa3ff;
@@ -150,7 +154,7 @@
     --md-sys-color-on-surface: #ffffff;
     --md-sys-color-on-surface-medium: rgba(235, 235, 245, 0.6);
     --md-sys-color-on-surface-helper: rgba(235, 235, 245, 0.55);
-    --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.4);
+    --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
     --md-sys-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
     --md-sys-color-on-inverse-surface: #000000;
     --md-sys-color-on-inverse-primary: #0066cc;

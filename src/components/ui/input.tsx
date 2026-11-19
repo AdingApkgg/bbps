@@ -17,16 +17,16 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
       <input
         type={type}
         className={cn(
-          'flex h-(--md-sys-size-field) min-h-0 w-full rounded-sm border-0 bg-field-01 px-4 py-0 text-body-01',
+          /* 字段必须一眼看得出能输入：实底 + 1px 可见描边（不是透明边 + 纯底色差） */
+          'flex h-(--md-sys-size-field) min-h-0 w-full rounded-sm border border-outline-field bg-field-01 px-4 py-0 text-body-01',
           'text-on-surface caret-on-surface',
           'outline-none',
-          'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',
-          'transition-[background-color,box-shadow] duration-fast-02 ease-standard',
+          'transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard',
           'placeholder:text-on-surface-placeholder',
-          'hover:bg-field-hover-01 hover:shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface)]',
-          'focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)] focus:outline-none',
-          'aria-[invalid=true]:shadow-[inset_0_-2px_0_var(--md-sys-color-error)]',
-          'disabled:cursor-not-allowed disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled disabled:shadow-[inset_0_-1px_0_var(--md-sys-color-outline-disabled)]',
+          'hover:border-outline-emphasis-01 hover:bg-field-hover-01',
+          'focus:border-primary focus:bg-field-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
+          'aria-[invalid=true]:border-error',
+          'disabled:cursor-not-allowed disabled:border-outline-disabled disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled',
           'file:border-0 file:bg-transparent file:text-body-02',
           className
         )}
