@@ -19,13 +19,13 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     data-slot="select-trigger"
     className={cn(
-      'flex h-(--md-sys-size-field) w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-t-sm border-0 bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
-      'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',
-      'transition-[background-color,box-shadow] duration-fast-02 ease-standard hover:bg-field-hover-01 hover:shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface)]',
-      'focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)] focus:outline-none',
-      'data-[state=open]:bg-field-hover-01 data-[state=open]:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)]',
-      'disabled:cursor-not-allowed disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled disabled:shadow-[inset_0_-1px_0_var(--md-sys-color-outline-disabled)]',
-      'aria-[invalid=true]:shadow-[inset_0_-2px_0_var(--md-sys-color-error)]',
+      'flex h-(--md-sys-size-field) w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-sm border border-outline-field bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
+      'shadow-none',
+      'transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard hover:border-outline-emphasis-01 hover:bg-field-hover-01',
+      'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
+      'data-[state=open]:border-primary data-[state=open]:bg-surface-01 data-[state=open]:shadow-[0_0_0_3px_var(--md-sys-color-highlight)]',
+      'disabled:cursor-not-allowed disabled:border-outline-disabled disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled',
+      'aria-[invalid=true]:border-error',
       '[&>span]:line-clamp-1',
       className
     )}

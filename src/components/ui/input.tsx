@@ -3,13 +3,11 @@ import { cn } from '@/lib/utils'
 
 /* Text field
  *
- * 填底 + 无边框 + 10px 全圆角，取形按 HIG 的表单字段（`hig.css` 的
- * `input:not([type=checkbox])` 钩子）：
- *  - 底座 field-01，悬停加深一档（field-hover-01），聚焦换 surface-01 并套焦点环；
+ * 填底 + 无边框 + 10px 全圆角，取形按 HIG 的表单字段：
+ *  - 底座 field-01，悬停加深一档（field-hover-01），聚焦换 surface-01 并套 3px 焦点环；
  *  - 高度取 48px 触达区（`--md-sys-size-field`），不硬凑 M2 带浮动标签的 56dp；
- *  - 组件里保留一条 1px 底衬 / 2px focus 底衬（inset box-shadow，不改边框宽度所以
- *    不挤动内容），在 HIG 钩子之外单独用本组件时也仍有聚焦与 invalid 的可见信号；
- *  - invalid 用 error 底衬 + 错误文案。
+ *  - 外观全在本文件，`hig.css` 不再复述字段样式；
+ *  - invalid 用 error 描边 + 错误文案。
  */
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
   ({ className, type, ...props }, ref) => {
@@ -20,11 +18,11 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
           /* 字段必须一眼看得出能输入：实底 + 1px 可见描边（不是透明边 + 纯底色差） */
           'flex h-(--md-sys-size-field) min-h-0 w-full rounded-sm border border-outline-field bg-field-01 px-4 py-0 text-body-01',
           'text-on-surface caret-on-surface',
-          'outline-none',
+          'shadow-none outline-none',
           'transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard',
           'placeholder:text-on-surface-placeholder',
           'hover:border-outline-emphasis-01 hover:bg-field-hover-01',
-          'focus:border-primary focus:bg-field-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
+          'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
           'aria-[invalid=true]:border-error',
           'disabled:cursor-not-allowed disabled:border-outline-disabled disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled',
           'file:border-0 file:bg-transparent file:text-body-02',

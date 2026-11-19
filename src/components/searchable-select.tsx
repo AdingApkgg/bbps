@@ -180,7 +180,7 @@ export function SearchableSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={ariaLabel}
-        className="flex h-(--md-sys-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-t-sm bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)] transition-[background-color,box-shadow] duration-fast-02 ease-standard outline-none hover:bg-field-hover-01 focus:bg-field-hover-01 focus:shadow-[inset_0_-2px_0_var(--md-sys-color-focus)]"
+        className="flex h-(--md-sys-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-sm border border-outline-field bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-none transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard outline-none hover:border-outline-emphasis-01 hover:bg-field-hover-01 focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] aria-expanded:border-primary aria-expanded:bg-surface-01 aria-expanded:shadow-[0_0_0_3px_var(--md-sys-color-highlight)]"
       >
         <span className="truncate">{current?.label ?? ''}</span>
         <ChevronsUpDown className="size-4 shrink-0 text-on-surface-medium" />
@@ -206,7 +206,7 @@ export function SearchableSelect({
                 }}
                 placeholder={searchPlaceholder}
                 aria-label={searchPlaceholder}
-                className="h-10 min-h-0 w-full bg-transparent pr-2 text-body-02 outline-none placeholder:text-on-surface-placeholder"
+                className="h-10 min-h-0 w-full border-0 bg-transparent pr-2 text-body-02 text-on-surface caret-on-surface outline-none placeholder:text-on-surface-placeholder"
               />
             </div>
           )}

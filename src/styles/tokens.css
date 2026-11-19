@@ -44,7 +44,8 @@
   /* 描边：HIG 用分隔线，不给控件描边框 */
   --md-sys-color-outline-disabled: rgba(60, 60, 67, 0.18);
   --md-sys-color-outline-active: #0066cc;
-  --md-sys-color-outline-emphasis-01: rgba(60, 60, 67, 0.36);
+  /* 强调描边：字段悬停用，必须比 outline-field（0.4）更深，否则悬停看不出来 */
+  --md-sys-color-outline-emphasis-01: rgba(60, 60, 67, 0.55);
   --md-sys-color-outline-emphasis: rgba(60, 60, 67, 0.29);
   --md-sys-color-outline-00: rgba(60, 60, 67, 0.18);
   /* 分隔线：比描边再淡一档。列表行只用它，不给行加边框 */
@@ -144,7 +145,7 @@
 
     --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
     --md-sys-color-outline-active: #4aa3ff;
-    --md-sys-color-outline-emphasis-01: rgba(84, 84, 88, 0.8);
+    --md-sys-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
     --md-sys-color-outline-emphasis: rgba(84, 84, 88, 0.65);
     --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
     --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);

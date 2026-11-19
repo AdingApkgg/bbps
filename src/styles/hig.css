@@ -15,907 +15,875 @@
  *   · 触达目标 44px（HIG 硬性下限）
  *
  * 暗色走系统 Dark：纯黑画布 + #1C1C1E 列表，不是灰蓝。
+ *
+ * 全部规则放在 @layer components：低于 utilities，组件里的工具类永远能盖掉这里的
+ * 兜底。此前没有层（unlayered），比 @layer utilities 高，`*{border-color}` 和
+ * `:focus-visible{box-shadow:none}` 曾把 input 的描边与焦点环整片抹掉。
  * ========================================================================= */
 
-/* ── 兜底：base 层的 `*{border-color: outline-01}` 换成 HIG 的分隔线色。
+@layer components {
+  /* ── 兜底：base 层的 `*{border-color: outline-01}` 换成 HIG 的分隔线色。
    `:where()` 把权重压到 0，`border-*` 工具类仍可覆盖 ───────────────── */
-:where(:root) *,
-:where(:root) ::before,
-:where(:root) ::after {
-  border-color: var(--md-sys-color-outline-01);
-}
+  :where(:root) *,
+  :where(:root) ::before,
+  :where(:root) ::after {
+    border-color: var(--md-sys-color-outline-01);
+  }
 
-/* ── 字体：SF Pro 栈（中文落到苹方，系统缺字形时继续降级） ──────────── */
-:root .font-sans {
-  font-family: var(--font-sans);
-}
+  /* ── 字体：SF Pro 栈（中文落到苹方，系统缺字形时继续降级） ──────────── */
+  :root .font-sans {
+    font-family: var(--font-sans);
+  }
 
-/* ── 组件里直写的 M2 特征（uppercase / 正向字距 / Roboto 等宽栈）要显式压掉 ── */
-:root .uppercase,
-:root .text-button {
-  text-transform: none;
-}
-:root .tracking-normal {
-  letter-spacing: 0;
-}
-:root .font-mono {
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
-}
-:root .font-mono,
-:root code,
-:root kbd {
-  letter-spacing: 0;
-}
+  /* ── 组件里直写的 M2 特征（uppercase / 正向字距 / Roboto 等宽栈）要显式压掉 ── */
+  :root .uppercase,
+  :root .text-button {
+    text-transform: none;
+  }
+  :root .tracking-normal {
+    letter-spacing: 0;
+  }
+  :root .font-mono {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  }
+  :root .font-mono,
+  :root code,
+  :root kbd {
+    letter-spacing: 0;
+  }
 
-/* ── 焦点：HIG 不用硬线，用 3px 半透明 tint 光环外扩 ──────────────────── */
-:root :focus-visible {
-  outline: 3px solid var(--md-sys-color-highlight);
-  outline-offset: 2px;
-  box-shadow: none;
-}
+  /* ── 焦点：HIG 不用硬线，用 3px 半透明 tint 光环外扩 ──────────────────── */
+  :root :focus-visible {
+    outline: 3px solid var(--md-sys-color-highlight);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
 
-/* ── 字阶：iOS 动态字体表（正文 17/22，大标题 34/41 700，负字距） ────── */
-:root body {
-  /* 字体栈落在这里：base 层把 --font-sans(Roboto) 直接写在 body 上，
+  /* ── 字阶：iOS 动态字体表（正文 17/22，大标题 34/41 700，负字距） ────── */
+  :root body {
+    /* 字体栈落在这里：base 层把 --font-sans(Roboto) 直接写在 body 上，
      只压 .font-sans 类名带不动正文 */
-  font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.2941;
-  letter-spacing: -0.011em;
-}
-:root h1,
-:root h2,
-:root h3,
-:root h4,
-:root h5,
-:root h6 {
-  font-weight: 700;
-  letter-spacing: -0.022em;
-}
-:root .text-display-lg {
-  font-size: 2.125rem;
-  line-height: 2.5625rem;
-  font-weight: 700;
-  letter-spacing: -0.026em;
-}
-:root .text-display-md {
-  font-size: 1.75rem;
-  line-height: 2.125rem;
-  font-weight: 700;
-  letter-spacing: -0.024em;
-}
-:root .text-headline-lg {
-  font-size: 1.375rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.022em;
-}
-:root .text-display-sm {
-  font-size: 1.5rem;
-  line-height: 1.8125rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-:root .text-headline-sm {
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  font-weight: 600;
-  letter-spacing: -0.016em;
-}
-:root .text-headline-md {
-  font-size: 1.25rem;
-  line-height: 1.5625rem;
-  font-weight: 600;
-  letter-spacing: -0.019em;
-}
-:root .text-title-lg {
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  font-weight: 600;
-  letter-spacing: -0.011em;
-}
-:root .text-title-md,
-:root .text-title-sm {
-  font-size: 0.9375rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.009em;
-}
-:root .text-body-01,
-:root .text-body-02 {
-  font-size: 1.0625rem;
-  line-height: 1.2941;
-  letter-spacing: -0.011em;
-}
-:root .text-label,
-:root .text-caption,
-:root .text-label-sm {
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
-  letter-spacing: 0;
-  font-weight: 400;
-  text-transform: none;
-}
-:root .text-overline {
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
-  letter-spacing: 0;
-  font-weight: 600;
-  text-transform: none;
-}
-:root .text-button {
-  font-size: 1.0625rem;
-  line-height: 1.2941;
-  letter-spacing: -0.011em;
-  font-weight: 600;
-  text-transform: none;
-}
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.2941;
+    letter-spacing: -0.011em;
+  }
+  :root h1,
+  :root h2,
+  :root h3,
+  :root h4,
+  :root h5,
+  :root h6 {
+    font-weight: 700;
+    letter-spacing: -0.022em;
+  }
+  :root .text-display-lg {
+    font-size: 2.125rem;
+    line-height: 2.5625rem;
+    font-weight: 700;
+    letter-spacing: -0.026em;
+  }
+  :root .text-display-md {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+    font-weight: 700;
+    letter-spacing: -0.024em;
+  }
+  :root .text-headline-lg {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.022em;
+  }
+  :root .text-display-sm {
+    font-size: 1.5rem;
+    line-height: 1.8125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  :root .text-headline-sm {
+    font-size: 1.0625rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.016em;
+  }
+  :root .text-headline-md {
+    font-size: 1.25rem;
+    line-height: 1.5625rem;
+    font-weight: 600;
+    letter-spacing: -0.019em;
+  }
+  :root .text-title-lg {
+    font-size: 1.0625rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.011em;
+  }
+  :root .text-title-md,
+  :root .text-title-sm {
+    font-size: 0.9375rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.009em;
+  }
+  :root .text-body-01,
+  :root .text-body-02 {
+    font-size: 1.0625rem;
+    line-height: 1.2941;
+    letter-spacing: -0.011em;
+  }
+  :root .text-label,
+  :root .text-caption,
+  :root .text-label-sm {
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    letter-spacing: 0;
+    font-weight: 400;
+    text-transform: none;
+  }
+  :root .text-overline {
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    letter-spacing: 0;
+    font-weight: 600;
+    text-transform: none;
+  }
+  :root .text-button {
+    font-size: 1.0625rem;
+    line-height: 1.2941;
+    letter-spacing: -0.011em;
+    font-weight: 600;
+    text-transform: none;
+  }
 
-/* ── 圆角：--md-sys-shape-control/container 已在 :root 覆盖（10px / 16px），通用块自动生效 ── */
+  /* ── 圆角：--md-sys-shape-control/container 已在 :root 覆盖（10px / 16px），通用块自动生效 ── */
 
-/* ── 导航与播放条：半透明材质（HIG 的 bar 材质，非实色也非描边） ──────── */
-:root header.sticky {
-  background-color: var(--md-sys-color-material-bar);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 0.5px solid var(--md-sys-color-outline-01);
-  box-shadow: none;
-}
-:root .fixed.inset-x-0.bottom-0.border-t {
-  background-color: var(--md-sys-color-material-bar);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-top: 0.5px solid var(--md-sys-color-outline-01);
-  border-color: var(--md-sys-color-outline-01);
-}
+  /* ── 导航与播放条：半透明材质（HIG 的 bar 材质，非实色也非描边） ──────── */
+  :root header.sticky {
+    background-color: var(--md-sys-color-material-bar);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 0.5px solid var(--md-sys-color-outline-01);
+    box-shadow: none;
+  }
+  :root .fixed.inset-x-0.bottom-0.border-t {
+    background-color: var(--md-sys-color-material-bar);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-top: 0.5px solid var(--md-sys-color-outline-01);
+    border-color: var(--md-sys-color-outline-01);
+  }
 
-/* ── 浮层：材质 + 14 圆角 + 单层淡影（HIG 只给浮层投影） ────────────────
+  /* ── 浮层：材质 + 14 圆角 + 单层淡影（HIG 只给浮层投影） ────────────────
  * 定位靠语义钩子，不靠类名：菜单/对话框用原生 role，组件自绘浮层挂
  * data-slot="popover"。分组列表、表格这些普通容器因此不会被套上材质和影。 */
-:root [role="menu"],
-:root [role="dialog"],
-:root [data-slot="popover"],
-:root [data-slot="select-content"] {
-  background-color: var(--md-sys-color-material-sheet);
-  backdrop-filter: blur(24px) saturate(180%);
-  border-radius: var(--md-sys-shape-overlay);
-  border: 0.5px solid var(--md-sys-color-outline-01);
-  box-shadow: var(--md-sys-shadow-overlay);
-}
-/* 浮层内部再套一层 role=listbox 时，描边/圆角/影只由外层面板承担 */
-:root [role="listbox"] {
-  background-color: transparent;
-  backdrop-filter: none;
-  border: 0;
-  border-radius: inherit;
-  box-shadow: none;
-}
-:root [role="menu"] {
-  padding-block: 0.25rem;
-}
-:root [role="menuitem"],
-:root [role="option"] {
-  border-radius: var(--md-sys-shape-control);
-  margin-inline: 0.25rem;
-}
+  :root [role="menu"],
+  :root [role="dialog"],
+  :root [data-slot="popover"],
+  :root [data-slot="select-content"] {
+    background-color: var(--md-sys-color-material-sheet);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-radius: var(--md-sys-shape-overlay);
+    border: 0.5px solid var(--md-sys-color-outline-01);
+    box-shadow: var(--md-sys-shadow-overlay);
+  }
+  /* 浮层内部再套一层 role=listbox 时，描边/圆角/影只由外层面板承担 */
+  :root [role="listbox"] {
+    background-color: transparent;
+    backdrop-filter: none;
+    border: 0;
+    border-radius: inherit;
+    box-shadow: none;
+  }
+  :root [role="menu"] {
+    padding-block: 0.25rem;
+  }
+  :root [role="menuitem"],
+  :root [role="option"] {
+    border-radius: var(--md-sys-shape-control);
+    margin-inline: 0.25rem;
+  }
 
-/* ── 进度条：HIG 圆头细线 ───────────────────────────────────────────── */
-:root [data-slot="progress"],
-:root [data-slot="progress-indeterminate"] {
-  border-radius: var(--md-sys-shape-max);
-}
+  /* ── 进度条：HIG 圆头细线 ───────────────────────────────────────────── */
+  :root [data-slot="progress"],
+  :root [data-slot="progress-indeterminate"] {
+    border-radius: var(--md-sys-shape-max);
+  }
 
-/* ── 抽屉：白卡 16 圆角、只留外侧细影（HIG 无 8dp 内侧影）──────────── */
-:root [data-slot="sheet"] {
-  background-color: var(--md-sys-color-surface-01);
-  box-shadow: var(--md-sys-shadow-overlay);
-}
-:root [data-slot="sheet"][data-side="right"],
-:root [data-slot="sheet"][data-side="left"] {
-  border-radius: var(--md-sys-shape-container) 0 0 var(--md-sys-shape-container);
-}
-:root [data-slot="sheet"][data-side="left"] {
-  border-radius: 0 var(--md-sys-shape-container) var(--md-sys-shape-container) 0;
-}
-:root [data-slot="sheet"][data-side="bottom"] {
-  border-radius: var(--md-sys-shape-container) var(--md-sys-shape-container) 0 0;
-}
+  /* ── 抽屉：白卡 16 圆角、只留外侧细影（HIG 无 8dp 内侧影）──────────── */
+  :root [data-slot="sheet"] {
+    background-color: var(--md-sys-color-surface-01);
+    box-shadow: var(--md-sys-shadow-overlay);
+  }
+  :root [data-slot="sheet"][data-side="right"],
+  :root [data-slot="sheet"][data-side="left"] {
+    border-radius: var(--md-sys-shape-container) 0 0 var(--md-sys-shape-container);
+  }
+  :root [data-slot="sheet"][data-side="left"] {
+    border-radius: 0 var(--md-sys-shape-container) var(--md-sys-shape-container) 0;
+  }
+  :root [data-slot="sheet"][data-side="bottom"] {
+    border-radius: var(--md-sys-shape-container) var(--md-sys-shape-container) 0 0;
+  }
 
-/* ── 轻提示（snackbar）与骨架：HIG 的深色胶囊 + 全圆 + 12/8 圆角块 ──── */
-:root [data-slot="toast"] {
-  border-radius: var(--md-sys-shape-overlay);
-  padding-inline: 0.875rem;
-  box-shadow: var(--md-sys-shadow-overlay);
-}
-:root [data-slot="toast-action"],
-:root [data-slot="toast-close"] {
-  border-radius: var(--md-sys-shape-control);
-  text-transform: none;
-  letter-spacing: 0;
-}
-:root [data-slot="skeleton"] {
-  border-radius: var(--md-sys-shape-08);
-}
+  /* ── 轻提示（snackbar）与骨架：HIG 的深色胶囊 + 全圆 + 12/8 圆角块 ──── */
+  :root [data-slot="toast"] {
+    border-radius: var(--md-sys-shape-overlay);
+    padding-inline: 0.875rem;
+    box-shadow: var(--md-sys-shadow-overlay);
+  }
+  :root [data-slot="toast-action"],
+  :root [data-slot="toast-close"] {
+    border-radius: var(--md-sys-shape-control);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  :root [data-slot="skeleton"] {
+    border-radius: var(--md-sys-shape-08);
+  }
 
-/* ── 卡片与列表行：白卡 + 16 圆角 + 缩进分隔线，零影 ───────────────────
+  /* ── 卡片与列表行：白卡 + 16 圆角 + 缩进分隔线，零影 ───────────────────
  * 只用 data-slot="card"（分组区段）和 data-list-item（列表行）两个钩子。
  * 以前还认 .rounded-sm.bg-surface-01 / li.bg-surface-01，但那是类名拼写，
  * 任何换了底色的行都会漏掉；现在组件自己声明语义。 */
-:root [data-slot="card"],
-:root [data-list-item] {
-  background-color: var(--md-sys-color-surface-01);
-  border: 0.5px solid var(--md-sys-color-outline-01);
-  border-radius: var(--md-sys-shape-container);
-  box-shadow: none;
-}
-:root [data-list-item]:hover,
-:root [data-slot="card"]:hover {
-  background-color: var(--md-sys-color-surface-hover-01);
-  box-shadow: none;
-}
-:root [data-list-item] + [data-list-item] {
-  margin-top: -0.5px;
-}
-
-/* ── 按钮：tint 填充 + 600 字重，outlined 是浅填充而非描边 ────────────── */
-:root button {
-  border-radius: var(--md-sys-shape-control);
-  box-shadow: none;
-  font-weight: 600;
-}
-:root button.border {
-  border-color: transparent;
-  color: var(--md-sys-color-on-button-outlined);
-}
-:root button.border:hover:enabled {
-  border-color: transparent;
-}
-:root button[aria-pressed="true"] {
-  box-shadow: inset 0 0 0 2px var(--md-sys-color-link);
-  color: var(--md-sys-color-link);
-}
-
-/* ── 长不换行令牌（如 summary|invade|... ）的 label+input 行：允许断词 ── */
-:root label:has(> input) {
-  min-width: 0;
-  flex-wrap: wrap;
-}
-:root label:has(> input) > span {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-/* ── 开关类（checkbox/radio）：开绿关灰的胶囊，HIG 3 秒辨识度 ────────── */
-:root input[type="checkbox"] {
-  border-radius: var(--md-sys-shape-max);
-  border-color: var(--md-sys-color-outline-01);
-}
-:root input[type="checkbox"]:checked {
-  background-color: var(--md-sys-color-success);
-  border-color: var(--md-sys-color-success);
-}
-
-/* ── 输入：填充底 + 10 圆角，无边框（HIG 搜索/表单字段） ──────────────── */
-:root input:not([type="checkbox"]):not([type="radio"]),
-:root textarea,
-:root select {
-  border: 1px solid var(--md-sys-color-outline-field);
-  border-radius: var(--md-sys-shape-control);
-  background-color: var(--md-sys-color-field-01);
-  box-shadow: none;
-  font-size: 1.0625rem;
-}
-:root input:not([type="checkbox"]):not([type="radio"]):hover,
-:root textarea:hover {
-  border-color: var(--md-sys-color-outline-emphasis-01);
-  background-color: var(--md-sys-color-field-hover-01);
-  box-shadow: none;
-}
-:root input:not([type="checkbox"]):not([type="radio"]):focus,
-:root textarea:focus {
-  border-color: var(--md-sys-color-primary);
-  background-color: var(--md-sys-color-surface-01);
-  box-shadow: 0 0 0 3px var(--md-sys-color-highlight);
-}
-/* 下拉触发器是 button：HIG 是四角全圆填充底，无底边线 */
-:root [role="combobox"],
-:root [aria-haspopup="listbox"] {
-  border: 1px solid var(--md-sys-color-outline-field);
-  border-radius: var(--md-sys-shape-control);
-  background-color: var(--md-sys-color-field-01);
-  box-shadow: none;
-}
-:root [role="combobox"]:focus,
-:root [aria-haspopup="listbox"]:focus,
-:root [role="combobox"][data-state="open"],
-:root [aria-haspopup="listbox"][aria-expanded="true"] {
-  background-color: var(--md-sys-color-surface-01);
-  box-shadow: 0 0 0 3px var(--md-sys-color-highlight);
-}
-
-/* ── 行内开关（switch/slider/checkbox/radio）：HIG 开关与滑杆口径 ───── */
-:root [data-slot="switch"] {
-  height: 1.9375rem;
-  width: 3.1875rem;
-  background-color: rgba(120, 120, 128, 0.32);
-}
-:root [data-slot="switch"][data-state="checked"] {
-  background-color: var(--md-sys-color-success);
-}
-:root [data-slot="switch"] > span {
-  height: 1.6875rem;
-  width: 1.6875rem;
-  box-shadow: var(--md-sys-shadow-thumb);
-}
-:root [data-slot="switch"] > span[data-state="unchecked"] {
-  translate: 2px 0;
-}
-:root [data-slot="switch"] > span[data-state="checked"] {
-  translate: 22px 0;
-  background-color: var(--md-sys-color-on-button-contained);
-}
-:root [data-slot="switch"]:disabled {
-  opacity: 0.45;
-}
-:root [data-slot="checkbox"]:disabled,
-:root [data-slot="radio-group-item"]:disabled,
-:root [data-slot="slider-thumb"][data-disabled] {
-  opacity: 0.45;
-}
-
-:root [data-slot="slider-track"] {
-  height: 0.25rem;
-  border-radius: var(--md-sys-shape-max);
-  background-color: rgba(120, 120, 128, 0.2);
-}
-:root [data-slot="slider-thumb"] {
-  height: 1.75rem;
-  width: 1.75rem;
-  background-color: var(--md-sys-color-surface-01);
-  box-shadow: var(--md-sys-shadow-thumb);
-}
-
-:root [data-slot="checkbox"] {
-  height: 1.1875rem;
-  width: 1.1875rem;
-  border: 1.5px solid var(--md-sys-color-outline-01);
-  border-radius: var(--md-sys-shape-08);
-  background-color: transparent;
-}
-:root [data-slot="checkbox"][data-state="checked"],
-:root [data-slot="checkbox"][data-state="indeterminate"] {
-  border-color: var(--md-sys-color-success);
-  background-color: var(--md-sys-color-success);
-}
-:root [data-slot="radio-group-item"] {
-  height: 1.25rem;
-  width: 1.25rem;
-  border: 1.5px solid var(--md-sys-color-outline-01);
-}
-:root [data-slot="radio-group-item"][data-state="checked"] {
-  border-color: var(--md-sys-color-primary);
-  box-shadow: inset 0 0 0 0.3125rem var(--md-sys-color-primary);
-}
-:root [data-variant="segmented"] [data-slot="radio-group-item"] {
-  height: 2rem;
-  width: auto;
-  border: 0;
-  border-radius: var(--md-sys-shape-08);
-  box-shadow: none;
-}
-:root [data-variant="segmented"] [data-slot="radio-group-item"][data-state="checked"] {
-  background-color: var(--md-sys-color-surface-01);
-  font-weight: 600;
-  box-shadow:
-    0 0 0 0.5px var(--md-sys-shadow-hairline),
-    var(--md-sys-shadow-raised-small);
-}
-
-/* ── 标签页：分段控件（iOS 分组控件口径，替掉 M2 下划线指示器） ───────── */
-:root [role="tablist"] {
-  gap: 0.125rem;
-  padding: 0.125rem;
-  border-radius: var(--md-sys-shape-control);
-  background-color: var(--md-sys-color-surface-variant-01);
-  box-shadow: none;
-}
-:root [role="tab"] {
-  height: var(--md-sys-size-control-sm);
-  border-radius: var(--md-sys-shape-08);
-  box-shadow: none;
-}
-:root [role="tab"][data-state="active"] {
-  background-color: var(--md-sys-color-surface-01);
-  color: var(--md-sys-color-on-surface);
-  font-weight: 600;
-  box-shadow:
-    0 0 0 0.5px var(--md-sys-shadow-hairline),
-    var(--md-sys-shadow-raised-small);
-}
-
-/* ── 表格：只留行分隔、表头小一号 600（HIG 表格无竖线、无底色） ───────── */
-:root thead {
-  border-bottom: 0.5px solid var(--md-sys-color-outline-01);
-}
-:root thead th {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface-medium);
-}
-:root tbody tr {
-  border-bottom: 0.5px solid var(--md-sys-color-outline-01);
-}
-:root tbody tr:last-child {
-  border-bottom: 0;
-}
-
-/* ── 标签：胶囊 + 系统色 12% 底 + 同色字，13px 不放大写 ──────────────── */
-:root .rounded-pill.px-3 {
-  border-radius: var(--md-sys-shape-max);
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  padding-inline: 0.625rem;
-}
-
-/* ── 分隔线与骨架：HIG 的分隔线是 0.5px，骨架是低对比灰 ──────────────── */
-:root hr,
-:root .border-t,
-:root .border-b {
-  border-color: var(--md-sys-color-outline-01);
-}
-:root strong,
-:root b {
-  font-weight: 600;
-}
-:root pre,
-:root samp {
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
-  letter-spacing: 0;
-}
-/* 骨架屏扫光的元素层跟着卡片圆角，不再是 M2 的 4dp */
-:root .skeleton-sweep::before {
-  border-radius: inherit;
-}
-
-/* ── 第三方评论 Artalk：把 globals.css 里的 M2 表单形态改成 HIG 口径 ────── */
-:root .atk-main-editor.atk-main-editor {
-  border-radius: var(--md-sys-shape-container) var(--md-sys-shape-container) 0 0;
-  border-bottom: 0.5px solid var(--md-sys-color-outline-01);
-}
-:root .atk-main-editor.atk-main-editor:focus-within {
-  border-bottom: 0.5px solid var(--md-sys-color-primary);
-  box-shadow: none;
-}
-:root .atk-main-editor.atk-main-editor > .atk-header input,
-:root .atk-main-editor.atk-main-editor > .atk-textarea-wrap > .atk-textarea {
-  border-radius: var(--md-sys-shape-control);
-  font-size: 1.0625rem;
-}
-:root .atk-main-editor.atk-main-editor > .atk-header input {
-  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
-}
-:root .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn {
-  border-radius: var(--md-sys-shape-control);
-  letter-spacing: -0.011em;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  text-transform: none;
-  box-shadow: none;
-}
-:root .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:hover {
-  box-shadow: none;
-}
-:root .atk-pagination.atk-pagination > .atk-btn,
-:root .atk-pagination.atk-pagination > .atk-input {
-  border-radius: var(--md-sys-shape-control);
-  border: 0.5px solid var(--md-sys-color-outline-01);
-}
-:root .atk-layer-wrap .atk-popup,
-:root .atk-layer-wrap .atk-layer-body {
-  border-radius: var(--md-sys-shape-container);
-}
-:root .atk-comment.atk-comment > .atk-main > .atk-body > .atk-reply-to {
-  border-left-color: var(--md-sys-color-primary);
-  border-radius: 0 var(--md-sys-shape-control) var(--md-sys-shape-control) 0;
-}
-
-/* 选中态 chip：亮色 #0066cc 落在选中底（#e9e9eb）只有 4.59:1，贴边且受 antialias 影响，
-   压到 7.10:1 更稳；暗色底 6.25:1 本来够，保持 iOS 亮蓝 */
-@media (prefers-color-scheme: light) {
-  :root .bg-state-selected.text-link {
-    color: #004a99;
+  :root [data-slot="card"],
+  :root [data-list-item] {
+    background-color: var(--md-sys-color-surface-01);
+    border: 0.5px solid var(--md-sys-color-outline-01);
+    border-radius: var(--md-sys-shape-container);
+    box-shadow: none;
   }
-}
+  :root [data-list-item]:hover,
+  :root [data-slot="card"]:hover {
+    background-color: var(--md-sys-color-surface-hover-01);
+    box-shadow: none;
+  }
+  :root [data-list-item] + [data-list-item] {
+    margin-top: -0.5px;
+  }
 
-/* 滚动条：轨道透明、拇指用描边色、圆角随形状令牌 */
-:root ::-webkit-scrollbar-thumb {
-  background: var(--md-sys-color-outline-01);
-  border-radius: var(--md-sys-shape-control);
-}
-:root ::-webkit-scrollbar-thumb:hover {
-  background: var(--md-sys-color-outline-emphasis-01);
-}
-:root * {
-  scrollbar-color: var(--md-sys-color-outline-01) transparent;
-}
+  /* ── 按钮：tint 填充 + 600 字重，outlined 是浅填充而非描边 ────────────── */
+  :root button {
+    border-radius: var(--md-sys-shape-control);
+    box-shadow: none;
+    font-weight: 600;
+  }
+  :root button.border {
+    border-color: transparent;
+    color: var(--md-sys-color-on-button-outlined);
+  }
+  :root button.border:hover:enabled {
+    border-color: transparent;
+  }
+  :root button[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 2px var(--md-sys-color-link);
+    color: var(--md-sys-color-link);
+  }
 
-/* 表格：iOS 分组列表——卡片圆角 + 0.5px 描边、行间 1px 分隔线、表头字距归零 */
-:root [data-slot="table-wrap"].bg-surface-01 {
-  border-radius: var(--md-sys-shape-container);
-  border: 0.5px solid var(--md-sys-color-outline-01);
-  box-shadow: none;
-  overflow: hidden auto;
-}
-:root [data-slot="table-row"] {
-  border-bottom: 1px solid var(--md-sys-color-outline-01);
-}
-:root thead th {
-  letter-spacing: 0;
-  font-weight: 600;
-}
+  /* ── 长不换行令牌（如 summary|invade|... ）的 label+input 行：允许断词 ── */
+  :root label:has(> input) {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  :root label:has(> input) > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
 
-/* ── 结构：iOS 分组列表 + tab bar ─────────────────────────────────────────
+  /* ── 开关类（checkbox/radio）：开绿关灰的胶囊，HIG 3 秒辨识度 ────────── */
+  :root input[type="checkbox"] {
+    border-radius: var(--md-sys-shape-max);
+    border-color: var(--md-sys-color-outline-01);
+  }
+  :root input[type="checkbox"]:checked {
+    background-color: var(--md-sys-color-success);
+    border-color: var(--md-sys-color-success);
+  }
+
+  /* ── 行内开关（switch/slider/checkbox/radio）：HIG 开关与滑杆口径 ───── */
+  :root [data-slot="switch"] {
+    height: 1.9375rem;
+    width: 3.1875rem;
+    background-color: rgba(120, 120, 128, 0.32);
+  }
+  :root [data-slot="switch"][data-state="checked"] {
+    background-color: var(--md-sys-color-success);
+  }
+  :root [data-slot="switch"] > span {
+    height: 1.6875rem;
+    width: 1.6875rem;
+    box-shadow: var(--md-sys-shadow-thumb);
+  }
+  :root [data-slot="switch"] > span[data-state="unchecked"] {
+    translate: 2px 0;
+  }
+  :root [data-slot="switch"] > span[data-state="checked"] {
+    translate: 22px 0;
+    background-color: var(--md-sys-color-on-button-contained);
+  }
+  :root [data-slot="switch"]:disabled {
+    opacity: 0.45;
+  }
+  :root [data-slot="checkbox"]:disabled,
+  :root [data-slot="radio-group-item"]:disabled,
+  :root [data-slot="slider-thumb"][data-disabled] {
+    opacity: 0.45;
+  }
+
+  :root [data-slot="slider-track"] {
+    height: 0.25rem;
+    border-radius: var(--md-sys-shape-max);
+    background-color: rgba(120, 120, 128, 0.2);
+  }
+  :root [data-slot="slider-thumb"] {
+    height: 1.75rem;
+    width: 1.75rem;
+    background-color: var(--md-sys-color-surface-01);
+    box-shadow: var(--md-sys-shadow-thumb);
+  }
+
+  :root [data-slot="checkbox"] {
+    height: 1.1875rem;
+    width: 1.1875rem;
+    border: 1.5px solid var(--md-sys-color-outline-01);
+    border-radius: var(--md-sys-shape-08);
+    background-color: transparent;
+  }
+  :root [data-slot="checkbox"][data-state="checked"],
+  :root [data-slot="checkbox"][data-state="indeterminate"] {
+    border-color: var(--md-sys-color-success);
+    background-color: var(--md-sys-color-success);
+  }
+  :root [data-slot="radio-group-item"] {
+    height: 1.25rem;
+    width: 1.25rem;
+    border: 1.5px solid var(--md-sys-color-outline-01);
+  }
+  :root [data-slot="radio-group-item"][data-state="checked"] {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: inset 0 0 0 0.3125rem var(--md-sys-color-primary);
+  }
+  :root [data-variant="segmented"] [data-slot="radio-group-item"] {
+    height: 2rem;
+    width: auto;
+    border: 0;
+    border-radius: var(--md-sys-shape-08);
+    box-shadow: none;
+  }
+  :root [data-variant="segmented"] [data-slot="radio-group-item"][data-state="checked"] {
+    background-color: var(--md-sys-color-surface-01);
+    font-weight: 600;
+    box-shadow:
+      0 0 0 0.5px var(--md-sys-shadow-hairline),
+      var(--md-sys-shadow-raised-small);
+  }
+
+  /* ── 标签页：分段控件（iOS 分组控件口径，替掉 M2 下划线指示器） ───────── */
+  :root [role="tablist"] {
+    gap: 0.125rem;
+    padding: 0.125rem;
+    border-radius: var(--md-sys-shape-control);
+    background-color: var(--md-sys-color-surface-variant-01);
+    box-shadow: none;
+  }
+  :root [role="tab"] {
+    height: var(--md-sys-size-control-sm);
+    border-radius: var(--md-sys-shape-08);
+    box-shadow: none;
+  }
+  :root [role="tab"][data-state="active"] {
+    background-color: var(--md-sys-color-surface-01);
+    color: var(--md-sys-color-on-surface);
+    font-weight: 600;
+    box-shadow:
+      0 0 0 0.5px var(--md-sys-shadow-hairline),
+      var(--md-sys-shadow-raised-small);
+  }
+
+  /* ── 表格：只留行分隔、表头小一号 600（HIG 表格无竖线、无底色） ───────── */
+  :root thead {
+    border-bottom: 0.5px solid var(--md-sys-color-outline-01);
+  }
+  :root thead th {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface-medium);
+  }
+  :root tbody tr {
+    border-bottom: 0.5px solid var(--md-sys-color-outline-01);
+  }
+  :root tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  /* ── 标签：胶囊 + 系统色 12% 底 + 同色字，13px 不放大写 ──────────────── */
+  :root .rounded-pill.px-3 {
+    border-radius: var(--md-sys-shape-max);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding-inline: 0.625rem;
+  }
+
+  /* ── 分隔线与骨架：HIG 的分隔线是 0.5px，骨架是低对比灰 ──────────────── */
+  :root hr,
+  :root .border-t,
+  :root .border-b {
+    border-color: var(--md-sys-color-outline-01);
+  }
+  :root strong,
+  :root b {
+    font-weight: 600;
+  }
+  :root pre,
+  :root samp {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0;
+  }
+  /* 骨架屏扫光的元素层跟着卡片圆角，不再是 M2 的 4dp */
+  :root .skeleton-sweep::before {
+    border-radius: inherit;
+  }
+
+  /* ── 第三方评论 Artalk：把 globals.css 里的 M2 表单形态改成 HIG 口径 ────── */
+  :root .atk-main-editor.atk-main-editor {
+    border-radius: var(--md-sys-shape-container) var(--md-sys-shape-container) 0 0;
+    border-bottom: 0.5px solid var(--md-sys-color-outline-01);
+  }
+  :root .atk-main-editor.atk-main-editor:focus-within {
+    border-bottom: 0.5px solid var(--md-sys-color-primary);
+    box-shadow: none;
+  }
+  :root .atk-main-editor.atk-main-editor > .atk-header input,
+  :root .atk-main-editor.atk-main-editor > .atk-textarea-wrap > .atk-textarea {
+    border-radius: var(--md-sys-shape-control);
+    font-size: 1.0625rem;
+  }
+  :root .atk-main-editor.atk-main-editor > .atk-header input {
+    border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
+  }
+  :root .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn {
+    border-radius: var(--md-sys-shape-control);
+    letter-spacing: -0.011em;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+  }
+  :root .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:hover {
+    box-shadow: none;
+  }
+  :root .atk-pagination.atk-pagination > .atk-btn,
+  :root .atk-pagination.atk-pagination > .atk-input {
+    border-radius: var(--md-sys-shape-control);
+    border: 0.5px solid var(--md-sys-color-outline-01);
+  }
+  :root .atk-layer-wrap .atk-popup,
+  :root .atk-layer-wrap .atk-layer-body {
+    border-radius: var(--md-sys-shape-container);
+  }
+  :root .atk-comment.atk-comment > .atk-main > .atk-body > .atk-reply-to {
+    border-left-color: var(--md-sys-color-primary);
+    border-radius: 0 var(--md-sys-shape-control) var(--md-sys-shape-control) 0;
+  }
+
+  /* 选中态 chip：亮色 #0066cc 落在选中底（#e9e9eb）只有 4.59:1，贴边且受 antialias 影响，
+   压到 7.10:1 更稳；暗色底 6.25:1 本来够，保持 iOS 亮蓝 */
+  @media (prefers-color-scheme: light) {
+    :root .bg-state-selected.text-link {
+      color: #004a99;
+    }
+  }
+
+  /* 滚动条：轨道透明、拇指用描边色、圆角随形状令牌 */
+  :root ::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-01);
+    border-radius: var(--md-sys-shape-control);
+  }
+  :root ::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-outline-emphasis-01);
+  }
+  :root * {
+    scrollbar-color: var(--md-sys-color-outline-01) transparent;
+  }
+
+  /* 表格：iOS 分组列表——卡片圆角 + 0.5px 描边、行间 1px 分隔线、表头字距归零 */
+  :root [data-slot="table-wrap"].bg-surface-01 {
+    border-radius: var(--md-sys-shape-container);
+    border: 0.5px solid var(--md-sys-color-outline-01);
+    box-shadow: none;
+    overflow: hidden auto;
+  }
+  :root [data-slot="table-row"] {
+    border-bottom: 1px solid var(--md-sys-color-outline-01);
+  }
+  :root thead th {
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+
+  /* ── 结构：iOS 分组列表 + tab bar ─────────────────────────────────────────
  * Apple 的哲学是「内容优先、导航后退」：桌面上不摆常驻图标栏，
  * 页面用 Large Title（34/41 700）起头，正文收窄成易读的单栏；
  * 手机上改为底部 tab bar，顶栏退化成半透明窄条。
  */
 
-/* 大标题：左对齐、34/41 700、一级留白 20dp */
-:root [data-shell] {
-  max-inline-size: 46rem;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-  padding-block: 0;
-}
-/* 桌面/平板：Mac 与 iPad 的 source list 侧栏（半透明材质、缩进行、组内分隔线） */
-:root [data-rail] {
-  display: none;
-}
-:root [data-shell-main] > * > .container-page {
-  max-inline-size: none;
-  padding-inline: 0;
-  padding-block: 0 2rem;
-}
-:root [data-shell-main] .text-center {
-  text-align: start;
-  margin-inline: 0;
-}
-:root [data-shell-main] .text-center > p {
-  text-align: start;
-}
-:root [data-shell-main] h1.text-headline-md {
-  font-size: 2.125rem;
-  line-height: 2.5625rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-block: 1.25rem 0.5rem;
-}
-/* 页头区块收成紧贴大标题的一行说明 */
-:root [data-shell-main] > * > .container-page > .py-16,
-:root [data-shell-main] > * > .container-page.py-16 {
-  padding-block: 0;
-}
-:root [data-shell-main] .mt-8.flex.justify-center {
-  justify-content: flex-start;
-  margin-top: 1.25rem;
-}
-
-/* 顶栏：半透明材质、去掉投影、缩到 44px（HIG 触控下限之外的最小导航条） */
-:root header.sticky.h-14 {
-  height: var(--md-sys-size-lg);
-  background: color-mix(in srgb, var(--md-sys-color-surface-01) 82%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: none;
-  border-bottom: 0.5px solid var(--md-sys-color-outline-01);
-}
-:root header.sticky .container-page {
-  padding-inline: 1rem;
-}
-
-/* 手机：底部 tab bar 常驻，页面底部让出 56dp + 安全区 */
-@media (max-width: 47.99rem) {
-  :root [data-tabbar] {
-    display: block;
-  }
+  /* 大标题：左对齐、34/41 700、一级留白 20dp */
   :root [data-shell] {
-    padding-inline: 1rem;
-    padding-bottom: 3.5rem;
+    max-inline-size: 46rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    padding-block: 0;
   }
-  :root [data-tabbar] a {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  /* tab 贴屏幕底，焦点光环要收进栏内，否则下半截被裁掉 */
-  :root [data-tabbar] a:focus-visible {
-    outline: none;
-    box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
-  }
-  /* 迷你播放器常驻时（PlayerSpacer 渲染出 72px 占位）tab bar 抬到它上面 */
-  :root body:has(.h-\[72px\]) [data-tabbar] {
-    bottom: 72px;
-  }
-  :root body:has(.h-\[72px\]) [data-shell] {
-    padding-bottom: 8rem;
-  }
-}
-/* 48–50rem：侧栏还没出现、tab bar 仍在，主体两侧留出 min 边距 */
-@media (min-width: 48rem) and (max-width: 49.99rem) {
-  :root [data-shell] {
-    padding-inline: 2rem;
-  }
-}
-/* 侧栏从 header 底边起算，等于顶栏高度。用变量而不是字面量，
- * 语言提示条在场时把起点一起推下去，否则左栏会盖住提示文字。 */
-:root {
-  --rail-top: 2.75rem;
-}
-@media (min-width: 50rem) {
-  :root body:has([data-locale-suggest]) {
-    --rail-top: 5.3125rem;
-  }
-}
-/* 平板/桌面：侧栏出现（导航从 tab bar 搬上来），底部 tab bar 消失 */
-@media (min-width: 50rem) {
-  :root [data-tabbar] {
+  /* 桌面/平板：Mac 与 iPad 的 source list 侧栏（半透明材质、缩进行、组内分隔线） */
+  :root [data-rail] {
     display: none;
   }
-  :root [data-rail] {
-    display: block;
-    inset-block-start: var(--rail-top);
-    block-size: calc(100dvh - var(--rail-top));
-    width: 15rem;
-    padding-inline: 0.75rem;
-    border-right: 0.5px solid var(--md-sys-color-outline-01);
-    background: color-mix(in srgb, var(--md-sys-color-surface) 70%, transparent);
-    backdrop-filter: blur(20px) saturate(180%);
+  :root [data-shell-main] > * > .container-page {
+    max-inline-size: none;
+    padding-inline: 0;
+    padding-block: 0 2rem;
   }
-  :root [data-rail] nav {
-    padding-block: 0.5rem;
-    gap: 1px;
-  }
-  :root [data-rail] a {
-    border-radius: var(--md-sys-shape-08);
+  :root [data-shell-main] .text-center {
+    text-align: start;
     margin-inline: 0;
-    padding: 0.5rem 0.75rem;
-    color: var(--md-sys-color-on-surface);
   }
-  :root [data-rail] a[aria-current="page"] {
-    background: var(--md-sys-color-surface-selected-01);
-    font-weight: 600;
+  :root [data-shell-main] .text-center > p {
+    text-align: start;
   }
-  :root [data-rail] a:hover:not([aria-current="page"]) {
-    background: var(--md-sys-color-surface-hover-01);
+  :root [data-shell-main] h1.text-headline-md {
+    font-size: 2.125rem;
+    line-height: 2.5625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-block: 1.25rem 0.5rem;
   }
-  /* source list 行间距只有 1px：焦点环改内嵌 tint，不压上下行 */
-  :root [data-rail] a:focus-visible {
-    outline: none;
-    box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
+  /* 页头区块收成紧贴大标题的一行说明 */
+  :root [data-shell-main] > * > .container-page > .py-16,
+  :root [data-shell-main] > * > .container-page.py-16 {
+    padding-block: 0;
   }
-  :root [data-shell] {
-    max-inline-size: 72rem;
-    margin-inline: 0;
-    gap: 0;
-    padding-inline: 15rem 0;
+  :root [data-shell-main] .mt-8.flex.justify-center {
+    justify-content: flex-start;
+    margin-top: 1.25rem;
   }
-  :root [data-shell-main] {
-    padding-inline: 1.75rem;
-  }
-}
 
-/* ── 语汇：iOS inset grouped list ────────────────────────────────────────
+  /* 顶栏：半透明材质、去掉投影、缩到 44px（HIG 触控下限之外的最小导航条） */
+  :root header.sticky.h-14 {
+    height: var(--md-sys-size-lg);
+    background: color-mix(in srgb, var(--md-sys-color-surface-01) 82%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: none;
+    border-bottom: 0.5px solid var(--md-sys-color-outline-01);
+  }
+  :root header.sticky .container-page {
+    padding-inline: 1rem;
+  }
+
+  /* 手机：底部 tab bar 常驻，页面底部让出 56dp + 安全区 */
+  @media (max-width: 47.99rem) {
+    :root [data-tabbar] {
+      display: block;
+    }
+    :root [data-shell] {
+      padding-inline: 1rem;
+      padding-bottom: 3.5rem;
+    }
+    :root [data-tabbar] a {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* tab 贴屏幕底，焦点光环要收进栏内，否则下半截被裁掉 */
+    :root [data-tabbar] a:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
+    }
+    /* 迷你播放器常驻时（PlayerSpacer 渲染出 72px 占位）tab bar 抬到它上面 */
+    :root body:has(.h-\[72px\]) [data-tabbar] {
+      bottom: 72px;
+    }
+    :root body:has(.h-\[72px\]) [data-shell] {
+      padding-bottom: 8rem;
+    }
+  }
+  /* 48–50rem：侧栏还没出现、tab bar 仍在，主体两侧留出 min 边距 */
+  @media (min-width: 48rem) and (max-width: 49.99rem) {
+    :root [data-shell] {
+      padding-inline: 2rem;
+    }
+  }
+  /* 侧栏从 header 底边起算，等于顶栏高度。用变量而不是字面量，
+ * 语言提示条在场时把起点一起推下去，否则左栏会盖住提示文字。 */
+  :root {
+    --rail-top: 2.75rem;
+  }
+  @media (min-width: 50rem) {
+    :root body:has([data-locale-suggest]) {
+      --rail-top: 5.3125rem;
+    }
+  }
+  /* 平板/桌面：侧栏出现（导航从 tab bar 搬上来），底部 tab bar 消失 */
+  @media (min-width: 50rem) {
+    :root [data-tabbar] {
+      display: none;
+    }
+    :root [data-rail] {
+      display: block;
+      inset-block-start: var(--rail-top);
+      block-size: calc(100dvh - var(--rail-top));
+      width: 15rem;
+      padding-inline: 0.75rem;
+      border-right: 0.5px solid var(--md-sys-color-outline-01);
+      background: color-mix(in srgb, var(--md-sys-color-surface) 70%, transparent);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+    :root [data-rail] nav {
+      padding-block: 0.5rem;
+      gap: 1px;
+    }
+    :root [data-rail] a {
+      border-radius: var(--md-sys-shape-08);
+      margin-inline: 0;
+      padding: 0.5rem 0.75rem;
+      color: var(--md-sys-color-on-surface);
+    }
+    :root [data-rail] a[aria-current="page"] {
+      background: var(--md-sys-color-surface-selected-01);
+      font-weight: 600;
+    }
+    :root [data-rail] a:hover:not([aria-current="page"]) {
+      background: var(--md-sys-color-surface-hover-01);
+    }
+    /* source list 行间距只有 1px：焦点环改内嵌 tint，不压上下行 */
+    :root [data-rail] a:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
+    }
+    :root [data-shell] {
+      max-inline-size: 72rem;
+      margin-inline: 0;
+      gap: 0;
+      padding-inline: 15rem 0;
+    }
+    :root [data-shell-main] {
+      padding-inline: 1.75rem;
+    }
+  }
+
+  /* ── 语汇：iOS inset grouped list ────────────────────────────────────────
  * iOS 的分组列表是一块 10px 圆角的容器，行之间 0.5px 分隔线且左侧缩进
  * 16px，首末行各自带圆角；hover 不改变底色（触屏语义），只用按压态。 */
-:root [data-list-group] {
-  gap: 0;
-  background: var(--md-sys-color-surface-02);
-  border-radius: var(--md-sys-shape-control);
-  border: 0;
-  overflow: hidden;
-}
-/* 容器自己不吃 hover：否则鼠标停在组的空白处会把整块点亮，看起来像整组被选中。
-   悬停反馈交给行。 */
-:root [data-list-group]:hover {
-  background: var(--md-sys-color-surface-02);
-}
-/* 分隔线只由 ::after 画（border 会顶到贴边，缩进只能靠伪元素）。
- * 圆角与描边归容器，行本身是直边透明，按压态用 --md-sys-color-surface-variant-01。 */
-:root [data-list-group] [data-list-item] {
-  position: relative;
-  border-radius: 0;
-  box-shadow: none;
-  border: 0;
-  background: transparent;
-}
-:root [data-list-item] > [data-slot="card-header"] {
-  padding: 0.6875rem 1rem;
-  margin-inline-start: 0;
-}
-:root [data-list-group] [data-list-item]::after {
-  content: "";
-  position: absolute;
-  inset-inline-start: 1rem;
-  inset-inline-end: 0;
-  bottom: 0;
-  height: 0.5px;
-  background: var(--md-sys-color-outline-variant-01);
-}
-:root [data-list-group] [data-list-item]:last-child::after {
-  content: none;
-}
-:root [data-list-item] > [data-slot="card-header"] {
-  margin-bottom: 0;
-}
-:root [data-list-item] [data-slot="card-title"] {
-  font-size: 1.0625rem;
-  line-height: 1.29;
-  font-weight: 400;
-  letter-spacing: -0.022em;
-}
-:root [data-list-group] [data-list-item]:active {
-  background: var(--md-sys-color-surface-variant-01);
-}
-
-/* 指标条：2 列（窄）/ 4 列（宽）的等分块，列间 0.5px 竖线。
- * 不用 Tailwind 的 divide-x：它生成 `:where(...)` 零特异性选择器，
- * border-color 会被 @layer base 的 `*` 改回 outline-01，淡不下来。 */
-:root [data-divider] > * {
-  position: relative;
-}
-:root [data-divider] > * + *::before {
-  content: "";
-  position: absolute;
-  inset-block: 0.75rem;
-  inset-inline-start: 0;
-  width: 0.5px;
-  background: var(--md-sys-color-outline-variant-01);
-}
-/* 2 列时每行首格不画线 */
-:root [data-divider] > *:nth-child(2n + 1)::before {
-  content: none;
-}
-@media (min-width: 40rem) {
-  :root [data-divider] > *:nth-child(2n + 1)::before {
-    content: "";
+  :root [data-list-group] {
+    gap: 0;
+    background: var(--md-sys-color-surface-02);
+    border-radius: var(--md-sys-shape-control);
+    border: 0;
+    overflow: hidden;
   }
-  :root [data-divider] > *:first-child::before {
+  /* 容器自己不吃 hover：否则鼠标停在组的空白处会把整块点亮，看起来像整组被选中。
+   悬停反馈交给行。 */
+  :root [data-list-group]:hover {
+    background: var(--md-sys-color-surface-02);
+  }
+  /* 分隔线只由 ::after 画（border 会顶到贴边，缩进只能靠伪元素）。
+ * 圆角与描边归容器，行本身是直边透明，按压态用 --md-sys-color-surface-variant-01。 */
+  :root [data-list-group] [data-list-item] {
+    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+    border: 0;
+    background: transparent;
+  }
+  :root [data-list-item] > [data-slot="card-header"] {
+    padding: 0.6875rem 1rem;
+    margin-inline-start: 0;
+  }
+  :root [data-list-group] [data-list-item]::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: 1rem;
+    inset-inline-end: 0;
+    bottom: 0;
+    height: 0.5px;
+    background: var(--md-sys-color-outline-variant-01);
+  }
+  :root [data-list-group] [data-list-item]:last-child::after {
     content: none;
   }
-}
+  :root [data-list-item] > [data-slot="card-header"] {
+    margin-bottom: 0;
+  }
+  :root [data-list-item] [data-slot="card-title"] {
+    font-size: 1.0625rem;
+    line-height: 1.29;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+  }
+  :root [data-list-group] [data-list-item]:active {
+    background: var(--md-sys-color-surface-variant-01);
+  }
 
-/* 工具条：iOS segmented control（胶囊内槽 + 白滑块） */
-:root [data-toolbar] {
-  justify-content: center;
-}
-:root [data-toolbar] [role="radiogroup"] {
-  border-radius: var(--md-sys-shape-08);
-}
+  /* 指标条：2 列（窄）/ 4 列（宽）的等分块，列间 0.5px 竖线。
+ * 不用 Tailwind 的 divide-x：它生成 `:where(...)` 零特异性选择器，
+ * border-color 会被 @layer base 的 `*` 改回 outline-01，淡不下来。 */
+  :root [data-divider] > * {
+    position: relative;
+  }
+  :root [data-divider] > * + *::before {
+    content: "";
+    position: absolute;
+    inset-block: 0.75rem;
+    inset-inline-start: 0;
+    width: 0.5px;
+    background: var(--md-sys-color-outline-variant-01);
+  }
+  /* 2 列时每行首格不画线 */
+  :root [data-divider] > *:nth-child(2n + 1)::before {
+    content: none;
+  }
+  @media (min-width: 40rem) {
+    :root [data-divider] > *:nth-child(2n + 1)::before {
+      content: "";
+    }
+    :root [data-divider] > *:first-child::before {
+      content: none;
+    }
+  }
 
-/* ── 控件：HIG 的 UISwitch / UISlider / 勾选框 / 下拉 ─────────────────
+  /* 工具条：iOS segmented control（胶囊内槽 + 白滑块） */
+  :root [data-toolbar] {
+    justify-content: center;
+  }
+  :root [data-toolbar] [role="radiogroup"] {
+    border-radius: var(--md-sys-shape-08);
+  }
+
+  /* ── 控件：HIG 的 UISwitch / UISlider / 勾选框 / 下拉 ─────────────────
  * switch 51×31、绿底、27dp 白圆（关闭态是灰 fill），拇指带 0 0 0 0.5px 描边影；
  * slider 轨道 4dp 填充灰、拇指 28dp 白色 + 0.5px 描边 + 三影；
  * 勾选框 18dp、5px 圆角、选中系统绿；下拉是填充底圆角字段。
  */
-:root [data-slot="switch"] {
-  height: 1.9375rem;
-  width: 3.1875rem;
-  border-radius: var(--md-sys-shape-max);
-  background: var(--md-sys-color-fill-quaternary);
-}
-:root [data-slot="switch"][data-state="checked"] {
-  background: var(--md-sys-color-success);
-}
-:root [data-slot="switch"] > span {
-  height: 1.6875rem;
-  width: 1.6875rem;
-  background: #fff;
-  box-shadow: var(--md-sys-shadow-thumb);
-  transform: translateX(0.125rem);
-}
-:root [data-slot="switch"][data-state="checked"] > span {
-  transform: translateX(1.375rem);
-}
-:root [data-slot="switch"]:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
-}
+  :root [data-slot="switch"] {
+    height: 1.9375rem;
+    width: 3.1875rem;
+    border-radius: var(--md-sys-shape-max);
+    background: var(--md-sys-color-fill-quaternary);
+  }
+  :root [data-slot="switch"][data-state="checked"] {
+    background: var(--md-sys-color-success);
+  }
+  :root [data-slot="switch"] > span {
+    height: 1.6875rem;
+    width: 1.6875rem;
+    background: #fff;
+    box-shadow: var(--md-sys-shadow-thumb);
+    transform: translateX(0.125rem);
+  }
+  :root [data-slot="switch"][data-state="checked"] > span {
+    transform: translateX(1.375rem);
+  }
+  :root [data-slot="switch"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
+  }
 
-:root [data-slot="slider-track"] {
-  height: 0.25rem;
-  border-radius: var(--md-sys-shape-max);
-  background: var(--md-sys-color-fill-quaternary);
-}
-:root [data-slot="slider-range"] {
-  background: var(--md-sys-color-primary);
-}
-:root [data-slot="slider-thumb"] {
-  height: 1.75rem;
-  width: 1.75rem;
-  background: #fff;
-  box-shadow: var(--md-sys-shadow-thumb);
-}
+  :root [data-slot="slider-track"] {
+    height: 0.25rem;
+    border-radius: var(--md-sys-shape-max);
+    background: var(--md-sys-color-fill-quaternary);
+  }
+  :root [data-slot="slider-range"] {
+    background: var(--md-sys-color-primary);
+  }
+  :root [data-slot="slider-thumb"] {
+    height: 1.75rem;
+    width: 1.75rem;
+    background: #fff;
+    box-shadow: var(--md-sys-shadow-thumb);
+  }
 
-:root [data-slot="checkbox"] {
-  height: 1.125rem;
-  width: 1.125rem;
-  border-width: 1px;
-  border-radius: var(--md-sys-shape-08);
-  border-color: var(--md-sys-color-outline-01);
-  background: var(--md-sys-color-surface-01);
-}
-:root [data-slot="checkbox"][data-state="checked"],
-:root [data-slot="checkbox"][data-state="indeterminate"] {
-  border-color: var(--md-sys-color-success);
-  background: var(--md-sys-color-success);
-}
-:root [data-slot="checkbox"]:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
-}
+  :root [data-slot="checkbox"] {
+    height: 1.125rem;
+    width: 1.125rem;
+    border-width: 1px;
+    border-radius: var(--md-sys-shape-08);
+    border-color: var(--md-sys-color-outline-01);
+    background: var(--md-sys-color-surface-01);
+  }
+  :root [data-slot="checkbox"][data-state="checked"],
+  :root [data-slot="checkbox"][data-state="indeterminate"] {
+    border-color: var(--md-sys-color-success);
+    background: var(--md-sys-color-success);
+  }
+  :root [data-slot="checkbox"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
+  }
 
-:root [data-slot="select-trigger"] {
-  height: var(--md-sys-size-control-lg);
-  border-radius: var(--md-sys-shape-control);
-  background: var(--md-sys-color-field-01);
-  box-shadow: none;
-  padding-inline: 1rem 0.75rem;
-  font-size: 1.0625rem;
-}
-:root [data-slot="select-trigger"]:focus-visible {
-  outline: none;
-  background: var(--md-sys-color-surface-01);
-  box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
-}
-:root [data-slot="select-content"] {
-  border-radius: var(--md-sys-shape-overlay);
-  border: 0.5px solid var(--md-sys-color-outline-01);
-  background: var(--md-sys-color-material-sheet);
-  backdrop-filter: blur(20px) saturate(180%);
-  padding-block: 0.375rem;
-}
+  :root [data-slot="select-trigger"] {
+    height: var(--md-sys-size-control-lg);
+    border-radius: var(--md-sys-shape-control);
+    background: var(--md-sys-color-field-01);
+    box-shadow: none;
+    padding-inline: 1rem 0.75rem;
+    font-size: 1.0625rem;
+  }
+  :root [data-slot="select-trigger"]:focus-visible {
+    outline: none;
+    background: var(--md-sys-color-surface-01);
+    box-shadow: 0 0 0 3.5px var(--md-sys-color-highlight);
+  }
+  :root [data-slot="select-content"] {
+    border-radius: var(--md-sys-shape-overlay);
+    border: 0.5px solid var(--md-sys-color-outline-01);
+    background: var(--md-sys-color-material-sheet);
+    backdrop-filter: blur(20px) saturate(180%);
+    padding-block: 0.375rem;
+  }
 
-/* ── 轻提示：iOS 通知是圆角 14、材质底、顶部小标题 ─────────────────────── */
-:root [data-slot="toast"] {
-  border-radius: var(--md-sys-shape-overlay);
-  backdrop-filter: blur(20px) saturate(180%);
-}
-:root [data-slot="toast-viewport"] {
-  gap: 0.5rem;
-  padding: 1rem;
-}
-:root [data-slot="toast-action"] {
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 600;
-}
+  /* ── 轻提示：iOS 通知是圆角 14、材质底、顶部小标题 ─────────────────────── */
+  :root [data-slot="toast"] {
+    border-radius: var(--md-sys-shape-overlay);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+  :root [data-slot="toast-viewport"] {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  :root [data-slot="toast-action"] {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
 
-/* ── 跳转链接：HIG 的 tint 光环在自实底上太淡，补一道白内环 ─────────────── */
-:root [data-skip-link]:focus {
-  box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary);
-}
+  /* ── 跳转链接：HIG 的 tint 光环在自实底上太淡，补一道白内环 ─────────────── */
+  :root [data-skip-link]:focus {
+    box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary);
+  }
 
-/* ── 窄屏抽屉：iOS 模态 sheet 从左侧滑入、圆角 10、材质底 ───────────────── */
-:root [data-drawer] nav > a:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
-}
-:root [data-drawer] {
-  width: 17.5rem;
-  max-width: 88vw;
-  background: var(--md-sys-color-material-sheet);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-right: 0.5px solid var(--md-sys-color-outline-01);
-  border-radius: 0 var(--md-sys-shape-overlay) var(--md-sys-shape-overlay) 0;
-  /* dock 压在抽屉之上（见 tokens.css 层叠顺序），所以抽屉自己要让出它的高度，
+  /* ── 窄屏抽屉：iOS 模态 sheet 从左侧滑入、圆角 10、材质底 ───────────────── */
+  :root [data-drawer] nav > a:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--md-sys-color-highlight);
+  }
+  :root [data-drawer] {
+    width: 17.5rem;
+    max-width: 88vw;
+    background: var(--md-sys-color-material-sheet);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-right: 0.5px solid var(--md-sys-color-outline-01);
+    border-radius: 0 var(--md-sys-shape-overlay) var(--md-sys-shape-overlay) 0;
+    /* dock 压在抽屉之上（见 tokens.css 层叠顺序），所以抽屉自己要让出它的高度，
      否则矮屏滚到底的末项正好躺在 tab bar / 播放条底下，看得见却点不到 */
-  padding-block-end: calc(3.5rem + env(safe-area-inset-bottom));
-}
-/* 让导航区自己滚，而不是让整个抽屉溢出（关闭按钮才能固定在角上不再随内容滑走） */
-:root [data-drawer] nav {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
-}
-:root body:has(.h-\[72px\]) [data-drawer] {
-  padding-block-end: calc(8rem + env(safe-area-inset-bottom));
+    padding-block-end: calc(3.5rem + env(safe-area-inset-bottom));
+  }
+  /* 让导航区自己滚，而不是让整个抽屉溢出（关闭按钮才能固定在角上不再随内容滑走） */
+  :root [data-drawer] nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  :root body:has(.h-\[72px\]) [data-drawer] {
+    padding-block-end: calc(8rem + env(safe-area-inset-bottom));
+  }
 }
