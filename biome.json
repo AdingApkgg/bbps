@@ -7,7 +7,7 @@
   },
   "files": {
     "includes": [
-      "src/**/*.{ts,tsx,js,mjs,json}",
+      "src/**/*.{ts,tsx,js,mjs,json,css}",
       "scripts/**/*.mjs",
       "*.{ts,mjs,json}",
       "!src/lib/generated",
@@ -20,6 +20,11 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 100
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "json": {
     "formatter": {
