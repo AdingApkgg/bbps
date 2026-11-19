@@ -12,12 +12,26 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 小标题永远在容器外、13px、次要色。深色是指纹层级（`#000` 画布 / `#1C1C1E` 组底），
 不是把亮色反相。阴影只属于浮层，平铺内容零影零边框。
 
+## 零、样式来源与优先级（先读这节）
+
+外观真源只有一处：`src/components/ui/*.tsx` 里的工具类。`hig.css` 只负责版面语汇
+（分组列表、材质栏、抽屉让位）与组件不会自己写的少量兜底。
+
+但**当前 `hig.css` 没有放进任何 `@layer`**。CSS 规范里 unlayered 样式永远压过任何
+`@layer`，而 Tailwind 的工具类在 `@layer utilities`。所以只要 `hig.css` 里有一条通配
+规则碰了 `border` / `background-color` / `box-shadow`，组件里同名工具类就**静默失效**。
+
+- 往 `hig.css` 加规则前先想：组件是不是已经写过？写过就别加。
+- 组件里写了却没生效，先查 `hig.css` 有没有同名属性，别在组件里加 `!important` 硬顶。
+- `input.tsx` 上 `border-outline-field`、`hover:bg-field-hover-01`、焦点 `shadow-[...]`
+  全被 `hig.css` 的输入段抹掉过一轮，是这条规则的实例。
+
 ## 一、三层令牌，只准单向引用
 
 | 层 | 位置 | 示例 | 谁可以引用 |
 | --- | --- | --- | --- |
 | L0 原子 | `src/styles/tokens.css` 的 `--md-sys-shape-*`、`--md-sys-motion-*`、`--md-sys-size-*`；`src/app/globals.css` 的 `--text-*`、`--spacing`、`--radius-*` | `--md-sys-shape-04`、`--md-sys-motion-short-3`、`--text-body-02` | 只有 L1 |
-| L1 语义 | `src/styles/tokens.css` 的 `--md-sys-color-*`、`--md-sys-elevation-*`、`--md-sys-shadow-*` | `--md-sys-color-primary`、`--md-sys-elevation-02` | 组件、`hig.css` |
+| L1 语义 | `src/styles/tokens.css` 的 `--md-sys-color-*`、`--md-sys-elevation-*`、`--md-sys-shadow-*` | `--md-sys-color-primary`、`--md-sys-elevation-02` | 组件、`hig.css`（层内基样式） |
 | L2 组件 | 组件自身（Tailwind 主题别名的 `bg-surface-02` / `text-on-surface` 等） | `bg-surface-hover-01` | 只在本组件内 |
 
 规则：
@@ -48,6 +62,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 页面骨架固定为：
 
 1. 页头左对齐：`text-display-lg` 标题 + `text-headline-sm` 副题，`pt-8 pb-16 md:pt-12 md:pb-24`。
+   全站页面的页头间距就是这个值，新页面照抄 `music-page.tsx` / `server-stats.tsx` 那几处，不要自创 `pt-10`（`commands-page.tsx:48` 是唯一还没跟上的，属待改）。
 2. 区块抬头在容器外：`mb-2 px-4 text-label font-semibold text-on-surface-medium`，可有右侧 `aside`（计数 Badge、开关、刷新按钮）。
 3. 容器：`rounded-sm bg-surface-02`，**零边框零阴影**。
 4. 容器内的行一律 `data-list-item`；容器本身 `data-list-group`。分隔线与缩进由 `hig.css` 的 `[data-list-item]::after` 统一画（从 1rem 缩进、末项自动消失），**不要在行上手写 `border-b … last:border-b-0`**。
@@ -56,6 +71,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 可用的现成件：
 
 - `Card` / `CardHeader` / `CardTitle` / `CardContent` —— 一个组就是一张 `Card`（内部已带 `data-slot="card"` 与 `data-list-group`），行用 `CardRow` 或 `data-list-item`。
+  `card.tsx:18` 自身就是 `overflow-hidden rounded-sm bg-surface-02` 的一块填充容器：叫 Card 只是沿用旧名，形制是 iOS 分组区段，不是带边框投影的卡片。
 - `ListRow` 式行（`<li data-list-item>` + 上面的行内结构）用于纯链接/按钮列表。
 - 表格：`Table` 自带底色/圆角/横向滚动，**不要再套 `overflow-x-auto rounded-sm bg-surface-02` 的 div**（会叠两层底、两个滚动盒）；行分隔线已统一到 0.5px `outline-variant-01`。
 - 指标：`grid` + `data-divider`（`src/styles/hig.css` 画 0.5px 竖线，2 列时每行首格自动不画），**不要用 Tailwind 的 `divide-x`**：它生成 `:where(...)` 零特异性选择器，`border-color` 会被 `@layer base` 的 `*` 改回 `outline-01`，颜色淡不下来。
@@ -114,6 +130,9 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 `type-scale` 用 `html { font-size: calc(1rem * …) }` 生效，字阶全是 rem，行高与比例等比跟涨，不需要逐类覆盖。
 
+`prefs.css` 只写 `:root` 变量、不碰具体选择器，所以它即使也在层外也不会抹掉组件样式；
+换任何一档偏好、组件的类名都仍归组件所有。
+
 ## 八、可访问性钩子
 
 - 跳转链接：`[data-skip-link]`，Tab 首焦点，实底块上必须带自身内衬（`box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary)`），否则焦点环被自己的 primary 底色吃掉。
@@ -126,8 +145,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 ## 九、校验（提交前）
 
 ```bash
-bun run typecheck
-bunx biome check src scripts
+bun run check          # biome check + tsc --noEmit，两个一起跑
 bun scripts/shots.mjs   # 明暗 × 1280/390，含三道闸门
 ```
 
@@ -137,5 +155,19 @@ bun scripts/shots.mjs   # 明暗 × 1280/390，含三道闸门
 - `lowContrast` —— 对比度低于 4.5:1（大字 3:1）的文字节点，附选择器与实测比值。
   探针取最近的不透明祖先做底色；背景图/渐变会自动跳过，所以**命中即真问题**，跳过不等于合格。
   报告值不含子像素抗锯齿，4.4~4.5 的边缘值按失败处理。
+  **盲区**：只量文字 `color` 对底色的比，不量边框与背景填充。字段底色和页面底色撞在一起、
+  描边被抹成透明，`lowContrast` 照样是 0。这一项要看截图，别只看数字。
 
 截图默认落在 `public/_preview/`，`public/preview.html` 可整页速览（目录在 `.gitignore` 里，跑完重生成）。
+
+## 十、从 CLI 拉组件（shadcn）
+
+仓库有 `components.json`，可直接 `npx shadcn@latest add <name>`。三点注意：
+
+- CLI 产物写的是 shadcn 词汇（`bg-card` / `border-input` / `text-muted-foreground`）。这些别名在
+  `src/app/globals.css` 的「shadcn/ui 词汇别名」段映射到同义 HIG 令牌，能渲染但语义偏粗，
+  **拉进来只是起点，须按本文重写成 `--md-sys-*` / `bg-surface-02` 口径**。
+- v4 产物固定 `import { cn } from "cn"` 与 `import { Label } from "radix-ui"`（单体包）——
+  与仓库 15 个 `@radix-ui/*` 分包不一致，改回 `@/lib/utils` 与对应分包。
+- `add` 撞上同名文件会问覆盖；`--overwrite` 会整份替换，原文件里的 HIG 钩子（如
+  `separator.tsx` 的 `bg-outline`）会丢，覆盖后必须重读 diff 把钩子补回去。

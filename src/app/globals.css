@@ -150,6 +150,29 @@
   --color-on-button-contained: var(--md-sys-color-on-button-contained);
   --color-on-button-outlined: var(--md-sys-color-on-button-outlined);
 
+  /* ── shadcn/ui 词汇别名 ──────────────────────────────────────────────
+   * `npx shadcn add` 产出的组件写的是 background / card / input / ring /
+   * muted-foreground / destructive 这套词。这里把它们逐一映射到 HIG 令牌，
+   * 语义真源仍是 tokens.css —— 别在这一段写新的 hex，也别让组件改吃这边。
+   * 用途仅限「从 CLI 拉进来、还来不及改造」的组件。 */
+  --color-background: var(--md-sys-color-surface);
+  --color-foreground: var(--md-sys-color-on-surface);
+  --color-card: var(--md-sys-color-surface-02);
+  --color-card-foreground: var(--md-sys-color-on-surface);
+  --color-popover: var(--md-sys-color-surface-02);
+  --color-popover-foreground: var(--md-sys-color-on-surface);
+  --color-primary-foreground: var(--md-sys-color-on-primary);
+  --color-secondary: var(--md-sys-color-button-outlined);
+  --color-secondary-foreground: var(--md-sys-color-on-surface);
+  --color-muted: var(--md-sys-color-surface-variant-01);
+  --color-muted-foreground: var(--md-sys-color-on-surface-medium);
+  --color-accent: var(--md-sys-color-surface-hover-01);
+  --color-accent-foreground: var(--md-sys-color-on-surface);
+  --color-destructive: var(--md-sys-color-error);
+  --color-border: var(--md-sys-color-outline-01);
+  --color-input: var(--md-sys-color-outline-field);
+  --color-ring: var(--md-sys-color-focus);
+
   /* ── 字阶：iOS 动态字体表（大标题 34/41 700、正文 17/22、脚注 13/18） ──
    * 档位取自 HIG 的 Dynamic Type：
    *   largeTitle 34/41、title1 28/34、title2 22/28、title3 20/25（全部 700，负字距）
@@ -205,6 +228,15 @@
   --text-button--line-height: 1.2941;
   --text-button--letter-spacing: -0.011em;
   --text-button--font-weight: 600;
+  /* shadcn 的 name / size 小组件按 text-sm / text-xs 定位。
+   * HIG 表里 15px = title-md，所以 sm 直接借 title-md、xs 借 caption，
+   * 不另起一套字号，免得又出现两份真源。 */
+  --text-sm: var(--text-title-md);
+  --text-sm--line-height: var(--text-title-md--line-height);
+  --text-sm--letter-spacing: var(--text-title-md--letter-spacing);
+  --text-xs: var(--text-caption);
+  --text-xs--line-height: var(--text-caption--line-height);
+  --text-xs--letter-spacing: var(--text-caption--letter-spacing);
 
   /* ── 动效 ── */
   --ease-decelerate: var(--md-sys-motion-ease-decelerate);
