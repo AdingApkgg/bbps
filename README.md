@@ -42,9 +42,8 @@ token 名沿用 M2 的 `--md-sys-*` 词汇（迁移存量，不为改名重写�
 **布局语汇**（`src/styles/hig.css`）：列表组、缩进分隔线、指标条、内联提示这些 HIG 结构都在这里，
 与 Tailwind 类配合使用；改结构前先读 `docs/design-system.md` 的对应条目。
 
-**显示修饰符**（`src/styles/modifiers.css`）：`data-style` 的 `pointer`（加大指针目标）、`underline`（链接下划线）、
-`compact`（紧凑密度）、`text-xl`（放大正文），可任意组合；顶栏的样式按钮（窄屏在抽屉底部）写入 `localStorage` 的
-`bbps-style` 并落成 `<html data-style>`。
+**阅读偏好**（`src/styles/prefs.css`）：`--pref-*` 一组变量，默认给指针/下划线/纵向节奏/字阶的正常值；
+要换偏好改默认值即可，不必进组件，也没有切换 UI。
 
 **组件**（`src/components/ui/`）：button、input、textarea、checkbox、radio-group、switch、
 slider、progress、select、dropdown-menu、sheet、toast、tabs、table、card、badge、
@@ -76,7 +75,7 @@ bun run build
 - `src/components/` — 业务组件；`src/components/ui/` — 设计系统组件（手写，按 HIG 取形）
 - `src/styles/tokens.css` — 设计令牌，改配色/圆角/动效只动这里
 - `src/styles/hig.css` — HIG 布局语汇（列表组、分隔线、指标条、提示）
-- `src/styles/modifiers.css` — 显示修饰符（`data-style`）
+- `src/styles/prefs.css` — 阅读偏好变量（`--pref-*`）
 - `scripts/shots.mjs` — 截图与可达性闸门
 - `docs/design-system.md` — 设计系统约定（改样式前先读）
 - `src/contexts/locale-context.tsx` — 基于 pathname 的 locale（zh/en）

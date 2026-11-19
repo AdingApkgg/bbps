@@ -10,7 +10,6 @@ import { SiteRail } from '@/components/site-rail'
 import { SiteTabBar } from '@/components/site-tabbar'
 import { MusicPlayerBar, PlayerSpacer } from '@/components/music-player-bar'
 import { AppToaster } from '@/components/ui/toast-store'
-import { STYLE_BOOT_SCRIPT } from '@/components/style-switcher'
 import {
   SITE_URL,
   SITE_METADATA_BASE,
@@ -99,14 +98,6 @@ export const viewport: Viewport = {
   ]
 }
 
-/** 内联 <script>。内容是本文件里的静态常量（无用户输入），共用一处抑制注释 */
-function InlineScript({ html }: { html: string }) {
-  return (
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: 内容是本文件的静态常量，无用户输入
-    <script dangerouslySetInnerHTML={{ __html: html }} />
-  )
-}
-
 export default function RootLayout({
   children
 }: Readonly<{
@@ -127,8 +118,6 @@ export default function RootLayout({
           title={SITE_NAME}
           href={`${SITE_URL}/feed.xml`}
         />
-        {/* 样式修饰符（pointer / underline / compact / text-xl）：产物里是 :root[data-style] */}
-        <InlineScript html={STYLE_BOOT_SCRIPT} />
       </head>
       <body className="font-sans antialiased">
         <LocaleProvider>

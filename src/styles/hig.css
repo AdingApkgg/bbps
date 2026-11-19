@@ -918,30 +918,3 @@
 :root body:has(.h-\[72px\]) [data-drawer] {
   padding-block-end: calc(8rem + env(safe-area-inset-bottom));
 }
-
-/* ── 样式修饰切换器：HIG 分组列表，18px 行距 + 二级说明 ─────────────────── */
-:root [data-appearance] button {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-  border-radius: var(--md-sys-shape-08);
-  padding-block: 0.5rem;
-}
-:root [data-appearance] button + button {
-  margin-block-start: 0;
-}
-/* 本文件不带 layer，优先级高于 utilities：修饰符按钮要自己压过
-   `button.border`（描边透明 + 链接蓝），所以选择器带上 .border 提一级 */
-:root [data-appearance] button,
-:root [data-appearance] button.border {
-  border-color: var(--md-sys-color-outline-01);
-  color: var(--md-sys-color-on-surface);
-}
-:root [data-appearance] button[aria-pressed="true"] {
-  border-color: transparent;
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-:root [data-appearance] button[aria-pressed="true"] * {
-  color: var(--md-sys-color-on-primary);
-}

@@ -4,7 +4,7 @@
 新增页面、组件时按本文执行；与本文冲突的写法视为缺陷。
 
 只做 HIG 单皮肤。历史上试过 Apple / M2 / Carbon / Fluent 四皮肤并存的矩阵，2026-11 收敛成一套：
-`src/styles/` 下只剩 `tokens.css`、`hig.css`、`modifiers.css`，令牌名仍叫 `--md-sys-*`（历史前缀，与 Material 2 无关），
+`src/styles/` 下只剩 `tokens.css`、`hig.css`、`prefs.css`，令牌名仍叫 `--md-sys-*`（历史前缀，与 Material 2 无关），
 `src/components/ui/` 的注释从「M2 规格原文」改写为「HIG 取形 + 哪些 M2 语义还留着」。
 对照别的系统时，把差异写成这里的条目，不再开一套并行样式。
 
@@ -106,10 +106,13 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 平铺内容只有一处例外可以用影：实心按钮与滑块拇指这类「抬起的实体」。
 
-## 七、修饰符
+## 七、阅读偏好
 
-`data-style` 放在 `<html>` 上，取值来自 `pointer | underline | compact | text-xl`（`src/styles/modifiers.css`）。
-修饰符改的是同一设计语言下的可读性/密度偏好，不是另一个主题；新增修饰符要有默认关闭、可组合、不引发布局溢出的证明。
+`src/styles/prefs.css` 一组 `--pref-*`：`cursor-interactive`、`link-decoration`、`pad-scale`、`type-scale`。
+默认是正常值（`default` / `none` / `1` / `1`）；偏好改的是同一设计语言下的节奏，不是另一个主题。
+没有切换 UI —— 要换就在 `:root` 改默认值，全站跟着走。
+
+`type-scale` 用 `html { font-size: calc(1rem * …) }` 生效，字阶全是 rem，行高与比例等比跟涨，不需要逐类覆盖。
 
 ## 八、可访问性钩子
 
@@ -130,7 +133,7 @@ bun scripts/shots.mjs   # 明暗 × 1280/390，含三道闸门
 
 `scripts/shots.mjs` 逐页截图并同时输出三道闸门，任一非 0 都要处理：
 - `overflow` —— 横向溢出 px（必须全 0，含抽屉打开态）。
-- `drawerFail` —— 手机端抽屉、样式修饰菜单没打开（必须 0）。
+- `drawerFail` —— 手机端抽屉、语言菜单没打开（必须 0）。
 - `lowContrast` —— 对比度低于 4.5:1（大字 3:1）的文字节点，附选择器与实测比值。
   探针取最近的不透明祖先做底色；背景图/渐变会自动跳过，所以**命中即真问题**，跳过不等于合格。
   报告值不含子像素抗锯齿，4.4~4.5 的边缘值按失败处理。

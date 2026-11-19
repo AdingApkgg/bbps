@@ -14,7 +14,6 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet'
 import { SiteNavList } from '@/components/site-nav-list'
-import { StyleSwitcher } from '@/components/style-switcher'
 
 /* 窄屏导航抽屉：Radix Dialog 提供 scrim、Esc、焦点陷阱与 aria
  *
@@ -50,10 +49,6 @@ export function SiteDrawer() {
         <SheetDescription className="sr-only">{dict.site.name}</SheetDescription>
         <nav className="flex flex-col pt-3 pb-4">
           <SiteNavList onNavigate={() => setOpen(false)} />
-          {/* 样式修饰：宽屏在顶栏，窄屏收进这里 */}
-          <div data-drawer-appearance className="mt-2 border-t border-outline pt-2">
-            <StyleSwitcher inline />
-          </div>
         </nav>
       </SheetContent>
     </Sheet>

@@ -39,7 +39,7 @@ const SHOTS = [
   { path: '/', title: '手机首页', vp: PHONE },
   { path: '/', title: '手机 · 抽屉打开', vp: PHONE, act: 'drawer' },
   { path: '/', title: '手机 · 直接打开菜单', vp: PHONE },
-  { path: '/', title: '顶栏 · 样式修饰菜单', vp: DESKTOP, act: 'appearance' }
+  { path: '/', title: '顶栏 · 语言菜单', vp: DESKTOP, act: 'language' }
 ]
 const STATES = [
   { id: 'light', label: '亮色', scheme: 'light' },
@@ -52,8 +52,8 @@ const slug = (s) =>
     .replace(/^-|-$/g, '')
     .toLowerCase()
 
-async function openAppearance(page) {
-  const btn = page.locator('header [aria-label="切换样式修饰"]')
+async function openLanguage(page) {
+  const btn = page.locator('header button:has(> svg.lucide-globe)')
   if (await btn.count()) {
     await btn.first().click()
     await page.waitForTimeout(400)
@@ -175,9 +175,9 @@ async function main() {
       await page.waitForTimeout(2500)
 
       let opened = false
-      let appearance = false
+      let language = false
       if (shot.act === 'drawer') opened = await openDrawer(page)
-      if (shot.act === 'appearance') appearance = await openAppearance(page)
+      if (shot.act === 'language') language = await openLanguage(page)
       await page.evaluate(async () => {
         await document.fonts.ready
       })
@@ -191,10 +191,10 @@ async function main() {
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth
       )
-      captured.push({ ...shot, state, file, overflow, opened, appearance, contrast })
+      captured.push({ ...shot, state, file, overflow, opened, language, contrast })
       process.stderr.write(
         `▸ ${file} overflow=${overflow} contrast=${contrast.violations}/${contrast.checked}` +
-          `${opened || appearance ? ' ' : ''}\n`
+          `${opened || language ? ' ' : ''}\n`
       )
     }
   }
@@ -247,7 +247,7 @@ ${pages
 
   const over = captured.filter((r) => r.overflow > 0)
   const bad = captured.filter(
-    (r) => (r.act === 'drawer' && !r.opened) || (r.act === 'appearance' && !r.appearance)
+    (r) => (r.act === 'drawer' && !r.opened) || (r.act === 'language' && !r.language)
   )
   const lowContrast = captured.filter((r) => r.contrast.violations > 0)
   console.log(

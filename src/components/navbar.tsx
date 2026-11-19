@@ -6,7 +6,6 @@ import { Globe, Languages } from 'lucide-react'
 import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { SiteDrawer } from '@/components/site-drawer'
-import { StyleSwitcher } from '@/components/style-switcher'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -64,9 +63,6 @@ export function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* 皮肤 / 样式修饰：桌面常驻按钮，窄屏收进抽屉（见 site-drawer） */}
-          <StyleSwitcher />
 
           {/* 窄屏抽屉（宽屏导航在 [data-rail]） */}
           <SiteDrawer />

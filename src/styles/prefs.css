@@ -1,0 +1,92 @@
+/* ============================================================================
+ * 阅读偏好（reading preferences）
+ *
+ * 这里以前是 `data-style` 四选多的修饰层（pointer / underline / compact /
+ * text-xl）加配套切换 UI。UI 已移除，只留一个变量组：改默认值就能改全站，
+ * 不必再进组件。
+ *
+ *   --pref-cursor-interactive  可点元素指针，默认 default；要手型改 pointer
+ *   --pref-link-decoration     链接装饰，默认 none；要常显下划线改 underline
+ *   --pref-pad-scale           纵向内边距与间距倍数，默认 1；紧凑改 .75
+ *   --pref-type-scale          根字号倍数，默认 1；放大改 1.125
+ *
+ * 字阶全部是 rem，放大只改根字号，行高与比例随之等比，不需要逐类覆盖。
+ * ========================================================================= */
+
+:root {
+  --pref-cursor-interactive: default;
+  --pref-link-decoration: none;
+  --pref-pad-scale: 1;
+  --pref-type-scale: 1;
+}
+
+/* label + 输入框成行：长令牌（如 summary|invade|... ）允许换行，防 390 溢出 */
+label:has(> input) {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+label:has(> input) > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+html {
+  font-size: calc(1rem * var(--pref-type-scale));
+}
+
+/* ── 指针 ──────────────────────────────────────────────────────────────── */
+a[href],
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="menuitem"],
+[role="tab"],
+summary,
+select,
+input[type="checkbox"],
+input[type="radio"],
+label[for] {
+  cursor: var(--pref-cursor-interactive);
+}
+
+/* ── 链接下划线：只给正文与导航里的链接，胶囊按钮和图标链接不 */
+a[href]:not(.rounded-pill):not(:has(> svg:only-child)) {
+  text-decoration-line: var(--pref-link-decoration);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+}
+a[href]:not(.rounded-pill):not(:has(> svg:only-child)):hover {
+  text-decoration-color: currentColor;
+}
+
+/* ── 纵向节奏：按倍数缩放，行高不动（行高一动就不像紧凑而像变小） ──────── */
+.py-2 {
+  padding-block: calc(0.5rem * var(--pref-pad-scale));
+}
+.py-3 {
+  padding-block: calc(0.75rem * var(--pref-pad-scale));
+}
+.py-4 {
+  padding-block: calc(1rem * var(--pref-pad-scale));
+}
+.py-6 {
+  padding-block: calc(1.5rem * var(--pref-pad-scale));
+}
+.py-8,
+.pt-8 {
+  padding-block: calc(2rem * var(--pref-pad-scale));
+}
+.py-12,
+.pt-12 {
+  padding-block: calc(3rem * var(--pref-pad-scale));
+}
+.gap-3 {
+  gap: calc(0.75rem * var(--pref-pad-scale));
+}
+.gap-4 {
+  gap: calc(1rem * var(--pref-pad-scale));
+}
+.gap-6,
+.gap-8 {
+  gap: calc(1.5rem * var(--pref-pad-scale));
+}

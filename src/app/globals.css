@@ -4,8 +4,8 @@
 @import "../styles/tokens.css";
 /* 结构与控件层：HIG 语汇（分组列表 / 材质栏 / 系统控件） */
 @import "../styles/hig.css";
-/* 样式修饰符：正交，走 <html data-style="pointer underline|compact|text-xl"> */
-@import "../styles/modifiers.css";
+/* 阅读偏好：一个变量组，改默认值即改全站（指针 / 下划线 / 纵向节奏 / 字阶） */
+@import "../styles/prefs.css";
 
 /* ============================================================================
  * 与 Tailwind 的接线
@@ -729,15 +729,6 @@
 /* 宽屏导航：常驻左侧栏（视觉由 hig.css 给），顶栏只留 logo / 语言 / 菜单 */
 @media (min-width: 50rem) {
   header.sticky [data-menu] {
-    display: none;
-  }
-  [data-drawer-appearance] {
-    display: none;
-  }
-}
-/* 窄屏把样式入口挤出头栏（语言 / 样式 / 菜单三个图标放不下） */
-@media (max-width: 47.99rem) {
-  header.sticky [data-look] {
     display: none;
   }
 }
