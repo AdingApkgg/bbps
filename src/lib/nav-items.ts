@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Download,
+  Heart,
   Terminal,
   BarChart3,
   Trophy,
@@ -32,7 +33,8 @@ export function getNavItems(prefix: string, dict: Dict): NavItem[] {
     { href: `${prefix}/community`, label: dict.nav.community, icon: Users },
     { href: `${prefix}/gallery`, label: dict.nav.gallery, icon: Images },
     { href: `${prefix}/music`, label: dict.nav.music, icon: Music },
-    { href: `${prefix}/comments`, label: dict.nav.comments, icon: MessageSquare }
+    { href: `${prefix}/comments`, label: dict.nav.comments, icon: MessageSquare },
+    { href: `${prefix}/donate`, label: dict.nav.donate, icon: Heart }
   ]
 }
 

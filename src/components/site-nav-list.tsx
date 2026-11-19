@@ -19,6 +19,9 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
   const prefix = locale === 'en' ? '/en' : ''
   const items = getNavItems(prefix, dict)
   const external = getExternalItems(dict)
+  /* 捐赠在 nav-items 里固定排最后：分隔线与外链组之后单独渲染，所以先摘出来 */
+  const donate = items[items.length - 1]
+  const primary = items.slice(0, -1)
 
   const isActive = (href: string) => pathname === href || pathname === `${href}/`
   const cls = (active: boolean) =>
@@ -30,7 +33,7 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <>
-      {items.map((item) => (
+      {primary.map((item) => (
         <Link
           key={item.href}
           href={item.href}
@@ -58,12 +61,14 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
         </a>
       ))}
       <Link
-        href={`${prefix}/donate`}
+        key={donate.href}
+        href={donate.href}
         onClick={onNavigate}
-        aria-current={isActive(`${prefix}/donate`) ? 'page' : undefined}
-        className={cls(isActive(`${prefix}/donate`))}
+        aria-current={isActive(donate.href) ? 'page' : undefined}
+        className={cls(isActive(donate.href))}
       >
-        {dict.nav.donate}
+        <donate.icon className="h-4 w-4 shrink-0" />
+        {donate.label}
       </Link>
     </>
   )
