@@ -49,5 +49,7 @@
   "copyOnlyHint": "服务端未注册该指令，只能复制到游戏里用",
   "historySelectAll": "全选",
   "historyDelete": "删除所选",
-  "historyExitSelect": "取消"
+  "historyExitSelect": "取消",
+  "expandAll": "全部展开",
+  "collapseAll": "全部收起"
 }

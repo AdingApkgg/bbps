@@ -49,5 +49,7 @@
   "copyOnlyHint": "Not registered on the server — copy it into the game instead",
   "historySelectAll": "Select all",
   "historyDelete": "Delete selected",
-  "historyExitSelect": "Cancel"
+  "historyExitSelect": "Cancel",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all"
 }

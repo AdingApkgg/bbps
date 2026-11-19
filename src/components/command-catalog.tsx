@@ -72,48 +72,50 @@ function CatalogItem({
   }
 
   return (
-    <li
+    <ul
       className={cn(
-        'border-l-2 border-transparent px-4 py-3',
+        'ml-4 border-l pl-3',
         item.danger === 'destructive' && 'border-error',
-        item.danger === 'warn' && 'border-warning'
+        item.danger === 'warn' && 'border-warning',
+        !item.danger && 'border-transparent'
       )}
     >
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <code className="break-all font-mono text-body-02 font-medium">{item.syntax}</code>
-            {item.danger === 'destructive' && (
-              <Badge variant="destructive" className="gap-1">
-                <ShieldAlert className="h-3 w-3" />
-                {t.dangerDestructive}
-              </Badge>
-            )}
-            {item.danger === 'warn' && (
-              <Badge variant="warm-gray" className="gap-1">
-                <AlertTriangle className="h-3 w-3" />
-                {t.dangerWarn}
-              </Badge>
-            )}
-            {item.queryOnly && <Badge variant="secondary">{t.queryOnly}</Badge>}
-            {item.needsHome && <Badge variant="secondary">{t.needsHome}</Badge>}
-          </div>
-          {/* 说明来自 src/content/command-notes.zh.md（可由 AI 维护），
- commands.ts 的 desc 仅作兜底。语法与危险标记不在 md 里。 */}
-          <p className="mt-1 text-body-02 text-on-surface-medium">
-            {commandNote(item.cmd) ?? item.desc}
-          </p>
-          {item.aliases.length > 0 && (
-            <p className="mt-1 flex flex-wrap items-center gap-1 text-label text-on-surface-medium">
-              <span>{t.aliases}</span>
-              {item.aliases.map((a) => (
-                <code key={a} className="bg-surface-variant-01 px-1 font-mono">
-                  {a}
-                </code>
-              ))}
+      <li className="py-3 pr-2">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <code className="break-all font-mono text-body-02 font-medium">{item.syntax}</code>
+              {item.danger === 'destructive' && (
+                <Badge variant="destructive" className="gap-1">
+                  <ShieldAlert className="h-3 w-3" />
+                  {t.dangerDestructive}
+                </Badge>
+              )}
+              {item.danger === 'warn' && (
+                <Badge variant="warm-gray" className="gap-1">
+                  <AlertTriangle className="h-3 w-3" />
+                  {t.dangerWarn}
+                </Badge>
+              )}
+              {item.queryOnly && <Badge variant="secondary">{t.queryOnly}</Badge>}
+              {item.needsHome && <Badge variant="secondary">{t.needsHome}</Badge>}
+            </div>
+            {/* 说明来自 src/content/command-notes.zh.md（可由 AI 维护），
+           commands.ts 的 desc 仅作兜底。语法与危险标记不在 md 里。 */}
+            <p className="mt-1 text-body-02 text-on-surface-medium">
+              {commandNote(item.cmd) ?? item.desc}
             </p>
-          )}
-        </div>
+            {item.aliases.length > 0 && (
+              <p className="mt-1 flex flex-wrap items-center gap-1 text-label text-on-surface-medium">
+                <span>{t.aliases}</span>
+                {item.aliases.map((a) => (
+                  <code key={a} className="bg-surface-variant-01 px-1 font-mono">
+                    {a}
+                  </code>
+                ))}
+              </p>
+            )}
+          </div>
 
         <div className="flex shrink-0 gap-1.5">
           <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
@@ -150,8 +152,8 @@ function CatalogItem({
                 />
               </>
             ))}
+          </div>
         </div>
-      </div>
 
       {item.inGameOnly && (
         <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
@@ -233,7 +235,8 @@ function CatalogItem({
           </code>
         </div>
       )}
-    </li>
+      </li>
+    </ul>
   )
 }
 
@@ -241,10 +244,13 @@ function CatalogItem({
 
 export function CommandCatalog({
   canRun,
-  onRun
+  onRun,
+  openAll = null
 }: {
   canRun: boolean
   onRun: (command: string) => void
+  /* 外部一键展开/收起：null 跟随每个分组自带的默认（除两个特殊组外都是收起） */
+  openAll?: boolean | null
 }) {
   const locale = useLocale()
   const t = getDictionary(locale).commands
@@ -256,33 +262,38 @@ export function CommandCatalog({
 
   return (
     <div className="space-y-4">
-      <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={t.catalogSearch}
-          className="pl-9 pr-9"
-          aria-label={t.catalogSearch}
-        />
-        {query && (
-          <button
-            type="button"
-            onClick={() => setQuery('')}
-            aria-label={t.clearSearch}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
+      {/* 搜索框吸在顶栏下：目录很长，滚到一半也能直接改词，不必先滚回去
+       *  顶栏高度由 hig.css 钉在 --md-sys-size-lg（44px），这里跟着走 */}
+      <div className="sticky top-(--md-sys-size-lg) z-10 -mx-1 bg-surface px-1 py-1">
+        <div className="relative">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t.catalogSearch}
+            className="pl-9 pr-9"
+            aria-label={t.catalogSearch}
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery('')}
+              aria-label={t.clearSearch}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
         {COMMANDS_BY_GROUP.map(({ meta, items }) => {
           const visible = items.filter((i) => matched.has(i))
           if (visible.length === 0) return null
-          // 搜索时一律展开，否则按默认折叠状态
-          const expanded = searching || (open[meta.id] ?? !meta.collapsed)
+          // 搜索时一律展开；外部一键控制优先，否则默认全收起
+          // （9 个普通组以前默认摊开，单页 17 000px 就是这么来的）
+          const expanded = searching || (openAll ?? (open[meta.id] ?? false))
 
           return (
             <div key={meta.id} data-list-item>

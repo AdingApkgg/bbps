@@ -18,7 +18,7 @@ import { toast } from '@/components/ui/toast-store'
 import { cn } from '@/lib/utils'
 
 /** 一次最多渲染这么多条，避免 1042 条全塞进 DOM */
-const PAGE_SIZE = 40
+const PAGE_SIZE = 12
 
 /* ── 单条指令 ── */
 
