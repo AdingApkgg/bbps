@@ -1,16 +1,15 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Text field（filled 变体）
+/* Text field
  *
- * M2 的输入框是「填充底 + 只有上圆角 + 底部 42% 强调线」：
- *  - 底座 field-01（onSurface 4%），上圆角 4dp，只有底部 1px rgba(0,0,0,.42)；
- *  - 聚焦时底部强调线加粗到 2px 并变 primary —— 用 inset box-shadow 而不是改
- *    边框宽度，所以不会挤动内容；光标同步 primary；
- *  - 悬停把底座加深一档（状态层 4%）；
- *  - 高度：M2 的 56dp 里含浮动标签区，本站输入框没有浮动标签，因此取 48dp
- *    触达区高度（--md-sys-size-touch-target），不硬凑 56。
- *  - invalid 用 error 色强调线 + 错误文案。
+ * 填底 + 无边框 + 10px 全圆角，取形按 HIG 的表单字段（`hig.css` 的
+ * `input:not([type=checkbox])` 钩子）：
+ *  - 底座 field-01，悬停加深一档（field-hover-01），聚焦换 surface-01 并套焦点环；
+ *  - 高度取 48px 触达区（`--md-sys-size-field`），不硬凑 M2 带浮动标签的 56dp；
+ *  - 组件里保留一条 1px 底衬 / 2px focus 底衬（inset box-shadow，不改边框宽度所以
+ *    不挤动内容），在 HIG 钩子之外单独用本组件时也仍有聚焦与 invalid 的可见信号；
+ *  - invalid 用 error 底衬 + 错误文案。
  */
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
   ({ className, type, ...props }, ref) => {
@@ -18,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
       <input
         type={type}
         className={cn(
-          'flex h-(--md-sys-size-field) min-h-0 w-full rounded-t-sm border-0 bg-field-01 px-4 py-0 text-body-01',
+          'flex h-(--md-sys-size-field) min-h-0 w-full rounded-sm border-0 bg-field-01 px-4 py-0 text-body-01',
           'text-on-surface caret-on-surface',
           'outline-none',
           'shadow-[inset_0_-1px_0_var(--md-sys-color-on-surface-placeholder)]',

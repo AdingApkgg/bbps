@@ -2,11 +2,11 @@ import type * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Chip（项目里叫 Badge）
+/* Badge（胶囊 chip）
  *
- * M2 的 chip 是 32dp 高、16dp 圆角、label 排版（14sp / 500 字重 / 0.25px），
- * 状态用 onSurface 12% 的叠加层（hover 加深、pressed 再深一档）。
- * 成对的 background / color 令牌保证对比度；assist 形态是描边 + 透明底。
+ * 全圆角胶囊，三档尺寸由 `--md-sys-size-chip-*` 约束，成对的 background / color
+ * 令牌保证对比度；assist 形态是 1px 描边 + 透明底。状态用 onSurface 叠加层
+ * （hover 加深、pressed 再深一档），不换主色。
  */
 const badgeVariants = cva(
   [

@@ -15,24 +15,17 @@ const SEGMENT_RE = /<c([0-9A-Fa-f]{6})>([\s\S]*?)<\/c>/g
 const STRAY_TAG_RE = /<\/?c(?:[0-9A-Fa-f]{6})?>/g
 
 /**
- * 正文实际压住的底色（layer-01 / card），按「亮, 暗」成对列出，键与 data-skin 一致。
- * 各皮肤的值必须与对应 css 的 --md-sys-color-surface-01/-02 保持一致。
+ * 正文实际压住的底色，按「亮, 暗」成对给出：列表是纯白 / #1C1C1E（HIG 的分组列表底），
+ * 这两个值必须与 tokens.css 的 --md-sys-color-surface-01 保持一致。
  */
-const LAYERS = [
-  ['m2', '#ffffff', '#1e1e1e'],
-  ['fluent', '#ffffff', '#292929'],
-  ['carbon', '#ffffff', '#161616'],
-  ['apple', '#ffffff', '#1c1c1e']
-] as const
-const SKIN_LAYERS: ReadonlyArray<readonly [string, string, string]> = LAYERS
-/** 每个片段的 CSS 变量：各皮肤 × 明暗的可读色，交给 CSS 按当前皮肤/主题选 */
+const BACKGROUNDS = ['#ffffff', '#1c1c1e'] as const
+
+/** 每个片段的 CSS 变量：亮/暗各一枚可读色，交给 CSS 按当前主题挑 */
 function segmentStyle(color: string): React.CSSProperties {
-  return Object.fromEntries(
-    SKIN_LAYERS.flatMap(([key, light, dark]) => [
-      [`--seg-light-${key}`, readableColor(color, light)],
-      [`--seg-dark-${key}`, readableColor(color, dark)]
-    ])
-  ) as React.CSSProperties
+  return {
+    '--seg-light': readableColor(color, BACKGROUNDS[0]),
+    '--seg-dark': readableColor(color, BACKGROUNDS[1])
+  } as React.CSSProperties
 }
 
 /** WCAG AA 正文阈值 */
@@ -92,7 +85,11 @@ function toHex(h: number, s: number, l: number): string {
   const p = 2 * l - q
   const parts = s === 0 ? [l, l, l] : [hue(p, q, h + 1 / 3), hue(p, q, h), hue(p, q, h - 1 / 3)]
   return `#${parts
-    .map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, '0'))
+    .map((v) =>
+      Math.round(Math.max(0, Math.min(1, v)) * 255)
+        .toString(16)
+        .padStart(2, '0')
+    )
     .join('')}`
 }
 
@@ -100,8 +97,8 @@ function toHex(h: number, s: number, l: number): string {
  * 把玩家自选色压到能读：保留色相与饱和度，只沿亮度方向二分，
  * 直到对给定底色达到 4.5:1。已经达标的颜色原样返回。
  *
- * 之所以要算这么多套，是因为暗色主题走 prefers-color-scheme、皮肤走 data-skin，
- * 组件在渲染期两者都拿不到，只能把每个底色的可读色都写进 style，交给 CSS 选。
+ * 暗色主题走 prefers-color-scheme，组件在渲染期拿不到，所以亮/暗两种底色各算一枚
+ * 可读色写进 style，交给 CSS 按当前主题挑。
  */
 export function readableColor(hex: string, background: string): string {
   if (contrast(hex, background) >= MIN_RATIO) return hex
@@ -133,77 +130,74 @@ export function readableColor(hex: string, background: string): string {
 }
 
 export interface NameSegment {
- text: string
- color?: string
+  text: string
+  color?: string
 }
 
 /** 把带标记的昵称拆成 { 文本, 颜色 } 片段；纯逻辑，便于单独测试 */
 export function parsePlayerName(raw: string): NameSegment[] {
- if (!raw || typeof raw !== 'string') return []
+  if (!raw || typeof raw !== 'string') return []
 
- const segments: NameSegment[] = []
- let lastIndex = 0
+  const segments: NameSegment[] = []
+  let lastIndex = 0
 
- // matchAll 内部会克隆正则，不再需要手动重置模块级 /g 正则的 lastIndex
- for (const match of raw.matchAll(SEGMENT_RE)) {
- if (match.index > lastIndex) {
- const plain = raw.slice(lastIndex, match.index).replace(STRAY_TAG_RE, '')
- if (plain) segments.push({ text: plain })
- }
- const inner = match[2].replace(STRAY_TAG_RE, '')
- if (inner) segments.push({ text: inner, color: `#${match[1]}` })
- lastIndex = match.index + match[0].length
- }
+  // matchAll 内部会克隆正则，不再需要手动重置模块级 /g 正则的 lastIndex
+  for (const match of raw.matchAll(SEGMENT_RE)) {
+    if (match.index > lastIndex) {
+      const plain = raw.slice(lastIndex, match.index).replace(STRAY_TAG_RE, '')
+      if (plain) segments.push({ text: plain })
+    }
+    const inner = match[2].replace(STRAY_TAG_RE, '')
+    if (inner) segments.push({ text: inner, color: `#${match[1]}` })
+    lastIndex = match.index + match[0].length
+  }
 
- if (lastIndex < raw.length) {
- const tail = raw.slice(lastIndex).replace(STRAY_TAG_RE, '')
- if (tail) segments.push({ text: tail })
- }
+  if (lastIndex < raw.length) {
+    const tail = raw.slice(lastIndex).replace(STRAY_TAG_RE, '')
+    if (tail) segments.push({ text: tail })
+  }
 
- return segments
+  return segments
 }
 
 /** 去掉所有标记，取纯文本（用于 title、aria-label、搜索等） */
 export function plainPlayerName(raw: string): string {
- return parsePlayerName(raw)
- .map((s) => s.text)
- .join('')
+  return parsePlayerName(raw)
+    .map((s) => s.text)
+    .join('')
 }
 
 interface PlayerNameProps {
- name: string
- className?: string
- /** 为 true 时忽略颜色，只渲染纯文本 */
- plain?: boolean
- fallback?: string
+  name: string
+  className?: string
+  /** 为 true 时忽略颜色，只渲染纯文本 */
+  plain?: boolean
+  fallback?: string
 }
 
 export function PlayerName({ name, className, plain = false, fallback = '—' }: PlayerNameProps) {
- const segments = parsePlayerName(name)
- const text = segments
- .map((s) => s.text)
- .join('')
- .trim()
+  const segments = parsePlayerName(name)
+  const text = segments
+    .map((s) => s.text)
+    .join('')
+    .trim()
 
- if (!text) return <span className={className}>{fallback}</span>
- if (plain) return <span className={className}>{text}</span>
+  if (!text) return <span className={className}>{fallback}</span>
+  if (plain) return <span className={className}>{text}</span>
 
- return (
- <span className={className} title={text}>
- {segments.map((seg, i) => (
- <Fragment key={i}>
- {seg.color ? (
- <span
- className="mc-name-segment"
- style={segmentStyle(seg.color)}
- >
- {seg.text}
- </span>
- ) : (
- seg.text
- )}
- </Fragment>
- ))}
- </span>
- )
+  return (
+    <span className={className} title={text}>
+      {segments.map((seg, i) => (
+        <Fragment key={i}>
+          {seg.color ? (
+            <span className="mc-name-segment" style={segmentStyle(seg.color)}>
+              {seg.text}
+            </span>
+          ) : (
+            seg.text
+          )}
+        </Fragment>
+      ))}
+    </span>
+  )
 }

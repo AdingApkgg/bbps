@@ -62,12 +62,7 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
       aria-current="page" 本身就足以表达「这是当前所在页」，
       而 role="link" 会让读屏把它读成一个不可用的链接。
     */
-    <span
-      ref={ref}
-      aria-current="page"
-      className={cn('text-on-surface', className)}
-      {...props}
-    />
+    <span ref={ref} aria-current="page" className={cn('text-on-surface', className)} {...props} />
   )
 )
 BreadcrumbPage.displayName = 'BreadcrumbPage'

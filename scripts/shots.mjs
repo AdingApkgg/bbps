@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-/* 皮肤截图 + 预览页生成
+/* 页面截图 + 预览页生成
  *
- * 目标：一次跑完「四皮肤 × 明暗 × 宽窄 × 关键状态」的截图，并重写 public/preview.html
- * 对照页（两者都不入库，需要时本地重跑）。
+ * 目标：一次跑完「明暗 × 宽窄 × 关键状态」的截图，并重写 public/preview.html
+ * 对照页（两者都不入库，需要时本地重跑）。皮肤维度已随 HIG 单皮肤化移除。
  *
  * 用法（在构建机上）：
  *   SHOT_BASE=http://localhost:3100 PLAYWRIGHT_WS=ws://localhost:3000 bun scripts/shots.mjs
@@ -27,12 +27,6 @@ const CHROME = process.env.PLAYWRIGHT_CHROME ?? '/usr/bin/chromium'
 
 const BASE = process.env.SHOT_BASE ?? 'http://localhost:3100'
 const OUT = 'public/_preview'
-const SKINS = [
-  { id: '', label: '默认（Apple HIG）' },
-  { id: 'm2', label: 'Material 2' },
-  { id: 'carbon', label: 'Carbon' },
-  { id: 'fluent', label: 'Fluent' }
-]
 const DESKTOP = { width: 1280, height: 1000 }
 const PHONE = { width: 390, height: 844 }
 
@@ -45,7 +39,7 @@ const SHOTS = [
   { path: '/', title: '手机首页', vp: PHONE },
   { path: '/', title: '手机 · 抽屉打开', vp: PHONE, act: 'drawer' },
   { path: '/', title: '手机 · 直接打开菜单', vp: PHONE },
-  { path: '/', title: '顶栏 · 皮肤菜单', vp: DESKTOP, act: 'appearance' }
+  { path: '/', title: '顶栏 · 样式修饰菜单', vp: DESKTOP, act: 'appearance' }
 ]
 const STATES = [
   { id: 'light', label: '亮色', scheme: 'light' },
@@ -59,7 +53,7 @@ const slug = (s) =>
     .toLowerCase()
 
 async function openAppearance(page) {
-  const btn = page.locator('header [aria-label="切换皮肤与样式"]')
+  const btn = page.locator('header [aria-label="切换样式修饰"]')
   if (await btn.count()) {
     await btn.first().click()
     await page.waitForTimeout(400)
@@ -146,7 +140,9 @@ async function contrastAudit(page) {
       const r = ratio(fg, bg)
       if (r < min - 0.02) {
         bad.push({
-          sel: el.tagName.toLowerCase() + (el.className ? `.${String(el.className).split(' ')[0]}` : ''),
+          sel:
+            el.tagName.toLowerCase() +
+            (el.className ? `.${String(el.className).split(' ')[0]}` : ''),
           text: el.textContent.trim().slice(0, 18),
           r: Math.round(r * 100) / 100,
           min,
@@ -173,40 +169,33 @@ async function main() {
   const captured = []
   for (const shot of SHOTS) {
     for (const state of STATES) {
-      for (const skin of SKINS) {
-        await page.setViewportSize(shot.vp)
-        await page.emulateMedia({ colorScheme: state.scheme })
-        await page.goto(BASE + shot.path, { waitUntil: 'commit' })
-        await page.evaluate((s) => {
-          if (s) localStorage.setItem('bbps-skin', s)
-          else localStorage.removeItem('bbps-skin')
-        }, skin.id)
-        await page.reload({ waitUntil: 'commit' })
-        await page.waitForTimeout(2500)
+      await page.setViewportSize(shot.vp)
+      await page.emulateMedia({ colorScheme: state.scheme })
+      await page.goto(BASE + shot.path, { waitUntil: 'commit' })
+      await page.waitForTimeout(2500)
 
-        let opened = false
-        let appearance = false
-        if (shot.act === 'drawer') opened = await openDrawer(page)
-        if (shot.act === 'appearance') appearance = await openAppearance(page)
-        await page.evaluate(async () => {
-          await document.fonts.ready
-        })
-        await page.mouse.move(2, 2)
-        await page.waitForTimeout(150)
+      let opened = false
+      let appearance = false
+      if (shot.act === 'drawer') opened = await openDrawer(page)
+      if (shot.act === 'appearance') appearance = await openAppearance(page)
+      await page.evaluate(async () => {
+        await document.fonts.ready
+      })
+      await page.mouse.move(2, 2)
+      await page.waitForTimeout(150)
 
-        const file = `${slug(`${skin.id || 'default'}-${state.id}-${shot.title}`)}.jpg`
-        const abs = path.join(OUT, file)
-        await page.screenshot({ path: abs, type: 'jpeg', quality: 82 })
-        const contrast = await contrastAudit(page)
-        const overflow = await page.evaluate(
-          () => document.documentElement.scrollWidth - document.documentElement.clientWidth
-        )
-        captured.push({ ...shot, state, skin, file, overflow, opened, appearance, contrast })
-        process.stderr.write(
-          `▸ ${file} overflow=${overflow} contrast=${contrast.violations}/${contrast.checked}` +
-            `${opened || appearance ? ' ' : ''}\n`
-        )
-      }
+      const file = `${slug(`${state.id}-${shot.title}`)}.jpg`
+      const abs = path.join(OUT, file)
+      await page.screenshot({ path: abs, type: 'jpeg', quality: 82 })
+      const contrast = await contrastAudit(page)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+      )
+      captured.push({ ...shot, state, file, overflow, opened, appearance, contrast })
+      process.stderr.write(
+        `▸ ${file} overflow=${overflow} contrast=${contrast.violations}/${contrast.checked}` +
+          `${opened || appearance ? ' ' : ''}\n`
+      )
     }
   }
 
@@ -216,7 +205,7 @@ async function main() {
     return `<section><h2>${title}</h2><div class="row">${rows
       .map(
         (r) =>
-          `<figure class="${r.vp === PHONE ? 'mobile' : ''}"><figcaption>${r.skin.label}</figcaption><a href="/_preview/${r.file}" target="_blank"><img src="/_preview/${r.file}" alt="${r.title} ${r.skin.label}" loading="lazy"></a></figure>`
+          `<figure class="${r.vp === PHONE ? 'mobile' : ''}"><figcaption>${r.vp === PHONE ? '手机' : '桌面'}</figcaption><a href="/_preview/${r.file}" target="_blank"><img src="/_preview/${r.file}" alt="${r.title}" loading="lazy"></a></figure>`
       )
       .join('')}</div></section>`
   }
@@ -224,7 +213,7 @@ async function main() {
   const pages = [...new Set(SHOTS.map((s) => s.title))]
   const html = `<!doctype html>
 <meta charset="utf-8">
-<title>皮肤对照预览</title>
+<title>页面预览</title>
 <style>
   :root { color-scheme: dark; }
   body { margin: 0; background: #111; color: #eee; font: 14px/1.6 system-ui, "PingFang SC", sans-serif; }
@@ -241,8 +230,8 @@ async function main() {
   a { color: #6cb6ff; }
 </style>
 <header>
-  <h1>设计系统皮肤对照</h1>
-  <p class="hint">由 <code>scripts/shots.mjs</code> 生成（${captured.length} 张）。默认皮肤是 Apple HIG，站点顶栏调色板可实时切换皮肤与修饰符（窄屏在抽屉底部）。</p>
+  <h1>页面预览</h1>
+  <p class="hint">由 <code>scripts/shots.mjs</code> 生成（${captured.length} 张）。设计取向为 Apple Human Interface Guidelines 单皮肤；顶栏「切换样式修饰」可实时开关 pointer / underline / compact / text-xl 四个修饰符（窄屏在抽屉底部）。</p>
 </header>
 ${pages
   .map((p) =>

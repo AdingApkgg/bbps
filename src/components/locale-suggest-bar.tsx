@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 import {
- detectBrowserLocale,
- toLocalePath,
- useLocale,
- useLocalePref
+  detectBrowserLocale,
+  toLocalePath,
+  useLocale,
+  useLocalePref
 } from '@/contexts/locale-context'
 import type { Locale } from '@/lib/i18n'
 
@@ -22,16 +22,16 @@ import type { Locale } from '@/lib/i18n'
  * 文案用的是**目标**语言 —— 看不懂当前页面的人，才是这条提示要找的人。
  */
 const COPY: Record<Locale, { text: string; action: string; dismiss: string }> = {
- en: {
- text: 'This page is also available in English.',
- action: 'Switch to English',
- dismiss: 'Dismiss'
- },
- zh: {
- text: '本站有中文版本。',
- action: '切换到中文',
- dismiss: '关闭'
- }
+  en: {
+    text: 'This page is also available in English.',
+    action: 'Switch to English',
+    dismiss: 'Dismiss'
+  },
+  zh: {
+    text: '本站有中文版本。',
+    action: '切换到中文',
+    dismiss: '关闭'
+  }
 }
 
 const DISMISS_KEY = 'locale-suggest-dismissed'
@@ -39,19 +39,19 @@ const DISMISS_KEY = 'locale-suggest-dismissed'
 let listeners: Array<() => void> = []
 
 function subscribe(callback: () => void): () => void {
- listeners.push(callback)
- return () => {
- listeners = listeners.filter((fn) => fn !== callback)
- }
+  listeners.push(callback)
+  return () => {
+    listeners = listeners.filter((fn) => fn !== callback)
+  }
 }
 
 function getDismissed(): boolean {
- try {
- return localStorage.getItem(DISMISS_KEY) === '1'
- } catch {
- // 隐私模式下读不到，当作已关闭 —— 提示条不重要到值得冒报错的风险
- return true
- }
+  try {
+    return localStorage.getItem(DISMISS_KEY) === '1'
+  } catch {
+    // 隐私模式下读不到，当作已关闭 —— 提示条不重要到值得冒报错的风险
+    return true
+  }
 }
 
 /**
@@ -59,54 +59,58 @@ function getDismissed(): boolean {
  * 否则预渲染的 /en 页面会对所有人带上「有中文版本」，还会 hydration 不匹配。
  */
 function getDismissedServerSnapshot(): boolean {
- return true
+  return true
 }
 
 function dismiss() {
- try {
- localStorage.setItem(DISMISS_KEY, '1')
- } catch {
- /* 存不下也无所谓，最多下次再出现一遍 */
- }
- listeners.forEach((fn) => {
- fn()
- })
+  try {
+    localStorage.setItem(DISMISS_KEY, '1')
+  } catch {
+    /* 存不下也无所谓，最多下次再出现一遍 */
+  }
+  listeners.forEach((fn) => {
+    fn()
+  })
 }
 
 export function LocaleSuggestBar() {
- const locale = useLocale()
- const pathname = usePathname()
- const { pref, setPref } = useLocalePref()
- const dismissed = useSyncExternalStore(subscribe, getDismissed, getDismissedServerSnapshot)
+  const locale = useLocale()
+  const pathname = usePathname()
+  const { pref, setPref } = useLocalePref()
+  const dismissed = useSyncExternalStore(subscribe, getDismissed, getDismissedServerSnapshot)
 
- // 选过语言的人不需要被提示；关掉过的也不再打扰
- if (pref || dismissed) return null
+  // 选过语言的人不需要被提示；关掉过的也不再打扰
+  if (pref || dismissed) return null
 
- const suggested = detectBrowserLocale()
- if (suggested === locale) return null
+  const suggested = detectBrowserLocale()
+  if (suggested === locale) return null
 
- const copy = COPY[suggested]
+  const copy = COPY[suggested]
 
- return (
- <div className="border-b bg-surface-01" lang={suggested === 'en' ? 'en' : 'zh-Hans'}>
- <div className="container-page flex items-center gap-3 py-2 text-body-02">
- <p className="text-on-surface-medium">{copy.text}</p>
- <Link
- href={toLocalePath(pathname ?? '/', suggested)}
- onClick={() => setPref(suggested)}
- className="font-medium underline underline-offset-4"
- >
- {copy.action}
- </Link>
- <button
- type="button"
- onClick={dismiss}
- aria-label={copy.dismiss}
- className="ml-auto shrink-0 p-1 text-on-surface-medium hover:bg-surface-hover-01 hover:text-on-surface"
- >
- <X className="h-4 w-4" />
- </button>
- </div>
- </div>
- )
+  return (
+    <div
+      data-locale-suggest
+      className="sticky top-[2.75rem] z-(--md-sys-layer-banner) border-b bg-surface-01"
+      lang={suggested === 'en' ? 'en' : 'zh-Hans'}
+    >
+      <div className="container-page flex items-center gap-3 py-2 text-body-02">
+        <p className="text-on-surface-medium">{copy.text}</p>
+        <Link
+          href={toLocalePath(pathname ?? '/', suggested)}
+          onClick={() => setPref(suggested)}
+          className="font-medium underline underline-offset-4"
+        >
+          {copy.action}
+        </Link>
+        <button
+          type="button"
+          onClick={dismiss}
+          aria-label={copy.dismiss}
+          className="ml-auto shrink-0 p-1 text-on-surface-medium hover:bg-surface-hover-01 hover:text-on-surface"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  )
 }

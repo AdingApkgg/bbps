@@ -1,38 +1,39 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/* 令牌层（主题色彩 / 圆角 / 动效），亮色、暗色各一套 */
+/* 令牌层（主题色彩 / 圆角 / 影 / 字阶 / 动效 / 尺寸），亮色、暗色各一套 */
 @import "../styles/tokens.css";
-/* 皮肤：data-skin 缺省即 apple（SKIN_BOOT_SCRIPT 保证有值）；其余三套按属性生效 */
-@import "../styles/skins/fluent.css";
-@import "../styles/skins/carbon.css";
-@import "../styles/skins/apple.css";
-/* 样式修饰符：与皮肤正交，走 <html data-style="pointer underline|compact|text-xl"> */
+/* 结构与控件层：HIG 语汇（分组列表 / 材质栏 / 系统控件） */
+@import "../styles/hig.css";
+/* 样式修饰符：正交，走 <html data-style="pointer underline|compact|text-xl"> */
 @import "../styles/modifiers.css";
 
 /* ============================================================================
  * 与 Tailwind 的接线
  *
- * 只有一套名字，全部是 Material 语义（surface 分层 / on-surface 前景 / outline /
- * chip / state-*），前缀 --md-sys-color-*。没有 shadcn 那套 card / muted-foreground
- * 别名，也没有 Carbon 的 layer / support / text-* / border-*——组件全部手写，
- * 浮层直接用 Radix primitives。
+ * 设计基准是 Apple Human Interface Guidelines（iOS 系统外观）。只有一套名字，
+ * 全是语义分层（surface 分层 / on-surface 前景 / outline / chip / state-*），
+ * 前缀 --md-sys-*。没有 shadcn 那套 card / muted-foreground 别名。
  *
  * 前缀约定：--md-sys-color-* 颜色、--md-sys-shape-* 圆角、--md-sys-motion-* 时长与曲线、
- * --md-sys-elevation-* 影、--md-sys-size-* dp 尺寸；靠 Tailwind 命名空间接入的是
- * --color-* / --radius-* / --text-* / --transition-duration-* / --ease-*。
+ * --md-sys-elevation-* 影、--md-sys-size-* dp 尺寸、--md-sys-type-* 字阶；靠 Tailwind
+ * 命名空间接入的是 --color-* / --radius-* / --text-* / --transition-duration-* / --ease-*。
+ *
+ * 命名仍沿用 --md-sys-* 是为了不改存量 500+ 处调用点；取值全部是 HIG，与 Material
+ * 已经没有关系（Material 的 56dp 场高、4dp 小圆角、25 级影、全大写按钮都不再适用）。
  *
  * 唯一还带 shadcn 味道的是 field-*：它同时是输入框的填充层名字，也是 input 组件的
  * 底座；改名会牵动所有表单控件，先留着。
  * ========================================================================= */
 @theme inline {
-  /* ── 字体 ── */
-  --font-sans: var(--font-roboto), "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
-    system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-roboto-mono), ui-monospace, "SFMono-Regular", "Menlo", monospace;
+  /* ── 字体：HIG 的 SF Pro 栈，中文落苹方，系统无字形时才继续降级 ── */
+  --font-sans:
+    -apple-system, "SF Pro Text", "SF Pro Display", system-ui, "PingFang SC", "Noto Sans SC",
+    "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
 
-  /* ── 圆角：接 --md-sys-shape-* 令牌，皮肤改令牌即可打穿到组件 ── */
+  /* ── 圆角：HIG 形状刻度（控件 10、卡片/容器 16、浮层 14、胶囊 max） ── */
   --radius: var(--md-sys-shape-control);
-  --radius-xs: var(--md-sys-shape-02);
+  --radius-xs: var(--md-sys-shape-04);
   --radius-sm: var(--md-sys-shape-control);
   --radius-md: var(--md-sys-shape-control);
   --radius-lg: var(--md-sys-shape-container);
@@ -40,9 +41,9 @@
   --radius-2xl: var(--md-sys-shape-container);
   --radius-3xl: var(--md-sys-shape-container);
   --radius-full: var(--md-sys-shape-max);
-  /* 胶囊（Chip / 进度条等真胶囊语义沿用全圆头的 9999px） */
+  /* 胶囊（Chip / 进度条等真胶囊语义） */
   --radius-pill: var(--md-sys-shape-max);
-  /* 圆角档位（与 M2 形状刻度同值，按需显式取用） */
+  /* 显式档位别名，供少量需要钉住具体圆角的地方取用 */
   --radius-00: 0;
   --radius-02: var(--md-sys-shape-02);
   --radius-04: var(--md-sys-shape-04);
@@ -50,16 +51,17 @@
   --radius-16: var(--md-sys-shape-16);
   --radius-24: var(--md-sys-shape-24);
 
-  /* ── 阴影：M2 的 25 级 elevation，浮层 8dp、对话框 24dp ── */
+  /* ── 阴影：HIG 不用影分层。卡片零影，影只给浮层（sheet / popover / dialog） ──
+   * 所以 shadow-xs/sm 极淡到近乎不可见，不是 M2 的 resting 1dp。 */
   --shadow-2xs: var(--md-sys-elevation-01);
   --shadow-xs: var(--md-sys-elevation-01);
-  --shadow-sm: var(--md-sys-elevation-01);
-  --shadow: var(--md-sys-elevation-02);
+  --shadow-sm: var(--md-sys-elevation-02);
+  --shadow: var(--md-sys-elevation-04);
   --shadow-md: var(--md-sys-elevation-04);
-  /* 交互卡片 hover 用 8dp（M2 raised card） */
-  --shadow-raised: var(--md-sys-elevation-08);
+  /* 交互元素浮起（分段控件滑块、被按住的卡）用最小实体影 */
+  --shadow-raised: var(--md-sys-shadow-raised-small);
   --shadow-snackbar: var(--md-sys-elevation-06);
-  /* M2：浮层 8dp、抽屉/侧栏 16dp、对话框 24dp */
+  /* 浮层：popover 8 级、抽屉 16 级、对话框 24 级 */
   --shadow-lg: var(--md-sys-elevation-16);
   --shadow-xl: var(--md-sys-elevation-24);
   --shadow-2xl: var(--md-sys-elevation-24);
@@ -78,7 +80,10 @@
   --color-field-hover-01: var(--md-sys-color-field-hover-01);
   --color-outline: var(--md-sys-color-outline);
   --color-outline-00: var(--md-sys-color-outline-00);
+  --color-outline-01: var(--md-sys-color-outline-01);
+  --color-outline-variant-01: var(--md-sys-color-outline-variant-01);
   --color-outline-emphasis: var(--md-sys-color-outline-emphasis);
+  --color-outline-emphasis-01: var(--md-sys-color-outline-emphasis-01);
   --color-outline-active: var(--md-sys-color-outline-active);
   --color-outline-disabled: var(--md-sys-color-outline-disabled);
   --color-on-surface: var(--md-sys-color-on-surface);
@@ -144,69 +149,61 @@
   --color-on-button-contained: var(--md-sys-color-on-button-contained);
   --color-on-button-outlined: var(--md-sys-color-on-button-outlined);
 
-  /* ── 排版：M2 类型集（单一 M2 轨，不再混用 Carbon 的 heading-0N 名） ──
-   * 档位取自 m2.material.io 的 type system：
-   *   display 57/64、45/52、36/44（400，负/零字距）
-   *   headline 32/40、28/36、24/32（400）
-   *   title 22/28（400）、16/24（500，subtitle-1）、14/20（500，subtitle-2）
-   *   body 16/24（400）、14/20（400）
-   *   label 12/16（500）、11/16（500）；caption 12/16（400）；overline 10/16（500，大写）
-   *   button 14/20（500，1.25px 字距 + 大写）
-   * 400 档不写 font-weight，直接继承 body 的 400，避免再在 JSX 里用 font-normal 抵消。 */
-  --text-display-lg: 3.5625rem;
-  --text-display-lg--line-height: 4rem;
-  --text-display-lg--letter-spacing: -0.25px;
-  --text-display-md: 2.8125rem;
-  --text-display-md--line-height: 3.25rem;
-  --text-display-md--letter-spacing: 0px;
-  --text-display-sm: 2.25rem;
-  --text-display-sm--line-height: 2.75rem;
-  --text-display-sm--letter-spacing: 0px;
-  --text-headline-lg: 2rem;
-  --text-headline-lg--line-height: 2.5rem;
-  --text-headline-lg--letter-spacing: 0px;
-  --text-headline-md: 1.75rem;
-  --text-headline-md--line-height: 2.25rem;
-  --text-headline-md--letter-spacing: 0px;
-  --text-headline-sm: 1.5rem;
-  --text-headline-sm--line-height: 2rem;
-  --text-headline-sm--letter-spacing: 0px;
-  --text-title-lg: 1.375rem;
-  --text-title-lg--line-height: 1.75rem;
-  --text-title-lg--letter-spacing: 0px;
-  --text-title-md: 1rem;
-  --text-title-md--line-height: 1.5rem;
-  --text-title-md--letter-spacing: 0.15px;
-  --text-title-md--font-weight: 500;
-  --text-title-sm: 0.875rem;
+  /* ── 字阶：iOS 动态字体表（大标题 34/41 700、正文 17/22、脚注 13/18） ──
+   * 档位取自 HIG 的 Dynamic Type：
+   *   largeTitle 34/41、title1 28/34、title2 22/28、title3 20/25（全部 700，负字距）
+   *   headline 17/22（600）、body 17/22、callout 16/21、subheadline 15/20、footnote 13/18
+   *   caption1 12/16、caption2 11/13；没有 overline 这个概念，也不写大写
+   * 这里给的是「兜底层」：hig.css 会把每个档位重写成 HIG 值，两处必须一致。 */
+  --text-display-lg: 2.125rem;
+  --text-display-lg--line-height: 2.5625rem;
+  --text-display-lg--letter-spacing: -0.026em;
+  --text-display-md: 1.75rem;
+  --text-display-md--line-height: 2.125rem;
+  --text-display-md--letter-spacing: -0.024em;
+  --text-display-sm: 1.5rem;
+  --text-display-sm--line-height: 1.8125rem;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-headline-lg: 1.375rem;
+  --text-headline-lg--line-height: 1.75rem;
+  --text-headline-lg--letter-spacing: -0.022em;
+  --text-headline-md: 1.25rem;
+  --text-headline-md--line-height: 1.5625rem;
+  --text-headline-md--letter-spacing: -0.019em;
+  --text-headline-sm: 1.0625rem;
+  --text-headline-sm--line-height: 1.375rem;
+  --text-headline-sm--letter-spacing: -0.016em;
+  --text-title-lg: 1.0625rem;
+  --text-title-lg--line-height: 1.375rem;
+  --text-title-lg--letter-spacing: -0.011em;
+  --text-title-md: 0.9375rem;
+  --text-title-md--line-height: 1.25rem;
+  --text-title-md--letter-spacing: -0.009em;
+  --text-title-sm: 0.9375rem;
   --text-title-sm--line-height: 1.25rem;
-  --text-title-sm--letter-spacing: 0.1px;
-  --text-title-sm--font-weight: 500;
-  --text-body-01: 1rem;
-  --text-body-01--line-height: 1.5rem;
-  --text-body-01--letter-spacing: 0.5px;
-  --text-body-02: 0.875rem;
-  --text-body-02--line-height: 1.25rem;
-  --text-body-02--letter-spacing: 0.25px;
-  --text-label: 0.75rem;
-  --text-label--line-height: 1rem;
-  --text-label--letter-spacing: 0.5px;
-  --text-label--font-weight: 500;
-  --text-label-sm: 0.6875rem;
-  --text-label-sm--line-height: 1rem;
-  --text-label-sm--letter-spacing: 0.5px;
-  --text-label-sm--font-weight: 500;
+  --text-title-sm--letter-spacing: -0.009em;
+  --text-body-01: 1.0625rem;
+  --text-body-01--line-height: 1.2941;
+  --text-body-01--letter-spacing: -0.011em;
+  --text-body-02: 1.0625rem;
+  --text-body-02--line-height: 1.2941;
+  --text-body-02--letter-spacing: -0.011em;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.125rem;
+  --text-label--letter-spacing: 0;
+  --text-label-sm: 0.8125rem;
+  --text-label-sm--line-height: 1.125rem;
+  --text-label-sm--letter-spacing: 0;
   --text-caption: 0.75rem;
   --text-caption--line-height: 1rem;
-  --text-caption--letter-spacing: 0.4px;
-  --text-overline: 0.625rem;
-  --text-overline--line-height: 1rem;
-  --text-overline--letter-spacing: 1.5px;
-  --text-overline--font-weight: 500;
-  --text-button: 0.875rem;
-  --text-button--line-height: 1.25rem;
-  --text-button--letter-spacing: 1.25px;
-  --text-button--font-weight: 500;
+  --text-caption--letter-spacing: 0;
+  --text-overline: 0.8125rem;
+  --text-overline--line-height: 1.125rem;
+  --text-overline--letter-spacing: 0;
+  --text-button: 1.0625rem;
+  --text-button--line-height: 1.2941;
+  --text-button--letter-spacing: -0.011em;
+  --text-button--font-weight: 600;
 
   /* ── 动效 ── */
   --ease-decelerate: var(--md-sys-motion-ease-decelerate);
@@ -217,15 +214,14 @@
   --ease-entrance-expressive: var(--md-sys-motion-ease-entrance-expressive);
   --ease-exit: var(--md-sys-motion-ease-exit-productive);
   --ease-exit-expressive: var(--md-sys-motion-ease-exit-expressive);
-  /* 载入转圈：M2 的 indeterminate 是 1400ms 匀速旋转；
-     脉冲光标取 2s，走 standard 曲线 */
-  --animate-spin: spin 1400ms linear infinite;
+  /* 载入转圈：iOS 的 spinner 是 0.8s 左右，越快越像在跑 */
+  --animate-spin: spin 800ms linear infinite;
   --animate-pulse: pulse 2s var(--md-sys-motion-ease-standard-productive) infinite;
   --default-transition-duration: var(--md-sys-motion-duration-moderate-01);
   --default-transition-timing-function: var(--md-sys-motion-ease-standard-productive);
 }
 
-/* 动效档位：曲线与时长都取 M2 的 standard / decelerate / accelerate */
+/* 动效档位：HIG 的时长与曲线（iOS 的 0.2–0.35s 弹簧感，没有 Material 的 standard 分档语义） */
 @theme inline {
   --transition-duration-fast-01: var(--md-sys-motion-duration-fast-01);
   --transition-duration-fast-02: var(--md-sys-motion-duration-fast-02);
@@ -254,60 +250,67 @@
   body {
     background-color: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
-    /* M2 body1 正文：16sp / 24sp / 0.5sp 字距 */
+    /* HIG body：17/22（1.2941），负字距收紧，不加正字距 */
     font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.5;
-    letter-spacing: 0.5px;
+    font-size: var(--text-body-01);
+    line-height: var(--text-body-01--line-height);
+    letter-spacing: var(--text-body-01--letter-spacing);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* M2 的标题是 400 的 display/headline/title，只有 h6（title small）到 500。
-     浏览器默认的 bold 会直接压过令牌，所以在这里归零 */
+  /* HIG 的标题全部是 600–700 的粗体（Dynamic Type 的 largeTitle…headline），
+     并且字距是负的：浏览器默认的 400/正字距会把它拉回 Material 观感，这里逐档写死。 */
   h1,
   h2,
   h3,
   h4,
-  h5 {
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 1.33333;
-  }
+  h5,
   h6 {
-    font-weight: 500;
-    letter-spacing: 0.15px;
-    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.2941;
   }
   h1 {
-    font-size: 1.75rem;
+    font-size: 2.125rem;
+    line-height: 2.5625rem;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    line-height: 2.125rem;
   }
   h3 {
     font-size: 1.375rem;
+    line-height: 1.75rem;
   }
   h4 {
-    font-size: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.011em;
   }
-  h5 {
-    font-size: 0.875rem;
+  h5,
+  h6 {
+    font-size: 0.9375rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.009em;
   }
   strong,
   b {
-    font-weight: 500;
+    font-weight: 600;
   }
 
-  /* 焦点：M2 用 2px 实线描边，画在控件外侧 2px 处。 */
+  /* 焦点：HIG 用 3px 半透明的 accent 光环，画在控件外侧 2px 处。 */
   :focus-visible {
-    outline: 2px solid var(--md-sys-color-focus);
+    outline: 3px solid var(--md-sys-color-highlight);
     outline-offset: 2px;
   }
-  /* 高对比模式下描边加粗到 3px 并带内侧白圈，保证任何底色上都可见 */
+  /* 高对比模式下改用不透明主色，任何底色上都看得见 */
+  /* 高对比模式：换成 4px 且落到主色实体蓝 */
   @media screen and (prefers-contrast: more) {
     :focus-visible {
-      outline: 3px solid var(--md-sys-color-focus);
+      outline: 3px solid var(--md-sys-color-primary);
     }
   }
 
@@ -326,9 +329,9 @@
   pre,
   samp {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    letter-spacing: 0.25px;
+    font-size: 0.9375rem;
+    line-height: 1.2941;
+    letter-spacing: 0;
   }
 
   hr {
@@ -337,7 +340,7 @@
 
   /* 禁用态统一到 text-disabled，而不是整体半透明 */
   :disabled,
-  [aria-disabled='true'] {
+  [aria-disabled="true"] {
     color: var(--md-sys-color-on-surface-disabled);
   }
 }
@@ -354,17 +357,19 @@
  * 写成重复伪类是为了让特异性压过 .transition-colors，不必去改各处调用点。 */
 @layer utilities {
   :focus-visible:focus-visible {
-    transition-property: color, background-color, border-color, box-shadow, text-decoration-color, fill, stroke, opacity, transform;
+    transition-property:
+      color, background-color, border-color, box-shadow, text-decoration-color, fill, stroke,
+      opacity, transform;
   }
 }
 
-/* M2 的焦点环，供需要自定义的元素显式调用（外扩 2px，与 :focus-visible 同款） */
+/* HIG 焦点环，供需要自定义的元素显式调用（外扩 2px，与 :focus-visible 同款） */
 @utility focus-outline {
-  outline: 2px solid var(--md-sys-color-focus);
+  outline: 3px solid var(--md-sys-color-highlight);
   outline-offset: 2px;
 }
 
-/* 浮层阴影：8dp elevation */
+/* 浮层阴影：HIG sheet 的极淡双层，只给真正浮起的层 */
 @utility shadow-scrim {
   box-shadow: var(--md-sys-shadow-overlay);
 }
@@ -372,31 +377,81 @@
 /* 骨架屏：横向扫光（scaleX 0→1→0，交替 origin），
  * 不透明度 0.3→1，reduced-motion 时静止。 */
 @keyframes md-skeleton {
-  0% { opacity: 0.3; transform: scaleX(0); transform-origin: left; }
-  20% { opacity: 1; transform: scaleX(1); transform-origin: left; }
-  28% { transform: scaleX(1); transform-origin: right; }
-  51% { transform: scaleX(0); transform-origin: right; }
-  58% { transform: scaleX(0); transform-origin: right; }
-  82% { transform: scaleX(1); transform-origin: right; }
-  83% { transform: scaleX(1); transform-origin: left; }
-  96% { transform: scaleX(0); transform-origin: left; }
-  100% { opacity: 0.3; transform: scaleX(0); transform-origin: left; }
+  0% {
+    opacity: 0.3;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  20% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  28% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  51% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  58% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  82% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  83% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  96% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    opacity: 0.3;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
 }
 
-/* 不确定态线性进度：M2 的两段各自「拉长 → 位移 → 收窄」，
+/* 不确定态线性进度：两段各自「拉长 → 位移 → 收窄」，
  * reduced-motion 时静止在两段初始位置。 */
 @keyframes md-linear-translate {
-  0% { transform: translateX(-145.166611%); }
-  20% { animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819); transform: translateX(-61.495191%); }
-  59.15% { animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352); transform: translateX(0); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-145.166611%);
+  }
+  20% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.701732, 0.495819);
+    transform: translateX(-61.495191%);
+  }
+  59.15% {
+    animation-timing-function: cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes md-linear-scale {
-  0% { transform: scaleX(0.08); }
-  36.65% { animation-timing-function: cubic-bezier(0.334731, 0.12482, 0.785844, 1); transform: scaleX(0.08); }
-  69.15% { animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1); transform: scaleX(0.661479); }
-  100% { transform: scaleX(0.08); }
+  0% {
+    transform: scaleX(0.08);
+  }
+  36.65% {
+    animation-timing-function: cubic-bezier(0.334731, 0.12482, 0.785844, 1);
+    transform: scaleX(0.08);
+  }
+  69.15% {
+    animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1);
+    transform: scaleX(0.661479);
+  }
+  100% {
+    transform: scaleX(0.08);
+  }
 }
 
 .md-linear-indeterminate-1 {
@@ -425,7 +480,7 @@
     inline-size: 100%;
     background: var(--md-sys-color-skeleton-element);
     border-radius: var(--md-sys-shape-control);
-    content: '';
+    content: "";
     animation: md-skeleton 1500ms var(--md-sys-motion-ease-standard) infinite;
     will-change: transform-origin, transform, opacity;
     @media (prefers-reduced-motion: reduce) {
@@ -434,7 +489,7 @@
   }
 }
 
-/* 网格：12 列口径的 4/8/12 列递进（4/8dp 基准，各皮肤共用） */
+/* 网格：4 / 8 / 12 列递进（HIG 的 8pt 网格，各断点对齐 16/24/32pt 间距） */
 @utility grid-page {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -452,7 +507,7 @@
   }
 }
 
-/* 页面容器：fluid margin 16dp 起、平板 24dp、桌面 32dp 并随视口放宽 */
+/* 页面容器：fluid margin 16 起、平板 24、桌面 32 并随视口放宽 */
 @utility container-page {
   inline-size: 100%;
   max-inline-size: 90rem;
@@ -469,53 +524,26 @@
 /* ============================================================================
  * 玩家昵称的彩色片段
  * 颜色由玩家在游戏里自选（<cRRGGBB>），原值常常压不住底色（§b 青 #33ffff 压白底
- * 只有 1.24:1）。player-name.tsx 已按 4.5:1 为「每套皮肤 × 明暗」二分出可读色
- * 写进变量，这里只负责按当前皮肤与主题挑一个。
+ * 只有 1.24:1）。player-name.tsx 已按 4.5:1 为「明暗」二分出可读色写进变量，
+ * 这里只负责按当前主题挑一个。
  * ========================================================================= */
-/* 默认（apple）用本色阶，其余皮肤各取各的层色 */
 .mc-name-segment {
-  color: var(--seg-light-m2);
+  color: var(--seg-light);
 }
 
 @media (prefers-color-scheme: dark) {
   .mc-name-segment {
-    color: var(--seg-dark-m2);
-  }
-}
-
-html[data-skin='fluent'] .mc-name-segment {
-  color: var(--seg-light-fluent);
-}
-
-html[data-skin='carbon'] .mc-name-segment {
-  color: var(--seg-light-carbon);
-}
-
-html[data-skin='apple'] .mc-name-segment {
-  color: var(--seg-light-apple);
-}
-
-@media (prefers-color-scheme: dark) {
-  html[data-skin='fluent'] .mc-name-segment {
-    color: var(--seg-dark-fluent);
-  }
-
-  html[data-skin='carbon'] .mc-name-segment {
-    color: var(--seg-dark-carbon);
-  }
-
-  html[data-skin='apple'] .mc-name-segment {
-    color: var(--seg-dark-apple);
+    color: var(--seg-dark);
   }
 }
 
 /* ============================================================================
- * 第三方评论 Artalk 的 M2 覆盖层
+ * 第三方评论 Artalk 覆盖层
  *
  * Artalk 自带一套 --at-color-* 令牌（3px/6px 圆角、蓝色 #0083ff、细边框盒子），
- * 与 M2 的规矩都相反：M2 是 4px 圆角、filled 输入框（浅底 + 仅底部 42% 强调线）、
- * 主色 #6200ee、按钮大写 + 1.25px 字距。这里只做两件事：把它的令牌接到
- * --md-sys-*，再把它少数写死的结构样式（输入框、按钮、分页、头像）改回 M2 形态。
+ * 与 HIG 的规矩都相反：HIG 是圆角矩形字段（灰底、无边框）、分组列表、实体蓝按钮、
+ * 句首大写不加字距。这里只做两件事：把它的令牌接到 --md-sys-*，再把它少数写死的
+ * 结构样式（输入框、按钮、分页、引用块）改回 iOS 形态。
  *
  * 注意：Artalk.css 是运行时动态 import 的，插在文档里比本文件晚，
  * 单纯同权重选择器会被它盖掉，所以关键处重复一次类名抬高权重。
@@ -531,10 +559,10 @@ html[data-skin='apple'] .mc-name-segment {
   --at-color-sub: var(--md-sys-color-on-surface-medium);
   --at-color-grey: var(--md-sys-color-on-surface-helper);
   --at-color-meta: var(--md-sys-color-on-surface-helper);
-  --at-color-border: var(--md-sys-color-outline-01);
+  --at-color-border: var(--md-sys-color-separator);
   --at-color-bg: var(--md-sys-color-surface-01);
-  --at-color-bg-grey: var(--md-sys-color-surface-variant-01);
-  --at-color-bg-grey-transl: var(--md-sys-color-surface-variant-01);
+  --at-color-bg-grey: var(--md-sys-color-field-01);
+  --at-color-bg-grey-transl: var(--md-sys-color-field-01);
   --at-color-bg-light: var(--md-sys-color-surface-01);
   --at-color-bg-transl: var(--md-sys-color-surface-01);
   --at-color-light: var(--md-sys-color-link);
@@ -547,86 +575,81 @@ html[data-skin='apple'] .mc-name-segment {
   );
 }
 
-/* 编辑器外壳：M2 filled 输入区，只留上圆角，底部一条 42% 强调线 */
+/* 编辑器外壳：iOS 的圆角灰底输入块，聚焦时不描边、只让整体带一圈 accent 光 */
 .atk-main-editor.atk-main-editor {
   border: 0;
-  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
+  border-radius: var(--md-sys-shape-container);
   background: var(--md-sys-color-field-01);
-  border-bottom: 1px solid var(--md-sys-color-on-surface-placeholder);
-  transition: border-bottom-color var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard);
+  transition: box-shadow var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor:focus-within {
-  border-bottom: 2px solid var(--md-sys-color-focus);
-  /* 多出的 1px 用内阴影补掉，避免聚焦时整块抖动 */
-  box-shadow: inset 0 -1px 0 var(--md-sys-color-focus);
+  box-shadow: 0 0 0 3px var(--md-sys-color-highlight);
 }
 
-/* 昵称/邮箱/网址三个输入：56px 高、上圆角、无边框 */
+/* 昵称/邮箱/网址三个输入：跟外壳同面，靠分隔线断行 */
 .atk-main-editor.atk-main-editor > .atk-header input {
   border: 0;
-  border-radius: var(--md-sys-shape-control) var(--md-sys-shape-control) 0 0;
+  border-radius: 0;
   block-size: var(--md-sys-size-field);
   padding-inline: 1rem;
-  font-size: 1rem;
+  font-size: var(--text-body-01);
   background: transparent;
-  outline: 2px solid var(--md-sys-color-focus);
-  outline-offset: 2px;
-  outline-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
   transition: outline-color var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor > .atk-header input:focus {
-  outline-color: var(--md-sys-color-focus);
+  outline-color: var(--md-sys-color-highlight);
 }
 .atk-main-editor.atk-main-editor > .atk-header input::placeholder {
   color: var(--md-sys-color-on-surface-placeholder);
 }
 
-/* 正文输入：同一种 filled 面，高度由 min-block-size 兜住 */
+/* 正文输入：同一种面，高度由 min-block-size 兜住 */
 .atk-main-editor.atk-main-editor > .atk-textarea-wrap > .atk-textarea {
   border: 0;
   border-radius: 0;
   min-block-size: 6rem;
   padding: 1rem;
-  font-size: 1rem;
+  font-size: var(--text-body-01);
+  line-height: var(--text-body-01--line-height);
   background: transparent;
-  outline: 2px solid var(--md-sys-color-focus);
-  outline-offset: 2px;
-  outline-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
   transition: outline-color var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor > .atk-textarea-wrap > .atk-textarea:focus {
-  outline-color: var(--md-sys-color-focus);
+  outline-color: var(--md-sys-color-highlight);
 }
 
-/* 发送/提交：M2 contained 按钮（36px、4px 圆角、大写、1.25px 字距、2dp 影） */
+/* 发送/提交：iOS 的填充按钮（实体蓝、17px/600、无大写无字距、零影） */
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn {
   border-radius: var(--md-sys-shape-control);
-  block-size: var(--md-sys-size-lg);
+  block-size: var(--md-sys-size-control);
   padding-inline: 1rem;
   background: var(--md-sys-color-button-contained);
-  box-shadow: var(--md-sys-elevation-01);
+  box-shadow: none;
   color: var(--md-sys-color-on-button-contained);
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-  transition:
-    box-shadow var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard),
-    background-color var(--md-sys-motion-duration-fast-02) var(--md-sys-motion-ease-standard);
+  font-size: var(--text-button);
+  font-weight: 600;
+  letter-spacing: -0.011em;
+  text-transform: none;
+  transition: background-color var(--md-sys-motion-duration-fast-02)
+    var(--md-sys-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:hover {
   background: var(--md-sys-color-button-contained-hover);
-  box-shadow: var(--md-sys-elevation-02);
+  box-shadow: none;
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:active {
   opacity: 1;
   background: var(--md-sys-color-button-contained-active);
-  box-shadow: var(--md-sys-elevation-04);
+  box-shadow: none;
 }
 
-/* 工具条按钮与分页：4px 圆角，hover 走 onSurface 4% 状态层 */
+/* 工具条按钮：圆形无底，hover 才出灰底 */
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-plug-btn {
-  border-radius: var(--md-sys-shape-control);
+  border-radius: var(--md-sys-shape-max);
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-plug-btn:hover {
   background: var(--md-sys-color-surface-hover-01);
@@ -634,15 +657,15 @@ html[data-skin='apple'] .mc-name-segment {
 .atk-pagination.atk-pagination > .atk-btn,
 .atk-pagination.atk-pagination > .atk-input {
   border-radius: var(--md-sys-shape-control);
-  border: 1px solid var(--md-sys-color-outline-emphasis-01);
+  border: 1px solid var(--md-sys-color-separator);
   background: var(--md-sys-color-surface-01);
 }
 .atk-pagination.atk-pagination > .atk-input:focus {
-  outline: 2px solid var(--md-sys-color-focus);
+  outline: 3px solid var(--md-sys-color-highlight);
   outline-offset: 2px;
 }
 
-/* 头像是 M2 的圆形容器；未读角标/钉住徽章改成圆形小徽章。
+/* 头像是圆形；未读/钉住徽章是红色胶囊圆点。
    两个徽章挂在 list-header / comment-header 下，选择器本身很长，
    要按完整层级写才能压过它 */
 .artalk > .atk-list > .atk-list-header .atk-right-action > span .atk-unread-badge.atk-unread-badge,
@@ -654,8 +677,8 @@ html[data-skin='apple'] .mc-name-segment {
   height: 18px;
   line-height: 18px;
   padding: 0 4px;
-  font-size: var(--text-label-sm);
-  font-weight: 500;
+  font-size: var(--text-caption);
+  font-weight: 600;
 }
 .atk-comment.atk-comment > .atk-avatar img {
   border-radius: var(--md-sys-shape-max);
@@ -666,18 +689,18 @@ html[data-skin='apple'] .mc-name-segment {
   color: var(--md-sys-color-on-primary);
 }
 
-/* 引用块：M2 用左侧 2px 强调线 + 4% 叠底 */
+/* 引用块：iOS 的引用是左侧 3px 灰竖线 + 浅灰底，圆角只给右侧 */
 .atk-comment.atk-comment > .atk-main > .atk-body > .atk-reply-to {
-  border-left: 2px solid var(--md-sys-color-outline-active);
+  border-left: 3px solid var(--md-sys-color-outline-01);
   border-radius: 0 var(--md-sys-shape-control) var(--md-sys-shape-control) 0;
-  background: var(--md-sys-color-surface-variant-01);
+  background: var(--md-sys-color-field-01);
   padding: 0.5rem 0.75rem;
 }
 
-/* Artalk 弹层（登录等）在 body 上，单独给圆角与 24dp 影 */
+/* Artalk 弹层（登录等）在 body 上，单独给浮层圆角与极淡双层影 */
 .atk-layer-wrap .atk-popup,
 .atk-layer-wrap .atk-layer-body {
-  border-radius: var(--md-sys-shape-container);
+  border-radius: var(--md-sys-shape-overlay);
   box-shadow: var(--md-sys-elevation-24);
 }
 
@@ -685,7 +708,7 @@ html[data-skin='apple'] .mc-name-segment {
  * 降级
  * ========================================================================= */
 
-/* M2 也要求 reduce 下退化为瞬时切换，沿用同一条全站覆盖。
+/* HIG 同样要求 reduce 下退化为瞬时切换，沿用同一条全站覆盖。
    载入转圈保留：它是状态指示而不是装饰，停掉会看不出在加载。 */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -699,18 +722,12 @@ html[data-skin='apple'] .mc-name-segment {
     scroll-behavior: auto !important;
   }
   .animate-spin {
-    animation: spin 1400ms linear infinite !important;
+    animation: spin 800ms linear infinite !important;
   }
 }
 
-/* 导航常驻左侧栏（>= 50rem）；窄屏退回顶栏菜单。皮肤菜单只走顶栏（不掉进抽屉） */
+/* 宽屏导航：常驻左侧栏（视觉由 hig.css 给），顶栏只留 logo / 语言 / 菜单 */
 @media (min-width: 50rem) {
-  [data-rail] {
-    display: block;
-  }
-  [data-shell] {
-    padding-inline-start: 16rem;
-  }
   header.sticky [data-menu] {
     display: none;
   }
@@ -718,59 +735,38 @@ html[data-skin='apple'] .mc-name-segment {
     display: none;
   }
 }
-/* 窄屏把皮肤入口挤出头栏（语言 / 皮肤 / 菜单三个图标放不下） */
+/* 窄屏把样式入口挤出头栏（语言 / 样式 / 菜单三个图标放不下） */
 @media (max-width: 47.99rem) {
   header.sticky [data-look] {
     display: none;
   }
 }
-/* 栏内条目（M2 navigation drawer：40dp 行、pill 指示器、选中实底） */
-/* 侧栏固定，主体让出它的宽度（栅格由各皮肤给带宽） */
+/* 侧栏：只给定位与层叠，尺寸、材质、行缩进全部由 hig.css 决定 */
 [data-rail] {
   position: fixed;
-  inset-block-start: 3.5rem;
   inset-inline-start: 0;
-  block-size: calc(100dvh - 3.5rem);
-  z-index: 30;
+  z-index: var(--md-sys-layer-rail);
   overflow-y: auto;
-  background: var(--md-sys-color-surface-01);
 }
 [data-rail] nav {
   display: flex;
   flex-direction: column;
-  padding-block: 0.5rem;
 }
 [data-rail] nav > a {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   min-height: var(--md-sys-size-control-lg);
-  margin-inline: 0.5rem;
   padding-inline: 0.75rem;
-  border-radius: var(--md-sys-shape-full);
-  color: var(--md-sys-color-on-surface-medium);
-}
-[data-rail] nav > a:hover {
-  background: var(--md-sys-color-surface-hover-01);
-  color: var(--md-sys-color-on-surface);
-}
-[data-rail] nav > a[aria-current='page'] {
-  background: var(--md-sys-color-surface-selected-01);
-  color: var(--md-sys-color-on-surface);
-}
-/* 栏内条目紧贴相邻行：焦点环收进行内，避免压到上下条目 */
-[data-rail] nav > a:focus-visible,
-[data-drawer] nav > a:focus-visible {
-  outline-offset: -2px;
 }
 
-/* 跳转链接自身是实底块，全局焦点环与底色同色会被吃掉：内嵌描边 + 外扩环 */
+/* 跳转链接自身是实底块，默认焦点环与底色同色会被吃掉：内嵌白环 + 外扩 */
 [data-skip-link]:focus-visible {
   outline-offset: 2px;
   box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary);
 }
 
-/* 滚动条（8px 细条 + 42% 灰拇指，M2 的细滚动条口径） */
+/* 滚动条：iOS 的细拇指（8px、半透明灰），不占内容宽度 */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--md-sys-color-outline-00) transparent;

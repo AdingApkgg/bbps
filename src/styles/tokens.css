@@ -1,274 +1,279 @@
 /* ============================================================================
- * Material Design 2 —— 令牌层
+ * Apple Human Interface Guidelines —— 令牌层
  *
- * 取值来源：m2.material.io 规范 + material-components-web 官方源码
- *   （_variables.scss：baseline 色板、25 级 elevation、duration/easing 表、
- *    button/textfield 的高度与字距）。
- *
- * 命名沿用 --md-sys-* 前缀（存量 500+ 处调用），但取值全部是 M2：
- *   · 颜色：primary #6200EE / secondary #03DAC6 / surface / onSurface 87-60-42-38% 黑
- *   · 命名：surface 分层 / on-surface 前景 / outline / chip / state-* 全部 M3 语义，
+ * 取值来源：developer.apple.com/design（iOS 系统色 / 动态字体 / 材质 / 控件尺寸），
+ * 语义命名沿用 --md-sys-* 前缀（存量 500+ 处调用），取值全部是 HIG：
+ *   · 颜色：系统分组底色 #F2F2F7、白卡、系统蓝 #0066CC 只给交互，不铺色块
+ *   · 命名：surface 分层 / on-surface 前景 / outline / chip / state-*，
  *     旧的 layer、support、text-*、border-* 名字不再保留
- *   · 形状：4px 圆角（按钮、卡片、输入框底座、对话框），chip 是 16px 胶囊
- *   · 高度：每级容器配一层三级影（umbra/penumbra/ambient），不再一律零高度
- *   · 动效：motion 表 short/medium/long 四档 × standard/decelerate/accelerate
- *   · 尺寸：按钮 36/32/28dp、输入框 56dp、触达区 48dp
+ *   · 形状：控件 10、卡片 16、浮层 14，胶囊/圆头 9999px
+ *   · 高度：卡片零影，影只留给浮层，且极淡双层
+ *   · 动效：iOS 缩短刻度（120–620ms），进出场用带过冲的缓出
+ *   · 尺寸：控件 34、行高 44（HIG 触达下限），不再是 M2 的 56 场高
  *
- * 亮色底 surface-01 用 #FFFFFF、surface 用 #FAFAFA，保持「卡片浮在灰底上」的层次；
- * 暗色按 M2 深色主题基线 #121212 + 逐级 overlay 抬升到 #383838。
+ * 分层靠「分组底色 + 白卡 + 分隔线」，不靠影；卡片绝不投影。
+ * 暗色走系统 Dark：纯黑画布 + #1C1C1E 卡 + #2C2C2E 抬升，不是灰蓝。
  *
- * M2 的状态是「表面叠加层」：hover = 主题色 4%、focus = 12%、pressed = 12%、
- * 拖选 = 8%，不是换色。所以 surface-hover/active/selected 是算好的实色叠加结果。
+ * 状态色是系统 fill 的半透明叠加（hover 8%、pressed/selected 16%），不是换色。
  * ========================================================================= */
 
-/* ── 亮色：M2 baseline light ───────────────────────────────────────────── */
+/* ── 亮色：HIG 系统外观 ───────────────────────────────────────────────── */
 :root {
-  --md-sys-color-surface: #fafafa;
-  --md-sys-color-state-pressed: rgba(0, 0, 0, 0.12);
-  --md-sys-color-primary: #6200ee;
-  --md-sys-color-state-hover: rgba(98, 0, 238, 0.04);
-  --md-sys-color-inverse-surface: #121212;
-  --md-sys-color-state-selected: rgba(98, 0, 238, 0.08);
+  /* 材质：顶栏 / 播放条的半透明底与浮层底色（blur 之下用） */
+  --md-sys-color-fill-quaternary: rgba(116, 116, 128, 0.12);
+  --md-sys-color-material-bar: rgba(249, 249, 249, 0.82);
+  --md-sys-color-material-sheet: rgba(255, 255, 255, 0.86);
 
-  /* layer：surface 是纯白卡片，叠层之间靠 elevation 影区分，不靠色差 */
+  /* 画布与层：分组列表底 + 白卡 */
+  --md-sys-color-surface: #f2f2f7;
   --md-sys-color-surface-01: #ffffff;
   --md-sys-color-surface-02: #ffffff;
-  --md-sys-color-surface-hover-01: #f5f5f5;
-  --md-sys-color-surface-hover-02: #f5f5f5;
-  --md-sys-color-surface-selected-01: #f0e8fd;
-  --md-sys-color-surface-selected-02: #f0e8fd;
-  /* accent 层：M2 里对应「浅灰底块」（onSurface 4% 叠在 surface 上） */
-  --md-sys-color-surface-variant-01: #f5f5f5;
-  --md-sys-color-surface-disabled-01: #ebebeb;
+  --md-sys-color-surface-hover-01: #f4f4f8;
+  --md-sys-color-surface-hover-02: #ebebf0;
+  --md-sys-color-surface-selected-01: #e8e8ed;
+  --md-sys-color-surface-selected-02: #dededf;
+  --md-sys-color-surface-variant-01: #eeeef3;
+  --md-sys-color-surface-disabled-01: #f2f2f7;
 
-  /* field：M2 filled 输入框底座 = onSurface 4%；聚焦后在下方压 primary */
-  --md-sys-color-field-01: #f5f5f5;
-  --md-sys-color-field-hover-01: #ebebeb;
+  --md-sys-color-field-01: #f2f2f7;
+  --md-sys-color-field-hover-01: #eaeaef;
 
-  /* border：M2 分割线是 onSurface 12%，中强调 38% */
-  --md-sys-color-outline-disabled: #cfcfcf;
-  --md-sys-color-outline-active: #6200ee;
-  --md-sys-color-outline-emphasis-01: #bdbdbd;
-  --md-sys-color-outline-emphasis: #bdbdbd;
-  --md-sys-color-outline-00: #e0e0e0;
-  --md-sys-color-outline-01: #e0e0e0;
-  --md-sys-color-outline: #e0e0e0;
+  /* 描边：HIG 用分隔线，不给控件描边框 */
+  --md-sys-color-outline-disabled: rgba(60, 60, 67, 0.18);
+  --md-sys-color-outline-active: #0066cc;
+  --md-sys-color-outline-emphasis-01: rgba(60, 60, 67, 0.36);
+  --md-sys-color-outline-emphasis: rgba(60, 60, 67, 0.29);
+  --md-sys-color-outline-00: rgba(60, 60, 67, 0.18);
+  /* 分隔线：比描边再淡一档。列表行只用它，不给行加边框 */
+  --md-sys-color-outline-variant-01: rgba(60, 60, 67, 0.2);
+  --md-sys-color-outline-01: rgba(60, 60, 67, 0.29);
+  --md-sys-color-outline: rgba(60, 60, 67, 0.29);
 
-  /* text：M2 强调梯度是 87% / 60% / 42% / 38%，不是固有色 */
-  --md-sys-color-on-surface: rgba(0, 0, 0, 0.87);
-  --md-sys-color-on-surface-medium: rgba(0, 0, 0, 0.6);
-  --md-sys-color-on-surface-helper: rgba(0, 0, 0, 0.6);
-  --md-sys-color-on-surface-placeholder: rgba(0, 0, 0, 0.42);
-  --md-sys-color-on-surface-disabled: rgba(0, 0, 0, 0.6);
+  /* 前景：label / secondaryLabel / tertiaryLabel / placeholderText */
+  --md-sys-color-on-surface: #000000;
+  --md-sys-color-on-surface-medium: rgba(60, 60, 67, 0.8);
+  --md-sys-color-on-surface-helper: rgba(60, 60, 67, 0.76);
+  --md-sys-color-on-surface-placeholder: rgba(60, 60, 67, 0.55);
+  --md-sys-color-on-surface-disabled: rgba(60, 60, 67, 0.78);
   --md-sys-color-on-inverse-surface: #ffffff;
-  /* 反色 surface 上的强调色（Snackbar 操作用），light 取 purple 200、dark 取 purple 700 */
-  --md-sys-color-on-inverse-primary: #bb86fc;
+  --md-sys-color-on-inverse-primary: #0a84ff;
   --md-sys-color-on-primary: #ffffff;
-  /* amber 在明暗两套里都是亮底，上面的字必须用深色才够 4.5:1 */
-  --md-sys-color-on-warning: rgba(0, 0, 0, 0.87);
+  --md-sys-color-on-warning: #ffffff;
 
-  --md-sys-color-link: #6200ee;
-  --md-sys-color-link-hover: #3700b3;
+  --md-sys-color-primary: #0066cc;
+  --md-sys-color-link: #0066cc;
+  --md-sys-color-link-hover: #0059b3;
 
-  --md-sys-color-error: #b00020;
-  --md-sys-color-success: #2e7d32;
-  --md-sys-color-warning: #f9a825;
-  --md-sys-color-info: #1976d2;
+  --md-sys-color-error: #c02419;
+  --md-sys-color-success: #146c2e;
+  --md-sys-color-warning: #8a4b06;
+  --md-sys-color-info: #0066cc;
 
-  /* M2 没有 focus 色令牌，取 primary；overlay 是 32% 黑幕 */
-  --md-sys-color-focus: #6200ee;
-  --md-sys-color-interactive: #6200ee;
-  --md-sys-color-highlight: rgba(98, 0, 238, 0.12);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.32);
-  --md-sys-color-skeleton-background: rgba(0, 0, 0, 0.08);
-  --md-sys-color-skeleton-element: rgba(0, 0, 0, 0.12);
+  --md-sys-color-focus: #0066cc;
+  --md-sys-color-interactive: #0066cc;
+  --md-sys-color-highlight: rgba(0, 102, 204, 0.14);
+  --md-sys-color-scrim: rgba(0, 0, 0, 0.4);
+  --md-sys-color-state-hover: rgba(120, 120, 128, 0.08);
+  --md-sys-color-state-pressed: rgba(120, 120, 128, 0.16);
+  --md-sys-color-state-selected: rgba(120, 120, 128, 0.16);
+  --md-sys-color-inverse-surface: #1c1c1e;
+  --md-sys-color-skeleton-background: #e8e8ed;
+  --md-sys-color-skeleton-element: #dcdce2;
 
-  /* tag / chip：M2 chip 是浅容器 + 深文字，成对给 */
-  --md-sys-color-chip-background-blue: #e3f2fd;
-  --md-sys-color-chip-color-blue: #0d47a1;
-  --md-sys-color-chip-background-cool-gray: #eceff1;
-  --md-sys-color-chip-color-cool-gray: #37474f;
-  --md-sys-color-chip-background-cyan: #e0f7fa;
-  --md-sys-color-chip-color-cyan: #006064;
-  --md-sys-color-chip-background-gray: #eeeeee;
-  --md-sys-color-chip-color-gray: #212121;
-  --md-sys-color-chip-background-green: #e8f5e9;
-  --md-sys-color-chip-color-green: #1b5e20;
-  --md-sys-color-chip-background-magenta: #fce4ec;
-  --md-sys-color-chip-color-magenta: #880e4f;
-  --md-sys-color-chip-background-purple: #f3e5f5;
-  --md-sys-color-chip-color-purple: #4a148c;
-  --md-sys-color-chip-background-red: #ffebee;
-  --md-sys-color-chip-color-red: #b71c1c;
-  --md-sys-color-chip-background-teal: #e0f2f1;
-  --md-sys-color-chip-color-teal: #004d40;
-  --md-sys-color-chip-background-warm-gray: #f5f0ef;
-  --md-sys-color-chip-color-warm-gray: #3e2723;
-}
+  /* tag / chip：系统色 12% 底 + 同色文字，胶囊形 */
+  --md-sys-color-chip-background-blue: rgba(0, 122, 255, 0.12);
+  --md-sys-color-chip-color-blue: #0059b3;
+  --md-sys-color-chip-background-cool-gray: rgba(120, 120, 128, 0.12);
+  --md-sys-color-chip-color-cool-gray: #5f5f66;
+  --md-sys-color-chip-background-cyan: rgba(50, 173, 230, 0.14);
+  --md-sys-color-chip-color-cyan: #0b6b8a;
+  --md-sys-color-chip-background-gray: rgba(120, 120, 128, 0.12);
+  --md-sys-color-chip-color-gray: #55555c;
+  --md-sys-color-chip-background-green: rgba(52, 199, 89, 0.14);
+  --md-sys-color-chip-color-green: #146c2e;
+  --md-sys-color-chip-background-magenta: rgba(255, 45, 85, 0.12);
+  --md-sys-color-chip-color-magenta: #b81f3f;
+  --md-sys-color-chip-background-purple: rgba(175, 82, 222, 0.14);
+  --md-sys-color-chip-color-purple: #7d3aa8;
+  --md-sys-color-chip-background-red: rgba(255, 59, 48, 0.12);
+  --md-sys-color-chip-color-red: #c02419;
+  --md-sys-color-chip-background-teal: rgba(48, 176, 199, 0.14);
+  --md-sys-color-chip-color-teal: #0a6675;
+  --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.14);
+  --md-sys-color-chip-color-warm-gray: #5f5f66;
 
-/* ── 暗色：M2 dark baseline + 逐级 overlay 抬升 ───────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --md-sys-color-surface: #121212;
-    --md-sys-color-state-pressed: rgba(255, 255, 255, 0.12);
-    --md-sys-color-primary: #bb86fc;
-    --md-sys-color-state-hover: rgba(187, 134, 252, 0.08);
-    --md-sys-color-inverse-surface: #e8e8e8;
-    --md-sys-color-state-selected: rgba(187, 134, 252, 0.12);
-
-    --md-sys-color-surface-01: #1e1e1e;
-    --md-sys-color-surface-02: #232323;
-    --md-sys-color-surface-hover-01: #2b2b2b;
-    --md-sys-color-surface-hover-02: #303030;
-    --md-sys-color-surface-selected-01: #2f2a33;
-    --md-sys-color-surface-selected-02: #34303a;
-    --md-sys-color-surface-variant-01: #252525;
-    --md-sys-color-surface-disabled-01: #1e1e1e;
-
-    --md-sys-color-field-01: #252525;
-    --md-sys-color-field-hover-01: #2c2c2c;
-
-    --md-sys-color-outline-disabled: #3f3f3f;
-    --md-sys-color-outline-active: #bb86fc;
-    --md-sys-color-outline-emphasis-01: #5c5c5c;
-    --md-sys-color-outline-emphasis: #5c5c5c;
-    --md-sys-color-outline-00: #2c2c2c;
-    --md-sys-color-outline-01: #2c2c2c;
-    --md-sys-color-outline: #2c2c2c;
-
-    --md-sys-color-on-surface: rgba(255, 255, 255, 0.87);
-    --md-sys-color-on-surface-medium: rgba(255, 255, 255, 0.6);
-    --md-sys-color-on-surface-helper: rgba(255, 255, 255, 0.6);
-    --md-sys-color-on-surface-placeholder: rgba(255, 255, 255, 0.42);
-    --md-sys-color-on-surface-disabled: rgba(255, 255, 255, 0.6);
-    --md-sys-color-on-inverse-surface: #121212;
-    --md-sys-color-on-inverse-primary: #6200ee;
-    --md-sys-color-on-warning: rgba(0, 0, 0, 0.87);
-    --md-sys-color-on-primary: #000000;
-
-    --md-sys-color-link: #bb86fc;
-    --md-sys-color-link-hover: #ce93f8;
-
-    --md-sys-color-error: #cf6679;
-    --md-sys-color-success: #81c784;
-    --md-sys-color-warning: #ffd54f;
-    --md-sys-color-info: #64b5f6;
-
-    --md-sys-color-focus: #bb86fc;
-    --md-sys-color-interactive: #bb86fc;
-    --md-sys-color-highlight: rgba(187, 134, 252, 0.16);
-    --md-sys-color-scrim: rgba(0, 0, 0, 0.55);
-    --md-sys-color-skeleton-background: #252525;
-    --md-sys-color-skeleton-element: #2e2e2e;
-
-    --md-sys-color-chip-background-blue: #1a2c3d;
-    --md-sys-color-chip-color-blue: #90caf9;
-    --md-sys-color-chip-background-cool-gray: #26292b;
-    --md-sys-color-chip-color-cool-gray: #b0bec5;
-    --md-sys-color-chip-background-cyan: #103034;
-    --md-sys-color-chip-color-cyan: #80deea;
-    --md-sys-color-chip-background-gray: #2c2c2c;
-    --md-sys-color-chip-color-gray: #e0e0e0;
-    --md-sys-color-chip-background-green: #1b2e1d;
-    --md-sys-color-chip-color-green: #a5d6a7;
-    --md-sys-color-chip-background-magenta: #38131f;
-    --md-sys-color-chip-color-magenta: #f48fb1;
-    --md-sys-color-chip-background-purple: #2d1b33;
-    --md-sys-color-chip-color-purple: #ce93d8;
-    --md-sys-color-chip-background-red: #38191b;
-    --md-sys-color-chip-color-red: #ef9a9a;
-    --md-sys-color-chip-background-teal: #0e2a27;
-    --md-sys-color-chip-color-teal: #80cbc4;
-    --md-sys-color-chip-background-warm-gray: #2a2624;
-    --md-sys-color-chip-color-warm-gray: #d7ccc8;
-  }
-}
-
-/* ── 按钮：M2 的三种基底都有容器色，文字色由「容器反色」决定 ─────────── */
-:root {
-  --md-sys-color-button-contained: #6200ee;
-  --md-sys-color-button-contained-hover: #6200ee;
-  --md-sys-color-button-contained-active: #3700b3;
-  --md-sys-color-button-outlined: #eeeeee;
-  --md-sys-color-button-outlined-hover: #e0e0e0;
-  --md-sys-color-button-outlined-active: #d5d5d5;
-  --md-sys-color-button-contained-error: #b00020;
-  --md-sys-color-button-error-hover: #93001b;
-  --md-sys-color-button-error-active: #7a0016;
-  --md-sys-color-button-contained-disabled: rgba(0, 0, 0, 0.12);
+  /* 按钮：tint 填充主按钮；outlined 变体走浅填充而不是描边 */
+  --md-sys-color-button-contained: #0066cc;
+  --md-sys-color-button-contained-hover: #0059b3;
+  --md-sys-color-button-contained-active: #004a99;
+  --md-sys-color-button-contained-disabled: #e9e9eb;
+  --md-sys-color-button-outlined: rgba(120, 120, 128, 0.12);
+  --md-sys-color-button-outlined-hover: rgba(120, 120, 128, 0.2);
+  --md-sys-color-button-outlined-active: rgba(120, 120, 128, 0.28);
+  --md-sys-color-button-contained-error: #c02419;
+  --md-sys-color-button-error-hover: #a81d14;
+  --md-sys-color-button-error-active: #8f1710;
   --md-sys-color-on-button-contained: #ffffff;
-  --md-sys-color-on-button-outlined: #6200ee;
+  --md-sys-color-on-button-outlined: #0066cc;
 }
 
+/* ── 暗色：系统 Dark ──────────────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root {
-    --md-sys-color-button-contained: #bb86fc;
-    --md-sys-color-button-contained-hover: #bb86fc;
-    --md-sys-color-button-contained-active: #9d6ce0;
-    --md-sys-color-button-outlined: #2c2c2c;
-    --md-sys-color-button-outlined-hover: #363636;
-    --md-sys-color-button-outlined-active: #404040;
-    --md-sys-color-button-contained-error: #cf6679;
-    --md-sys-color-button-error-hover: #d97d8d;
-    --md-sys-color-button-error-active: #e295a3;
-    --md-sys-color-button-contained-disabled: rgba(255, 255, 255, 0.12);
-    --md-sys-color-on-button-contained: #000000;
-    --md-sys-color-on-button-outlined: #bb86fc;
+    --md-sys-color-fill-quaternary: rgba(118, 118, 128, 0.24);
+    --md-sys-color-material-bar: rgba(28, 28, 30, 0.82);
+    --md-sys-color-material-sheet: rgba(44, 44, 46, 0.88);
+
+    /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
+    --md-sys-color-surface: #000000;
+    --md-sys-color-surface-01: #1c1c1e;
+    --md-sys-color-surface-02: #1c1c1e;
+    --md-sys-color-surface-hover-01: #262628;
+    --md-sys-color-surface-hover-02: #2c2c2e;
+    --md-sys-color-surface-selected-01: #2c2c2e;
+    --md-sys-color-surface-selected-02: #363638;
+    --md-sys-color-surface-variant-01: #2c2c2e;
+    --md-sys-color-surface-disabled-01: #1c1c1e;
+
+    --md-sys-color-field-01: #1c1c1e;
+    --md-sys-color-field-hover-01: #262628;
+
+    --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
+    --md-sys-color-outline-active: #4aa3ff;
+    --md-sys-color-outline-emphasis-01: rgba(84, 84, 88, 0.8);
+    --md-sys-color-outline-emphasis: rgba(84, 84, 88, 0.65);
+    --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
+    --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);
+    --md-sys-color-outline-01: rgba(84, 84, 88, 0.65);
+    --md-sys-color-outline: rgba(84, 84, 88, 0.65);
+
+    --md-sys-color-on-surface: #ffffff;
+    --md-sys-color-on-surface-medium: rgba(235, 235, 245, 0.6);
+    --md-sys-color-on-surface-helper: rgba(235, 235, 245, 0.55);
+    --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.4);
+    --md-sys-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
+    --md-sys-color-on-inverse-surface: #000000;
+    --md-sys-color-on-inverse-primary: #0066cc;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-on-warning: #00131f;
+
+    --md-sys-color-primary: #0a72d6;
+    --md-sys-color-link: #4aa3ff;
+    --md-sys-color-link-hover: #79baff;
+
+    --md-sys-color-error: #ff453a;
+    --md-sys-color-success: #2a9d47;
+    --md-sys-color-warning: #ff9f0a;
+    --md-sys-color-info: #4aa3ff;
+
+    --md-sys-color-focus: #4aa3ff;
+    --md-sys-color-interactive: #4aa3ff;
+    --md-sys-color-highlight: rgba(10, 132, 255, 0.22);
+    --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
+    --md-sys-color-state-hover: rgba(118, 118, 128, 0.16);
+    --md-sys-color-state-pressed: rgba(118, 118, 128, 0.24);
+    --md-sys-color-state-selected: rgba(118, 118, 128, 0.24);
+    --md-sys-color-inverse-surface: #f2f2f7;
+    --md-sys-color-skeleton-background: #2c2c2e;
+    --md-sys-color-skeleton-element: #363638;
+
+    --md-sys-color-chip-background-blue: rgba(10, 132, 255, 0.22);
+    --md-sys-color-chip-color-blue: #8cc4ff;
+    --md-sys-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
+    --md-sys-color-chip-color-cool-gray: #d6d6db;
+    --md-sys-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
+    --md-sys-color-chip-color-cyan: #93e3ff;
+    --md-sys-color-chip-background-gray: rgba(118, 118, 128, 0.24);
+    --md-sys-color-chip-color-gray: #d6d6db;
+    --md-sys-color-chip-background-green: rgba(48, 209, 88, 0.22);
+    --md-sys-color-chip-color-green: #7eeb95;
+    --md-sys-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
+    --md-sys-color-chip-color-magenta: #ff96a8;
+    --md-sys-color-chip-background-purple: rgba(191, 90, 242, 0.24);
+    --md-sys-color-chip-color-purple: #d6a2ff;
+    --md-sys-color-chip-background-red: rgba(255, 69, 58, 0.22);
+    --md-sys-color-chip-color-red: #ff9b91;
+    --md-sys-color-chip-background-teal: rgba(64, 200, 224, 0.22);
+    --md-sys-color-chip-color-teal: #96e8f4;
+    --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
+    --md-sys-color-chip-color-warm-gray: #d6d6db;
+
+    --md-sys-color-button-contained: #0a72d6;
+    --md-sys-color-button-contained-hover: #0d6fd0;
+    --md-sys-color-button-contained-active: #0a63bd;
+    --md-sys-color-button-contained-disabled: #2c2c2e;
+    --md-sys-color-button-outlined: rgba(118, 118, 128, 0.24);
+    --md-sys-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
+    --md-sys-color-button-outlined-active: rgba(118, 118, 128, 0.4);
+    --md-sys-color-button-contained-error: #d92f26;
+    --md-sys-color-button-error-hover: #cc332a;
+    --md-sys-color-button-error-active: #b82a22;
+    --md-sys-color-on-button-contained: #ffffff;
+    --md-sys-color-on-button-outlined: #79baff;
   }
 }
 
-/* ── 圆角：M2 形状刻度（2/4/8/16/24，胶囊 max） ───────────────────────── */
+/* ── 圆角：HIG 形状刻度（控件 10、卡片 16、浮层 14、胶囊 max） ─────────── */
 :root {
   --md-sys-shape-02: 0.125rem;
   --md-sys-shape-04: 0.25rem;
   --md-sys-shape-08: 0.5rem;
   --md-sys-shape-16: 1rem;
-  --md-sys-shape-24: 1.5rem;
+  --md-sys-shape-24: 1.25rem;
   --md-sys-shape-max: 999999px;
-  /* 全圆头别名（rail 条目等需要"圆形"语义而非"胶囊"语义时用） */
+  /* 全圆头别名（rail 条目等需要「圆形」语义而非「胶囊」语义时用） */
   --md-sys-shape-full: 999999px;
-  /* 组件默认形状：按钮、卡片、输入框底座、对话框统一 4px */
-  --md-sys-shape-control: 0.25rem;
-  --md-sys-shape-container: 0.25rem;
-  /* 浮层形状（菜单/对话框/抽屉/snackbar）：默认跟容器同值，皮肤可改大 */
-  --md-sys-shape-overlay: var(--md-sys-shape-container);
+  /* 组件默认形状：控件 10、容器 16、浮层 14 */
+  --md-sys-shape-control: 0.625rem;
+  --md-sys-shape-container: 1rem;
+  --md-sys-shape-overlay: 0.875rem;
 }
 
-/* ── 高度：25 级 elevation 的三段影（umbra / penumbra / ambient） ─────── */
+/* ── 深度：卡片零影，影只给浮层，且极淡双层 ──────────────────────────── */
 :root {
-  --md-sys-elevation-01: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-02: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-04: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-06: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-    0 1px 18px 0 rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-08: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-16: 0 8px 10px -5px rgba(0, 0, 0, 0.2), 0 16px 24px 2px rgba(0, 0, 0, 0.14),
-    0 6px 30px 5px rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-24: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14),
-    0 9px 46px 8px rgba(0, 0, 0, 0.12);
-  /* 用于浮层的单值别名（下拉、popover 走 8dp） */
-  --md-sys-shadow-overlay: var(--md-sys-elevation-08);
+  --md-sys-elevation-01: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.16);
+  --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.18);
+  --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+  /* 手柄/滑块「悬浮实体」影：小件 + 微描边，只给开关与滑块拇指 */
+  --md-sys-shadow-thumb:
+    0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  /* 分段控件选中项的浮起影（比 overlay 小一档，只用在内嵌小件上） */
+  --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.12);
+  /* 选中项外沿半像素加硬边（分段控件靠这个把片与底拉开） */
+  --md-sys-shadow-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
-/* ── 动效：M2 motion 表 short/medium/long + 四条标准曲线 ──────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+    --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
+    --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
+    --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
+    --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
+    --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
+    --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
+    --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+    --md-sys-shadow-thumb:
+      0 3px 8px rgba(0, 0, 0, 0.6), 0 3px 1px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.4);
+    --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
+    --md-sys-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+  }
+}
+
+/* ── 动效：iOS 缩短刻度，进出场用带过冲的缓出 ─────────────────────────── */
 :root {
-  --md-sys-motion-short-2: 100ms;
-  --md-sys-motion-short-3: 150ms;
-  --md-sys-motion-short-4: 200ms;
-  --md-sys-motion-medium-2: 300ms;
-  --md-sys-motion-long-2: 400ms;
-  --md-sys-motion-long-4: 600ms;
+  --md-sys-motion-short-2: 120ms;
+  --md-sys-motion-short-3: 180ms;
+  --md-sys-motion-short-4: 240ms;
+  --md-sys-motion-medium-2: 320ms;
+  --md-sys-motion-long-2: 420ms;
+  --md-sys-motion-long-4: 620ms;
 
-  --md-sys-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --md-sys-motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
-  --md-sys-motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
-  --md-sys-motion-ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
-
-  /* 六档时长：全部落在 M2 motion 表的 short/medium/long 上，不引入新刻度 */
   --md-sys-motion-duration-fast-01: var(--md-sys-motion-short-2);
   --md-sys-motion-duration-fast-02: var(--md-sys-motion-short-3);
   --md-sys-motion-duration-moderate-01: var(--md-sys-motion-short-4);
@@ -276,31 +281,69 @@
   --md-sys-motion-duration-slow-01: var(--md-sys-motion-long-2);
   --md-sys-motion-duration-slow-02: var(--md-sys-motion-long-4);
 
-  /* 六条曲线：标准用 standard，进出场用 decelerate / accelerate */
-  --md-sys-motion-ease-standard-productive: var(--md-sys-motion-ease-standard);
-  --md-sys-motion-ease-standard-expressive: var(--md-sys-motion-ease-sharp);
-  --md-sys-motion-ease-entrance-productive: var(--md-sys-motion-ease-decelerate);
-  --md-sys-motion-ease-entrance-expressive: var(--md-sys-motion-ease-decelerate);
-  --md-sys-motion-ease-exit-productive: var(--md-sys-motion-ease-accelerate);
-  --md-sys-motion-ease-exit-expressive: var(--md-sys-motion-ease-accelerate);
+  --md-sys-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --md-sys-motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --md-sys-motion-ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 
+  --md-sys-motion-ease-standard-productive: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-ease-standard-expressive: cubic-bezier(0.32, 0.72, 0, 1);
+  --md-sys-motion-ease-entrance-productive: cubic-bezier(0, 0, 0.2, 1);
+  --md-sys-motion-ease-entrance-expressive: cubic-bezier(0.32, 0.72, 0, 1);
+  --md-sys-motion-ease-exit-productive: cubic-bezier(0.4, 0, 1, 1);
+  --md-sys-motion-ease-exit-expressive: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* ── 尺寸：M2 组件高度与触达区（dp → px 1:1） ─────────────────────────── */
+/* ── 尺寸：控件 34、行高 44（HIG 触达下限，不是 M2 的 56 场高） ────────── */
 :root {
-  --md-sys-size-lg: 2.25rem; /* 36px 主按钮 / 输入框底座 */
-  /* 控件高度档位：锚在 --md-sys-size-lg 上，皮肤改 lg 即可整体缩放 */
-  --md-sys-size-control-xs: calc(var(--md-sys-size-lg) - 0.5rem); /* 28px */
-  --md-sys-size-control-sm: calc(var(--md-sys-size-lg) - 0.25rem); /* 32px */
-  --md-sys-size-control: var(--md-sys-size-lg); /* 36px 默认 */
-  --md-sys-size-control-lg: calc(var(--md-sys-size-lg) + 0.25rem); /* 40px */
-  --md-sys-size-control-xl: calc(var(--md-sys-size-lg) + 0.75rem); /* 48px */
-  --md-sys-size-control-2xl: calc(var(--md-sys-size-lg) + 1.25rem); /* 56px 大图标按钮 */
-  --md-sys-size-field: 3.5rem; /* 56px filled text field 高度 */
-  --md-sys-size-touch-target: 3rem; /* 48px 最小触达区 */
-  --md-sys-size-row: 3rem; /* 48px 列表/菜单行高（皮肤按各自规范收窄） */
-  --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 0.75rem); /* 24px 小记号 */
-  --md-sys-size-switch-track-h: 0.875rem; /* 14px 开关轨道 */
-  --md-sys-size-switch-track-w: 2.125rem; /* 34px 开关轨道 */
+  --md-sys-size-lg: 2.75rem; /* 44px 主按钮 */
+  /* 控件高度档位：锚在 --md-sys-size-lg 上，改 lg 即可整体缩放 */
+  --md-sys-size-control-xs: calc(var(--md-sys-size-lg) - 0.5rem); /* 36px */
+  --md-sys-size-control-sm: calc(var(--md-sys-size-lg) - 0.375rem); /* 38px */
+  --md-sys-size-control: calc(var(--md-sys-size-lg) - 0.25rem); /* 40px 默认 */
+  --md-sys-size-control-lg: var(--md-sys-size-lg); /* 44px */
+  --md-sys-size-control-xl: calc(var(--md-sys-size-lg) + 0.25rem); /* 48px */
+  --md-sys-size-control-2xl: calc(var(--md-sys-size-lg) + 0.75rem); /* 56px 大图标按钮 */
+  --md-sys-size-field: 2.75rem; /* 44px 输入框 */
+  --md-sys-size-touch-target: 2.75rem; /* 44px 最小触达区 */
+  --md-sys-size-row: 2.75rem; /* 44px 列表/菜单行高 */
+  --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 1rem); /* 28px 小记号 */
+  --md-sys-size-switch-track-h: 2rem; /* 32px 开关轨道 */
+  --md-sys-size-switch-track-w: 3.25rem; /* 52px 开关轨道 */
   --md-sys-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
+}
+
+/* ── 层叠顺序 ──────────────────────────────────────────────────────────
+ * 全站只许引用这十档，不许再写字面量 z-index——写死值会随页面增加互相比大，
+ * 像旧版顶栏与左侧栏那样靠 DOM 顺序偶然决定谁盖住谁。
+ * 数值留 10 的间隔，新增元素插档时不必改动其它层。
+ * 数值从低到高，与下面的声明顺序一致。
+ *   rail   侧栏，从顶栏底边起算
+ *   banner 提示条，紧贴顶栏下方
+ *   header 顶栏：高于 rail / banner，被浮层与常驻件压住
+ *   modal  半屏模态浮层（抽屉 / 弹出式对话框），盖住 header、rail、banner，
+ *          但盖不住 dock——见下一条
+ *   dock   底部常驻件，永远压在内容与半屏浮层之上：它带自己的实体底，
+ *          被抽屉盖住的都是主内容而不是它，所以抽屉展开时照样能切 tab / 切歌
+ *          （tab bar 在下，播放条在其上）。代价是底部控件与它重叠：
+ *          `SearchableSelect` 这类贴底弹层要把可用高度算到它的上沿
+ *   modal-full 全屏沉浸浮层（灯箱 / 全屏歌词）：自带完整控制，要盖住 dock
+ *          （全屏场景下切 tab / 切歌都能在浮层里做，露一截底栏反而分心）
+ *   popover 锚定浮层（菜单 / 下拉 / 选择器）：高于 dock 与浮层——它常从
+ *          抽屉、底部控件里长出来，低于自己的宿主就会被宿主盖掉，
+ *          列表尾部也会钻进底栏底下
+ *   toast  全局通知，不参与遮挡关系
+ *   skip   跳转链接：只在获得焦点时出现，必须高于一切
+ */
+:root {
+  --md-sys-layer-rail: 10;
+  --md-sys-layer-banner: 20;
+  --md-sys-layer-header: 30;
+  --md-sys-layer-modal: 50;
+  --md-sys-layer-dock: 60;
+  --md-sys-layer-dock-player: 61;
+  --md-sys-layer-modal-full: 65;
+  --md-sys-layer-popover: 70;
+  --md-sys-layer-toast: 75;
+  --md-sys-layer-skip: 80;
 }

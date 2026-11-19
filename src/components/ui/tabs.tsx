@@ -4,11 +4,11 @@ import * as React from 'react'
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Tabs（fixed，指示条在下方）
+/* Tabs —— 按 iOS 分段控件（segmented control）取形
  *
- * M2 的页签是 48dp 高、button 排版（14sp/500/大写 1.25px）、60% 文字色，
- * 选中项转 primary 满不透明；指示条是 primary 2dp，用 inset 阴影画所以不改高。
- * 未选中项没有下划线，hover 只叠 4% primary 状态层。
+ * `hig.css` 把 `[role='tablist']` 画成一块 `field-01` 底的可滑分段：整条 10px 圆角、
+ * 选中段是实白血块加一线描边。所以这里不再需要 M2 的下划线指示条，
+ * 高度/字重/未选中色都在样式表里统一，组件只管语义。
  */
 const Tabs = TabsPrimitive.Root
 
@@ -34,11 +34,10 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex h-(--md-sys-size-control-xl) flex-none items-center justify-center gap-2 whitespace-nowrap px-4 text-button text-on-surface-medium uppercase',
+      'inline-flex h-(--md-sys-size-control-sm) flex-none items-center justify-center gap-2 whitespace-nowrap px-4 text-body-02 text-on-surface-medium',
       'transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
-      'hover:bg-state-hover hover:text-link',
-      'data-[state=active]:text-link data-[state=active]:shadow-[inset_0_-2px_0_0_var(--md-sys-color-interactive)]',
-      'data-[state=active]:hover:bg-state-hover',
+      'hover:bg-state-hover hover:text-on-surface',
+      'data-[state=active]:text-on-surface',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
       'disabled:pointer-events-none disabled:text-on-surface-disabled',
       className

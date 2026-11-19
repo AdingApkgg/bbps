@@ -1,21 +1,17 @@
 'use client'
 
-import * as React from 'react'
+import type * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { Check, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Checkbox
+/* Checkbox
  *
- * 规格取自 m2.material.io/components/checkboxes 与 material-components-web 的
- * checkbox/_variables.scss：
- *  - 方框 18×18、radius 2dp、2dp 边框；
- *  - 未选中边框 = onSurface 54%（on-surface-medium），选中 = primary 实心 + 白勾；
- *  - indeterminate 同样是选中态，内容换成横线；
- *  - 状态层叠在 40dp 触达圆上（比方框每边多 11dp）：hover 4%、focus 12%、pressed 12%；
- *  - focus 是 2px primary 描边，外扩 2px。
+ * 结构与 Radix 语义沿用 M2（40dp 触达圆上的状态层、Space 切换、indeterminate），
+ * 形状换成 HIG：19×19、10px 圆角（`--md-sys-shape-08`）、1.5px 描边，
+ * 选中是 success 绿实心 + 白勾（`hig.css` 的 `[data-slot="checkbox"]` 钩子）。
  *
- * 勾用 lucide 的 Check/Minus，尺寸 14 保证在 18dp 框里留 2dp 内边距。
+ * 勾用 lucide 的 Check/Minus，尺寸 14 保证在 19px 框里留内边距。
  */
 function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
@@ -44,8 +40,16 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
         data-slot="checkbox-indicator"
         className="flex items-center justify-center text-on-button-contained"
       >
-        <Check aria-hidden className="size-3.5 group-data-[state=indeterminate]:hidden" strokeWidth={3} />
-        <Minus aria-hidden className="hidden size-3.5 group-data-[state=indeterminate]:block" strokeWidth={3} />
+        <Check
+          aria-hidden
+          className="size-3.5 group-data-[state=indeterminate]:hidden"
+          strokeWidth={3}
+        />
+        <Minus
+          aria-hidden
+          className="hidden size-3.5 group-data-[state=indeterminate]:block"
+          strokeWidth={3}
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )

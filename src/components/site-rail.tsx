@@ -6,8 +6,8 @@ import { SiteNavList } from '@/components/site-nav-list'
 
 /* 桌面左侧导航栏（IBM Carbon UI shell 的 left panel）
  *
- * 只在 carbon 皮肤下由 CSS 显示；M2 默认、apple、fluent 分别走各自的结构。
- * 常驻 DOM 以保证皮肤切换不重挂载。
+ * 只在宽屏显示，由 CSS 控制；窄屏走抽屉，结构不同。
+ * 常驻 DOM 以保证显示状态切换不重挂载。
  */
 export function SiteRail() {
   const locale = useLocale()

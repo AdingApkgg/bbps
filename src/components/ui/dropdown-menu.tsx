@@ -48,11 +48,11 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-50 min-w-[11.5rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface shadow-scrim',
+      'z-(--md-sys-layer-popover) min-w-[11.5rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-        'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
-        'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
-'data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1',
+      'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
+      'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
+      'data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1',
       className
     )}
     {...props}
@@ -69,11 +69,11 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'relative z-50 max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[11.5rem] overflow-y-auto overflow-x-hidden rounded-sm bg-surface-02 py-2 text-on-surface shadow-scrim',
+        'relative z-(--md-sys-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[11.5rem] overflow-y-auto overflow-x-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
         'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
-'data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1',
+        'data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1',
         className
       )}
       {...props}
@@ -182,7 +182,9 @@ const DropdownMenuSeparator = React.forwardRef<
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
-  return <span className={cn('ml-auto text-caption text-on-surface-medium', className)} {...props} />
+  return (
+    <span className={cn('ml-auto text-caption text-on-surface-medium', className)} {...props} />
+  )
 }
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'
 

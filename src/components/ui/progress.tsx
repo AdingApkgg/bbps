@@ -1,16 +1,14 @@
 'use client'
 
-import * as React from 'react'
+import type * as React from 'react'
 import * as ProgressPrimitive from '@radix-ui/react-progress'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Linear progress
+/* Linear progress
  *
- * 规格取自 m2.material.io/components/progress-indicators 与 material-components-web 的
- * linear-progress/_variables.scss：
- *  - 轨道 4dp 直角，primary 24%；填充段 primary 实心；
- *  - 缓冲段（buffer）primary 24% 叠在已填充之后（base 12% / buffer 24% 的分层在 M2 里是两级）；
- *  - 不确定态是两段互相追赶的动画，用 keyframes 写在 globals.css 的 .md-linear-indeterminate。
+ * 结构还是 M2 的两段（轨道 + 填充，buffer 态再叠一层），但形状按 HIG 收圆：
+ * M2 是 4dp 直角，这里 4px 轨道两端走胶囊。不确定态也是两段互相追赶，
+ * 用 keyframes 写在 globals.css 的 .md-linear-indeterminate。
  *
  * 轨道本身没有 min-height，高度由 --md-sys-size-progress-height 决定，附着在 body 顶部时可设得更细。
  */
@@ -25,15 +23,15 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden bg-primary/24',
-        className,
+        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden rounded-full bg-primary/24',
+        className
       )}
       value={value}
       {...props}
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="h-full bg-primary transition-[width] duration-moderate-01 ease-decelerate"
+        className="h-full rounded-full bg-primary transition-[width] duration-moderate-01 ease-decelerate"
         style={{ width: `${pct}%` }}
       />
     </ProgressPrimitive.Root>
@@ -49,8 +47,8 @@ function ProgressIndeterminate({ className, ...props }: React.ComponentProps<'di
       role="progressbar"
       aria-valuetext="loading"
       className={cn(
-        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden bg-primary/24',
-        className,
+        'relative h-(--md-sys-size-progress-height) w-full overflow-hidden rounded-full bg-primary/24',
+        className
       )}
       {...props}
     >

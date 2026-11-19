@@ -5,19 +5,18 @@ import type { ReactNode } from 'react'
 
 /* 动效
  *
- * 进场一律 decelerate，时长按场景取 M2 motion 表：
- *  - 展开 / 揭示类（本文件的滚动进场）= medium-2（300ms）；
+ * 进场一律 out 曲线、急停，HIG 的时长（0.2–0.35s，没有回弹）：
+ *  - 展开 / 揭示类（本文件的滚动进场）= 0.3s；
  *  - 位移距离很短，成组的元素才用 stagger，单项不会飞很远。
- * 曲线就是 M2 的 --md-sys-motion-ease-decelerate / -accelerate，数值一致到每一位；
- * 前段起手快、末段收得干净，没有回弹（framer 的 'easeOut' 会被替换掉）。
+ * 曲线数值与 --md-sys-motion-ease-entrance / -exit 一致到每一位；
  * framer 只吃数字，读不了 CSS 变量，所以这里复制一份常量，改令牌时必须同步。
  */
-export const DURATION_REVEAL = 0.3 // = --md-sys-motion-medium-2
-export const DURATION_FAST = 0.15 // = --md-sys-motion-short-3
-/* 展开 / 折叠（手风琴、设置面板）：M2 的 short-4（200ms） */
-export const DURATION_DISCLOSURE = 0.2 // = --md-sys-motion-short-4
-export const EASE_ENTRANCE = [0, 0, 0.2, 1] as const // = --md-sys-motion-ease-decelerate
-export const EASE_EXIT = [0.4, 0, 1, 1] as const // = --md-sys-motion-ease-accelerate
+export const DURATION_REVEAL = 0.3 // = --md-sys-motion-duration-moderate-02
+export const DURATION_FAST = 0.15 // = --md-sys-motion-duration-fast-02
+/* 展开 / 折叠（手风琴、设置面板）：0.2s，与 fast-02 同档上浮 */
+export const DURATION_DISCLOSURE = 0.2 // = --md-sys-motion-duration-moderate-01
+export const EASE_ENTRANCE = [0, 0, 0.2, 1] as const // = --md-sys-motion-ease-entrance
+export const EASE_EXIT = [0.4, 0, 1, 1] as const // = --md-sys-motion-ease-exit
 
 /* framer 自己用 JS 跑动画，全局 CSS 里那条 reduce 覆盖管不到它，
  * 所以每个过渡都要过一遍这个钩子：reduce 下时长归零，位移和缩放直接落位。 */

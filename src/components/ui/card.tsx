@@ -1,18 +1,23 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Card
+/* 分组区段（原 Card）
  *
- * M2 的卡片是「surface 色 + 4dp 圆角 + 1dp elevation」，靠高度从灰底浮出来，
- * 内边距 16dp；resting 状态只有 1dp 影，交互卡片 hover 才升到 2–4dp。
- * 标题用 subtitle1（16px/500/0.15px）。
+ * HIG 的做法不是「卡片」而是「分组区段」：一块 10dp 圆角的容器铺在分组底色上，
+ * 行之间 0.5px 缩进分隔线，区段本身零边框、零投影。标题退到容器外的上一行，
+ * 13px 次要色，像 iOS「设置」的分组抬头那样。
+ *
+ * 结构语义保留：`data-slot="card"` 同时是列表容器的钩子（hig.css 的
+ * `[data-list-group]`），所以区段内的行自动拿分隔线；单独使用时它就是一个
+ * 内容块，不再有边框和影。
  */
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('rounded-sm bg-surface-01 p-4 text-on-surface shadow-sm', className)}
+      className={cn('overflow-hidden rounded-sm bg-surface-02', className)}
       data-slot="card"
+      data-list-group
       {...props}
     />
   )
@@ -23,7 +28,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('mb-4 flex flex-col gap-1', className)}
+      className={cn('flex items-center justify-between gap-3 px-4 pt-4 pb-2', className)}
       data-slot="card-header"
       {...props}
     />
@@ -31,11 +36,12 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 )
 CardHeader.displayName = 'CardHeader'
 
+/* 区段标题：13px 次要色，行首缩进与行内容对齐 */
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3
+    <h2
       ref={ref}
-      className={cn('text-title-md font-medium text-on-surface', className)}
+      className={cn('text-label font-semibold text-on-surface-medium', className)}
       data-slot="card-title"
       {...props}
     />
@@ -47,20 +53,54 @@ const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-body-02 text-on-surface-medium', className)} {...props} />
+  <p
+    ref={ref}
+    className={cn('text-label text-on-surface-medium', className)}
+    data-slot="card-description"
+    {...props}
+  />
 ))
 CardDescription.displayName = 'CardDescription'
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => <div ref={ref} className={cn(className)} {...props} />
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('px-4 pb-4', className)} data-slot="card-content" {...props} />
+  )
 )
 CardContent.displayName = 'CardContent'
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('mt-4 flex items-center gap-3', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('mt-3 flex items-center gap-3 text-label', className)}
+      data-slot="card-footer"
+      {...props}
+    />
   )
 )
 CardFooter.displayName = 'CardFooter'
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+/* 区段内的一行
+ *
+ * 分隔线与缩进由来 `hig.css` 的 `[data-list-item]::after` 画，所以行本身不写边框；
+ * 用法固定为「图标在左、标题/说明两行在左、尾部控件或 chevron 在右」。
+ * 可当 `<li>` 用（渲染成 div 时外面要补 `role="listitem"`）。
+ */
+const CardRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        'flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02',
+        'hover:bg-surface-hover-01 active:bg-surface-pressed-01',
+        className
+      )}
+      data-list-item
+      {...props}
+    />
+  )
+)
+CardRow.displayName = 'CardRow'
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardRow }

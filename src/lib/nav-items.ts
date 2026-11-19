@@ -1,7 +1,17 @@
 import type { LucideIcon } from 'lucide-react'
 import {
-  Download, Terminal, BarChart3, Trophy, Map, Newspaper,
-  Shield, Users, Images, Music, MessageSquare, HardDrive
+  Download,
+  Terminal,
+  BarChart3,
+  Trophy,
+  Map,
+  Newspaper,
+  Shield,
+  Users,
+  Images,
+  Music,
+  MessageSquare,
+  HardDrive
 } from 'lucide-react'
 import type { getDictionary } from '@/lib/i18n'
 

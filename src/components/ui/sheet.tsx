@@ -21,8 +21,8 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      // M2 遮罩是 32% 黑幕（scrim）+ short-4 淡入，不做位移
-      'fixed inset-0 z-50 bg-scrim',
+      // 遮罩：32% scrim，淡入，不位移
+      'fixed inset-0 z-(--md-sys-layer-modal) bg-scrim',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
       'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
@@ -36,12 +36,12 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
   [
-    // M2 drawer：surface 底、仅靠内侧 8dp 影、面板自身滑入 —— medium-1 + standard
-    'fixed z-50 flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
+    // 抽屉：表层材质（hig.css 钩 popover/dialog 给材质与影）、面板自身滑入
+    'fixed z-(--md-sys-layer-modal) flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
     'data-[state=open]:animate-in data-[state=closed]:animate-out',
     'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
     'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
-    // 导航抽屉（[data-drawer]）：各皮肤自定影、圆角、贴边距离与动效时长
+    // 导航抽屉（[data-drawer]）：由 hig.css 接管影、圆角、贴边距离与让位 dock
     'data-[drawer]:gap-0 data-[drawer]:p-0'
   ].join(' '),
   {

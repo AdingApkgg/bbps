@@ -3,24 +3,20 @@ import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Button
+/* Button
  *
- * 规格取自 m2.material.io/components/buttons 与 material-components-web 的
- * button/_variables.scss：
- *  - contained 按钮高 36dp、radius 4dp、elevation 1→2→4dp（hover/active 升高）；
- *  - 标签大写 + 0.089em 字距（14px × 0.089 ≈ 1.25px），字重 500；
- *  - text / outlined 按钮无影，状态靠 onSurface / primary 的状态层叠加
- *    （hover 4%、focus 12%、pressed 12%），不是换色；
- *  - 触达区不小于 48dp（--md-sys-size-touch-target），因此按钮外沿留出足够间距；
+ * 形状与字号按 HIG（17px/600、10px 圆角、48px 高），状态层与变体结构沿用 M2：
+ *  - 状态靠合成好的 `bg-*-hover` / `bg-*-active` 表达，不是改主色；
+ *  - text / outlined 无影，只有 filled 有 `shadow-sm`（抬起的实体）；
  *  - focus 是 2px primary 描边 + 外扩 2px，与全站 :focus-visible 同款。
  *
- * 这里用 bg-*-hover / bg-*-active 表达状态层（已按 M2 透明度预合成为实色）。
- * 一屏只留一个 default(contained primary)。
+ * M2 的「拉丁大写 + 0.089em 字距」由 `hig.css` 的 `:root .text-button` 压掉。
+ * 一屏只留一个 default(filled primary)。
  */
 const buttonVariants = cva(
   [
     'relative inline-flex max-w-80 shrink-0 items-center justify-center gap-2 whitespace-nowrap',
-    'overflow-hidden rounded-sm border-0 font-medium uppercase',
+    'overflow-hidden rounded-sm border-0 font-semibold',
     'text-button no-underline select-none',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard',
     'disabled:pointer-events-none disabled:cursor-not-allowed disabled:shadow-none',
@@ -66,7 +62,7 @@ const buttonVariants = cva(
         ].join(' '),
         link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-link hover:enabled:text-link-hover hover:enabled:underline'
       },
-      /* 高度档位接令牌：皮肤改 --md-sys-size-lg 即整体缩放；图标按钮是 48dp 触达区 */
+      /* 高度档位接令牌：改 --md-sys-size-lg 即整体缩放；图标按钮是 48px 触达区 */
       size: {
         xs: 'h-(--md-sys-size-control-xs) px-2 text-caption',
         sm: 'h-(--md-sys-size-control-sm) px-3',

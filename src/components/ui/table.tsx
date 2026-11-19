@@ -2,18 +2,16 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Data table
+/* Data table
  *
- * M2 表格是 4dp 圆角、1dp 高度的卡片容器，表头用 subtitle2（14sp/500/0.1px）
- * 压在容器色上，行高 52dp（48dp 触达区 + 分隔线），行间 1px 12% 分隔线；
- * 行 hover 是 4% onSurface 状态层，选中是 12%。容器负责横向滚动。
+ * 取形按 HIG 的 inset grouped 表格（`hig.css` 的 `[data-slot="table-wrap"]` 钩子）：
+ * 表格自己就是一块容器（surface-02 底、10px 圆角、横向滚动），调用方不要再套一层
+ * 圆角 div，否则底色与圆角叠两层、出现两个滚动盒。
+ * 行分隔线与分组列表同一档（0.5px、outline-variant-01、左 16px 缩进），零竖线、零影。
  */
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      data-slot="table-wrap"
-      className="relative w-full overflow-auto rounded-sm bg-surface-01 shadow-sm"
-    >
+    <div data-slot="table-wrap" className="relative w-full overflow-auto rounded-sm bg-surface-02">
       <table
         ref={ref}
         className={cn('w-full border-collapse text-left text-body-02', className)}
@@ -56,7 +54,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
       ref={ref}
       data-slot="table-row"
       className={cn(
-        'border-b border-outline transition-colors duration-fast-02',
+        'border-b-[0.5px] border-outline-variant-01 transition-colors duration-fast-02',
         'last:border-b-0 hover:bg-surface-hover-01 data-[state=selected]:bg-surface-selected-01',
         className
       )}

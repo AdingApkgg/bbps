@@ -1,21 +1,17 @@
 'use client'
 
-import * as React from 'react'
+import type * as React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Slider
+/* Slider
  *
- * 规格取自 m2.material.io/components/sliders 与 material-components-web 的
- * slider/_variables.scss：
- *  - 轨道 4dp 直角，已填充段 primary、未填充段 primary 24%；
- *  - 手柄 20dp 圆，primary 实心 + 2dp 影；hover/focus/pressed 时手柄外扩到 24/26/28dp 不换色；
- *  - 状态层叠在 40dp 触达圆上：hover 4%、focus 12%、pressed 12%；
- *  - focus 是 2px primary 描边，外扩 2px。
+ * 取形按 HIG：4px 全圆角轨道（`hig.css` 的 `[data-slot="slider-track"]`），
+ * 未填充段中性灰、已填充段 primary；手柄 28px 圆、surface 底 + 单层淡影。
  *
- * M2 的连续/离散、带值标签等变体没做，只做连续单值或多值（value 数组天然支持）。
- * `compact` 是附在栏位里的细轨道变体：轨道 2dp、手柄 12dp —— 用于播放条与音量，
- * 命中区仍是 18dp 高。
+ * 连续/离散、值标签等变体没做，只做连续单值或多值（value 数组天然支持）。
+ * `compact` 是附在栏位里的细轨道变体：轨道 2px、手柄 12px —— 用于播放条与音量，
+ * 命中区仍是 18px 高。
  */
 function Slider({
   className,
@@ -41,10 +37,7 @@ function Slider({
           compact ? 'h-0.5' : 'h-1'
         )}
       >
-        <SliderPrimitive.Range
-          data-slot="slider-range"
-          className="absolute h-full bg-primary"
-        />
+        <SliderPrimitive.Range data-slot="slider-range" className="absolute h-full bg-primary" />
       </SliderPrimitive.Track>
       {(props.value ?? props.defaultValue ?? [0]).map((v) => (
         <SliderPrimitive.Thumb

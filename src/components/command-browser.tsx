@@ -9,7 +9,6 @@ import { optionLabel, searchEntries, type CommandGroup } from '@/lib/command-gro
 import { fillTemplate, isRunnable, isTemplateReady, parseTemplate } from '@/lib/command-template'
 import { applyNumbers, displayName, extractNumbers, matchFamily } from '@/lib/command-families'
 import { PlayerName } from '@/components/player-name'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { RunButton } from '@/components/run-button'
 import { Input } from '@/components/ui/input'
@@ -24,413 +23,417 @@ const PAGE_SIZE = 40
 /* ── 单条指令 ── */
 
 function CommandItem({
- cmd,
- canRun,
- onRun
+  cmd,
+  canRun,
+  onRun
 }: {
- cmd: Command
- canRun: boolean
- onRun: (command: string) => void
+  cmd: Command
+  canRun: boolean
+  onRun: (command: string) => void
 }) {
- const locale = useLocale()
- const t = getDictionary(locale).commands
- const [copied, setCopied] = useState(false)
+  const locale = useLocale()
+  const t = getDictionary(locale).commands
+  const [copied, setCopied] = useState(false)
 
- // 两套可编辑机制：家族数值参数（698 条），或显式 <参数> 占位符（114 条）
- const family = useMemo(() => matchFamily(cmd.command), [cmd.command])
- const originalNumbers = useMemo(
- () => (family ? extractNumbers(cmd.command) : []),
- [family, cmd.command]
- )
- const [numbers, setNumbers] = useState<string[]>(originalNumbers)
- const [values, setValues] = useState<Record<string, string>>({})
+  // 两套可编辑机制：家族数值参数（698 条），或显式 <参数> 占位符（114 条）
+  const family = useMemo(() => matchFamily(cmd.command), [cmd.command])
+  const originalNumbers = useMemo(
+    () => (family ? extractNumbers(cmd.command) : []),
+    [family, cmd.command]
+  )
+  const [numbers, setNumbers] = useState<string[]>(originalNumbers)
+  const [values, setValues] = useState<Record<string, string>>({})
 
- const parts = useMemo(() => parseTemplate(cmd.command), [cmd.command])
- const params = parts.filter((p) => p.type === 'param')
+  const parts = useMemo(() => parseTemplate(cmd.command), [cmd.command])
+  const params = parts.filter((p) => p.type === 'param')
 
- const final = family ? applyNumbers(cmd.command, numbers) : fillTemplate(cmd.command, values)
- const ready = family ? true : isTemplateReady(cmd.command, values)
- const runnable = isRunnable(cmd.command)
- const isColorSnippet = /^<c[0-9A-Fa-f]{6}>/.test(cmd.command)
- const label = displayName(cmd.name, family)
- const edited = family && numbers.some((n, i) => n !== originalNumbers[i])
+  const final = family ? applyNumbers(cmd.command, numbers) : fillTemplate(cmd.command, values)
+  const ready = family ? true : isTemplateReady(cmd.command, values)
+  const runnable = isRunnable(cmd.command)
+  const isColorSnippet = /^<c[0-9A-Fa-f]{6}>/.test(cmd.command)
+  const label = displayName(cmd.name, family)
+  const edited = family && numbers.some((n, i) => n !== originalNumbers[i])
 
- const handleCopy = async () => {
- try {
- await navigator.clipboard.writeText(final)
- setCopied(true)
- setTimeout(() => setCopied(false), 1600)
- toast({ description: t.copied })
- } catch {
- toast({ description: t.copyFailed })
- }
- }
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(final)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+      toast({ description: t.copied })
+    } catch {
+      toast({ description: t.copyFailed })
+    }
+  }
 
- const setNumberAt = (index: number, v: string) =>
- setNumbers((prev) => {
- const next = [...(prev.length ? prev : originalNumbers)]
- next[index] = v.replace(/[^\d]/g, '')
- return next
- })
+  const setNumberAt = (index: number, v: string) =>
+    setNumbers((prev) => {
+      const next = [...(prev.length ? prev : originalNumbers)]
+      next[index] = v.replace(/[^\d]/g, '')
+      return next
+    })
 
- return (
- <li className="rounded-sm bg-surface-01 p-3 shadow-sm transition-[background-color,box-shadow] duration-fast-02 hover:bg-surface-hover-01 hover:shadow-raised">
- <div className="flex flex-wrap items-start justify-between gap-2">
- <div className="min-w-0 flex-1">
- <p className="text-body-02 font-medium">{label}</p>
- <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
- {isColorSnippet ? <PlayerName name={cmd.command} /> : final}
- </code>
- </div>
+  return (
+    <li
+      data-list-item
+      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="text-body-02 font-medium">{label}</p>
+          <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
+            {isColorSnippet ? <PlayerName name={cmd.command} /> : final}
+          </code>
+        </div>
 
- <div className="flex shrink-0 items-center gap-1.5">
- {edited && (
- <button
- type="button"
- onClick={() => setNumbers(originalNumbers)}
- className="text-label text-on-surface-medium hover:text-on-surface"
- >
- {t.resetValues}
- </button>
- )}
- <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
- {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
- </Button>
- {runnable && !cmd.copyOnly && (
- // 走 RunButton，危险级别由 findCatalogEntry 从目录反查。
- // 之前这里是裸 Button，一键就能发 /resource clear、/map clear 这类
- // 不可撤销指令 —— 目录里同一条要点两次确认，两个入口标准不一致。
- <RunButton command={final} canRun={canRun} disabled={!ready} onRun={onRun} />
- )}
- </div>
- </div>
+        <div className="flex shrink-0 items-center gap-1.5">
+          {edited && (
+            <button
+              type="button"
+              onClick={() => setNumbers(originalNumbers)}
+              className="text-label text-on-surface-medium hover:text-on-surface"
+            >
+              {t.resetValues}
+            </button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          </Button>
+          {runnable && !cmd.copyOnly && (
+            // 走 RunButton，危险级别由 findCatalogEntry 从目录反查。
+            // 之前这里是裸 Button，一键就能发 /resource clear、/map clear 这类
+            // 不可撤销指令 —— 目录里同一条要点两次确认，两个入口标准不一致。
+            <RunButton command={final} canRun={canRun} disabled={!ready} onRun={onRun} />
+          )}
+        </div>
+      </div>
 
- {runnable && cmd.copyOnly && (
- <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
- )}
+      {runnable && cmd.copyOnly && (
+        <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
+      )}
 
- {/* 家族数值：把写死的数量/等级/坐标开放成输入框，实体位保持不动 */}
- {family && (
- <div className="mt-2 flex flex-wrap items-center gap-2">
- {family.args
- .filter((a) => a.role === 'value')
- .map((a) => {
- const listId = `${cmd.id}-${a.index}`
- return (
- <label key={a.index} className="flex items-center gap-1.5">
- <span className="text-label text-on-surface-medium">
- {locale === 'en' ? a.labelEn : a.labelZh}
- </span>
- <Input
- inputMode="numeric"
- value={numbers[a.index] ?? originalNumbers[a.index] ?? ''}
- onChange={(e) => setNumberAt(a.index, e.target.value)}
- className="h-7 w-24 text-label"
- list={a.presets ? listId : undefined}
- />
- {a.presets && (
- <datalist id={listId}>
- {a.presets.map((v) => (
- <option key={v} value={v} />
- ))}
- </datalist>
- )}
- </label>
- )
- })}
- </div>
- )}
+      {/* 家族数值：把写死的数量/等级/坐标开放成输入框，实体位保持不动 */}
+      {family && (
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {family.args
+            .filter((a) => a.role === 'value')
+            .map((a) => {
+              const listId = `${cmd.id}-${a.index}`
+              return (
+                <label key={a.index} className="flex items-center gap-1.5">
+                  <span className="text-label text-on-surface-medium">
+                    {locale === 'en' ? a.labelEn : a.labelZh}
+                  </span>
+                  <Input
+                    inputMode="numeric"
+                    value={numbers[a.index] ?? originalNumbers[a.index] ?? ''}
+                    onChange={(e) => setNumberAt(a.index, e.target.value)}
+                    className="h-7 w-24 text-label"
+                    list={a.presets ? listId : undefined}
+                  />
+                  {a.presets && (
+                    <datalist id={listId}>
+                      {a.presets.map((v) => (
+                        <option key={v} value={v} />
+                      ))}
+                    </datalist>
+                  )}
+                </label>
+              )
+            })}
+        </div>
+      )}
 
- {/* 显式 <参数> 占位符 */}
- {!family && params.length > 0 && (
- <div className="mt-2 flex flex-wrap gap-2">
- {params.map((p) => (
- <label key={p.value} className="flex items-center gap-1.5">
- <span className="text-label text-on-surface-medium">
- {p.value}
- {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
- </span>
- <Input
- value={values[p.value] ?? ''}
- onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
- className="h-7 w-28 text-label"
- placeholder={p.value}
- />
- </label>
- ))}
- </div>
- )}
- </li>
- )
+      {/* 显式 <参数> 占位符 */}
+      {!family && params.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          {params.map((p) => (
+            <label key={p.value} className="flex items-center gap-1.5">
+              <span className="text-label text-on-surface-medium">
+                {p.value}
+                {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
+              </span>
+              <Input
+                value={values[p.value] ?? ''}
+                onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
+                className="h-7 w-28 text-label"
+                placeholder={p.value}
+              />
+            </label>
+          ))}
+        </div>
+      )}
+    </li>
+  )
 }
 
 /* ── 折叠组：一行 + 实体下拉框 ── */
 
 function GroupItem({
- group,
- matched,
- canRun,
- onRun
+  group,
+  matched,
+  canRun,
+  onRun
 }: {
- group: CommandGroup
- matched: Command[]
- canRun: boolean
- onRun: (command: string) => void
+  group: CommandGroup
+  matched: Command[]
+  canRun: boolean
+  onRun: (command: string) => void
 }) {
- const locale = useLocale()
- const t = getDictionary(locale).commands
- const [copied, setCopied] = useState(false)
+  const locale = useLocale()
+  const t = getDictionary(locale).commands
+  const [copied, setCopied] = useState(false)
 
- // 搜索命中时下拉框只留命中项，并默认选中最相关的那个
- const options = matched.length > 0 ? matched : group.options
- const [selectedId, setSelectedId] = useState(options[0]?.id)
- const current = options.find((o) => o.id === selectedId) ?? options[0] ?? group.options[0]
+  // 搜索命中时下拉框只留命中项，并默认选中最相关的那个
+  const options = matched.length > 0 ? matched : group.options
+  const [selectedId, setSelectedId] = useState(options[0]?.id)
+  const current = options.find((o) => o.id === selectedId) ?? options[0] ?? group.options[0]
 
- const originalNumbers = useMemo(() => extractNumbers(current.command), [current.command])
- const [numbers, setNumbers] = useState<string[]>([])
- // 切换实体后数值回到该条目的原值
- const effective = numbers.length ? numbers : originalNumbers
- const final = applyNumbers(current.command, effective)
- const edited = numbers.length > 0 && numbers.some((n, i) => n !== originalNumbers[i])
+  const originalNumbers = useMemo(() => extractNumbers(current.command), [current.command])
+  const [numbers, setNumbers] = useState<string[]>([])
+  // 切换实体后数值回到该条目的原值
+  const effective = numbers.length ? numbers : originalNumbers
+  const final = applyNumbers(current.command, effective)
+  const edited = numbers.length > 0 && numbers.some((n, i) => n !== originalNumbers[i])
 
- const handleSelect = (id: string) => {
- setSelectedId(id)
- setNumbers([])
- }
+  const handleSelect = (id: string) => {
+    setSelectedId(id)
+    setNumbers([])
+  }
 
- const handleCopy = async () => {
- try {
- await navigator.clipboard.writeText(final)
- setCopied(true)
- setTimeout(() => setCopied(false), 1600)
- toast({ description: t.copied })
- } catch {
- toast({ description: t.copyFailed })
- }
- }
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(final)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+      toast({ description: t.copied })
+    } catch {
+      toast({ description: t.copyFailed })
+    }
+  }
 
- const setNumberAt = (index: number, v: string) =>
- setNumbers((prev) => {
- const next = [...(prev.length ? prev : originalNumbers)]
- next[index] = v.replace(/[^\d]/g, '')
- return next
- })
+  const setNumberAt = (index: number, v: string) =>
+    setNumbers((prev) => {
+      const next = [...(prev.length ? prev : originalNumbers)]
+      next[index] = v.replace(/[^\d]/g, '')
+      return next
+    })
 
- return (
- <li className="rounded-sm bg-surface-01 p-3 shadow-sm transition-[background-color,box-shadow] duration-fast-02 hover:bg-surface-hover-01 hover:shadow-raised">
- <div className="flex flex-wrap items-start justify-between gap-2">
- <div className="min-w-0 flex-1">
- <div className="flex items-center gap-2">
- <p className="text-body-02 font-medium">{locale === 'en' ? group.labelEn : group.labelZh}</p>
- <Badge variant="secondary" >
- {t.groupCount.replace('{n}', String(options.length))}
- </Badge>
- </div>
- <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
- {final}
- </code>
- </div>
+  return (
+    <li
+      data-list-item
+      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <p className="text-body-02 font-medium">
+              {locale === 'en' ? group.labelEn : group.labelZh}
+            </p>
+            <Badge variant="secondary">{t.groupCount.replace('{n}', String(options.length))}</Badge>
+          </div>
+          <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
+            {final}
+          </code>
+        </div>
 
- <div className="flex shrink-0 items-center gap-1.5">
- {edited && (
- <button
- type="button"
- onClick={() => setNumbers([])}
- className="text-label text-on-surface-medium hover:text-on-surface"
- >
- {t.resetValues}
- </button>
- )}
- <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
- {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
- </Button>
- {!group.family.copyOnly && <RunButton command={final} canRun={canRun} onRun={onRun} />}
- </div>
- </div>
+        <div className="flex shrink-0 items-center gap-1.5">
+          {edited && (
+            <button
+              type="button"
+              onClick={() => setNumbers([])}
+              className="text-label text-on-surface-medium hover:text-on-surface"
+            >
+              {t.resetValues}
+            </button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          </Button>
+          {!group.family.copyOnly && <RunButton command={final} canRun={canRun} onRun={onRun} />}
+        </div>
+      </div>
 
- {group.family.copyOnly && (
- <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
- )}
+      {group.family.copyOnly && (
+        <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
+      )}
 
- <div className="mt-2 flex flex-wrap items-center gap-2">
- {/* 可搜索下拉：奖杯有 263 项，原生 select 打字跳转只匹配开头，中文名跳不动 */}
- <SearchableSelect
- className="w-full min-w-[10rem] max-w-[16rem] sm:flex-1"
- value={current.id}
- onChange={handleSelect}
- ariaLabel={locale === 'en' ? group.labelEn : group.labelZh}
- searchPlaceholder={t.pickerSearch}
- emptyText={t.noResults}
- options={options.map((o) => ({
- value: o.id,
- label: optionLabel(o, group.family)
- }))}
- />
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        {/* 可搜索下拉：奖杯有 263 项，原生 select 打字跳转只匹配开头，中文名跳不动 */}
+        <SearchableSelect
+          className="w-full min-w-[10rem] max-w-[16rem] sm:flex-1"
+          value={current.id}
+          onChange={handleSelect}
+          ariaLabel={locale === 'en' ? group.labelEn : group.labelZh}
+          searchPlaceholder={t.pickerSearch}
+          emptyText={t.noResults}
+          options={options.map((o) => ({
+            value: o.id,
+            label: optionLabel(o, group.family)
+          }))}
+        />
 
- {group.family.args
- .filter((a) => a.role === 'value')
- .map((a) => {
- const listId = `${group.id}-${a.index}`
- return (
- <label key={a.index} className="flex items-center gap-1.5">
- <span className="text-label text-on-surface-medium">
- {locale === 'en' ? a.labelEn : a.labelZh}
- </span>
- <Input
- inputMode="numeric"
- value={effective[a.index] ?? ''}
- onChange={(e) => setNumberAt(a.index, e.target.value)}
- className="h-7 w-20 text-label"
- list={a.presets ? listId : undefined}
- />
- {a.presets && (
- <datalist id={listId}>
- {a.presets.map((v) => (
- <option key={v} value={v} />
- ))}
- </datalist>
- )}
- </label>
- )
- })}
- </div>
- </li>
- )
+        {group.family.args
+          .filter((a) => a.role === 'value')
+          .map((a) => {
+            const listId = `${group.id}-${a.index}`
+            return (
+              <label key={a.index} className="flex items-center gap-1.5">
+                <span className="text-label text-on-surface-medium">
+                  {locale === 'en' ? a.labelEn : a.labelZh}
+                </span>
+                <Input
+                  inputMode="numeric"
+                  value={effective[a.index] ?? ''}
+                  onChange={(e) => setNumberAt(a.index, e.target.value)}
+                  className="h-7 w-20 text-label"
+                  list={a.presets ? listId : undefined}
+                />
+                {a.presets && (
+                  <datalist id={listId}>
+                    {a.presets.map((v) => (
+                      <option key={v} value={v} />
+                    ))}
+                  </datalist>
+                )}
+              </label>
+            )
+          })}
+      </div>
+    </li>
+  )
 }
 
 /* ── 指令库 ── */
 
 export function CommandBrowser({
- canRun,
- onRun
+  canRun,
+  onRun
 }: {
- canRun: boolean
- onRun: (command: string) => void
+  canRun: boolean
+  onRun: (command: string) => void
 }) {
- const locale = useLocale()
- const dict = getDictionary(locale)
- const t = dict.commands
- const [query, setQuery] = useState('')
- const [category, setCategory] = useState<string>('all')
- const [limit, setLimit] = useState(PAGE_SIZE)
+  const locale = useLocale()
+  const dict = getDictionary(locale)
+  const t = dict.commands
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState<string>('all')
+  const [limit, setLimit] = useState(PAGE_SIZE)
 
- // 螃蟹甲板是个计算器而不是指令集，这里不列
- const pickable = useMemo(() => categories.filter((c) => c.id !== 'calculator'), [])
+  // 螃蟹甲板是个计算器而不是指令集，这里不列
+  const pickable = useMemo(() => categories.filter((c) => c.id !== 'calculator'), [])
 
- const filtered = useMemo(() => searchEntries(query, category), [query, category])
+  const filtered = useMemo(() => searchEntries(query, category), [query, category])
 
- const visible = filtered.slice(0, limit)
+  const visible = filtered.slice(0, limit)
 
- const reset = (fn: () => void) => {
- fn()
- setLimit(PAGE_SIZE)
- }
+  const reset = (fn: () => void) => {
+    fn()
+    setLimit(PAGE_SIZE)
+  }
 
- return (
- <div className="space-y-4">
- {/* 搜索 —— 1042 条指令的主要入口 */}
- <div className="relative">
- <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
- <Input
- value={query}
- onChange={(e) => reset(() => setQuery(e.target.value))}
- placeholder={t.searchPlaceholder.replace('{count}', String(commands.length))}
- className="pl-9 pr-9"
- aria-label={t.searchPlaceholder.replace('{count}', String(commands.length))}
- />
- {query && (
- <button
- type="button"
- onClick={() => reset(() => setQuery(''))}
- aria-label={t.clearSearch}
- className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
- >
- <X className="h-4 w-4" />
- </button>
- )}
- </div>
+  return (
+    <div className="space-y-4">
+      {/* 搜索 —— 1042 条指令的主要入口 */}
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
+        <Input
+          value={query}
+          onChange={(e) => reset(() => setQuery(e.target.value))}
+          placeholder={t.searchPlaceholder.replace('{count}', String(commands.length))}
+          className="pl-9 pr-9"
+          aria-label={t.searchPlaceholder.replace('{count}', String(commands.length))}
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => reset(() => setQuery(''))}
+            aria-label={t.clearSearch}
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
 
- {/* 分类筛选：用可换行的胶囊代替原本 14 个标签页 */}
- <div className="flex flex-wrap gap-1.5">
- <button
- type="button"
- onClick={() => reset(() => setCategory('all'))}
- className={cn(
- 'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
- category === 'all'
- ? 'border-transparent bg-state-selected text-link'
- : 'border-outline-emphasis hover:bg-state-hover'
- )}
- >
- {t.filterAll}
- </button>
- {pickable.map((c) => (
- <button
- key={c.id}
- type="button"
- onClick={() => reset(() => setCategory(c.id))}
- className={cn(
- 'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
- category === c.id
- ? 'border-transparent bg-state-selected text-link'
- : 'border-outline-emphasis hover:bg-state-hover'
- )}
- >
- {locale === 'en' ? c.nameEn : c.nameZh}
- </button>
- ))}
- </div>
+      {/* 分类筛选：用可换行的胶囊代替原本 14 个标签页 */}
+      <div className="flex flex-wrap gap-1.5">
+        <button
+          type="button"
+          onClick={() => reset(() => setCategory('all'))}
+          className={cn(
+            'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
+            category === 'all'
+              ? 'border-transparent bg-state-selected text-link'
+              : 'border-outline-emphasis hover:bg-state-hover'
+          )}
+        >
+          {t.filterAll}
+        </button>
+        {pickable.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => reset(() => setCategory(c.id))}
+            className={cn(
+              'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
+              category === c.id
+                ? 'border-transparent bg-state-selected text-link'
+                : 'border-outline-emphasis hover:bg-state-hover'
+            )}
+          >
+            {locale === 'en' ? c.nameEn : c.nameZh}
+          </button>
+        ))}
+      </div>
 
- <p className="text-label text-on-surface-medium">{t.collapsedHint}</p>
+      <p className="text-label text-on-surface-medium">{t.collapsedHint}</p>
 
- <div className="flex items-center justify-between">
- <p className="text-label text-on-surface-medium">
- {t.resultCount
- .replace('{shown}', String(visible.length))
- .replace('{total}', String(filtered.length))}
- </p>
- {!canRun && (
- <Badge variant="outline" className="text-label">
- {t.runNeedsLogin}
- </Badge>
- )}
- </div>
+      <div className="flex items-center justify-between">
+        <p className="text-label text-on-surface-medium">
+          {t.resultCount
+            .replace('{shown}', String(visible.length))
+            .replace('{total}', String(filtered.length))}
+        </p>
+        {!canRun && (
+          <Badge variant="outline" className="text-label">
+            {t.runNeedsLogin}
+          </Badge>
+        )}
+      </div>
 
- {filtered.length === 0 ? (
- <Card>
- <CardContent className="py-12 text-center text-body-02 text-on-surface-medium">
- {t.noResults}
- </CardContent>
- </Card>
- ) : (
- <>
- <ul className="space-y-2">
- {visible.map((entry) =>
- entry.kind === 'group' ? (
- <GroupItem
- // 搜索结果变化时重建，让下拉框重新选中最相关项
- key={`${entry.group.id}:${entry.matched[0]?.id ?? ''}`}
- group={entry.group}
- matched={entry.matched}
- canRun={canRun}
- onRun={onRun}
- />
- ) : (
- <CommandItem key={entry.cmd.id} cmd={entry.cmd} canRun={canRun} onRun={onRun} />
- )
- )}
- </ul>
- {filtered.length > visible.length && (
- <Button
- variant="outline"
- className="w-full"
- onClick={() => setLimit((n) => n + PAGE_SIZE * 2)}
- >
- {t.loadMore}
- </Button>
- )}
- </>
- )}
- </div>
- )
+      {filtered.length === 0 ? (
+        <p className="rounded-sm bg-surface-02 py-12 text-center text-body-02 text-on-surface-medium">
+          {t.noResults}
+        </p>
+      ) : (
+        <>
+          <ul data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+            {visible.map((entry) =>
+              entry.kind === 'group' ? (
+                <GroupItem
+                  // 搜索结果变化时重建，让下拉框重新选中最相关项
+                  key={`${entry.group.id}:${entry.matched[0]?.id ?? ''}`}
+                  group={entry.group}
+                  matched={entry.matched}
+                  canRun={canRun}
+                  onRun={onRun}
+                />
+              ) : (
+                <CommandItem key={entry.cmd.id} cmd={entry.cmd} canRun={canRun} onRun={onRun} />
+              )
+            )}
+          </ul>
+          {filtered.length > visible.length && (
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => setLimit((n) => n + PAGE_SIZE * 2)}
+            >
+              {t.loadMore}
+            </Button>
+          )}
+        </>
+      )}
+    </div>
+  )
 }

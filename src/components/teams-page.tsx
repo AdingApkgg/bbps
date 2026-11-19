@@ -1,71 +1,63 @@
 'use client'
 
 import Image from 'next/image'
-import { ExternalLink } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { FadeIn, Stagger, StaggerItem } from '@/components/motion'
+import { FadeIn } from '@/components/motion'
 import teamData from '@/data/teams.json'
 
+/**
+ * 成员页用分组列表，不用卡片网格：
+ * 6 个人用三列格子会把每张卡压成方形留白，读起来是 6 个孤岛；
+ * 列表一行一个人、头像与名字同一基线，扫视成本更低。
+ */
 export function TeamsPage() {
- const locale = useLocale()
- const dict = getDictionary(locale)
+  const locale = useLocale()
+  const dict = getDictionary(locale)
 
- return (
- <section className="container-page max-w-4xl py-16 md:py-24">
- <FadeIn eager className="mx-auto max-w-2xl text-center">
- <h1 className="text-headline-md font-normal sm:text-headline-lg">{dict.teams.title}</h1>
- <p className="mt-4 text-body-02 text-on-surface-medium">{dict.teams.subtitle}</p>
- </FadeIn>
+  return (
+    <section className="container-page max-w-4xl pt-8 pb-16 md:pt-12 md:pb-24">
+      <FadeIn eager>
+        <h1 className="text-display-lg">{dict.teams.title}</h1>
+        <p className="mt-1 text-headline-sm text-on-surface-medium">{dict.teams.subtitle}</p>
+      </FadeIn>
 
- <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
- {teamData.map((member) => {
- const info = dict.teams.members[member.id as keyof typeof dict.teams.members]
- if (!info) return null
+      <ul data-list-group className="mt-6 overflow-hidden rounded-sm bg-surface-02">
+        {teamData.map((member) => {
+          const info = dict.teams.members[member.id as keyof typeof dict.teams.members]
+          if (!info) return null
 
- return (
- <StaggerItem key={member.id}>
- <a
- href={member.link}
- target="_blank"
- rel="noopener noreferrer"
- className="group block h-full"
- >
- <Card className="h-full border border-transparent transition-colors duration-fast-01 hover:border-outline-emphasis">
- <CardContent className="flex flex-col items-center p-6 text-center">
- <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border border-outline transition-colors duration-fast-01 group-hover:border-outline-active">
- <Image
- src={member.avatar}
- alt={info.name}
- fill
- className="object-cover"
- sizes="96px"
- />
- </div>
+          return (
+            <li key={member.id} data-list-item>
+              <a
+                href={member.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01 sm:gap-4"
+              >
+                <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-surface-variant-01">
+                  <Image src={member.avatar} alt="" fill className="object-cover" sizes="44px" />
+                </span>
 
- <h3 className="text-body-02 font-medium">{info.name}</h3>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-body-01 font-semibold">{info.name}</span>
+                  <span className="mt-0.5 block text-label text-on-surface-medium">
+                    {info.role}
+                    <span className="mx-1.5 opacity-50">·</span>
+                    {member.platform === 'bilibili' ? 'Bilibili' : 'QQ'}
+                  </span>
+                  <span className="mt-1 line-clamp-2 text-body-02 sm:line-clamp-1 text-on-surface-medium">
+                    {info.description}
+                  </span>
+                </span>
 
- <Badge variant="secondary" className="mt-1.5">
- {info.role}
- </Badge>
-
- <p className="mt-3 text-body-02 leading-relaxed text-on-surface-medium">
- {info.description}
- </p>
-
- <div className="mt-4 flex items-center gap-1 text-label text-on-surface-medium opacity-0 transition-opacity duration-fast-01 group-hover:opacity-100">
- <ExternalLink className="h-3 w-3" />
- <span>{member.platform === 'bilibili' ? 'Bilibili' : 'QQ'}</span>
- </div>
- </CardContent>
- </Card>
- </a>
- </StaggerItem>
- )
- })}
- </Stagger>
- </section>
- )
+                <ChevronRight className="size-4 shrink-0 text-on-surface-medium" aria-hidden />
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
+  )
 }

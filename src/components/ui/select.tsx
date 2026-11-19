@@ -76,13 +76,14 @@ const SelectContent = React.forwardRef<
       ref={ref}
       data-slot="select-content"
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface shadow-scrim',
-        // M2 菜单浮层：8dp 影 + short-2 淡入，位移只有 2dp
+        'relative z-(--md-sys-layer-popover) max-h-96 min-w-[8rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+        // 菜单浮层：单层淡影 + 短淡入，位移只有 2px
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
         'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
         'data-[state=closed]:slide-out-to-top-1 data-[state=open]:slide-in-from-top-1',
-        position === 'popper' && 'data-[side=bottom]:translate-y-0.5 data-[side=top]:-translate-y-0.5',
+        position === 'popper' &&
+          'data-[side=bottom]:translate-y-0.5 data-[side=top]:-translate-y-0.5',
         className
       )}
       position={position}
@@ -146,11 +147,7 @@ const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Separator
-    ref={ref}
-    className={cn('h-px bg-outline', className)}
-    {...props}
-  />
+  <SelectPrimitive.Separator ref={ref} className={cn('h-px bg-outline', className)} {...props} />
 ))
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 

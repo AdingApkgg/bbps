@@ -1,22 +1,18 @@
 'use client'
 
-import * as React from 'react'
+import type * as React from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import { cn } from '@/lib/utils'
 
-/* Material Design 2 Radio
+/* Radio
  *
- * 规格取自 m2.material.io/components/radio-buttons 与 material-components-web 的
- * radio/_variables.scss：
- *  - 外圈 20×20、2dp 边框；未选中边框 = onSurface 54%，选中 = primary；
- *  - 选中时内圆 10×10 primary，居中；
- *  - 状态层叠在 40dp 触达圆上：hover 4%、focus 12%、pressed 12%；
- *  - focus 是 2px primary 描边，外扩 2px。
+ * 外圈 20×20、1.5px 描边，选中是 primary 实心圆点（内环 5px），形状与颜色由
+ * `hig.css` 的 `[data-slot="radio-group-item"]` 钩子给。状态层仍在 40px 触达圆上。
  *
  * 组本身用 Radix 的 RadioGroup，天然带方向键 + roving tabindex。
  *
- * `variant="segmented"` 把它变成 M2 分段按钮：去掉圆圈、铺成一条底槽、
- * 选中项用 8% primary 状态层着色（segmented button 的 selected 态）。
+ * `variant="segmented"` 把它变成分段控件：去掉圆圈、铺成一条底槽、选中项用
+ * surface-01 实底 + 描边，与 `Tabs` 的 `[role="tablist"]` 长一样。
  */
 function RadioGroup({
   className,
