@@ -117,124 +117,124 @@ function CatalogItem({
             )}
           </div>
 
-        <div className="flex shrink-0 gap-1.5">
-          <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
-            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-          </Button>
-          {!item.inGameOnly &&
-            !item.advancedOnly &&
-            (required.length > 0 && !formOpen ? (
-              // 有必填参数时先展开表单，而不是直接发一条缺参数的指令
-              <Button size="sm" onClick={() => setFormOpen(true)}>
-                <SlidersHorizontal className="mr-1 h-3.5 w-3.5" />
-                {t.fillParams.replace('{n}', String(required.length))}
-              </Button>
-            ) : (
-              <>
-                {/* 全是可选参数：一键就能执行，但仍要留个入口去填它们 */}
-                {params.length > 0 && !formOpen && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setFormOpen(true)}
-                    aria-label={t.optionalParams}
-                    title={t.optionalParams}
-                  >
-                    <SlidersHorizontal className="h-3.5 w-3.5" />
-                  </Button>
-                )}
-                <RunButton
-                  command={final}
-                  danger={item.danger}
-                  canRun={canRun}
-                  disabled={!ready}
-                  onRun={onRun}
-                />
-              </>
-            ))}
+          <div className="flex shrink-0 gap-1.5">
+            <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+            </Button>
+            {!item.inGameOnly &&
+              !item.advancedOnly &&
+              (required.length > 0 && !formOpen ? (
+                // 有必填参数时先展开表单，而不是直接发一条缺参数的指令
+                <Button size="sm" onClick={() => setFormOpen(true)}>
+                  <SlidersHorizontal className="mr-1 h-3.5 w-3.5" />
+                  {t.fillParams.replace('{n}', String(required.length))}
+                </Button>
+              ) : (
+                <>
+                  {/* 全是可选参数：一键就能执行，但仍要留个入口去填它们 */}
+                  {params.length > 0 && !formOpen && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setFormOpen(true)}
+                      aria-label={t.optionalParams}
+                      title={t.optionalParams}
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                    </Button>
+                  )}
+                  <RunButton
+                    command={final}
+                    danger={item.danger}
+                    canRun={canRun}
+                    disabled={!ready}
+                    onRun={onRun}
+                  />
+                </>
+              ))}
           </div>
         </div>
 
-      {item.inGameOnly && (
-        <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
-          {t.inGameOnly}
-        </p>
-      )}
-      {item.advancedOnly && (
-        <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
-          {t.advancedOnlyHint}
-        </p>
-      )}
+        {item.inGameOnly && (
+          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
+            {t.inGameOnly}
+          </p>
+        )}
+        {item.advancedOnly && (
+          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
+            {t.advancedOnlyHint}
+          </p>
+        )}
 
-      {/* 带参数的指令：展开小表单，而不是直接发一条缺参数的指令 */}
-      {params.length > 0 && formOpen && !item.inGameOnly && !item.advancedOnly && (
-        <div className="mt-2 ml-2 space-y-1.5 border-l border-outline-variant-01 pl-3">
-          {params.map((p) => {
-            const hint = paramHint(p.value, locale)
-            const label2 = (o: { value: string; labelZh: string; labelEn: string }) => ({
-              value: o.value,
-              label: locale === 'en' ? o.labelEn : o.labelZh
-            })
-            // 取值来源优先级：条目自带的 paramOptions（带中文标签）→
-            // 参数名本身是枚举（如 island|warship）→ layout 类 →
-            // 游戏实体（部队/建筑/资源/雕刻/母舰技能，复用「指令库」那份数据）
-            const declared = item.paramOptions?.[p.value]
-            const entity = declared ? null : entityOptions(p.value)
-            const options: { value: string; label: string }[] | null = declared
-              ? declared.map(label2)
-              : p.value.includes('|')
-                ? p.value
-                    .split('|')
-                    .map((x) => x.trim())
-                    .filter(Boolean)
-                    .map((v) => ({ value: v, label: v }))
-                : p.value.toLowerCase().includes('layout')
-                  ? LAYOUT_OPTIONS.map(label2)
-                  : entity
-                    ? entity.map(label2)
-                    : null
-            // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现；
-            // 实体参数沿用服务端形参名（character…），换成看得懂的说法
-            const label = p.value.includes('|')
-              ? t.optionLabel
-              : (entityParamLabel(p.value, locale) ?? p.value)
-            return (
-              <div key={p.value} className="flex flex-wrap items-center gap-2">
-                <span className="w-20 shrink-0 text-label text-on-surface-medium">
-                  {label}
-                  {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
-                </span>
-                {options ? (
-                  <SearchableSelect
-                    className="w-44"
-                    value={values[p.value] ?? ''}
-                    onChange={(v) => setValues((prev) => ({ ...prev, [p.value]: v }))}
-                    ariaLabel={label}
-                    searchPlaceholder={t.pickerSearch}
-                    emptyText={t.noResults}
-                    options={[{ value: '', label: '—' }, ...options]}
-                  />
-                ) : (
-                  <Input
-                    value={values[p.value] ?? ''}
-                    onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
-                    placeholder={p.value}
-                    className="h-7 w-40 text-label"
-                  />
-                )}
-                {hint && (
-                  <span className="w-full text-caption text-on-surface-medium sm:w-auto sm:flex-1">
-                    {hint}
+        {/* 带参数的指令：展开小表单，而不是直接发一条缺参数的指令 */}
+        {params.length > 0 && formOpen && !item.inGameOnly && !item.advancedOnly && (
+          <div className="mt-2 ml-2 space-y-1.5 border-l border-outline-variant-01 pl-3">
+            {params.map((p) => {
+              const hint = paramHint(p.value, locale)
+              const label2 = (o: { value: string; labelZh: string; labelEn: string }) => ({
+                value: o.value,
+                label: locale === 'en' ? o.labelEn : o.labelZh
+              })
+              // 取值来源优先级：条目自带的 paramOptions（带中文标签）→
+              // 参数名本身是枚举（如 island|warship）→ layout 类 →
+              // 游戏实体（部队/建筑/资源/雕刻/母舰技能，复用「指令库」那份数据）
+              const declared = item.paramOptions?.[p.value]
+              const entity = declared ? null : entityOptions(p.value)
+              const options: { value: string; label: string }[] | null = declared
+                ? declared.map(label2)
+                : p.value.includes('|')
+                  ? p.value
+                      .split('|')
+                      .map((x) => x.trim())
+                      .filter(Boolean)
+                      .map((v) => ({ value: v, label: v }))
+                  : p.value.toLowerCase().includes('layout')
+                    ? LAYOUT_OPTIONS.map(label2)
+                    : entity
+                      ? entity.map(label2)
+                      : null
+              // 枚举参数名太长，标签改用通用词，取值由下拉自身呈现；
+              // 实体参数沿用服务端形参名（character…），换成看得懂的说法
+              const label = p.value.includes('|')
+                ? t.optionLabel
+                : (entityParamLabel(p.value, locale) ?? p.value)
+              return (
+                <div key={p.value} className="flex flex-wrap items-center gap-2">
+                  <span className="w-20 shrink-0 text-label text-on-surface-medium">
+                    {label}
+                    {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
                   </span>
-                )}
-              </div>
-            )
-          })}
-          <code className="block break-all bg-surface-variant-01 px-2 py-1 font-mono text-label">
-            {final}
-          </code>
-        </div>
-      )}
+                  {options ? (
+                    <SearchableSelect
+                      className="w-44"
+                      value={values[p.value] ?? ''}
+                      onChange={(v) => setValues((prev) => ({ ...prev, [p.value]: v }))}
+                      ariaLabel={label}
+                      searchPlaceholder={t.pickerSearch}
+                      emptyText={t.noResults}
+                      options={[{ value: '', label: '—' }, ...options]}
+                    />
+                  ) : (
+                    <Input
+                      value={values[p.value] ?? ''}
+                      onChange={(e) => setValues((v) => ({ ...v, [p.value]: e.target.value }))}
+                      placeholder={p.value}
+                      className="h-7 w-40 text-label"
+                    />
+                  )}
+                  {hint && (
+                    <span className="w-full text-caption text-on-surface-medium sm:w-auto sm:flex-1">
+                      {hint}
+                    </span>
+                  )}
+                </div>
+              )
+            })}
+            <code className="block break-all bg-surface-variant-01 px-2 py-1 font-mono text-label">
+              {final}
+            </code>
+          </div>
+        )}
       </li>
     </ul>
   )
@@ -293,7 +293,7 @@ export function CommandCatalog({
           if (visible.length === 0) return null
           // 搜索时一律展开；外部一键控制优先，否则默认全收起
           // （9 个普通组以前默认摊开，单页 17 000px 就是这么来的）
-          const expanded = searching || (openAll ?? (open[meta.id] ?? false))
+          const expanded = searching || (openAll ?? open[meta.id] ?? false)
 
           return (
             <div key={meta.id} data-list-item>

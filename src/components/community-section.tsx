@@ -70,21 +70,21 @@ export function CommunitySection() {
               delay={0.1 + i * 0.05}
               className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
             >
-                <div className="flex items-center gap-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                    <Icon className={`h-5 w-5 ${color}`} />
-                  </span>
-                  <span>
-                    <h2 className="text-body-02 font-semibold">{meta.name}</h2>
-                    <p className="text-label text-on-surface-medium">{meta.desc}</p>
-                  </span>
-                </div>
-                <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
-                  <a href={group.url} target="_blank" rel="noopener noreferrer">
-                    {d.join}
-                    <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
-                  </a>
-                </Button>
+              <div className="flex items-center gap-3">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+                  <Icon className={`h-5 w-5 ${color}`} />
+                </span>
+                <span>
+                  <h2 className="text-body-02 font-semibold">{meta.name}</h2>
+                  <p className="text-label text-on-surface-medium">{meta.desc}</p>
+                </span>
+              </div>
+              <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
+                <a href={group.url} target="_blank" rel="noopener noreferrer">
+                  {d.join}
+                  <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                </a>
+              </Button>
             </FadeIn>
           )
         })}

@@ -108,22 +108,22 @@ export function DownloadsSection() {
             delay={0.15}
             className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
-              <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                  <Download className="h-5 w-5" />
-                </span>
-                <div>
-                  <p className="text-body-02 font-semibold">{d.primary}</p>
-                  <p className="text-label text-on-surface-medium">
-                    {locale === 'zh' ? '蚕豆私服推荐客户端' : 'Recommended client'}
-                  </p>
-                </div>
+            <div className="flex items-center gap-3">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+                <Download className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-body-02 font-semibold">{d.primary}</p>
+                <p className="text-label text-on-surface-medium">
+                  {locale === 'zh' ? '蚕豆私服推荐客户端' : 'Recommended client'}
+                </p>
               </div>
-              <Button className="w-full shrink-0 sm:w-auto" asChild>
-                <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
-                  {d.primary}
-                </a>
-              </Button>
+            </div>
+            <Button className="w-full shrink-0 sm:w-auto" asChild>
+              <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+                {d.primary}
+              </a>
+            </Button>
           </FadeIn>
 
           {privateServers.map((server, i) => {
@@ -136,20 +136,20 @@ export function DownloadsSection() {
                 delay={0.2 + i * 0.05}
                 className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
               >
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                      <Icon className="h-5 w-5 text-on-surface-medium" />
-                    </span>
-                    <div>
-                      <p className="text-body-02 font-semibold">{meta.name}</p>
-                      <p className="text-label text-on-surface-medium">{meta.desc}</p>
-                    </div>
+                <div className="flex items-center gap-3">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+                    <Icon className="h-5 w-5 text-on-surface-medium" />
+                  </span>
+                  <div>
+                    <p className="text-body-02 font-semibold">{meta.name}</p>
+                    <p className="text-label text-on-surface-medium">{meta.desc}</p>
                   </div>
-                  <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
-                    <a href={server.url} target="_blank" rel="noopener noreferrer">
-                      {d.downloadApk}
-                    </a>
-                  </Button>
+                </div>
+                <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
+                  <a href={server.url} target="_blank" rel="noopener noreferrer">
+                    {d.downloadApk}
+                  </a>
+                </Button>
               </FadeIn>
             )
           })}
@@ -159,22 +159,22 @@ export function DownloadsSection() {
             delay={0.2 + privateServers.length * 0.05 + 0.05}
             className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
-              <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                  <HardDrive className="h-5 w-5 text-on-surface-medium" />
-                </span>
-                <div>
-                  <p className="text-body-02 font-semibold">{d.moreServers}</p>
-                  <p className="text-label text-on-surface-medium">
-                    {locale === 'zh' ? '网盘与其它服务器' : 'Drive & other servers'}
-                  </p>
-                </div>
+            <div className="flex items-center gap-3">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+                <HardDrive className="h-5 w-5 text-on-surface-medium" />
+              </span>
+              <div>
+                <p className="text-body-02 font-semibold">{d.moreServers}</p>
+                <p className="text-label text-on-surface-medium">
+                  {locale === 'zh' ? '网盘与其它服务器' : 'Drive & other servers'}
+                </p>
               </div>
-              <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
-                <a href={DRIVE_URL} target="_blank" rel="noopener noreferrer">
-                  {dict.nav.drive}
-                </a>
-              </Button>
+            </div>
+            <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
+              <a href={DRIVE_URL} target="_blank" rel="noopener noreferrer">
+                {dict.nav.drive}
+              </a>
+            </Button>
           </FadeIn>
         </div>
       </div>

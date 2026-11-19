@@ -50,6 +50,9 @@
       "style": {
         "noNonNullAssertion": "off"
       },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
       "a11y": {
         "noLabelWithoutControl": {
           "level": "error",

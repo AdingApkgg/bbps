@@ -63,61 +63,61 @@ function RankTable({
 
   return (
     <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-16">{colRank}</TableHead>
-            <TableHead className="w-16">{colLevel}</TableHead>
-            <TableHead>{colPlayer}</TableHead>
-            <TableHead className="text-right">{scoreLabel}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {list.map((entry, i) => {
-            return (
-              <TableRow key={`${entry.rank}-${entry.name}-${i}`}>
-                <TableCell>
-                  {entry.rank <= 3 ? (
-                    <Badge
-                      variant={entry.rank === 1 ? 'default' : 'secondary'}
-                      className={cn(
-                        'justify-center tabular-nums',
-                        entry.rank === 1 && 'bg-warning text-on-warning'
-                      )}
-                    >
-                      #{entry.rank}
-                    </Badge>
-                  ) : (
-                    <span className="text-on-surface-medium">#{entry.rank}</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <span className="text-body-02 text-on-surface-medium">{entry.level || '—'}</span>
-                </TableCell>
-                <TableCell className="max-w-[200px] truncate">
-                  {entry.playerId ? (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        onSelect({
-                          id: entry.playerId as number,
-                          name: entry.rawName || entry.name
-                        })
-                      }
-                      className="truncate text-left hover:underline"
-                    >
-                      <PlayerName name={entry.rawName || entry.name} />
-                    </button>
-                  ) : (
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-16">{colRank}</TableHead>
+          <TableHead className="w-16">{colLevel}</TableHead>
+          <TableHead>{colPlayer}</TableHead>
+          <TableHead className="text-right">{scoreLabel}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {list.map((entry, i) => {
+          return (
+            <TableRow key={`${entry.rank}-${entry.name}-${i}`}>
+              <TableCell>
+                {entry.rank <= 3 ? (
+                  <Badge
+                    variant={entry.rank === 1 ? 'default' : 'secondary'}
+                    className={cn(
+                      'justify-center tabular-nums',
+                      entry.rank === 1 && 'bg-warning text-on-warning'
+                    )}
+                  >
+                    #{entry.rank}
+                  </Badge>
+                ) : (
+                  <span className="text-on-surface-medium">#{entry.rank}</span>
+                )}
+              </TableCell>
+              <TableCell>
+                <span className="text-body-02 text-on-surface-medium">{entry.level || '—'}</span>
+              </TableCell>
+              <TableCell className="max-w-[200px] truncate">
+                {entry.playerId ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onSelect({
+                        id: entry.playerId as number,
+                        name: entry.rawName || entry.name
+                      })
+                    }
+                    className="truncate text-left hover:underline"
+                  >
                     <PlayerName name={entry.rawName || entry.name} />
-                  )}
-                </TableCell>
-                <TableCell className="text-right tabular-nums font-medium">
-                  {Number(entry.value).toLocaleString()}
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
+                  </button>
+                ) : (
+                  <PlayerName name={entry.rawName || entry.name} />
+                )}
+              </TableCell>
+              <TableCell className="text-right tabular-nums font-medium">
+                {Number(entry.value).toLocaleString()}
+              </TableCell>
+            </TableRow>
+          )
+        })}
+      </TableBody>
     </Table>
   )
 }
