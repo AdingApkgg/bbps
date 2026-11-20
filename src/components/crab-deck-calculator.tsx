@@ -140,6 +140,7 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
         alt="螃蟹甲板开关示例"
         width={600}
         height={400}
+        sizes="(min-width: 768px) 50vw, 100vw"
         className="mx-auto mt-2 max-w-full "
       />
     </div>

@@ -12,9 +12,10 @@ node_modules/
 /.next/
 /out/
 
-# bun
-bun.lock
-bun.lockb
+# bun —— 锁文件进库：无锁就没有可复现的依赖树，CI 也无从 --frozen-lockfile
+
+# 根目录一次性探针脚本（_foo.mjs）；正式工具放 scripts/，这里的只在自己手上用
+/_*.mjs
 
 # build
 *.tsbuildinfo
@@ -42,6 +43,7 @@ bun-debug.log*
 .vscode-test/
 .claude/launch.json
 
-# 本地截图对照（scripts/shots.mjs 生成）
+# 本地截图对照（scripts/shots.mjs 生成）—— 输出到 out/ 之下，随产物一起被清掉
 /public/_preview/
 /public/preview.html
+_w/

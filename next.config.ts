@@ -8,8 +8,18 @@ const GAME_API = 'https://webapi.30hb.cn'
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
+  /*
+   * 图片：静态导出没有优化端点，所以走自定义 loader + 构建期预生成（B1）。
+   * `loaderFile` 把 width 映射到 `_w/<name>-<w>.webp`，由 prebuild 的
+   * scripts/responsive-images.mjs 产出；deviceSizes 与它里面的 WIDTHS 必须一致，
+   * 否则 loader 会算出没生成过的档位（脚本会回落到原图，但等于白传）。
+   *
+   * 注意：不能同时留 `unoptimized: true` —— 那个开关会连 srcSet/sizes 一起丢掉。
+   */
   images: {
-    unoptimized: true
+    loaderFile: './src/lib/image-loader.ts',
+    deviceSizes: [400, 800, 1600],
+    imageSizes: [112, 176, 220]
   },
   turbopack: { root: process.cwd() },
 

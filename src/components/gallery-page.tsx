@@ -85,11 +85,16 @@ export function GalleryPage({ images }: GalleryPageProps) {
               >
                 {/* Shimmer placeholder */}
                 {!loaded.has(idx) && <div className="absolute inset-0 skeleton-sweep" />}
+                {/*
+ sizes 与 useMasonryColumns 的分栏一致：<480 两栏、<768 三栏、其余四栏，
+ 每栏之间 gap-2 —— 写错的话浏览器会挑到不合尺寸的档位，白传大图。
+ */}
                 <Image
                   src={img.src}
                   alt={`${dict.gallery.title} ${idx + 1}`}
                   width={img.width}
                   height={img.height}
+                  sizes="(max-width: 479px) 48vw, (max-width: 767px) 32vw, 24vw"
                   className="h-full w-full object-contain transition-transform duration-moderate-01 ease-standard group-hover:scale-105"
                   onLoad={() => markLoaded(idx)}
                 />
@@ -140,9 +145,14 @@ export function GalleryPage({ images }: GalleryPageProps) {
           </button>
 
           <div className="relative max-h-[85vh] max-w-[90vw]">
-            {/* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */}
+            {/*
+ 灯箱用原生 img：尺寸由 max-h-[85vh] 决定，next/image 拿不到具体像素值，
+ 会按 width 属性算出一堆用不上的档位。这里直接给出 srcSet，最大档到 1600。
+ */}
+            {/* biome-ignore lint/performance/noImgElement: 灯箱尺寸由 CSS 上限决定，next/image 无法推算档位 */}
             <img
               src={images[lightboxIndex].src}
+              srcSet={`${images[lightboxIndex].src} 1600w`}
               alt={`${dict.gallery.title} ${lightboxIndex + 1}`}
               className="max-h-[85vh] max-w-[90vw] object-contain"
             />

@@ -3,7 +3,13 @@
  *
  * 站点是纯静态导出，没有任何后端，所有请求由浏览器直接打到游戏服务端。
  * 这里统一收口：base URL、X-Web-Token 注入、401/429 处理。
+ *
+ * 响应一律过 zod 校验：后端是自己的，改字段时前端不会报编译错，
+ * 只会在运行时读 undefined 直接炸（统计页读 online_sessions 就是）。
+ * 校验失败按 ApiError 抛出，由调用方渲染「数据暂不可用」。
  */
+
+import { z } from 'zod'
 
 /**
  * 线上直连 webapi.30hb.cn（CORS 只精确放行 https://30hb.cn）。
@@ -197,22 +203,52 @@ export interface ServerStatusBody {
   [key: string]: unknown
 }
 
+/**
+ * 服务端返回的外层包着 `body`，个别部署直接平铺在最外层 —— 两种都接。
+ * 用 looseObject：后端字段只增不减，多出来的键不该让整个页面挂掉。
+ */
+const serverStatusSchema: z.ZodType<ServerStatusBody> = z.looseObject({
+  server_version: z.string(),
+  m_v_avatar_seed: z.number(),
+  m_v_replay_seed: z.number(),
+  online_sessions: z.number(),
+  online_player_list: z.array(z.looseObject({ id: z.number(), name: z.string() })),
+  server_uptime: z.union([z.string(), z.number()]).optional(),
+  memory_used: z.number().optional(),
+  cached_accounts: z.number().optional(),
+  online_connections: z.number().optional(),
+  incoming_message_count: z.number().optional(),
+  outgoing_message_count: z.number().optional(),
+  account_save_failures: z.number().optional(),
+  datetime_utcnow: z.string().optional(),
+  game_server_address: z.string().optional(),
+  game_server_host_name: z.string().optional(),
+  save_mode: z.string().optional(),
+  use_patch: z.boolean().optional(),
+  patch_sha: z.string().optional(),
+  patch_url: z.string().optional(),
+  refresh_api_objects_ms: z.number().optional()
+})
+
 export async function fetchServerStatus(signal?: AbortSignal): Promise<ServerStatusBody> {
   const json = await request<Record<string, unknown>>('/api/server', { signal })
-  const data = (json?.body ?? json) as ServerStatusBody
-  if (!data?.server_version) throw new ApiError(0, 'server', 'invalid payload')
-  return data
+  const parsed = serverStatusSchema.safeParse(json?.body ?? json)
+  if (!parsed.success) {
+    console.warn('[api] /api/server 结构不符', parsed.error.issues)
+    throw new ApiError(0, 'server', 'invalid payload')
+  }
+  return parsed.data
 }
 
 /**
  * 排行榜。WARSHIP_GLOBAL / WARSHIP_LOCAL 目前返回 404，别做入口。
  */
-export async function fetchLeaderboard<T>(type: string): Promise<T> {
-  return request<T>(`/api/leaderboard/${type}`)
+export async function fetchLeaderboard<T>(type: string, signal?: AbortSignal): Promise<T> {
+  return request<T>(`/api/leaderboard/${type}`, { signal })
 }
 
-export async function fetchReservedAlliance<T>(type: string): Promise<T> {
-  return request<T>(`/api/reserved_alliance/${type}`)
+export async function fetchReservedAlliance<T>(type: string, signal?: AbortSignal): Promise<T> {
+  return request<T>(`/api/reserved_alliance/${type}`, { signal })
 }
 
 /* ---------- 全服统计 ---------- */
@@ -226,13 +262,22 @@ export interface GlobalStatistics {
   ServerCloseTime: string[]
 }
 
+const globalStatisticsSchema: z.ZodType<GlobalStatistics> = z.looseObject({
+  PlayerStatistics: z.record(z.string(), z.number()),
+  ServerOpenTime: z.array(z.string()),
+  ServerCloseTime: z.array(z.string())
+})
+
 export async function fetchGlobalStatistics(signal?: AbortSignal): Promise<GlobalStatistics> {
   const json = await request<Record<string, unknown>>('/api/global_statistics', {
     signal
   })
-  const data = (json?.body ?? json) as GlobalStatistics
-  if (!data?.PlayerStatistics) throw new ApiError(0, 'server', 'invalid payload')
-  return data
+  const parsed = globalStatisticsSchema.safeParse(json?.body ?? json)
+  if (!parsed.success) {
+    console.warn('[api] /api/global_statistics 结构不符', parsed.error.issues)
+    throw new ApiError(0, 'server', 'invalid payload')
+  }
+  return parsed.data
 }
 
 /* ---------- 玩家基地 ---------- */
@@ -276,11 +321,30 @@ export interface PlayerBase {
  * 注意：这组接口按来源 IP 限速 60 次/分钟，超出返回 429。
  * 只允许「点击某个玩家」这种交互触发，**不要**写循环批量拉取。
  */
+/**
+ * 只校验真正渲染用到的部分：建筑列表和地图。装饰物/障碍物原样放过，
+ * 它们的结构还在变，收紧只会让基地面板动不动就报错。
+ */
+const playerBaseSchema: z.ZodType<PlayerBase> = z.looseObject({
+  player_id: z.number(),
+  home: z.looseObject({
+    buildings: z
+      .array(z.looseObject({ data: z.number(), lvl: z.number(), x: z.number(), y: z.number() }))
+      .optional()
+  }),
+  map: z.looseObject({
+    MapRegions: z.array(z.looseObject({ Explored: z.boolean().optional() })).optional()
+  })
+})
+
 export async function fetchPlayerBase(playerId: number, signal?: AbortSignal): Promise<PlayerBase> {
   const json = await request<Record<string, unknown>>(`/api/base/${playerId}`, { signal })
-  const data = (json?.body ?? json) as PlayerBase
-  if (!data?.home) throw new ApiError(0, 'server', 'invalid payload')
-  return data
+  const parsed = playerBaseSchema.safeParse(json?.body ?? json)
+  if (!parsed.success) {
+    console.warn('[api] /api/base 结构不符', parsed.error.issues)
+    throw new ApiError(0, 'server', 'invalid payload')
+  }
+  return parsed.data
 }
 
 /* ---------- 网页指令会话 ---------- */

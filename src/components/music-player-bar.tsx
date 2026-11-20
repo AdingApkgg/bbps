@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   Play,
   Pause,
@@ -131,7 +131,7 @@ export function MusicPlayerBar() {
       {/* Lyrics full-screen overlay */}
       <AnimatePresence>
         {showLyrics && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: overlayMs, ease: EASE_EXIT } }}
@@ -231,12 +231,12 @@ export function MusicPlayerBar() {
                 </span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Compact player bar */}
-      <motion.div
+      <m.div
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         transition={{ duration: overlayMs, ease: EASE_ENTRANCE }}
@@ -361,7 +361,7 @@ export function MusicPlayerBar() {
             />
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </>
   )
 }

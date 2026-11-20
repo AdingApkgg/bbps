@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Download, ArrowRight, Play, X, Eye, Users } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -36,6 +36,8 @@ function HeroPoster({ className, onPlay }: { className?: string; onPlay: () => v
           width={1280}
           height={720}
           priority
+          /* 首屏通栏宽度；1600 档覆盖绝大多数桌面，剩下的交给浏览器 */
+          sizes="100vw"
           className="w-full transition-transform duration-moderate-01 ease-standard group-hover:scale-[1.02]"
         />
         {/* 播放图标 */}
@@ -70,7 +72,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   return (
-    <motion.div
+    <m.div
       className="fixed inset-0 z-(--md-sys-layer-modal-full) flex items-center justify-center bg-scrim"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -88,7 +90,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
       </button>
 
       {/* 播放器容器 */}
-      <motion.div
+      <m.div
         className="w-[90vw] max-w-4xl"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -107,8 +109,8 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
             playsInline
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 
@@ -136,34 +138,34 @@ export function HeroSection() {
         <div className="container-page py-12 md:py-20 lg:py-28">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12">
             <div>
-              <motion.p
+              <m.p
                 className="text-body-02 font-medium text-on-surface-medium"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE }}
               >
                 {dict.hero.welcome}
-              </motion.p>
+              </m.p>
 
-              <motion.h1
+              <m.h1
                 className="mt-2 text-display-md sm:text-display-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.04 }}
               >
                 {dict.site.name}
-              </motion.h1>
+              </m.h1>
 
-              <motion.p
+              <m.p
                 className="mt-3 max-w-prose text-title-lg text-on-surface-medium"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.08 }}
               >
                 {dict.hero.subtitle}
-              </motion.p>
+              </m.p>
 
-              <motion.div
+              <m.div
                 className="mt-6 flex flex-col gap-3 sm:flex-row"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -181,10 +183,10 @@ export function HeroSection() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </motion.div>
+              </m.div>
 
               {/* 站点统计 */}
-              <motion.div
+              <m.div
                 className="mt-6 flex items-center gap-6 text-body-02 text-on-surface-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -204,17 +206,17 @@ export function HeroSection() {
                     {siteUv !== null ? siteUv.toLocaleString() : '-'}
                   </span>
                 </span>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* 视频封面 */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.12 }}
             >
               <HeroPoster onPlay={openPlayer} />
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>

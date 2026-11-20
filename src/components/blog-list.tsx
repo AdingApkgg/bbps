@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { stripHtml, sortPosts, BLOG_SORT_KEYS, type WPPost, type BlogSortKey } from '@/lib/blog'
+import { sortPosts, BLOG_SORT_KEYS, type BlogPost, type BlogSortKey } from '@/lib/blog'
 import type { Dict } from '@/lib/i18n'
 
 function formatDate(iso: string, locale: string): string {
@@ -22,7 +22,7 @@ const SORT_LABEL_KEY: Record<BlogSortKey, 'sortByDate' | 'sortByModified'> = {
 }
 
 interface BlogListProps {
-  posts: WPPost[]
+  posts: BlogPost[]
   dict: Dict['blog']
   locale: 'zh' | 'en'
 }
@@ -63,8 +63,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
 
       <ul data-list-group className="mt-6 overflow-hidden rounded-sm bg-surface-02">
         {sorted.map((post) => {
-          const excerpt = stripHtml(post.excerpt?.rendered ?? '')
-          const thumb = post._embedded?.['wp:featuredmedia']?.[0]?.source_url
+          const { excerpt, thumb } = post
 
           return (
             <li key={post.id} data-list-item>
@@ -80,9 +79,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
                   </span>
                 )}
                 <span className="min-w-0 flex-1">
-                  <span className="line-clamp-2 text-body-01 font-semibold">
-                    {stripHtml(post.title?.rendered ?? '')}
-                  </span>
+                  <span className="line-clamp-2 text-body-01 font-semibold">{post.title}</span>
                   {/* 日期与原文链接同一行：两行元信息在窄屏会把每行顶到 160px */}
                   <span className="mt-0.5 flex items-center gap-1.5 text-label text-on-surface-medium">
                     {sortKey === 'modified'

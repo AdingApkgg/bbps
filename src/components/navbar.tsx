@@ -28,11 +28,13 @@ export function Navbar() {
       <div className="container-page flex h-full items-center">
         {/* Logo */}
         <Link href={locale === 'en' ? '/en' : '/'} className="flex items-center gap-2">
+          {/* 28px 固定，档位落在 imageSizes 的 112 上；retina 也不该拉更大的图 */}
           <Image
             src="/assets/images/logo/logo.avif"
             alt={dict.site.name}
             width={28}
             height={28}
+            sizes="28px"
             className="h-7 w-7 object-contain"
           />
           <span className="font-medium text-title-sm">{dict.site.name}</span>

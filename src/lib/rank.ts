@@ -47,8 +47,8 @@ interface DeployItem {
   [key: string]: unknown
 }
 
-async function fetchVpOrCrab(type: string): Promise<RankEntry[]> {
-  const json = await fetchLeaderboard<unknown>(type)
+async function fetchVpOrCrab(type: string, signal?: AbortSignal): Promise<RankEntry[]> {
+  const json = await fetchLeaderboard<unknown>(type, signal)
   const list = (
     Array.isArray(json)
       ? json
@@ -65,11 +65,11 @@ async function fetchVpOrCrab(type: string): Promise<RankEntry[]> {
   }))
 }
 
-async function fetchDeployStats(): Promise<RankEntry[]> {
+async function fetchDeployStats(signal?: AbortSignal): Promise<RankEntry[]> {
   const json = await fetchReservedAlliance<{
     AllianceMemberList?: DeployItem[]
     body?: { AllianceMemberList?: DeployItem[] }
-  }>('RANK_STATS_DEPLOY')
+  }>('RANK_STATS_DEPLOY', signal)
   const list = json?.AllianceMemberList ?? json?.body?.AllianceMemberList
   if (!Array.isArray(list)) return []
   return list.map((item, i) => ({
@@ -93,12 +93,15 @@ export interface RankData {
  * 一次取回某一档（全球 / 本地）的三个榜 + 阵亡统计。
  * 阵亡统计没有 LOCAL 之分，两档共用。
  */
-export async function fetchAllRanks(scope: LeaderboardScope = 'GLOBAL'): Promise<RankData> {
+export async function fetchAllRanks(
+  scope: LeaderboardScope = 'GLOBAL',
+  signal?: AbortSignal
+): Promise<RankData> {
   const [vp, megacrab, coe, casualties] = await Promise.all([
-    fetchVpOrCrab(`VP_${scope}`),
-    fetchVpOrCrab(`CRAB_${scope}`),
-    fetchVpOrCrab(`COE_${scope}`),
-    fetchDeployStats()
+    fetchVpOrCrab(`VP_${scope}`, signal),
+    fetchVpOrCrab(`CRAB_${scope}`, signal),
+    fetchVpOrCrab(`COE_${scope}`, signal),
+    fetchDeployStats(signal)
   ])
   return { vp, megacrab, coe, casualties }
 }

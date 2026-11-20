@@ -20,6 +20,24 @@ type Dict = ReturnType<typeof getDictionary>
 
 export type NavItem = { href: string; label: string; icon: LucideIcon }
 
+/*
+ * 页面段名 —— 导航、sitemap 共用这一份，别再手抄第二遍路由清单。
+ * 加页面时改这里：导航、底栏、枢轴、抽屉、sitemap 会一起跟上。
+ */
+export const NAV_SEGMENTS = [
+  'downloads',
+  'commands',
+  'stats',
+  'rank',
+  'maps',
+  'blog',
+  'teams',
+  'community',
+  'gallery',
+  'music',
+  'comments'
+] as const
+
 /* 导航数据集中在这里：顶栏、桌面侧栏与窄屏抽屉共用一份 */
 export function getNavItems(prefix: string, dict: Dict): NavItem[] {
   return [

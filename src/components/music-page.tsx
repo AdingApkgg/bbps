@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   Settings,
   Plus,
@@ -105,7 +105,7 @@ export function MusicPage() {
 
         <AnimatePresence>
           {showSettings && (
-            <motion.div
+            <m.div
               initial={{ height: 0, opacity: 0 }}
               animate={{
                 height: 'auto',
@@ -244,7 +244,7 @@ export function MusicPage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </FadeIn>

@@ -1,6 +1,6 @@
 'use client'
 
-import { type HTMLMotionProps, motion, useReducedMotion } from 'framer-motion'
+import { type HTMLMotionProps, m, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
 
 /* 动效
@@ -75,14 +75,14 @@ export function FadeIn({
     : { whileInView: shown, viewport: { once: true, margin: '-64px' } as const }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, x: offset.x * distance, y: offset.y * distance }}
       {...trigger}
       transition={{ duration: ms, delay, ease: EASE_ENTRANCE }}
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -100,7 +100,7 @@ interface StaggerProps {
 export function Stagger({ children, className, stagger = 0.04, delay = 0 }: StaggerProps) {
   const reduce = useReducedMotion()
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -116,7 +116,7 @@ export function Stagger({ children, className, stagger = 0.04, delay = 0 }: Stag
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -127,7 +127,7 @@ interface StaggerItemProps extends HTMLMotionProps<'div'> {
 export function StaggerItem({ children, ...props }: StaggerItemProps) {
   const ms = useMotionDuration(DURATION_REVEAL)
   return (
-    <motion.div
+    <m.div
       variants={{
         hidden: { opacity: 0, y: 8 },
         visible: { opacity: 1, y: 0, transition: { duration: ms, ease: EASE_ENTRANCE } }
@@ -135,6 +135,6 @@ export function StaggerItem({ children, ...props }: StaggerItemProps) {
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

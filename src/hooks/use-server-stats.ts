@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { fetchServerStatus, type OnlinePlayer, type ServerStatusBody } from '@/lib/api'
+import { usePolling } from './use-polling'
 
 const POLL_INTERVAL = 30000
 
@@ -24,30 +25,23 @@ export function useServerStats() {
       setLoading(false)
     }
   }, [])
-
   // 轮询订阅外部数据源：状态更新只发生在 await 之后，且卸载后不再写入
-  useEffect(() => {
-    let cancelled = false
-    const run = async () => {
+  usePolling({
+    intervalMs: POLL_INTERVAL,
+    run: async (signal) => {
       try {
-        const data = await fetchServerStatus()
-        if (cancelled) return
+        const data = await fetchServerStatus(signal)
+        if (signal.aborted) return
         setStats(data)
         setError(null)
       } catch (e) {
-        if (cancelled) return
+        if (signal.aborted) return
         setError(e instanceof Error ? e.message : 'Unknown error')
       } finally {
-        if (!cancelled) setLoading(false)
+        if (!signal.aborted) setLoading(false)
       }
     }
-    run()
-    const id = setInterval(run, POLL_INTERVAL)
-    return () => {
-      cancelled = true
-      clearInterval(id)
-    }
-  }, [])
+  })
 
   return {
     stats,

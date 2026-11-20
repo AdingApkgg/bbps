@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 import { fetchAllRanks, type LeaderboardScope, type RankData } from '@/lib/rank'
+import { usePolling } from './use-polling'
 
 const POLL_INTERVAL = 60000
 const EMPTY_RANKS: RankData = {
@@ -41,16 +42,18 @@ export function useRank(scope: LeaderboardScope = 'GLOBAL') {
     }
   }, [scope])
 
-  // 轮询订阅外部数据源：状态更新只发生在 await 之后，且卸载后不再写入
-  useEffect(() => {
-    let cancelled = false
-    const run = async () => {
+  // 轮询订阅外部数据源：状态更新只发生在 await 之后，且卸载后不再写入。
+  // 切档会把 restartKey 变掉，旧请求被 abort、新档立即拉一次。
+  usePolling({
+    intervalMs: POLL_INTERVAL,
+    restartKey: scope,
+    run: async (signal) => {
       try {
-        const result = await fetchAllRanks(scope)
-        if (cancelled) return
+        const result = await fetchAllRanks(scope, signal)
+        if (signal.aborted) return
         setSnapshot({ scope, data: result, error: null })
       } catch (e) {
-        if (cancelled) return
+        if (signal.aborted) return
         setSnapshot({
           scope,
           data: EMPTY_RANKS,
@@ -58,13 +61,7 @@ export function useRank(scope: LeaderboardScope = 'GLOBAL') {
         })
       }
     }
-    run()
-    const id = setInterval(run, POLL_INTERVAL)
-    return () => {
-      cancelled = true
-      clearInterval(id)
-    }
-  }, [scope])
+  })
 
   return { data, loading, error, fetchRanks }
 }

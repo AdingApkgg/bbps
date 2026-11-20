@@ -41,6 +41,8 @@ function FeatureRow({
           alt={item.heading}
           width={600}
           height={400}
+          /* md 起是 12 栏里的 5~6 栏，窄屏是通栏 */
+          sizes="(min-width: 768px) 48vw, 100vw"
           className="mx-auto h-auto max-w-full "
         />
       </FadeIn>

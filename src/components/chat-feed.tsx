@@ -33,7 +33,7 @@ function formatTime(unixSeconds: number, locale: string): string {
 export function ChatFeed() {
   const locale = useLocale()
   const dict = getDictionary(locale)
-  const { entries, loading, error, refresh, polling, setPolling } = useChat()
+  const { entries, loading, error, refresh, loadMore, hasMore, polling, setPolling } = useChat()
   const [refreshing, setRefreshing] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const pinnedToBottomRef = useRef(true)
@@ -119,6 +119,9 @@ export function ChatFeed() {
             ref={scrollRef}
             onScroll={(e) => {
               pinnedToBottomRef.current = e.currentTarget.scrollTop < 24
+              /* 快滚到底就补一段 —— 接口不支持游标，只能扩窗口重取 */
+              const el = e.currentTarget
+              if (hasMore && el.scrollHeight - el.scrollTop - el.clientHeight < 200) loadMore()
             }}
             className="max-h-[460px] overflow-y-auto"
           >
@@ -140,6 +143,11 @@ export function ChatFeed() {
                 </li>
               ))}
             </ul>
+            {hasMore && (
+              <p className="px-4 py-2 text-center text-label text-on-surface-medium">
+                {dict.stats.chatMore}
+              </p>
+            )}
           </div>
         )}
       </div>
