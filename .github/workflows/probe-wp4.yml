@@ -1,0 +1,60 @@
+name: Probe WP 4
+
+# 探针第四轮：header 组合已经排除（A–E 全 403），剩下的差异是传输层。
+# curl 走 HTTP/2 且 200，undici 只能 HTTP/1.1 且 403 —— 测 HTTP 版本是不是分界。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    env:
+      U: >-
+        https://blog.30hb.cn/wp-json/wp/v2/posts?per_page=1&_embed
+      UA: >-
+        Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+        (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+    steps:
+      - name: curl 默认（HTTP/2）对照
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w 'h2   %{http_code}\n' \
+            --max-time 25 -A "$UA" "$U"
+
+      - name: curl 强制 HTTP/1.1
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w 'h1.1 %{http_code}\n' \
+            --max-time 25 --http1.1 -A "$UA" "$U"
+
+      - name: curl HTTP/3
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w 'h3   %{http_code}\n' \
+            --max-time 25 --http3 -A "$UA" "$U"
+
+      - name: curl h1.1 + node 默认头
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w 'h1.1-nodehdr %{http_code}\n' \
+            --max-time 25 --http1.1 -A "$UA" \
+            -H 'accept: */*' -H 'accept-encoding: gzip, deflate' "$U"
+
+      - name: 校验 http2 是否真的用了
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w 'ver=%{http_version} code=%{http_code}\n' \
+            --max-time 25 -A "$UA" "$U"
+          curl -sS -o /dev/null -w 'ver=%{http_version} code=%{http_code}\n' \
+            --max-time 25 --http1.1 -A "$UA" "$U"
+
+      - name: 同一 host 走 IPv4 直连 + h2
+        continue-on-error: true
+        run: |
+          ip=$(getent ahostsv4 blog.30hb.cn | awk 'NR==1{print $1}')
+          echo "ip=$ip"
+          curl -sS -o /dev/null --resolve "blog.30hb.cn:443:$ip" \
+            -w 'h2-direct %{http_code}\n' --max-time 25 -A "$UA" "$U"
