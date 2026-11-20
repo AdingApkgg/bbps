@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils'
 
 /* Checkbox
  *
- * 结构与 Radix 语义沿用 M2（40dp 触达圆上的状态层、Space 切换、indeterminate），
- * 形状换成 HIG：19×19、10px 圆角（`--md-sys-shape-08`）、1.5px 描边，
- * 选中是 success 绿实心 + 白勾（`hig.css` 的 `[data-slot="checkbox"]` 钩子）。
+ * Radix 承载语义（40px 触达圆上的状态层、Space 切换、indeterminate）。
+ * 形状按 HIG：19×19、8px 圆角、1.5px 描边；选中与半选是 success 绿实心 + 白勾。
+ * 外观全在本文件，`hig.css` 不再复述。
  *
  * 勾用 lucide 的 Check/Minus，尺寸 14 保证在 19px 框里留内边距。
  */
@@ -18,8 +18,8 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        'group peer relative inline-flex size-[18px] shrink-0 items-center justify-center rounded-xs',
-        'border-2 border-on-surface-medium bg-transparent',
+        'group peer relative inline-flex size-[1.1875rem] shrink-0 items-center justify-center rounded-08',
+        'border-[1.5px] border-outline-01 bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
         'before:absolute before:-inset-[11px] before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
@@ -27,9 +27,9 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         'focus-visible:before:bg-primary/12',
         'active:enabled:before:bg-primary/12',
-        'data-[state=checked]:border-outline-active data-[state=checked]:bg-primary',
-        'data-[state=indeterminate]:border-outline-active data-[state=indeterminate]:bg-primary',
-        'disabled:cursor-not-allowed disabled:border-on-surface-disabled',
+        'data-[state=checked]:border-success data-[state=checked]:bg-success',
+        'data-[state=indeterminate]:border-success data-[state=indeterminate]:bg-success',
+        'disabled:cursor-not-allowed disabled:opacity-45 disabled:border-on-surface-disabled',
         'disabled:data-[state=checked]:border-transparent disabled:data-[state=checked]:bg-on-surface-disabled/38',
         'disabled:data-[state=indeterminate]:border-transparent disabled:data-[state=indeterminate]:bg-on-surface-disabled/38',
         className

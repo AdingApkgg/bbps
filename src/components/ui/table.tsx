@@ -4,14 +4,17 @@ import { cn } from '@/lib/utils'
 
 /* Data table
  *
- * 取形按 HIG 的 inset grouped 表格（`hig.css` 的 `[data-slot="table-wrap"]` 钩子）：
- * 表格自己就是一块容器（surface-02 底、10px 圆角、横向滚动），调用方不要再套一层
+ * 取形按 HIG 的 inset grouped 表格：表格自己就是一块容器（surface-02 底、圆角、横向滚动），
  * 圆角 div，否则底色与圆角叠两层、出现两个滚动盒。
- * 行分隔线与分组列表同一档（0.5px、outline-variant-01、左 16px 缩进），零竖线、零影。
+ * 行分隔线与分组列表同一档（0.5px、outline-variant-01），零竖线、零影；
+ * 表头不放大写、13px/600、中性色。外观全在本文件，`hig.css` 不再复述。
  */
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div data-slot="table-wrap" className="relative w-full overflow-auto rounded-sm bg-surface-02">
+    <div
+      data-slot="table-wrap"
+      className="relative w-full overflow-auto rounded-sm border-[0.5px] border-outline-01 bg-surface-02"
+    >
       <table
         ref={ref}
         className={cn('w-full border-collapse text-left text-body-02', className)}
@@ -71,7 +74,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'h-13 bg-surface-variant-01 px-4 text-left align-middle text-title-sm text-on-surface-medium',
+      'h-13 bg-surface-variant-01 px-4 text-left align-middle text-label font-semibold text-on-surface-medium tracking-normal',
       '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}

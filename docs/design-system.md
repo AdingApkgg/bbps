@@ -17,14 +17,22 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 外观真源只有一处：`src/components/ui/*.tsx` 里的工具类。`hig.css` 只负责版面语汇
 （分组列表、材质栏、抽屉让位）与组件不会自己写的少量兜底。
 
-但**当前 `hig.css` 没有放进任何 `@layer`**。CSS 规范里 unlayered 样式永远压过任何
-`@layer`，而 Tailwind 的工具类在 `@layer utilities`。所以只要 `hig.css` 里有一条通配
-规则碰了 `border` / `background-color` / `box-shadow`，组件里同名工具类就**静默失效**。
+`hig.css` 现有两段：头段是层内基样式（字号默认值、`*` 的 `border-color` 等），
+主体整份在 `@layer components` 里，**低于 utilities**。所以组件里的同名工具类总能
+盖掉 `hig.css`；`hig.css` 里只是「兜底」，写得再重也压不住组件（要压住才需要
+`!important`，现在只剩 `prefers-reduced-motion` 段那 5 处）。
 
-- 往 `hig.css` 加规则前先想：组件是不是已经写过？写过就别加。
-- 组件里写了却没生效，先查 `hig.css` 有没有同名属性，别在组件里加 `!important` 硬顶。
-- `input.tsx` 上 `border-outline-field`、`hover:bg-field-hover-01`、焦点 `shadow-[...]`
-  全被 `hig.css` 的输入段抹掉过一轮，是这条规则的实例。
+推论：
+
+- 组件已经写过的外观，`hig.css` 里就不要再写一遍；写了就是两份真源，改一处忘一处就漂。
+- 组件类没生效，先查 `hig.css` 的同名属性，别在组件里加 `!important` 硬顶。
+- `hig.css` 只该留组件不可能自己写的：原生元素兜底（裸 `<button>`、裸 `<hr>`）、
+  版面语汇（`[data-list-item]::after`、`[data-divider]`、材质栏）、通配继承（`*` 的
+  `border-color`、`::placeholder`）。
+
+（历史：2026-11 之前 `hig.css` 在层外，`*` 的 `border-color` 与输入段曾把
+`input.tsx` 的 `border-outline-field`、`hover:bg-field-hover-01`、焦点 `shadow-[...]`
+整片抹掉。收入 `@layer components` 后这一类静默失效才消失。）
 
 ## 一、三层令牌，只准单向引用
 
@@ -73,7 +81,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 - `Card` / `CardHeader` / `CardTitle` / `CardContent` —— 一个组就是一张 `Card`（内部已带 `data-slot="card"` 与 `data-list-group`），行用 `CardRow` 或 `data-list-item`。
   `card.tsx:18` 自身就是 `overflow-hidden rounded-sm bg-surface-02` 的一块填充容器：叫 Card 只是沿用旧名，形制是 iOS 分组区段，不是带边框投影的卡片。
 - `ListRow` 式行（`<li data-list-item>` + 上面的行内结构）用于纯链接/按钮列表。
-- 表格：`Table` 自带底色/圆角/横向滚动，**不要再套 `overflow-x-auto rounded-sm bg-surface-02` 的 div**（会叠两层底、两个滚动盒）；行分隔线已统一到 0.5px `outline-variant-01`。
+- 表格：`Table` 自带底色/圆角/横向滚动，**不要再套 `overflow-x-auto rounded-sm bg-surface-02` 的 div**（会叠两层底、两个滚动盒）；行分隔线已统一到 0.5px `outline-variant-01`，表头 13px/600 不放大写。
 - 指标：`grid` + `data-divider`（`src/styles/hig.css` 画 0.5px 竖线，2 列时每行首格自动不画），**不要用 Tailwind 的 `divide-x`**：它生成 `:where(...)` 零特异性选择器，`border-color` 会被 `@layer base` 的 `*` 改回 `outline-01`，颜色淡不下来。
 - 第三方面板（评论、地图这类接管 DOM 的）：外壳用一块裸 `rounded-sm bg-surface-02`，不强行套 `data-list-group`。
 - 分组多而独立时，每组各给一块 `linked` 或独立容器（组之间留 `space-y-6`），小标题始终留在容器外。
@@ -118,7 +126,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 | 顶栏 / 底栏 | `--md-sys-material-bar`（0.85 + `blur(20px)`），`hig.css` 钩 `header.sticky` 与底部固定条 |
 | 抽屉 / sheet / 弹窗 | `--md-sys-material-sheet`（0.9 + `blur(24px) saturate(180%)`） |
 | 浮层投影 | `--md-sys-shadow-overlay`（单层淡影，暖色推进感） |
-| 实心按钮/开关拇指 | `shadow-sm` |
+| 实心按钮 / 开关与滑块拇指 | `--md-sys-shadow-thumb`（开关、滑块）；按钮用 `shadow-sm` |
 
 平铺内容只有一处例外可以用影：实心按钮与滑块拇指这类「抬起的实体」。
 

@@ -7,11 +7,14 @@ import { cn } from '@/lib/utils'
  * 全圆角胶囊，三档尺寸由 `--md-sys-size-chip-*` 约束，成对的 background / color
  * 令牌保证对比度；assist 形态是 1px 描边 + 透明底。状态用 onSurface 叠加层
  * （hover 加深、pressed 再深一档），不换主色。
+ *
+ * 字号取 `text-label`（13px）、不放大写、字距归零、横向 10px 内边距 —— iOS 标记只到这个量级。
+ * 外观全在本文件，`hig.css` 的 `.rounded-pill.px-3` 兜底不再复述。
  */
 const badgeVariants = cva(
   [
     'inline-flex max-w-52 min-w-8 items-center justify-center gap-1 align-middle',
-    'rounded-pill px-3 text-title-sm whitespace-nowrap',
+    'rounded-pill px-2.5 text-label whitespace-nowrap',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard'
   ].join(' '),
   {

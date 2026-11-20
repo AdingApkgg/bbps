@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils'
 
 /* Tabs —— 按 iOS 分段控件（segmented control）取形
  *
- * `hig.css` 把 `[role='tablist']` 画成一块 `field-01` 底的可滑分段：整条 10px 圆角、
- * 选中段是实白血块加一线描边。所以这里不再需要 M2 的下划线指示条，
- * 高度/字重/未选中色都在样式表里统一，组件只管语义。
+ * 整条是 `surface-variant-01` 底的滑槽，选中段是 surface-01 实心片 + 一线描边与淡影；
+ * 全圆角胶囊容器、内缩 2px 内边距、段间 2px 缝。
+ * 所以这里不需要 M2 的下划线指示条，也没有 M2 的底部分隔线。
+ * 高度/字重/未选中色都在本文件，`hig.css` 不再复述。
  */
 const Tabs = TabsPrimitive.Root
 
@@ -19,7 +20,8 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'flex w-full items-stretch overflow-x-auto bg-surface-01 shadow-[inset_0_-1px_0_0_var(--md-sys-color-outline-01)]',
+      'flex w-full items-stretch gap-0.5 overflow-x-auto rounded-sm bg-surface-variant-01',
+      'p-0.5 shadow-none',
       className
     )}
     {...props}
@@ -34,10 +36,11 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex h-(--md-sys-size-control-sm) flex-none items-center justify-center gap-2 whitespace-nowrap px-4 text-body-02 text-on-surface-medium',
-      'transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
+      'inline-flex h-(--md-sys-size-control-sm) flex-none items-center justify-center gap-2 whitespace-nowrap rounded-08 px-4 text-body-02 text-on-surface-medium',
+      'shadow-none transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
       'hover:bg-state-hover hover:text-on-surface',
-      'data-[state=active]:text-on-surface',
+      'data-[state=active]:bg-surface-01 data-[state=active]:font-semibold data-[state=active]:text-on-surface',
+      'data-[state=active]:shadow-[var(--md-sys-shadow-hairline),var(--md-sys-shadow-raised-small)]',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
       'disabled:pointer-events-none disabled:text-on-surface-disabled',
       className

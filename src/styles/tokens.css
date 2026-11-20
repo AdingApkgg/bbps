@@ -44,9 +44,11 @@
   /* 描边：HIG 用分隔线，不给控件描边框 */
   --md-sys-color-outline-disabled: rgba(60, 60, 67, 0.18);
   --md-sys-color-outline-active: #0066cc;
-  /* 强调描边：字段悬停用，必须比 outline-field（0.4）更深，否则悬停看不出来 */
+  /* 强调描边：描边型控件（outlined 按钮、渐变卡、原始 <button>.border）用，
+     `-01` 是字段专用的同值孪生。两者必须同值且明显深于 outline-field（0.4），
+     否则描边与通配继承来的 outline-01（0.29）看不出区别 —— 曾因此漂移过。 */
   --md-sys-color-outline-emphasis-01: rgba(60, 60, 67, 0.55);
-  --md-sys-color-outline-emphasis: rgba(60, 60, 67, 0.29);
+  --md-sys-color-outline-emphasis: rgba(60, 60, 67, 0.55);
   --md-sys-color-outline-00: rgba(60, 60, 67, 0.18);
   /* 分隔线：比描边再淡一档。列表行只用它，不给行加边框 */
   --md-sys-color-outline-variant-01: rgba(60, 60, 67, 0.2);
@@ -146,7 +148,7 @@
     --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
     --md-sys-color-outline-active: #4aa3ff;
     --md-sys-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
-    --md-sys-color-outline-emphasis: rgba(84, 84, 88, 0.65);
+    --md-sys-color-outline-emphasis: rgba(200, 200, 210, 0.85);
     --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
     --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);
     --md-sys-color-outline-01: rgba(84, 84, 88, 0.65);
@@ -313,8 +315,8 @@
   --md-sys-size-touch-target: 2.75rem; /* 44px 最小触达区 */
   --md-sys-size-row: 2.75rem; /* 44px 列表/菜单行高 */
   --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 1rem); /* 28px 小记号 */
-  --md-sys-size-switch-track-h: 2rem; /* 32px 开关轨道 */
-  --md-sys-size-switch-track-w: 3.25rem; /* 52px 开关轨道 */
+  --md-sys-size-switch-track-h: 1.9375rem; /* 31px 开关轨道（HIG） */
+  --md-sys-size-switch-track-w: 3.1875rem; /* 51px 开关轨道（HIG） */
   --md-sys-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
 }
 

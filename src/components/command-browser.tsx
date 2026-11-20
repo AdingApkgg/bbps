@@ -363,7 +363,7 @@ export function CommandBrowser({
           className={cn(
             'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
             category === 'all'
-              ? 'border-transparent bg-state-selected text-link'
+              ? 'border-transparent bg-state-selected text-link-hover'
               : 'border-outline-emphasis hover:bg-state-hover'
           )}
         >
@@ -377,7 +377,7 @@ export function CommandBrowser({
             className={cn(
               'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
               category === c.id
-                ? 'border-transparent bg-state-selected text-link'
+                ? 'border-transparent bg-state-selected text-link-hover'
                 : 'border-outline-emphasis hover:bg-state-hover'
             )}
           >

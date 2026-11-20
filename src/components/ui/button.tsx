@@ -5,10 +5,12 @@ import { cn } from '@/lib/utils'
 
 /* Button
  *
- * 形状与字号按 HIG（17px/600、10px 圆角、48px 高），状态层与变体结构沿用 M2：
+ * 形状与字号按 HIG（17px/600、10px 圆角、48px 高）：HIG 的按钮是平的，零影零抬升，
+ * 状态只改底色或叠一层极淡的 state 层，不靠投影。
  *  - 状态靠合成好的 `bg-*-hover` / `bg-*-active` 表达，不是改主色；
- *  - text / outlined 无影，只有 filled 有 `shadow-sm`（抬起的实体）；
- *  - focus 是 2px primary 描边 + 外扩 2px，与全站 :focus-visible 同款。
+ *  - 所有变体都无影；
+ *  - focus 走 `:focus-visible` 全局 3px 环（`hig.css`，层内低于 utilities）；
+ *  - 切换型按钮（`aria-pressed`）用 2px 内描边 + link 色表示已按下。
  *
  * M2 的「拉丁大写 + 0.089em 字距」由 `hig.css` 的 `:root .text-button` 压掉。
  * 一屏只留一个 default(filled primary)。
@@ -19,27 +21,28 @@ const buttonVariants = cva(
     'overflow-hidden rounded-sm border-0 font-semibold',
     'text-button no-underline select-none',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard',
-    'disabled:pointer-events-none disabled:cursor-not-allowed disabled:shadow-none',
+    'disabled:pointer-events-none disabled:cursor-not-allowed',
+    'aria-pressed:shadow-[inset_0_0_0_2px_var(--md-sys-color-link)] aria-pressed:text-link',
     '[&_svg]:pointer-events-none [&_svg]:size-[1.125rem] [&_svg]:shrink-0'
   ].join(' '),
   {
     variants: {
       variant: {
-        /* contained：唯一的实心主色按钮，带 elevation */
+        /* contained：唯一的实心主色按钮 */
         default: [
-          'bg-button-contained text-on-button-contained shadow-sm',
-          'hover:enabled:bg-button-contained-hover hover:enabled:shadow',
-          'active:enabled:bg-button-contained-active active:enabled:shadow-md',
+          'bg-button-contained text-on-button-contained',
+          'hover:enabled:bg-button-contained-hover',
+          'active:enabled:bg-button-contained-active',
           'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
         ].join(' '),
-        /* contained secondary：中性容器色，文字用 primary */
+        /* 中性容器色的次级填充按钮，文字用 primary */
         secondary: [
-          'bg-button-outlined text-on-button-outlined shadow-sm',
-          'hover:enabled:bg-button-outlined-hover hover:enabled:shadow',
-          'active:enabled:bg-button-outlined-active active:enabled:shadow-md',
+          'bg-button-outlined text-on-button-outlined',
+          'hover:enabled:bg-button-outlined-hover',
+          'active:enabled:bg-button-outlined-active',
           'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
         ].join(' '),
-        /* outlined：1px 42% 描边，无影，hover 加 4% primary 底 */
+        /* bordered：42% 描边，无底，hover 叠 4% primary */
         outline: [
           'border border-outline-emphasis bg-transparent text-link',
           'hover:enabled:bg-state-hover',
@@ -55,9 +58,9 @@ const buttonVariants = cva(
         ].join(' '),
         /* contained destructive */
         destructive: [
-          'bg-button-contained-error text-on-primary shadow-sm',
-          'hover:enabled:bg-button-error-hover hover:enabled:shadow',
-          'active:enabled:bg-button-error-active active:enabled:shadow-md',
+          'bg-button-contained-error text-on-primary',
+          'hover:enabled:bg-button-error-hover',
+          'active:enabled:bg-button-error-active',
           'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
         ].join(' '),
         link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-link hover:enabled:text-link-hover hover:enabled:underline'

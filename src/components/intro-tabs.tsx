@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Puzzle, Shield, Rocket } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
@@ -50,7 +50,7 @@ export function IntroTabs() {
                 onClick={() => setActive(i)}
                 className={`flex h-(--md-sys-size-control-lg) items-center gap-2 rounded-pill border px-4 text-button uppercase transition-colors duration-fast-02 ${
                   isActive
-                    ? 'border-transparent bg-state-selected text-link'
+                    ? 'border-transparent bg-state-selected text-link-hover'
                     : 'border-outline-emphasis bg-transparent text-on-surface-medium hover:bg-state-hover hover:text-on-surface'
                 }`}
               >
@@ -64,7 +64,7 @@ export function IntroTabs() {
         {/* Tab 内容 */}
         <div className="mt-4">
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={active}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export function IntroTabs() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>
