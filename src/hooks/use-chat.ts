@@ -68,24 +68,37 @@ export function useChat() {
     setPollingState(loadPolling())
   }, [])
 
-  const refresh = useCallback(async () => {
+  /* 取一整个窗口（首屏、刷新、加载更多都走它）。窗口大小由调用方给，
+     不读 state —— 那样加载更多会先拿到旧值。 */
+  const fetchWindow = useCallback(async (take: number, signal?: AbortSignal) => {
     try {
-      const data = await fetchChat(limit)
+      const data = await fetchChat(take, signal)
       setEntries((prev) => mergeBySeq(prev, onlyChatMessages(data.entries)))
-      /* 服务端返回不足一整个窗口，说明已经到头 */
-      setHasMore(data.entries.length >= limit && limit < MAX_LIMIT)
+      /* 返回不足一整个窗口就说明到头了；接口不支持游标，只能靠这个判断 */
+      setHasMore(data.entries.length >= take && take < MAX_LIMIT)
+      loadedOnceRef.current = true
       setError(false)
-    } catch {
-      setError(true)
+    } catch (err) {
+      if (signal?.aborted) return
+      // 已经有数据时静默失败，不要把已渲染的聊天替换成错误页
+      if (!loadedOnceRef.current) setError(true)
+      throw err
     } finally {
-      setLoading(false)
+      if (!signal?.aborted) setLoading(false)
     }
-  }, [limit])
-
-  /** 往下翻时多要一段；窗口封顶后就不再请求新的一轮 */
-  const loadMore = useCallback(() => {
-    setLimit((prev) => (prev >= MAX_LIMIT ? prev : Math.min(prev + MORE_LIMIT, MAX_LIMIT)))
   }, [])
+
+  const refresh = useCallback(() => fetchWindow(limit), [fetchWindow, limit])
+
+  /** 往下翻时扩一段再重取；窗口封顶后不再增长 */
+  const loadMore = useCallback(() => {
+    if (limit >= MAX_LIMIT) return
+    const take = Math.min(limit + MORE_LIMIT, MAX_LIMIT)
+    setLimit(take)
+    void fetchWindow(take).catch(() => {
+      /* 错误已由 fetchWindow 记下 */
+    })
+  }, [fetchWindow, limit])
 
   // 轮询订阅：状态更新只发生在 await 之后，卸载后不再写入
   usePolling({
@@ -94,18 +107,8 @@ export function useChat() {
     run: async (signal) => {
       const take = firstTickRef.current ? limit : POLL_LIMIT
       firstTickRef.current = false
-      try {
-        const data = await fetchChat(take, signal)
-        setEntries((prev) => mergeBySeq(prev, onlyChatMessages(data.entries)))
-        setError(false)
-        loadedOnceRef.current = true
-      } catch {
-        if (signal.aborted) return
-        // 已经有数据时静默失败，不要把已渲染的聊天替换成错误页
-        if (!loadedOnceRef.current) setError(true)
-      } finally {
-        if (!signal.aborted) setLoading(false)
-      }
+      /* 轮询失败不往外抛，usePolling 自己会吞；这里只保留静默失败语义 */
+      await fetchWindow(take, signal).catch(() => {})
     }
   })
 

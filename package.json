@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev --turbopack --hostname 0.0.0.0",
     "prebuild": "node scripts/responsive-images.mjs",
-    "build": "next build && node scripts/generate-feed.mjs",
+    "build": "next build && node scripts/generate-feed.mjs && node scripts/strip-preview.mjs",
     "start": "serve out",
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
