@@ -33,6 +33,10 @@ jobs:
       - name: Lint
         run: bunx biome check src scripts
 
+      # 暗色写了两份（跟随系统 / 手动选），这个脚本把两份不一致变成红灯
+      - name: Theme parity
+        run: bun run check:theme
+
       # 构建会抓 blog.30hb.cn：src/lib/http.ts 已带 IPv4 优先 + 退避重试，
       # 仍失败就说明上游真挂了，让它红是想要的信号
       - name: Build

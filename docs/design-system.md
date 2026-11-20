@@ -20,7 +20,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 `hig.css` 现有两段：头段是层内基样式（字号默认值、`*` 的 `border-color` 等），
 主体整份在 `@layer components` 里，**低于 utilities**。所以组件里的同名工具类总能
 盖掉 `hig.css`；`hig.css` 里只是「兜底」，写得再重也压不住组件（要压住才需要
-`!important`，现在只剩 `prefers-reduced-motion` 段那 5 处）。
+`!important`，现在整份仓库只剩 `src/app/globals.css` 的 `prefers-reduced-motion` 段那 4 处）。
 
 推论：
 
@@ -47,7 +47,14 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 - 组件里写语义名或 Tailwind 别名，**不写裸 hex、不写 `rgba()` 字面量**（除非是在定义令牌）。
 - 字号只用 `--text-*` 阶（`text-body-02`、`text-headline-sm`…），禁止 `text-[13px]` 这类裸 px；行高与字重随阶走。
   字阶表本身镜像 iOS 动态字体，改字号就是改 HIG，须同时改 `hig.css` 头注释里的对照表。
-- 间距按 Tailwind 的 4px 基数阶（`p-4`、`gap-2`），不要 13px / 18px 的野生值。
+- 间距只走刻度。`--spacing` 在 `src/app/globals.css` 的 `@theme` 里钉为 `0.25rem`，长度工具按它相乘，
+  刻度 = 相邻两档至少差 4px 的那组值：`1(4) 2(8) 3(12) 4(16) 6(24) 8(32) 10(40) 12(48) 16(64) 20(80) 24(96)`。
+  不成档的 `1.5 / 2.5 / 3.5 / 7 / 9 / 14 / 28` 并到相邻档（`gap-1.5→gap-2`、`pl-9→pl-8`、`py-28→py-24`）。
+  `0.5`（2px）是唯一的亚刻度值，只用于描边对齐、图标微调这类 1px 级缝隙（`-mt-px` 的替代）。
+- 上面这条管的是间距（`p* m* gap-* space-* inset-*`）。控件高度与图标不跟间距阶，
+  走 `--md-sys-size-*` 令牌或 `h-4 w-4` 这类固定值，避免改间距时把控件尺寸一起带飞。
+- 断点只用 `sm` / `md` / `lg` / `xl` / `2xl`，值在 `globals.css` 的 `@theme` 里声明（40/48/64/80/96rem）。
+  CSS 原生媒体查询写 rem 字面量，改断点值时要一起改，不能只改令牌。
 - 圆角只用 `--md-sys-shape-*`、`--radius-*` 别名，或 `rounded-sm`（=`--md-sys-shape-control`，10px；分组容器）/ `rounded-full`（胶囊与图标圈）。
 
 ## 二、语义色契约
@@ -70,7 +77,7 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 页面骨架固定为：
 
 1. 页头左对齐：`text-display-lg` 标题 + `text-headline-sm` 副题，`pt-8 pb-16 md:pt-12 md:pb-24`。
-   全站页面的页头间距就是这个值，新页面照抄 `music-page.tsx` / `server-stats.tsx` 那几处，不要自创 `pt-10`（`commands-page.tsx:48` 是唯一还没跟上的，属待改）。
+   全站页面的页头间距就是这个值，新页面照抄 `music-page.tsx` / `server-stats.tsx` 那几处，不要自创 `pt-10`。
 2. 区块抬头在容器外：`mb-2 px-4 text-label font-semibold text-on-surface-medium`，可有右侧 `aside`（计数 Badge、开关、刷新按钮）。
 3. 容器：`rounded-sm bg-surface-02`，**零边框零阴影**。
 4. 容器内的行一律 `data-list-item`；容器本身 `data-list-group`。分隔线与缩进由 `hig.css` 的 `[data-list-item]::after` 统一画（从 1rem 缩进、末项自动消失），**不要在行上手写 `border-b … last:border-b-0`**。
@@ -130,9 +137,19 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 平铺内容只有一处例外可以用影：实心按钮与滑块拇指这类「抬起的实体」。
 
-## 七、阅读偏好
+## 七、明暗主题与阅读偏好
 
-`src/styles/prefs.css` 一组 `--pref-*`：`cursor-interactive`、`link-decoration`、`pad-scale`、`type-scale`。
+**明暗是三档**：跟随系统 / 浅色 / 深色，开关在顶栏，状态存在 `localStorage` 的 `bbps-theme` 与
+`<html data-theme>`，`src/lib/theme.ts` 的 `THEME_SCRIPT` 在首帧前内联执行防闪。三档而不是二值开关，
+是因为二值会丢掉「跟随系统」这条默认路径。
+
+代价是暗色令牌得写两遍（静态站没有服务端协商，`prefers-color-scheme` 与 `data-theme` 各一条通路），
+两份必须字字相同：`bun run check:theme` 会逐条比对并列出差异，CI 也跑。改暗色只在
+`tokens.css` 那两块里改，两处一起改；`globals.css`/`hig.css` 里零星的明暗分支同理。
+JS 侧要判明暗只能走 `usePrefersDark()`（`data-theme` 优先，`auto` 才问系统），
+不要直接 `matchMedia` —— 否则手动选深色时会跟正文反着来。
+
+阅读偏好是另一套，与明暗正交：`src/styles/prefs.css` 一组 `--pref-*`：`cursor-interactive`、`link-decoration`、`pad-scale`、`type-scale`。
 默认是正常值（`default` / `none` / `1` / `1`）；偏好改的是同一设计语言下的节奏，不是另一个主题。
 没有切换 UI —— 要换就在 `:root` 改默认值，全站跟着走。
 
@@ -153,13 +170,15 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 ## 九、校验（提交前）
 
 ```bash
-bun run check          # biome check + tsc --noEmit，两个一起跑
-bun scripts/shots.mjs   # 明暗 × 1280/390，含三道闸门
+bun run check          # biome check + tsc --noEmit + check:theme，一起跑
+bun scripts/shots.mjs   # 明暗 × 1280/390 × 跟随系统/手动选，含四道闸门
 ```
 
-`scripts/shots.mjs` 逐页截图并同时输出三道闸门，任一非 0 都要处理：
+`scripts/shots.mjs` 逐页截图并同时输出四道闸门，任一非 0 都要处理：
 - `overflow` —— 横向溢出 px（必须全 0，含抽屉打开态）。
 - `drawerFail` —— 手机端抽屉、语言菜单没打开（必须 0）。
+- `themeFail` —— 点菜单项后 `<html data-theme>` 没落上（必须 0）。这一路故意把系统配色
+  设成与所选主题相反，手动选真生效才不会与系统撞成同一结果；只看 `emulateMedia` 验不出主题开关坏没坏。
 - `lowContrast` —— 对比度低于 4.5:1（大字 3:1）的文字节点，附选择器与实测比值。
   探针取最近的不透明祖先做底色；背景图/渐变会自动跳过，所以**命中即真问题**，跳过不等于合格。
   报告值不含子像素抗锯齿，4.4~4.5 的边缘值按失败处理。

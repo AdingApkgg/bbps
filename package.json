@@ -14,10 +14,11 @@
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
     "typecheck": "tsc --noEmit",
-    "check": "biome check && bun run typecheck",
+    "check": "biome check && bun run typecheck && bun run check:theme",
     "download-assets": "node scripts/download-assets.mjs",
     "migrate-blog": "node scripts/migrate-blog.mjs",
     "check:data": "node scripts/gen-entities.mjs --check && node scripts/gen-command-notes.mjs --check",
+    "check:theme": "node scripts/check-theme-parity.mjs",
     "format": "biome format --write"
   },
   "dependencies": {

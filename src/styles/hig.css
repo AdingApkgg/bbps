@@ -348,11 +348,16 @@
   }
 
   /* 选中态 chip：亮色 #0066cc 落在选中底（#e9e9eb）只有 4.59:1，贴边且受 antialias 影响，
-   压到 7.10:1 更稳；暗色底 6.25:1 本来够，保持 iOS 亮蓝 */
+   压到 7.10:1 更稳；暗色底 6.25:1 本来够，保持 iOS 亮蓝。
+   浅色下压深这条只在「真的是浅色」时成立 —— 系统亮色但手动选了深色时要跟着走暗。 */
   @media (prefers-color-scheme: light) {
-    :root .bg-state-selected.text-link {
+    :root:not([data-theme="dark"]) .bg-state-selected.text-link {
       color: #004a99;
     }
+  }
+  /* 手动选浅色但系统是深色 */
+  :root[data-theme="light"] .bg-state-selected.text-link {
+    color: #004a99;
   }
 
   /* 滚动条：轨道透明、拇指用描边色、圆角随形状令牌 */

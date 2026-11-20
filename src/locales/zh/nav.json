@@ -14,5 +14,9 @@
   "community": "社区",
   "gallery": "图集",
   "music": "音乐",
-  "toggleMenu": "切换菜单"
+  "toggleMenu": "切换菜单",
+  "theme": "主题",
+  "themeAuto": "跟随系统",
+  "themeLight": "浅色",
+  "themeDark": "深色"
 }

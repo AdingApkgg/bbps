@@ -10,6 +10,7 @@ import {
   SITE_NAME,
   SITE_URL
 } from '@/lib/site'
+import { THEME_SCRIPT } from '@/lib/theme'
 
 /*
  * 中英两套根 layout 的共用外壳。
@@ -50,6 +51,21 @@ export function SiteHtml({ lang, children }: { lang: string; children: React.Rea
       suppressHydrationWarning
       className={notoSansSC.variable}
     >
+      {/* `next/head` 是 Pages Router 的东西，App Router 的根 layout 就该直接写 <head>：
+          防闪脚本必须在水合之前同步执行，`next/script` 的 beforeInteractive 在静态导出里
+          拿不到这个保证。 */}
+      {/* biome-ignore lint/style/noHeadElement: 见上 */}
+      <head>
+        {/* 防闪串必须在水合前同步执行，`next/script` 在静态导出拿不到这个保证，
+            只能内联。两个检查器都要注释，且都要求注释在紧邻的上一行，故用范围抑制。 */}
+        {/* biome-ignore-start lint/security/noDangerouslySetInnerHtml: 常量脚本，无外部输入 */}
+        <script
+          // pi-lens-ignore: dangerously-set-inner-html -- 内容是 src/lib/theme.ts 的常量，无外部输入
+          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
+        />
+        {/* biome-ignore-end lint/security/noDangerouslySetInnerHtml: 常量脚本，无外部输入 */}
+        {/* 系统跟随的那两条带 media，手动选定后要拆掉 —— 见 src/lib/theme.ts */}
+      </head>
       <body className="font-sans antialiased">
         <a
           href="#main"

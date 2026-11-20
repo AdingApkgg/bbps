@@ -123,9 +123,14 @@
   --md-sys-color-on-button-outlined: #0066cc;
 }
 
-/* ── 暗色：系统 Dark ──────────────────────────────────────────────────── */
+/* ── 暗色 ────────────────────────────────────────────────────────────────
+ * 两处来源：`prefers-color-scheme` 管「跟随系统」，`[data-theme='dark']` 管手动选定。
+ * 两段必须是同一份值 —— 手动选深色的人不该因为系统是浅色就少拿到任何令牌，
+ * 所以下面两块内容靠 `:is()` 合并，改动时两处一起改。
+ * `:not([data-theme='light'])` 是必要的：手动选了浅色就不能再被系统暗色盖掉。
+ */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --md-sys-color-fill-quaternary: rgba(118, 118, 128, 0.24);
     --md-sys-color-material-bar: rgba(28, 28, 30, 0.82);
     --md-sys-color-material-sheet: rgba(44, 44, 46, 0.88);
@@ -220,6 +225,100 @@
   }
 }
 
+:root[data-theme="dark"] {
+  --md-sys-color-fill-quaternary: rgba(118, 118, 128, 0.24);
+  --md-sys-color-material-bar: rgba(28, 28, 30, 0.82);
+  --md-sys-color-material-sheet: rgba(44, 44, 46, 0.88);
+
+  /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
+  --md-sys-color-surface: #000000;
+  --md-sys-color-surface-01: #1c1c1e;
+  --md-sys-color-surface-02: #1c1c1e;
+  --md-sys-color-surface-hover-01: #262628;
+  --md-sys-color-surface-hover-02: #2c2c2e;
+  --md-sys-color-surface-selected-01: #2c2c2e;
+  --md-sys-color-surface-selected-02: #363638;
+  --md-sys-color-surface-variant-01: #2c2c2e;
+  --md-sys-color-surface-disabled-01: #1c1c1e;
+
+  --md-sys-color-field-01: #2c2c2e;
+  --md-sys-color-field-hover-01: #363638;
+  --md-sys-color-outline-field: rgba(140, 140, 150, 0.55);
+
+  --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
+  --md-sys-color-outline-active: #4aa3ff;
+  --md-sys-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
+  --md-sys-color-outline-emphasis: rgba(200, 200, 210, 0.85);
+  --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
+  --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);
+  --md-sys-color-outline-01: rgba(84, 84, 88, 0.65);
+  --md-sys-color-outline: rgba(84, 84, 88, 0.65);
+
+  --md-sys-color-on-surface: #ffffff;
+  --md-sys-color-on-surface-medium: rgba(235, 235, 245, 0.6);
+  --md-sys-color-on-surface-helper: rgba(235, 235, 245, 0.55);
+  --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
+  --md-sys-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
+  --md-sys-color-on-inverse-surface: #000000;
+  --md-sys-color-on-inverse-primary: #0066cc;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-on-warning: #00131f;
+
+  --md-sys-color-primary: #0a72d6;
+  --md-sys-color-link: #4aa3ff;
+  --md-sys-color-link-hover: #79baff;
+
+  --md-sys-color-error: #ff453a;
+  --md-sys-color-success: #2a9d47;
+  --md-sys-color-warning: #ff9f0a;
+  --md-sys-color-info: #4aa3ff;
+
+  --md-sys-color-focus: #4aa3ff;
+  --md-sys-color-interactive: #4aa3ff;
+  --md-sys-color-highlight: rgba(10, 132, 255, 0.22);
+  --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
+  --md-sys-color-state-hover: rgba(118, 118, 128, 0.16);
+  --md-sys-color-state-pressed: rgba(118, 118, 128, 0.24);
+  --md-sys-color-state-selected: rgba(118, 118, 128, 0.24);
+  --md-sys-color-inverse-surface: #f2f2f7;
+  --md-sys-color-skeleton-background: #2c2c2e;
+  --md-sys-color-skeleton-element: #363638;
+
+  --md-sys-color-chip-background-blue: rgba(10, 132, 255, 0.22);
+  --md-sys-color-chip-color-blue: #8cc4ff;
+  --md-sys-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
+  --md-sys-color-chip-color-cool-gray: #d6d6db;
+  --md-sys-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
+  --md-sys-color-chip-color-cyan: #93e3ff;
+  --md-sys-color-chip-background-gray: rgba(118, 118, 128, 0.24);
+  --md-sys-color-chip-color-gray: #d6d6db;
+  --md-sys-color-chip-background-green: rgba(48, 209, 88, 0.22);
+  --md-sys-color-chip-color-green: #7eeb95;
+  --md-sys-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
+  --md-sys-color-chip-color-magenta: #ff96a8;
+  --md-sys-color-chip-background-purple: rgba(191, 90, 242, 0.24);
+  --md-sys-color-chip-color-purple: #d6a2ff;
+  --md-sys-color-chip-background-red: rgba(255, 69, 58, 0.22);
+  --md-sys-color-chip-color-red: #ff9b91;
+  --md-sys-color-chip-background-teal: rgba(64, 200, 224, 0.22);
+  --md-sys-color-chip-color-teal: #96e8f4;
+  --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
+  --md-sys-color-chip-color-warm-gray: #d6d6db;
+
+  --md-sys-color-button-contained: #0a72d6;
+  --md-sys-color-button-contained-hover: #0d6fd0;
+  --md-sys-color-button-contained-active: #0a63bd;
+  --md-sys-color-button-contained-disabled: #2c2c2e;
+  --md-sys-color-button-outlined: rgba(118, 118, 128, 0.24);
+  --md-sys-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
+  --md-sys-color-button-outlined-active: rgba(118, 118, 128, 0.4);
+  --md-sys-color-button-contained-error: #d92f26;
+  --md-sys-color-button-error-hover: #cc332a;
+  --md-sys-color-button-error-active: #b82a22;
+  --md-sys-color-on-button-contained: #ffffff;
+  --md-sys-color-on-button-outlined: #79baff;
+}
+
 /* ── 圆角：HIG 形状刻度（控件 10、卡片 16、浮层 14、胶囊 max） ─────────── */
 :root {
   --md-sys-shape-02: 0.125rem;
@@ -255,8 +354,9 @@
   --md-sys-shadow-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
+/* 同上：跟系统一块、手动选定一块，值必须一致 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --md-sys-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
     --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
     --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
@@ -270,6 +370,21 @@
     --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
     --md-sys-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
   }
+}
+
+:root[data-theme="dark"] {
+  --md-sys-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
+  --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
+  --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
+  --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
+  --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
+  --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+  --md-sys-shadow-thumb:
+    0 3px 8px rgba(0, 0, 0, 0.6), 0 3px 1px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.4);
+  --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
+  --md-sys-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
 }
 
 /* ── 动效：iOS 缩短刻度，进出场用带过冲的缓出 ─────────────────────────── */
@@ -317,7 +432,21 @@
   --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 1rem); /* 28px 小记号 */
   --md-sys-size-switch-track-h: 1.9375rem; /* 31px 开关轨道（HIG） */
   --md-sys-size-switch-track-w: 3.1875rem; /* 51px 开关轨道（HIG） */
+  --md-sys-size-switch-thumb: 1.6875rem; /* 27px 开关手柄 */
+  --md-sys-size-switch-halo-x: 7px; /* 开关外扩热区，与 -y 合成 65×65 圆 */
+  --md-sys-size-switch-halo-y: 17px;
+  --md-sys-size-hit-halo: 12px; /* 单选 / 复选外扩热区，凑满 44px 触达 */
+  --md-sys-size-slider-pad: 9px; /* 滑杆纵向留白，28+18=46px 触达 */
+  --md-sys-size-hairline: 0.5px; /* 发丝线：分隔线、表格描边，视网膜屏才实 */
+  --md-sys-size-border-thin: 1.5px; /* 单选 / 复选未选描边 */
   --md-sys-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
+  --md-sys-size-toast-width: 21.5rem; /* 344px 吐司上限 */
+  --md-sys-size-feed-height: 28.75rem; /* 460px 聊天记录视窗 */
+  --md-sys-size-log-height: 25rem; /* 400px 日志视窗 */
+  --md-sys-size-rank-label: 12.5rem; /* 200px 排行姓名列 */
+  --md-sys-size-chip-min: 5rem; /* 80px 标签最小宽 */
+  --md-sys-size-control-min: 6.25rem; /* 100px 控件最小宽 */
+  --md-sys-size-player-bar: 4.5rem; /* 72px 播放条 */
 }
 
 /* ── 层叠顺序 ──────────────────────────────────────────────────────────

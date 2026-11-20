@@ -14,5 +14,9 @@
   "community": "Community",
   "gallery": "Gallery",
   "music": "Music",
-  "toggleMenu": "Toggle Menu"
+  "toggleMenu": "Toggle Menu",
+  "theme": "Theme",
+  "themeAuto": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark"
 }

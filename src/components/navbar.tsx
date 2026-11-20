@@ -7,6 +7,7 @@ import { useLocale, useLocalePref } from '@/contexts/locale-context'
 import { getDictionary } from '@/lib/i18n'
 import { getDonateItem } from '@/lib/nav-items'
 import { SiteDrawer } from '@/components/site-drawer'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -54,6 +55,9 @@ export function Navbar() {
           >
             <Heart className="h-[1.35rem] w-[1.35rem] fill-current" />
           </Link>
+
+          {/* 主题：和语言同属显示偏好，排在捐赠后面，不跟功能入口争位置 */}
+          <ThemeToggle />
 
           {/* Language switcher */}
           <DropdownMenu>

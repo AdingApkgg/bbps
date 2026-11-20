@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 /* 页面截图 + 预览页生成
  *
- * 目标：一次跑完「明暗 × 宽窄 × 关键状态」的截图，并重写 public/preview.html
+ * 目标：一次跑完「主题 × 明暗 × 宽窄 × 关键状态」的截图，并重写 public/preview.html
  * 对照页（两者都不入库，需要时本地重跑）。皮肤维度已随 HIG 单皮肤化移除。
+ *
+ * 主题两档：`auto` 走系统配色（emulateMedia），`dark`/`light` 走顶栏开关（点菜单项）。
+ * 手动那两档必须走真开关：只看 emulateMedia 验不出 `data-theme` 有没有生效，
+ * 而开关坏了正是最容易漏的回归。
  *
  * 用法（在构建机上）：
  *   SHOT_BASE=http://localhost:3100 PLAYWRIGHT_WS=ws://localhost:3000 bun scripts/shots.mjs
@@ -45,6 +49,12 @@ const STATES = [
   { id: 'light', label: '亮色', scheme: 'light' },
   { id: 'dark', label: '暗色', scheme: 'dark' }
 ]
+/* 同一个明暗值，两条通路各跑一次：auto = 系统给，manual = 点开关写 data-theme。
+   系统一律设成相反值，手动那档真生效才不会与系统撞成同一结果。 */
+const THEME_MODES = [
+  { id: 'auto', label: '跟随系统', scheme: { light: 'light', dark: 'dark' }, manual: null },
+  { id: 'manual', label: '手动选', scheme: { light: 'dark', dark: 'light' }, manual: true }
+]
 
 const slug = (s) =>
   s
@@ -70,6 +80,30 @@ async function openDrawer(page) {
     return true
   }
   return false
+}
+
+/* 菜单项图标与主题名不同名：浅色是太阳、深色是月亮 */
+const THEME_ICONS = { light: 'sun', dark: 'moon' }
+
+/* 点开主题菜单选一项；选完等 body 的 pointer-events 恢复 —— Radix 在菜单打开期间
+ * 给 body 挂 pointer-events: none，关掉后等动画结束才摘，插在后面的点击会被吞掉。 */
+async function pickTheme(page, target) {
+  const btn = page.locator(
+    'header button:has(> svg.lucide-sun, > svg.lucide-moon, > svg.lucide-monitor)'
+  )
+  if (!(await btn.count())) return false
+  await btn.first().click()
+  await page.waitForTimeout(250)
+  const item = page.locator(`[role="menuitem"]:has(svg.lucide-${THEME_ICONS[target]})`)
+  if (!(await item.count())) return false
+  await item.first().click()
+  await page
+    .waitForFunction(() => getComputedStyle(document.body).pointerEvents !== 'none', null, {
+      timeout: 5000
+    })
+    .catch(() => {})
+  await page.waitForTimeout(150)
+  return page.evaluate((t) => document.documentElement.dataset.theme === t, target)
 }
 
 async function contrastAudit(page) {
@@ -165,37 +199,44 @@ async function main() {
   const ctx = await browser.newContext({ deviceScaleFactor: 1 })
   const page = await ctx.newPage()
   page.setDefaultTimeout(90_000)
+  /* 每轮导航前清掉上一轮手动留下的 data-theme：不然「跟随系统」那档量到的是上一档 */
+  await page.addInitScript(() => localStorage.removeItem('bbps-theme'))
 
   const captured = []
   for (const shot of SHOTS) {
-    for (const state of STATES) {
-      await page.setViewportSize(shot.vp)
-      await page.emulateMedia({ colorScheme: state.scheme })
-      await page.goto(BASE + shot.path, { waitUntil: 'commit' })
-      await page.waitForTimeout(2500)
+    for (const mode of THEME_MODES) {
+      for (const state of STATES) {
+        await page.setViewportSize(shot.vp)
+        await page.emulateMedia({ colorScheme: mode.scheme[state.id] })
+        await page.goto(BASE + shot.path, { waitUntil: 'commit' })
+        await page.waitForTimeout(2500)
 
-      let opened = false
-      let language = false
-      if (shot.act === 'drawer') opened = await openDrawer(page)
-      if (shot.act === 'language') language = await openLanguage(page)
-      await page.evaluate(async () => {
-        await document.fonts.ready
-      })
-      await page.mouse.move(2, 2)
-      await page.waitForTimeout(150)
+        let opened = false
+        let language = false
+        let themed = true
+        if (mode.manual) themed = await pickTheme(page, state.id)
+        if (shot.act === 'drawer') opened = await openDrawer(page)
+        if (shot.act === 'language') language = await openLanguage(page)
+        await page.evaluate(async () => {
+          await document.fonts.ready
+        })
+        await page.mouse.move(2, 2)
+        await page.waitForTimeout(150)
 
-      const file = `${slug(`${state.id}-${shot.title}`)}.jpg`
-      const abs = path.join(OUT, file)
-      await page.screenshot({ path: abs, type: 'jpeg', quality: 82 })
-      const contrast = await contrastAudit(page)
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
-      )
-      captured.push({ ...shot, state, file, overflow, opened, language, contrast })
-      process.stderr.write(
-        `▸ ${file} overflow=${overflow} contrast=${contrast.violations}/${contrast.checked}` +
-          `${opened || language ? ' ' : ''}\n`
-      )
+        const tag = mode.manual ? `${state.id}-手动` : state.id
+        const file = `${slug(`${tag}-${shot.title}`)}.jpg`
+        const abs = path.join(OUT, file)
+        await page.screenshot({ path: abs, type: 'jpeg', quality: 82 })
+        const contrast = await contrastAudit(page)
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+        )
+        captured.push({ ...shot, mode, state, themed, file, overflow, opened, language, contrast })
+        process.stderr.write(
+          `▸ ${file} overflow=${overflow} contrast=${contrast.violations}/${contrast.checked}` +
+            `${themed ? '' : ' NO-THEME'}\n`
+        )
+      }
     }
   }
 
@@ -231,15 +272,18 @@ async function main() {
 </style>
 <header>
   <h1>页面预览</h1>
-  <p class="hint">由 <code>scripts/shots.mjs</code> 生成（${captured.length} 张）。设计取向为 Apple Human Interface Guidelines 单皮肤；顶栏「切换样式修饰」可实时开关 pointer / underline / compact / text-xl 四个修饰符（窄屏在抽屉底部）。</p>
+  <p class="hint">由 <code>scripts/shots.mjs</code> 生成（${captured.length} 张）。明暗各有两档：「跟随系统」用 <code>emulateMedia</code> 把系统配色设成该值，「手动选」则真去点顶栏主题菜单并断言 <code>data-theme</code> 落上，因此同一张图既能验配色也能验开关。设计取向为 Apple Human Interface Guidelines 单皮肤。</p>
 </header>
 ${pages
   .map((p) =>
-    ['亮色', '暗色']
-      .map((label, i) =>
-        section(`${p} · ${label}`, (r) => r.title === p && r.state.id === STATES[i].id)
-      )
-      .join('')
+    THEME_MODES.map((mode) =>
+      STATES.map((state) =>
+        section(
+          `${p} · ${mode.label} · ${state.label}`,
+          (r) => r.title === p && r.mode.id === mode.id && r.state.id === state.id
+        )
+      ).join('')
+    ).join('')
   )
   .join('\n')}
 `
@@ -249,12 +293,15 @@ ${pages
   const bad = captured.filter(
     (r) => (r.act === 'drawer' && !r.opened) || (r.act === 'language' && !r.language)
   )
+  const themeFail = captured.filter((r) => !r.themed)
   const lowContrast = captured.filter((r) => r.contrast.violations > 0)
   console.log(
-    `shots=${captured.length} overflow=${over.length} drawerFail=${bad.length} lowContrast=${lowContrast.length}`
+    `shots=${captured.length} overflow=${over.length} drawerFail=${bad.length} ` +
+      `themeFail=${themeFail.length} lowContrast=${lowContrast.length}`
   )
   for (const r of over) console.log(` OVERFLOW ${r.file} ${r.overflow}px`)
-  for (const r of bad) console.log(` NO-DRAWER ${r.file}`)
+  for (const r of bad) console.log(` NO-${r.act === 'drawer' ? 'DRAWER' : 'LANGUAGE'} ${r.file}`)
+  for (const r of themeFail) console.log(` NO-THEME ${r.file}`)
   for (const r of lowContrast) {
     console.log(` CONTRAST ${r.file} ${r.contrast.violations}/${r.contrast.checked}`)
     for (const w of r.contrast.worst)
