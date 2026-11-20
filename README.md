@@ -10,7 +10,7 @@
 - **React 19**
 - **Tailwind CSS 4**
 - **Apple HIG** 单皮肤（自建令牌 + 手写组件，无 UI 框架依赖）
-- **Radix UI primitives**（Switch / Checkbox / RadioGroup / Slider / Toast / Popover / Collapsible，只管行为与无障碍，样式全部自己写）
+- **Radix UI primitives**（Checkbox / Dialog / DropdownMenu / Label / Progress / RadioGroup / Select / Separator / Slider / Slot / Switch / Tabs / Toast，只管行为与无障碍，样式全部自己写）
 - **Framer Motion**、**Lucide React**、**Artalk** 等
 
 ## 开发
@@ -57,7 +57,7 @@ bunx biome check src scripts
 bun scripts/shots.mjs   # 明暗 × 1280/390 截图，顺带查溢出/抽屉/对比度
 ```
 
-`scripts/shots.mjs` 的三道闸门（`overflow` / `drawerFail` / `lowContrast`）必须全 0；
+`scripts/shots.mjs` 的四道闸门（`overflow` / `drawerFail` / `themeFail` / `lowContrast`）必须全 0；
 正文对比度按 4.5:1、大字 3:1，游戏 `§` 色码除外。截图落在 `public/_preview/`，`public/preview.html` 可整页速览；
 两者都在 `.gitignore` 里，按需本地重生成，不随站上线。
 
@@ -67,7 +67,18 @@ bun scripts/shots.mjs   # 明暗 × 1280/390 截图，顺带查溢出/抽屉/对
 bun run build
 ```
 
-静态文件输出到 `out/`，可直接部署到 GitHub Pages / Netlify / Vercel。
+静态文件输出到 `out/`，部署目标是 Cloudflare Pages（`public/_worker.js` 把任何 host 301 到 `30hb.cn`，`public/_redirects` 把未知路径导去 `/404.html`）。
+想让构建里带上 RSS，就别把 `bun` 之外的步骤插进 `build` 链：`build` 已经是
+`next build → generate-feed → strip-preview` 三段，其中 `generate-feed` 在 build 末尾跑。
+
+本地产物预览用 `bun run start`（`serve out`，会自动带上 `public/_headers` 里的规则），
+不要用 `bun dev` 当线上行为参照 —— 开发态有 rewrites 代理 API，线上是浏览器直连。
+
+### 合并前必查
+
+`bun run check` = `biome check` + `tsc --noEmit` + `check:theme`（暗色两条通路要一致），
+再加上 `scripts/shots.mjs` 四道闸门归零。CI（`.github/workflows/ci.yml`）在 PR 上跑同一套，
+只验证不部署 —— 部署走 Cloudflare Pages 自己的 Git 集成。
 
 ## 目录说明
 
@@ -79,17 +90,27 @@ bun run build
 - `scripts/shots.mjs` — 截图与可达性闸门
 - `docs/design-system.md` — 设计系统约定（改样式前先读）
 - `src/contexts/locale-context.tsx` — 基于 pathname 的 locale（zh/en）
-- `src/locales/` — zh.json、en.json
+- `src/locales/` — 按语言分目录（`zh/`、`en/`），每种语言再按域拆 JSON，由同目录 `index.ts` 聚合
 - `src/lib/` — utils、i18n、commands-data
+- `src/lib/http.ts` — 出海请求（IPv4 优先、keep-alive 复用、指数退避）
+- `src/lib/theme.ts` — 主题读写与防闪内联脚本
+- `scripts/responsive-images.mjs` — 预生成 WebP 宽度档（`prebuild` 自动跑）
+- `scripts/check-theme-parity.mjs` — 校验暗色的两条通路值一致（`check:theme`）
 - `src/hooks/use-server-stats.ts` — 服务器统计轮询
 - `src/lib/utils.ts` — `cn`（clsx + tailwind-merge，含字号白名单）
 
 ## 主题
 
-- 明暗两套令牌都在 `src/styles/tokens.css`，暗色走 `@media (prefers-color-scheme: dark)`
-  跟随系统（没有 class 切换、没有手动开关），因此要在暗色下验证就换系统的外观设置；
+三档：跟随系统 / 浅色 / 深色，开关在顶栏。手动选定会写 `localStorage` 的 `bbps-theme`
+并给 `<html>` 加 `data-theme`，`src/lib/theme.ts` 的 `THEME_SCRIPT` 在首帧前内联执行防闪烁；
+选「跟随系统」会清掉这两者。
+
+- 明暗两套令牌都在 `src/styles/tokens.css`，**每次改暗色都要写两遍**：媒体查询里的
+  `:root:not([data-theme='light'])` 管跟随系统，`:root[data-theme='dark']` 管手动选，
+  两份值必须相同，`bun run check:theme` 会逐条比对并在不一致时报错
+- 需要在暗色下验证就换开关（`scripts/shots.mjs` 会分别用两种 `color-scheme` 截图）；
   不要在新代码里写死颜色
-- 样式切换是显式的（顶栏样式按钮 / `bbps-style`），与系统明暗互不干扰
+- 阅读偏好的 `--pref-*`（`src/styles/prefs.css`）目前没有切换 UI，改默认值即改全站，与明暗互不干扰
 - 游戏原生 `§` 色码保持原色（对比度不达标是游戏本身行为）
 - 名字只有一套语义（`--md-sys-*`），没有 shadcn 的 `card` / `muted-foreground` 别名；
   `--md-sys-*` 是历史前缀，与 Material 2 无关
