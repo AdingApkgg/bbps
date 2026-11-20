@@ -51,7 +51,12 @@ async function main() {
     }
     try {
       const res = await fetch(`${WP_API}/posts?per_page=20&_embed`, {
-        headers: { 'Content-Type': 'application/json' },
+        // UA 必带：不带 UA / `undici` / `curl` 会被 Cloudflare 判给挑战页回到 403
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+        },
         dispatcher: agent
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)

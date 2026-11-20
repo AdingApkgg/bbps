@@ -50,3 +50,15 @@ jobs:
           curl -sS --max-time 15 https://api.ipify.org
           echo
           getent hosts blog.30hb.cn || true
+
+      # 验证 src/lib/http.ts 的补丁在 runner 上真能过 Cloudflare
+      - name: 走 fetchOutbound 实测
+        continue-on-error: true
+        run: |
+          cat > /tmp/t.mts <<'JS'
+          import { fetchOutbound } from '/home/i/bbps/src/lib/http.ts'
+          const r = await fetchOutbound(process.env.U)
+          console.log('status', r.status)
+          console.log((await r.text()).slice(0, 120))
+          JS
+          bunx tsx /tmp/t.mts || npx tsx /tmp/t.mts

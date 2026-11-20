@@ -4,6 +4,9 @@
  * 构建机到 Cloudflare 后面那些主机（blog.30hb.cn）的 TCP 连接有约 1/4 概率
  * 卡住直到超时。逐项排查（代理、`--dns-result-order`、单次重试）后，稳定的组合是：
  *
+ *  0. 带一个完整浏览器的 UA —— GitHub Actions 出口 IP 段会命中 Cloudflare 的
+ *     托管挑战（`403` + `cf-mitigated: challenge` + `Just a moment...`）。
+ *     实测同一 URL：空 UA / `undici` / `curl/8.5.0` 全 403，普通 Mozilla UA 200；
  *  1. 优先 IPv4 —— 失败样本里全都在试 `2606:4700::` 的 IPv6 地址，
  *     本机 IPv6 出口只是偶尔通。用 undici 的 `family: 4` 强制，而不用
  *     `dns.setDefaultResultOrder` —— 后者要 `node:dns`，Turbopack 的
@@ -23,6 +26,22 @@ import { Agent, fetch } from 'undici'
 
 let dispatcher: Agent | undefined
 
+/**
+ * 冒充普通浏览器。缺了它 Cloudflare 会对 GitHub Actions 的 IP 直接下发挑战页，
+ * 拿到的 body 是 HTML 而不是 JSON。范式取当前 Chrome 桌面版。
+ */
+export const BROWSER_UA =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+
+/** 给请求补上 UA（调用方已显式给了就不覆盖） */
+export function withBrowserUA(init: Parameters<typeof fetch>[1] = {}): Parameters<typeof fetch>[1] {
+  // undici 的 HeadersInit 有自己的 HeaderRecord（值可为 undefined），
+  // 全局 Headers 收不下，先宽化再交给它
+  const headers = new Headers(init.headers as HeadersInit | undefined)
+  if (!headers.has('user-agent')) headers.set('User-Agent', BROWSER_UA)
+  return { ...init, headers }
+}
+
 function getDispatcher(): Agent {
   dispatcher ??= new Agent({
     connect: { timeout: 30_000, family: 4 },
@@ -35,7 +54,7 @@ function getDispatcher(): Agent {
 
 /** 走上面那套连接策略的 fetch */
 export function fetchOutbound(url: string, init: Parameters<typeof fetch>[1] = {}) {
-  return fetch(url, { ...init, dispatcher: getDispatcher() })
+  return fetch(url, { ...withBrowserUA(init), dispatcher: getDispatcher() })
 }
 
 /** 退避重试。只重试网络层错误 —— 有状态码就代表对方已经答复了 */
