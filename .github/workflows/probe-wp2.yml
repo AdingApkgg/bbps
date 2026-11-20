@@ -1,0 +1,82 @@
+name: Probe WP 2
+
+# 探针第二轮：确认 UA 补丁是否真的生效（上一轮 curl + Mozilla UA 在同一 IP 上返回 200，
+# 但 next build 仍然 403）。分别打「普通 header」「globalThis.Headers」「tsx 加载 http.ts」。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  U: >-
+    https://blog.30hb.cn/wp-json/wp/v2/posts?per_page=1&_embed
+  UA: >-
+    Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+    (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install --frozen-lockfile
+
+      - name: 出口 IP
+        run: curl -sS --max-time 15 https://api.ipify.org
+
+      - name: curl + Mozilla UA
+        continue-on-error: true
+        run: |
+          curl -sS -o /dev/null -w '%{http_code}\n' \
+            --max-time 25 -A "$UA" "$U"
+
+      - name: undici 普通 header
+        continue-on-error: true
+        run: |
+          node -e '
+            fetch(process.env.U, {
+              headers: { "User-Agent": process.env.UA }
+            }).then(async r => {
+              console.log("status", r.status)
+              console.log((await r.text()).slice(0, 60))
+            }).catch(e => console.log("THROW", e.message))
+          '
+
+      - name: undici globalThis.Headers
+        continue-on-error: true
+        run: |
+          node -e '
+            const h = new globalThis.Headers({ "User-Agent": process.env.UA })
+            fetch(process.env.U, { headers: h }).then(async r => {
+              console.log("status", r.status)
+              console.log((await r.text()).slice(0, 60))
+            }).catch(e => console.log("THROW", e.message))
+          '
+
+      - name: 直接走 src/lib/http.ts
+        continue-on-error: true
+        run: |
+          cat > probe.ts <<'TS'
+          import { fetchOutbound } from './src/lib/http'
+          const r = await fetchOutbound(process.env.U as string)
+          console.log('status', r.status)
+          console.log((await r.text()).slice(0, 60))
+          TS
+          bunx tsx probe.ts
+
+      - name: 抓 undici 请求头
+        continue-on-error: true
+        run: |
+          node -e '
+            const u = new URL(process.env.U)
+            const http = require("undici")
+            const h = new globalThis.Headers({ "User-Agent": process.env.UA })
+            const ua = h.get("user-agent") ?? ""
+            console.log("has ua:", h.has("user-agent"), ua.slice(0, 30))
+            http.fetch(process.env.U, { headers: h })
+              .then(r => console.log("status", r.status))
+          '
