@@ -17,6 +17,14 @@
 
 问题集中在**静态导出这条约束没被贯彻**：好几处按「有服务端」的习惯写的，导出后静默失效或变成体积。
 
+## 落地情况（本文全部条目已落地，2026-11-21）
+
+A1–A9、B1–B6、C1–C3、D1–D3、E1–E2 均已改完；E3（`ds-lab`）定案保留、不进 sitemap。
+验证：`bun run check`（biome + tsc + `check:theme`）绿，`bun run build` 成功，`scripts/shots.mjs`
+32 张截图 `overflow=0 drawerFail=0 themeFail=0 lowContrast=0`（新增 `themeFail`，要求切主题后
+`<html data-theme>` 真落上）。A4、A6、E2 的实际改法比初稿深，差异分别写在各自小节与
+`docs/design-system.md` 里；`bun.lock` 已进库，CI 在 PR 上跑同一套门禁。
+
 ---
 
 ## A. 现网缺陷：装着但没用，或者根本没装
@@ -75,11 +83,16 @@ $ grep -c srcset out/gallery/index.html
 
 `/music/` 是真页面（手写全量 metadata、有播放器），只是漏登记。改法：`sitemap.ts` 直接 `import` `src/lib/nav-items.ts` 的导航表，让导航、sitemap、`SitePivot` 同源，别再手抄第三份路由清单。
 
-### A6 `lastModified` 每次构建都变
+### A6 `lastModified` 每次构建都变（已修，改法与初稿不同）
 
-`src/app/sitemap.ts:27` `const now = new Date()`，28 条全用它。每次部署所有页面都宣称「刚刚改过」，`dailly` 之外的权重信号等于没有。
+`src/app/sitemap.ts` 原是整份 `new Date()`（报告初稿写的是「28 条全用它」），每次部署所有页面都宣称「刚刚改过」，权重信号等于没有。
 
-改法：`lastModified` 留空，或按路由取 git 提交时间（`git log -1 --format=%cI -- src/app/about`），`/` 单独用 `daily`。
+初稿建议「留空，或按路由取 `git log -1 --format=%cI -- src/app/about`」。真做下来发现单按 page 文件取还不够，两个坑：
+
+1. 页面都已搬进 route group，`src/app/music/page.tsx` 这种老路径磁盘上不存在，但 `git log -- <不存在的路径>` 不报错、照样返回历史，于是 30 个页面全拿到同一次 `D`（删除）提交的时间。必须走 `src/app/(zh)/…` 与 `src/app/(en)/en/…`，老路径只作为补充历史源。
+2. 页面文件是薄壳，真逻辑在 `src/components/`、`src/lib/`。只盯 page.tsx，所有页面又会坍成同一个时间戳（都是「搬进 route group」那一刻）。
+
+最终做法：`lastModifiedOf(route, lang)` 取「页面 + 它 import 的一跳本地模块 + 老路径」里的最晚 `M`（只认 `--diff-filter=M`，整批搬迁的 `A`/`D` 不算），中英各算各的。`out/sitemap.xml` 现在 30 条分 5 个时间簇（`gallery`/`music` 落在改过组件的 `2026-11-21T02:19:03`，政策页落在 `2026-11-19T19:57:59`），不再全站同一值。
 
 ### A7 `biome check` 会连根目录 `_*.mjs` 一起查
 
@@ -224,13 +237,19 @@ src/lib/api.ts:281   const data = (json?.body ?? json) as PlayerBase
 
 改法：`src/lib/metadata.ts` 一个 `pageMeta({ path, title, desc, locale })`，返回整份 `Metadata`，canonical/languages/openGraph 全在里面算。31 个文件各减 10 行，`lang` 也顺手在 A2 里一起收。
 
-### E2 检查了 `aria-live`，没做手动主题开关
+### E2 检查了 `aria-live`，没做手动主题开关（已修，含一致性守卫）
 
-全库 `grep aria-live` 命中 0（`remote-console.tsx:118`、`ui/alert.tsx:29`、`ui/field.tsx:215` 用 `role="status"/"alert"`，`toast.tsx:14` 用 Radix 自带 live region）—— 这部分是对的。缺的是主题：只有跟随系统，没有手动切（`README.md:89` 明说「没有 class 切换、没有手动开关」）。系统是浅色而用户想要深色时无解。加一个 `data-theme` 覆盖层（`tokens.css` 的暗色块复制一份到 `[data-theme='dark']`），三档：跟随/浅/深，存 localStorage，写入前用 inline script 防闪。
+全库 `grep aria-live` 命中 0（`remote-console.tsx:118`、`ui/alert.tsx:29`、`ui/field.tsx:215` 用 `role="status"/"alert"`，`toast.tsx:14` 用 Radix 自带 live region）—— 这部分是对的。缺的是主题：只有跟随系统，没有手动切（`README.md:89` 明说「没有 class 切换、没有手动开关」）。系统是浅色而用户想要深色时无解。
 
-### E3 `ds-lab` 是一次性页面
+按初稿做了 `data-theme` 覆盖层 + 三档（跟随/浅/深）+ localStorage + inline 防闪脚本，但多了一步防止这事回潮：暗色令牌现在写在两处（`@media` 里的 `:root:not([data-theme='light'])` 与 `:root[data-theme='dark']`），`scripts/check-theme-parity.mjs` 逐条比对两份声明，任一侧多一个少一个就 exit 1；已进 `bun run check` 与 CI，并做过负向验证（把 `#004a99` 改成 `#004a98` 立刻被咬住）。`scripts/shots.mjs` 同时加了 `themeFail` 闸门（真点菜单、断言 `data-theme` 落上，且故意把系统配色设成相反值，否则只 `emulateMedia` 验不出开关坏没坏）。
 
-`src/app/ds-lab/page.tsx` 自注「只验证『拉进来就能渲染』，用完可删」，占一个路由、进不了 sitemap。要么删，要么补一句用途进 README 并加进 sitemap。
+JS 侧改明暗一律走 `usePrefersDark()`（先读 `data-theme`，`auto` 才问系统），`Artalk` 的 `darkMode` 也接在这里，避免与正文反着来。
+
+### E3 `ds-lab` 是一次性页面（定案：保留，不进 sitemap）
+
+`src/app/ds-lab/page.tsx` 自注「只验证『拉进来就能渲染』，用完可删」，占一个路由、进不了 sitemap。两个选项：删，或补一句用途进 README 并加进 sitemap。
+
+选了第三条：**留着当组件活体样例，同时明确不进 sitemap**（`src/app/sitemap.ts:16` 已注释「一次性组件验证页，刻意不收」）—— 它对外没有检索价值，但对着 20 多个 `ui/` 组件改样式时有个能一眼看全的页面很省事，删了以后还得再造。
 
 ---
 
