@@ -56,7 +56,7 @@ jobs:
         continue-on-error: true
         run: |
           cat > /tmp/t.mts <<'JS'
-          import { fetchOutbound } from '/home/i/bbps/src/lib/http.ts'
+          import { fetchOutbound } from 'src/lib/http'
           const r = await fetchOutbound(process.env.U)
           console.log('status', r.status)
           console.log((await r.text()).slice(0, 120))
