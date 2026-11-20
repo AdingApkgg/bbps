@@ -37,7 +37,7 @@ export const BROWSER_UA =
 export function withBrowserUA(init: Parameters<typeof fetch>[1] = {}): Parameters<typeof fetch>[1] {
   // undici 的 HeadersInit 有自己的 HeaderRecord（值可为 undefined），
   // 全局 Headers 收不下，先宽化再交给它
-  const headers = new Headers(init.headers as HeadersInit | undefined)
+  const headers = new globalThis.Headers(init.headers as HeadersInit | undefined)
   if (!headers.has('user-agent')) headers.set('User-Agent', BROWSER_UA)
   return { ...init, headers }
 }
