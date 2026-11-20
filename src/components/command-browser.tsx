@@ -85,7 +85,7 @@ function CommandItem({
           </code>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-2">
           {edited && (
             <button
               type="button"
@@ -119,7 +119,7 @@ function CommandItem({
             .map((a) => {
               const listId = `${cmd.id}-${a.index}`
               return (
-                <label key={a.index} className="flex items-center gap-1.5">
+                <label key={a.index} className="flex items-center gap-2">
                   <span className="text-label text-on-surface-medium">
                     {locale === 'en' ? a.labelEn : a.labelZh}
                   </span>
@@ -147,7 +147,7 @@ function CommandItem({
       {!family && params.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {params.map((p) => (
-            <label key={p.value} className="flex items-center gap-1.5">
+            <label key={p.value} className="flex items-center gap-2">
               <span className="text-label text-on-surface-medium">
                 {p.value}
                 {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
@@ -236,7 +236,7 @@ function GroupItem({
           </code>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-2">
           {edited && (
             <button
               type="button"
@@ -277,7 +277,7 @@ function GroupItem({
           .map((a) => {
             const listId = `${group.id}-${a.index}`
             return (
-              <label key={a.index} className="flex items-center gap-1.5">
+              <label key={a.index} className="flex items-center gap-2">
                 <span className="text-label text-on-surface-medium">
                   {locale === 'en' ? a.labelEn : a.labelZh}
                 </span>
@@ -340,7 +340,7 @@ export function CommandBrowser({
           value={query}
           onChange={(e) => reset(() => setQuery(e.target.value))}
           placeholder={t.searchPlaceholder.replace('{count}', String(commands.length))}
-          className="pl-9 pr-9"
+          className="pl-8 pr-8"
           aria-label={t.searchPlaceholder.replace('{count}', String(commands.length))}
         />
         {query && (
@@ -356,7 +356,7 @@ export function CommandBrowser({
       </div>
 
       {/* 分类筛选：用可换行的胶囊代替原本 14 个标签页 */}
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         <button
           type="button"
           onClick={() => reset(() => setCategory('all'))}

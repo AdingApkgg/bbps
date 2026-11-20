@@ -76,7 +76,7 @@ export function ServerStats() {
         <dl data-divider className="grid grid-cols-2 rounded-sm bg-surface-02 sm:grid-cols-4">
           {metrics.map((m) => (
             <div key={m.label} className="px-4 py-3">
-              <dt className="flex items-center gap-1.5 text-label text-on-surface-medium">
+              <dt className="flex items-center gap-2 text-label text-on-surface-medium">
                 {m.icon}
                 {m.label}
               </dt>
@@ -128,13 +128,13 @@ export function ServerStats() {
               <p className="px-4 py-2 text-label text-on-surface-medium">
                 {dict.stats.baseViewHint}
               </p>
-              <ul className="max-h-[400px] overflow-y-auto">
+              <ul className="max-h-(--md-sys-size-log-height) overflow-y-auto">
                 {players.map((player, index) => (
                   <li key={player.id} data-list-item>
                     <button
                       type="button"
                       onClick={() => setTarget({ id: player.id, name: player.name })}
-                      className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01"
                     >
                       <span className="w-5 shrink-0 text-label text-on-surface-medium tabular-nums">
                         {index + 1}

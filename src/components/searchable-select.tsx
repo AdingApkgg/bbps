@@ -249,7 +249,7 @@ export function SearchableSelect({
             )}
 
             {filtered.length > visible.length && (
-              <p className="border-t px-2 py-1.5 text-center text-label text-on-surface-medium">
+              <p className="border-t px-2 py-2 text-center text-label text-on-surface-medium">
                 {filtered.length - visible.length}+
               </p>
             )}

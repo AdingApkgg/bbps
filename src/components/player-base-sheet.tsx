@@ -174,7 +174,7 @@ export function PlayerBaseSheet({
                     {summary.top.map((b) => (
                       <li
                         key={b.id}
-                        className="flex items-baseline justify-between gap-3 border-b py-1.5 text-body-02"
+                        className="flex items-baseline justify-between gap-3 border-b py-2 text-body-02"
                       >
                         <span className="truncate text-on-surface-medium">
                           {buildingName(b.id)}

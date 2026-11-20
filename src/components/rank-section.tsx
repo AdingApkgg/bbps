@@ -93,7 +93,7 @@ function RankTable({
               <TableCell>
                 <span className="text-body-02 text-on-surface-medium">{entry.level || '—'}</span>
               </TableCell>
-              <TableCell className="max-w-[200px] truncate">
+              <TableCell className="max-w-(--md-sys-size-rank-label) truncate">
                 {entry.playerId ? (
                   <button
                     type="button"
@@ -177,19 +177,19 @@ export function RankSection() {
 
       <Tabs defaultValue="vp" className="mt-6 w-full">
         <TabsList className="h-auto w-full flex-wrap">
-          <TabsTrigger value="vp" className="flex-1 gap-1.5">
+          <TabsTrigger value="vp" className="flex-1 gap-2">
             <Trophy className="h-4 w-4" />
             {r.tabVp}
           </TabsTrigger>
-          <TabsTrigger value="megacrab" className="flex-1 gap-1.5">
+          <TabsTrigger value="megacrab" className="flex-1 gap-2">
             <Shell className="h-4 w-4" />
             {r.tabMegaCrab}
           </TabsTrigger>
-          <TabsTrigger value="coe" className="flex-1 gap-1.5">
+          <TabsTrigger value="coe" className="flex-1 gap-2">
             <Swords className="h-4 w-4" />
             {r.tabCoe}
           </TabsTrigger>
-          <TabsTrigger value="casualties" className="flex-1 gap-1.5">
+          <TabsTrigger value="casualties" className="flex-1 gap-2">
             <Skull className="h-4 w-4" />
             {r.tabCasualties}
           </TabsTrigger>

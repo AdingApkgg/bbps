@@ -45,9 +45,9 @@ function RadioGroupItem({
       data-slot="radio-group-item"
       className={cn(
         'peer relative inline-flex size-5 shrink-0 items-center justify-center gap-2 rounded-full',
-        'border-[1.5px] border-outline-01 bg-transparent',
+        'border-(--md-sys-size-border-thin) border-outline-01 bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
-        'before:absolute before:-inset-[10px] before:rounded-full before:content-[""]',
+        'before:absolute before:-inset-(--md-sys-size-hit-halo) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
         'hover:enabled:before:bg-on-surface/4',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
@@ -58,7 +58,7 @@ function RadioGroupItem({
         // 分段按钮形态：2rem 高、8px 圆角、选中抬起的面
         'group-data-[variant=segmented]:h-8 group-data-[variant=segmented]:w-auto',
         'group-data-[variant=segmented]:rounded-08 group-data-[variant=segmented]:border-0 group-data-[variant=segmented]:shadow-none',
-        'group-data-[variant=segmented]:px-4 group-data-[variant=segmented]:py-1.5',
+        'group-data-[variant=segmented]:px-4 group-data-[variant=segmented]:py-2',
         'group-data-[variant=segmented]:text-body-02 group-data-[variant=segmented]:font-medium',
         'group-data-[variant=segmented]:gap-0',
         'group-data-[variant=segmented]:before:hidden',
@@ -75,7 +75,7 @@ function RadioGroupItem({
       {children}
       <RadioGroupPrimitive.Indicator
         data-slot="radio-group-indicator"
-        className="block size-2.5 rounded-full bg-primary peer-disabled:bg-on-surface-disabled group-data-[variant=segmented]:hidden"
+        className="block size-2 rounded-full bg-primary peer-disabled:bg-on-surface-disabled group-data-[variant=segmented]:hidden"
       />
     </RadioGroupPrimitive.Item>
   )

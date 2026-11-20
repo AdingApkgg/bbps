@@ -107,7 +107,7 @@ export function CommandHistory({
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">
-        <p className="flex items-center gap-1.5 text-label font-medium text-on-surface-medium">
+        <p className="flex items-center gap-2 text-label font-medium text-on-surface-medium">
           <History className="h-3.5 w-3.5" />
           {t.historyTitle}
         </p>

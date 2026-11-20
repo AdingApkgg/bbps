@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 const badgeVariants = cva(
   [
     'inline-flex max-w-52 min-w-8 items-center justify-center gap-1 align-middle',
-    'rounded-pill px-2.5 text-label whitespace-nowrap',
+    'rounded-pill px-3 text-label whitespace-nowrap',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard'
   ].join(' '),
   {

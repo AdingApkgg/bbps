@@ -24,7 +24,7 @@ function Slider({
       className={cn(
         'relative flex w-full touch-none select-none items-center',
         // 18dp 触摸区，配合手柄留出上下余量
-        compact ? 'py-1.5' : 'py-[9px]',
+        compact ? 'py-2' : 'py-(--md-sys-size-slider-pad)',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-45',
         className
       )}
@@ -47,7 +47,7 @@ function Slider({
             'relative block rounded-full bg-surface-01 shadow-[var(--md-sys-shadow-thumb)]',
             compact ? 'size-3' : 'size-7',
             'transition-[box-shadow,transform] duration-fast-01 ease-standard',
-            'before:absolute before:-inset-2.5 before:rounded-full before:content-[""]',
+            'before:absolute before:-inset-2 before:rounded-full before:content-[""]',
             'before:transition-colors before:duration-fast-01 before:ease-standard',
             'hover:before:bg-primary/4',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',

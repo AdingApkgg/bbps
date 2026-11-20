@@ -13,7 +13,7 @@ const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableE
   ({ className, ...props }, ref) => (
     <div
       data-slot="table-wrap"
-      className="relative w-full overflow-auto rounded-sm border-[0.5px] border-outline-01 bg-surface-02"
+      className="relative w-full overflow-auto rounded-sm border-(--md-sys-size-hairline) border-outline-01 bg-surface-02"
     >
       <table
         ref={ref}

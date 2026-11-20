@@ -79,7 +79,7 @@ export function FeaturesZigzag() {
     <section className="border-b">
       <div className="container-page py-12 md:py-20">
         {/* 标题 */}
-        <FadeIn className="pb-10 md:pb-14">
+        <FadeIn className="pb-10 md:pb-16">
           <h2 className="text-title-lg">{dict.features.title}</h2>
           <p className="mt-1 text-body-02 text-on-surface-medium">{dict.features.subtitle}</p>
         </FadeIn>

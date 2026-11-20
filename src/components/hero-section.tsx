@@ -135,7 +135,7 @@ export function HeroSection() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-surface via-surface to-surface-01" />
 
-        <div className="container-page py-12 md:py-20 lg:py-28">
+        <div className="container-page py-12 md:py-20 lg:py-24">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12">
             <div>
               <m.p
@@ -192,14 +192,14 @@ export function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.16 }}
               >
-                <span className="inline-flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-2">
                   <Eye className="h-3.5 w-3.5" />
                   <span>{locale === 'zh' ? '访问' : 'Visits'}</span>
                   <span className="font-semibold tabular-nums text-on-surface">
                     {sitePv !== null ? sitePv.toLocaleString() : '-'}
                   </span>
                 </span>
-                <span className="inline-flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-2">
                   <Users className="h-3.5 w-3.5" />
                   <span>{locale === 'zh' ? '访客' : 'Visitors'}</span>
                   <span className="font-semibold tabular-nums text-on-surface">

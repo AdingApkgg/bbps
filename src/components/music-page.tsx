@@ -121,7 +121,7 @@ export function MusicPage() {
             >
               <div className="mt-2 space-y-4 rounded-sm bg-surface-02 p-4">
                 {/* API endpoint */}
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <label htmlFor="music-api-endpoint" className="text-body-02 font-medium">
                     {dict.music.apiEndpoint}
                   </label>
@@ -140,13 +140,13 @@ export function MusicPage() {
                 </div>
 
                 {/* Playlists */}
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <p className="text-body-02 font-medium">{dict.music.playlists}</p>
                   <div className="space-y-2">
                     {playlists.map((p, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-2 bg-surface-01 px-3 py-1.5 text-body-02"
+                        className="flex items-center gap-2 bg-surface-01 px-3 py-2 text-body-02"
                       >
                         <span className="font-medium">{p.label}</span>
                         <span className="text-on-surface-medium">—</span>
@@ -166,7 +166,7 @@ export function MusicPage() {
 
                     {/* Add new playlist */}
                     <div className="flex flex-wrap items-end gap-2">
-                      <div className="min-w-[80px] flex-1">
+                      <div className="min-w-(--md-sys-size-chip-min) flex-1">
                         <label
                           htmlFor="music-new-label"
                           className="mb-1 block text-label text-on-surface-medium"
@@ -215,7 +215,7 @@ export function MusicPage() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="min-w-[100px] flex-1">
+                      <div className="min-w-(--md-sys-size-control-min) flex-1">
                         <label
                           htmlFor="music-new-id"
                           className="mb-1 block text-label text-on-surface-medium"
@@ -274,7 +274,7 @@ export function MusicPage() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-4 w-full justify-start">
               {playlists.map((p, i) => (
-                <TabsTrigger key={i} value={String(i)} className="gap-1.5">
+                <TabsTrigger key={i} value={String(i)} className="gap-2">
                   {p.label}
                   <span className="text-label text-on-surface-medium">
                     {playlistTracks[i]?.length ?? 0}
@@ -303,7 +303,7 @@ export function MusicPage() {
                             data-list-item
                             onClick={() => player.playTrack(pIdx, tIdx)}
                             className={cn(
-                              'flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors duration-fast-01 hover:bg-surface-hover-01',
+                              'flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-01 hover:bg-surface-hover-01',
                               isActive && 'bg-surface-hover-01'
                             )}
                           >

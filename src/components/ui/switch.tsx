@@ -18,7 +18,7 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
         'peer relative inline-flex h-(--md-sys-size-switch-track-h) w-(--md-sys-size-switch-track-w) shrink-0 items-center rounded-full',
         'border-0 bg-on-surface-medium/32 transition-colors duration-fast-01 ease-standard',
         'data-[state=checked]:bg-success',
-        'before:absolute before:-inset-x-[7px] before:-inset-y-[17px] before:rounded-full before:content-[""]',
+        'before:absolute before:-inset-x-(--md-sys-size-switch-halo-x) before:-inset-y-(--md-sys-size-switch-halo-y) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
         'hover:enabled:before:bg-on-surface/4',
         'data-[state=checked]:hover:enabled:before:bg-primary/4',
@@ -32,7 +32,7 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
     >
       <SwitchPrimitive.Thumb
         className={cn(
-          'pointer-events-none block size-[1.6875rem] rounded-full bg-surface-01 shadow-[var(--md-sys-shadow-thumb)]',
+          'pointer-events-none block size-(--md-sys-size-switch-thumb) rounded-full bg-surface-01 shadow-[var(--md-sys-shadow-thumb)]',
           'transition-[translate,background-color] duration-moderate-01 ease-standard',
           'data-[state=unchecked]:translate-x-[2px]',
           'data-[state=checked]:translate-x-[22px]',

@@ -44,7 +44,7 @@ export function TeamsPage() {
                   <span className="block truncate text-body-01 font-semibold">{info.name}</span>
                   <span className="mt-0.5 block text-label text-on-surface-medium">
                     {info.role}
-                    <span className="mx-1.5 opacity-50">·</span>
+                    <span className="mx-2 opacity-50">·</span>
                     {member.platform === 'bilibili' ? 'Bilibili' : 'QQ'}
                   </span>
                   <span className="mt-1 line-clamp-2 text-body-02 sm:line-clamp-1 text-on-surface-medium">

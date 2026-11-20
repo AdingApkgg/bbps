@@ -83,7 +83,7 @@ function CatalogItem({
       <li className="py-3 pr-2">
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-2">
               <code className="break-all font-mono text-body-02 font-medium">{item.syntax}</code>
               {item.danger === 'destructive' && (
                 <Badge variant="destructive" className="gap-1">
@@ -117,7 +117,7 @@ function CatalogItem({
             )}
           </div>
 
-          <div className="flex shrink-0 gap-1.5">
+          <div className="flex shrink-0 gap-2">
             <Button variant="outline" size="sm" onClick={handleCopy} aria-label={t.copyButton}>
               {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             </Button>
@@ -156,19 +156,19 @@ function CatalogItem({
         </div>
 
         {item.inGameOnly && (
-          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
+          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-2 text-label text-on-surface-medium">
             {t.inGameOnly}
           </p>
         )}
         {item.advancedOnly && (
-          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-1.5 text-label text-on-surface-medium">
+          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-2 text-label text-on-surface-medium">
             {t.advancedOnlyHint}
           </p>
         )}
 
         {/* 带参数的指令：展开小表单，而不是直接发一条缺参数的指令 */}
         {params.length > 0 && formOpen && !item.inGameOnly && !item.advancedOnly && (
-          <div className="mt-2 ml-2 space-y-1.5 border-l border-outline-variant-01 pl-3">
+          <div className="mt-2 ml-2 space-y-2 border-l border-outline-variant-01 pl-3">
             {params.map((p) => {
               const hint = paramHint(p.value, locale)
               const label2 = (o: { value: string; labelZh: string; labelEn: string }) => ({
@@ -271,7 +271,7 @@ export function CommandCatalog({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t.catalogSearch}
-            className="pl-9 pr-9"
+            className="pl-8 pr-8"
             aria-label={t.catalogSearch}
           />
           {query && (

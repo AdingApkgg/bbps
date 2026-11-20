@@ -123,11 +123,11 @@ export function ChatFeed() {
               const el = e.currentTarget
               if (hasMore && el.scrollHeight - el.scrollTop - el.clientHeight < 200) loadMore()
             }}
-            className="max-h-[460px] overflow-y-auto"
+            className="max-h-(--md-sys-size-feed-height) overflow-y-auto"
           >
             <ul>
               {newestFirst.map((entry) => (
-                <li key={entry.seq} data-list-item className="px-4 py-2.5">
+                <li key={entry.seq} data-list-item className="px-4 py-2">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-body-02">
                     <PlayerName name={entry.sender_name} className="font-semibold break-all" />
                     <span className="text-label text-on-surface-medium">

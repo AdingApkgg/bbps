@@ -251,7 +251,7 @@ export function MusicPlayerBar() {
           className="absolute -top-0.5 left-0 h-1 "
         />
 
-        <div className="container-page flex items-center gap-3 py-2.5 md:gap-4">
+        <div className="container-page flex items-center gap-3 py-2 md:gap-4">
           {/* Cover & info */}
           <button
             type="button"
@@ -368,5 +368,5 @@ export function MusicPlayerBar() {
 
 export function PlayerSpacer() {
   const { currentTrack } = useMusicPlayer()
-  return currentTrack ? <div className="h-[72px]" /> : null
+  return currentTrack ? <div className="h-(--md-sys-size-player-bar)" /> : null
 }

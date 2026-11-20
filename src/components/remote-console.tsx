@@ -188,7 +188,7 @@ export function VerifyPanel({
             </span>
             <span className="text-on-surface-medium">
               {t.step1Prefix}{' '}
-              <code className="bg-surface-variant-01 px-1.5 py-0.5 font-mono text-on-surface">
+              <code className="bg-surface-variant-01 px-2 py-0.5 font-mono text-on-surface">
                 /webcode
               </code>
             </span>
@@ -215,7 +215,7 @@ export function VerifyPanel({
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="grid gap-3 sm:grid-cols-2">
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <label htmlFor="rc-player-id" className="text-body-02 font-medium">
                 {t.playerIdLabel}
               </label>
@@ -228,7 +228,7 @@ export function VerifyPanel({
                 onChange={(e) => setPlayerId(e.target.value.replace(/\D/g, '').slice(0, 12))}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <label htmlFor="rc-code" className="text-body-02 font-medium">
                 {t.codeLabel}
               </label>
@@ -245,7 +245,7 @@ export function VerifyPanel({
           </div>
 
           {error && (
-            <p className="flex items-start gap-1.5 text-body-02 text-error">
+            <p className="flex items-start gap-2 text-body-02 text-error">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               {error}
             </p>

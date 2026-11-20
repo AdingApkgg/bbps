@@ -115,7 +115,7 @@ export function CustomBasesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t.searchPlaceholder}
-              className="pl-9"
+              className="pl-8"
             />
           </div>
           <Select value={level} onValueChange={setLevel}>
@@ -187,7 +187,7 @@ export function CustomBasesPage() {
                     className="cursor-pointer"
                   >
                     <TableCell className="font-medium">
-                      <span className="flex items-center gap-1.5">
+                      <span className="flex items-center gap-2">
                         <span className="line-clamp-1 break-all">{base.name}</span>
                         {base.locked && (
                           <Lock className="h-3 w-3 shrink-0 text-on-surface-medium" />

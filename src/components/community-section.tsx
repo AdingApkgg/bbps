@@ -82,7 +82,7 @@ export function CommunitySection() {
               <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
                 <a href={group.url} target="_blank" rel="noopener noreferrer">
                   {d.join}
-                  <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  <ExternalLink className="ml-2 h-3.5 w-3.5" />
                 </a>
               </Button>
             </FadeIn>

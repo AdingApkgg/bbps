@@ -60,17 +60,17 @@ export function DownloadsSection() {
 
         <Tabs defaultValue="android" className="w-full">
           <TabsList className="mx-4 grid w-[calc(100%-2rem)] grid-cols-3">
-            <TabsTrigger value="android" className="gap-1.5">
+            <TabsTrigger value="android" className="gap-2">
               <Smartphone className="h-4 w-4" />
               <span className="hidden sm:inline">{d.guide.android.label}</span>
               <span className="sm:hidden">Android</span>
             </TabsTrigger>
-            <TabsTrigger value="apple" className="gap-1.5">
+            <TabsTrigger value="apple" className="gap-2">
               <Apple className="h-4 w-4" />
               <span className="hidden sm:inline">{d.guide.apple.label}</span>
               <span className="sm:hidden">iOS</span>
             </TabsTrigger>
-            <TabsTrigger value="windows" className="gap-1.5">
+            <TabsTrigger value="windows" className="gap-2">
               <Monitor className="h-4 w-4" />
               <span className="hidden sm:inline">{d.guide.windows.label}</span>
               <span className="sm:hidden">Win</span>

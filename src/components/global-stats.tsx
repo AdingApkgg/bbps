@@ -92,7 +92,7 @@ export function GlobalStats() {
         <BarChart3 className="h-4 w-4" />
         {t.globalTitle}
       </h2>
-      <div className="flex flex-wrap items-center justify-end gap-1.5">
+      <div className="flex flex-wrap items-center justify-end gap-2">
         <Badge variant="outline">
           {t.globalRestarts}
           {': '}
@@ -179,7 +179,7 @@ export function GlobalStats() {
 
         {topCommands.length > 0 && (
           <div>
-            <h3 className="mb-1 flex items-center gap-1.5 px-4 text-label font-semibold text-on-surface-medium">
+            <h3 className="mb-1 flex items-center gap-2 px-4 text-label font-semibold text-on-surface-medium">
               <Terminal className="h-3.5 w-3.5" />
               {t.globalTopCommands}
             </h3>

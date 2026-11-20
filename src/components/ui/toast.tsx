@@ -42,7 +42,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
       data-slot="toast"
       className={cn(
         toastVariants,
-        'min-h-(--md-sys-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-[344px]',
+        'min-h-(--md-sys-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-(--md-sys-size-toast-width)',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:slide-in-from-bottom-full data-[state=closed]:slide-out-to-bottom-full',
@@ -85,7 +85,7 @@ function ToastAction({ className, ...props }: React.ComponentProps<typeof ToastP
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        'ml-auto shrink-0 rounded-sm px-2 py-1.5 text-button text-on-inverse-primary uppercase',
+        'ml-auto shrink-0 rounded-sm px-2 py-2 text-button text-on-inverse-primary uppercase',
         'transition-colors duration-fast-02 ease-standard',
         'hover:bg-on-inverse-surface/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-inverse-surface',
         className

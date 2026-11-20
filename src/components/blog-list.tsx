@@ -81,7 +81,7 @@ export function BlogList({ posts, dict, locale }: BlogListProps) {
                 <span className="min-w-0 flex-1">
                   <span className="line-clamp-2 text-body-01 font-semibold">{post.title}</span>
                   {/* 日期与原文链接同一行：两行元信息在窄屏会把每行顶到 160px */}
-                  <span className="mt-0.5 flex items-center gap-1.5 text-label text-on-surface-medium">
+                  <span className="mt-0.5 flex items-center gap-2 text-label text-on-surface-medium">
                     {sortKey === 'modified'
                       ? `${dict.updatedAt} ${formatDate(post.modified, locale)}`
                       : formatDate(post.date, locale)}
