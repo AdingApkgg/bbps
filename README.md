@@ -80,6 +80,22 @@ bun run build
 再加上 `scripts/shots.mjs` 四道闸门归零。CI（`.github/workflows/ci.yml`）在 PR 上跑同一套，
 只验证不部署 —— 部署走 Cloudflare Pages 自己的 Git 集成。
 
+### 构建全红且满屏 403
+
+`next build` 会拉 `blog.30hb.cn` 的 WP API。如果 CI 报 `WordPress API error: 403` 且
+body 是 `Just a moment...`，那是 zone 上的 **Bot Fight Mode** 在给自动化流量下发 JS 挑战
+（响应头带 `cf-mitigated: challenge`），不是 UA 也不是网络。
+
+先查再改，别改请求头：
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=<account> cf bot-management get --zone 30hb.cn
+cf bot-management update --zone 30hb.cn --fight-mode false
+```
+
+关掉后空 UA 也能拿到 JSON（2026-11-21 实测），`src/lib/http.ts` 里的浏览器 UA 是留给
+BFM 被重新开启时的兜底。
+
 ## 目录说明
 
 - `src/app/` — App Router：`/`（中文首页）、`/en`（英文首页）、`/commands`、`/en/commands`

@@ -4,9 +4,7 @@
  * 构建机到 Cloudflare 后面那些主机（blog.30hb.cn）的 TCP 连接有约 1/4 概率
  * 卡住直到超时。逐项排查（代理、`--dns-result-order`、单次重试）后，稳定的组合是：
  *
- *  0. 带一个完整浏览器的 UA —— GitHub Actions 出口 IP 段会命中 Cloudflare 的
- *     托管挑战（`403` + `cf-mitigated: challenge` + `Just a moment...`）。
- *     实测同一 URL：空 UA / `undici` / `curl/8.5.0` 全 403，普通 Mozilla UA 200；
+ *  0. 带一个完整浏览器的 UA —— 见下方「CF 托管挑战」一节。
  *  1. 优先 IPv4 —— 失败样本里全都在试 `2606:4700::` 的 IPv6 地址，
  *     本机 IPv6 出口只是偶尔通。用 undici 的 `family: 4` 强制，而不用
  *     `dns.setDefaultResultOrder` —— 后者要 `node:dns`，Turbopack 的
@@ -21,6 +19,19 @@
  * （静态导出没有 ISR）。
  *
  * 只在 Node 侧使用（Server Component 与 scripts/*.mjs），不进客户端 bundle。
+ *
+ * == CF 托管挑战 ==
+ *
+ * GitHub Actions 跑 next build 时，blog.30hb.cn 的 WP API 一律 `403`，body 是
+ * `Just a moment...` 而不是 JSON，响应头带 `cf-mitigated: challenge`。
+ * 根因是 zone 上的 Bot Fight Mode（`enable_js: true` + `fight_mode: true`）：
+ * 它给自动化流量下发 JS 挑战，undici 不解 JS，于是永远卡在 403。
+ * 2026-11-21 已把它关掉，之后空 UA 也能 200。
+ *
+ * 关掉不等于不会再开，所以 UA 这层保留着（实测有它在时即便 BFM 开着，HTTP/1.1
+ * 与 HTTP/2 都能过；undici 与 curl 同 header 同版本的表现差异已排除）。
+ * 若再次出现成片的 403 + `cf-mitigated: challenge`，先查 zone 的
+ * `cf bot-management get`，而不是改这里的请求头。
  */
 import { Agent, fetch } from 'undici'
 
