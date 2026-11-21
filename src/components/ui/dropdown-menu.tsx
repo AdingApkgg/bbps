@@ -28,8 +28,8 @@ const DropdownMenuSubTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       'flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 ps-(--hig-cmp-menu-item-ps,1rem) pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed)) data-[state=open]:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
-      'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-fill-tertiary)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-fill-pressed)) data-[state=open]:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-fill-pressed))',
+      'data-[disabled]:pointer-events-none data-[disabled]:text-(--hig-color-label-disabled)',
       inset && 'ps-12',
       className
     )}
@@ -48,7 +48,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-(--hig-layer-popover) min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-outline-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-on-surface',
+      'z-(--hig-layer-popover) min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-separator-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-(--hig-color-label)',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
       'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -69,7 +69,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'relative z-(--hig-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-y-auto overflow-x-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-outline-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-on-surface',
+        'relative z-(--hig-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-y-auto overflow-x-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-separator-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-(--hig-color-label)',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
         'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -92,8 +92,8 @@ const DropdownMenuItem = React.forwardRef<
     ref={ref}
     className={cn(
       'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center gap-2 ps-(--hig-cmp-menu-item-ps,1rem) pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
-      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
-      'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-fill-tertiary)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-fill-pressed))',
+      'data-[disabled]:pointer-events-none data-[disabled]:text-(--hig-color-label-disabled)',
       inset && 'ps-12',
       className
     )}
@@ -110,8 +110,8 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     ref={ref}
     className={cn(
       'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center ps-12 pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02',
-      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
-      'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-fill-tertiary)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-fill-pressed))',
+      'data-[disabled]:pointer-events-none data-[disabled]:text-(--hig-color-label-disabled)',
       className
     )}
     checked={checked}
@@ -135,8 +135,8 @@ const DropdownMenuRadioItem = React.forwardRef<
     ref={ref}
     className={cn(
       'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center ps-12 pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02',
-      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
-      'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-fill-tertiary)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-fill-pressed))',
+      'data-[disabled]:pointer-events-none data-[disabled]:text-(--hig-color-label-disabled)',
       className
     )}
     {...props}
@@ -160,7 +160,7 @@ const DropdownMenuLabel = React.forwardRef<
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
-      'flex h-8 items-center px-(--hig-cmp-menu-item-ps,1rem) text-label font-medium text-on-surface-medium',
+      'flex h-8 items-center px-(--hig-cmp-menu-item-ps,1rem) text-label font-medium text-(--hig-color-label-secondary)',
       inset && 'ps-12',
       className
     )}
@@ -175,7 +175,7 @@ const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('h-px bg-(--hig-cmp-menu-separator,var(--hig-color-outline))', className)}
+    className={cn('h-px bg-(--hig-cmp-menu-separator,var(--hig-color-separator))', className)}
     {...props}
   />
 ))
@@ -183,7 +183,10 @@ DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
-    <span className={cn('ms-auto text-caption text-on-surface-medium', className)} {...props} />
+    <span
+      className={cn('ms-auto text-caption text-(--hig-color-label-secondary)', className)}
+      {...props}
+    />
   )
 }
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'

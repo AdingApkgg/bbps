@@ -90,11 +90,11 @@ export function LocaleSuggestBar() {
   return (
     <div
       data-locale-suggest
-      className="sticky top-[2.75rem] z-(--hig-layer-banner) border-b bg-surface-01"
+      className="sticky top-[2.75rem] z-(--hig-layer-banner) border-b bg-(--hig-color-surface-01)"
       lang={suggested === 'en' ? 'en' : 'zh-Hans'}
     >
       <div className="container-page flex items-center gap-3 py-2 text-body-02">
-        <p className="text-on-surface-medium">{copy.text}</p>
+        <p className="text-(--hig-color-label-secondary)">{copy.text}</p>
         <Link
           href={toLocalePath(pathname ?? '/', suggested)}
           onClick={() => setPref(suggested)}
@@ -106,7 +106,7 @@ export function LocaleSuggestBar() {
           type="button"
           onClick={dismiss}
           aria-label={copy.dismiss}
-          className="ml-auto shrink-0 p-1 text-on-surface-medium hover:bg-surface-hover-01 hover:text-on-surface"
+          className="ml-auto shrink-0 p-1 text-(--hig-color-label-secondary) hover:bg-(--hig-color-fill-secondary) hover:text-(--hig-color-label)"
         >
           <X className="h-4 w-4" />
         </button>

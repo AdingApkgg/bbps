@@ -58,7 +58,9 @@ function RankTable({
   }
 
   if (!list.length) {
-    return <p className="py-12 text-center text-body-02 text-on-surface-medium">{noData}</p>
+    return (
+      <p className="py-12 text-center text-body-02 text-(--hig-color-label-secondary)">{noData}</p>
+    )
   }
 
   return (
@@ -81,17 +83,19 @@ function RankTable({
                     variant={entry.rank === 1 ? 'default' : 'secondary'}
                     className={cn(
                       'justify-center tabular-nums',
-                      entry.rank === 1 && 'bg-warning text-on-warning'
+                      entry.rank === 1 && 'bg-(--hig-color-warning) text-(--hig-color-on-warning)'
                     )}
                   >
                     #{entry.rank}
                   </Badge>
                 ) : (
-                  <span className="text-on-surface-medium">#{entry.rank}</span>
+                  <span className="text-(--hig-color-label-secondary)">#{entry.rank}</span>
                 )}
               </TableCell>
               <TableCell>
-                <span className="text-body-02 text-on-surface-medium">{entry.level || '—'}</span>
+                <span className="text-body-02 text-(--hig-color-label-secondary)">
+                  {entry.level || '—'}
+                </span>
               </TableCell>
               <TableCell className="max-w-(--hig-size-rank-label) truncate">
                 {entry.playerId ? (
@@ -153,10 +157,10 @@ export function RankSection() {
     <div className="container-page max-w-4xl pt-8 pb-16 md:pt-12 md:pb-24" data-page="rank">
       <FadeIn eager>
         <h1 className="text-display-lg">{r.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{r.subtitle}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">{r.subtitle}</p>
       </FadeIn>
 
-      {error && <p className="mt-4 text-body-02 text-error">{r.error}</p>}
+      {error && <p className="mt-4 text-body-02 text-(--hig-color-error)">{r.error}</p>}
 
       {/* 全球 / 本地切换。阵亡榜没有本地档，两边共用同一份数据 */}
       <div className="mt-6" data-toolbar>
@@ -165,7 +169,7 @@ export function RankSection() {
           value={scope}
           onValueChange={(v) => setScope(v as LeaderboardScope)}
           aria-label={r.title}
-          className="inline-flex gap-0 rounded-sm bg-surface-variant-01 p-1"
+          className="inline-flex gap-0 rounded-sm bg-(--hig-color-fill-subtle) p-1"
         >
           {scopes.map((s) => (
             <RadioGroupItem key={s.id} value={s.id}>
@@ -195,7 +199,7 @@ export function RankSection() {
           </TabsTrigger>
         </TabsList>
 
-        <p className="mt-1 mb-2 px-4 text-label text-on-surface-medium">
+        <p className="mt-1 mb-2 px-4 text-label text-(--hig-color-label-secondary)">
           {dict.stats.baseViewHint}
         </p>
 

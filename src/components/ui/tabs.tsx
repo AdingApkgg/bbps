@@ -22,7 +22,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'flex w-full items-stretch gap-0.5 overflow-x-auto rounded-(--hig-cmp-tabs-radius,var(--hig-shape-control)) bg-(--hig-cmp-tabs-track-bg,var(--hig-color-surface-variant-01))',
+      'flex w-full items-stretch gap-0.5 overflow-x-auto rounded-(--hig-cmp-tabs-radius,var(--hig-shape-control)) bg-(--hig-cmp-tabs-track-bg,var(--hig-color-fill-subtle))',
       'p-0.5 shadow-none',
       className
     )}
@@ -38,13 +38,13 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex h-(--hig-cmp-tabs-trigger-h,var(--hig-size-control-sm)) flex-none items-center justify-center gap-2 whitespace-nowrap rounded-(--hig-cmp-tabs-trigger-radius,var(--hig-shape-08)) px-(--hig-cmp-tabs-trigger-px,1rem) text-body-02 text-(--hig-cmp-tabs-trigger-fg,var(--hig-color-on-surface-medium))',
+      'inline-flex h-(--hig-cmp-tabs-trigger-h,var(--hig-size-control-sm)) flex-none items-center justify-center gap-2 whitespace-nowrap rounded-(--hig-cmp-tabs-trigger-radius,var(--hig-shape-08)) px-(--hig-cmp-tabs-trigger-px,1rem) text-body-02 text-(--hig-cmp-tabs-trigger-fg,var(--hig-color-label-secondary))',
       'shadow-none transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
-      'hover:bg-(--hig-cmp-tabs-trigger-bg-hover,var(--hig-color-state-hover)) hover:text-(--hig-cmp-tabs-trigger-fg-hover,var(--hig-color-on-surface))',
-      'data-[state=active]:bg-(--hig-cmp-tabs-trigger-bg-active,var(--hig-color-surface-01)) data-[state=active]:font-semibold data-[state=active]:text-(--hig-cmp-tabs-trigger-fg-active,var(--hig-color-on-surface))',
+      'hover:bg-(--hig-cmp-tabs-trigger-bg-hover,var(--hig-color-fill-hover)) hover:text-(--hig-cmp-tabs-trigger-fg-hover,var(--hig-color-label))',
+      'data-[state=active]:bg-(--hig-cmp-tabs-trigger-bg-active,var(--hig-color-surface-01)) data-[state=active]:font-semibold data-[state=active]:text-(--hig-cmp-tabs-trigger-fg-active,var(--hig-color-label))',
       'data-[state=active]:shadow-[var(--hig-shadow-hairline),var(--hig-shadow-raised-small)]',
-      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-      'disabled:pointer-events-none disabled:text-on-surface-disabled',
+      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
+      'disabled:pointer-events-none disabled:text-(--hig-color-label-disabled)',
       className
     )}
     {...props}
@@ -59,7 +59,7 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'mt-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+      'mt-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
       className
     )}
     {...props}

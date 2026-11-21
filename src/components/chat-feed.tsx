@@ -60,14 +60,14 @@ export function ChatFeed() {
   return (
     <section>
       <div className="mb-2 flex items-center justify-between gap-3 px-4">
-        <h2 className="flex items-center gap-2 text-label font-semibold text-on-surface-medium">
+        <h2 className="flex items-center gap-2 text-label font-semibold text-(--hig-color-label-secondary)">
           <MessageSquare className="h-4 w-4" />
           {dict.stats.chatTitle}
         </h2>
         <div className="flex items-center gap-3">
           <label
             htmlFor="chat-auto-refresh"
-            className="flex items-center gap-2 text-label text-on-surface-medium"
+            className="flex items-center gap-2 text-label text-(--hig-color-label-secondary)"
           >
             <Switch id="chat-auto-refresh" checked={polling} onCheckedChange={setPolling} />
             <span className="hidden sm:inline">{dict.stats.chatAutoRefresh}</span>
@@ -88,10 +88,12 @@ export function ChatFeed() {
       </div>
 
       {/* 一块容器当组：状态（加载/错误/空）与列表共用同一块底，不套两层 */}
-      <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+      <div data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
         {(loading || refreshing) && <ProgressIndeterminate />}
 
-        <p className="px-4 py-2 text-label text-on-surface-medium">{dict.stats.chatHint}</p>
+        <p className="px-4 py-2 text-label text-(--hig-color-label-secondary)">
+          {dict.stats.chatHint}
+        </p>
 
         {loading && (
           <div className="space-y-3 px-4 py-3">
@@ -105,11 +107,13 @@ export function ChatFeed() {
         )}
 
         {!loading && error && (
-          <p className="px-4 py-8 text-center text-body-02 text-error">{dict.stats.chatError}</p>
+          <p className="px-4 py-8 text-center text-body-02 text-(--hig-color-error)">
+            {dict.stats.chatError}
+          </p>
         )}
 
         {!loading && !error && newestFirst.length === 0 && (
-          <p className="px-4 py-8 text-center text-body-02 text-on-surface-medium">
+          <p className="px-4 py-8 text-center text-body-02 text-(--hig-color-label-secondary)">
             {dict.stats.chatEmpty}
           </p>
         )}
@@ -130,21 +134,21 @@ export function ChatFeed() {
                 <li key={entry.seq} data-list-item className="px-4 py-2">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-body-02">
                     <PlayerName name={entry.sender_name} className="font-semibold break-all" />
-                    <span className="text-label text-on-surface-medium">
+                    <span className="text-label text-(--hig-color-label-secondary)">
                       Lv.{entry.sender_level}
                     </span>
-                    <span className="ml-auto shrink-0 text-label text-on-surface-medium tabular-nums">
+                    <span className="ml-auto shrink-0 text-label text-(--hig-color-label-secondary) tabular-nums">
                       {formatTime(entry.time, locale)}
                     </span>
                   </div>
-                  <p className="mt-0.5 break-words text-body-02 text-on-surface-medium">
+                  <p className="mt-0.5 break-words text-body-02 text-(--hig-color-label-secondary)">
                     {entry.message}
                   </p>
                 </li>
               ))}
             </ul>
             {hasMore && (
-              <p className="px-4 py-2 text-center text-label text-on-surface-medium">
+              <p className="px-4 py-2 text-center text-label text-(--hig-color-label-secondary)">
                 {dict.stats.chatMore}
               </p>
             )}

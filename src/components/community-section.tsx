@@ -40,9 +40,9 @@ const PLATFORM_ICONS: Record<string, React.FC<{ className?: string }>> = {
 }
 
 const PLATFORM_COLORS: Record<string, string> = {
-  qq: 'text-info',
-  discord: 'text-info',
-  telegram: 'text-chip-color-cyan'
+  qq: 'text-(--hig-color-info)',
+  discord: 'text-(--hig-color-info)',
+  telegram: 'text-(--hig-color-chip-color-cyan)'
 }
 
 export function CommunitySection() {
@@ -54,13 +54,13 @@ export function CommunitySection() {
     <div className="container-page max-w-2xl pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{d.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{d.subtitle}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">{d.subtitle}</p>
       </FadeIn>
 
-      <div data-list-group className="mt-6 overflow-hidden rounded-sm bg-surface-02">
+      <div data-list-group className="mt-6 overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
         {communityGroups.map((group, i) => {
           const Icon = PLATFORM_ICONS[group.platform] ?? ExternalLink
-          const color = PLATFORM_COLORS[group.platform] ?? 'text-on-surface-medium'
+          const color = PLATFORM_COLORS[group.platform] ?? 'text-(--hig-color-label-secondary)'
           const meta = d.groups[group.id as keyof typeof d.groups]
           return (
             // 行就是 FadeIn 本身，避免 motion.div 夹在组与行之间断了分隔线选择器
@@ -71,12 +71,12 @@ export function CommunitySection() {
               className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-(--hig-color-fill-subtle)">
                   <Icon className={`h-5 w-5 ${color}`} />
                 </span>
                 <span>
                   <h2 className="text-body-02 font-semibold">{meta.name}</h2>
-                  <p className="text-label text-on-surface-medium">{meta.desc}</p>
+                  <p className="text-label text-(--hig-color-label-secondary)">{meta.desc}</p>
                 </span>
               </div>
               <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>

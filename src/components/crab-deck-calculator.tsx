@@ -55,10 +55,10 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
     <div className="space-y-4">
       {/* 位掩码面板：每个值对应 2^n 的一位 */}
       <div className="flex items-center justify-between">
-        <p className="text-label text-on-surface-medium">{t.deckLabel}</p>
+        <p className="text-label text-(--hig-color-label-secondary)">{t.deckLabel}</p>
         <label
           htmlFor="deck-select-all"
-          className="flex items-center gap-2 text-label text-on-surface-medium"
+          className="flex items-center gap-2 text-label text-(--hig-color-label-secondary)"
         >
           <Checkbox
             id="deck-select-all"
@@ -68,12 +68,12 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
           {t.deckSelectAll}
         </label>
       </div>
-      <div className="grid grid-cols-6 gap-1 rounded-sm bg-field-01 p-3 sm:grid-cols-9 lg:grid-cols-[repeat(17,minmax(0,1fr))]">
+      <div className="grid grid-cols-6 gap-1 rounded-sm bg-(--hig-color-field) p-3 sm:grid-cols-9 lg:grid-cols-[repeat(17,minmax(0,1fr))]">
         {Array.from({ length: 17 }, (_, i) => i).map((v) => (
           <label
             key={v}
             htmlFor={`deck-${v}`}
-            className="flex flex-col items-center gap-1 text-label text-on-surface-medium"
+            className="flex flex-col items-center gap-1 text-label text-(--hig-color-label-secondary)"
           >
             <Checkbox
               id={`deck-${v}`}
@@ -87,7 +87,7 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
 
       {/* 已选列表（可点击移除） */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-body-02 text-on-surface-medium">已选择:</span>
+        <span className="text-body-02 text-(--hig-color-label-secondary)">已选择:</span>
         {sorted.length > 0 ? (
           sorted.map((v) => (
             <Badge
@@ -101,7 +101,7 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
             </Badge>
           ))
         ) : (
-          <span className="text-body-02 text-on-surface-medium">无</span>
+          <span className="text-body-02 text-(--hig-color-label-secondary)">无</span>
         )}
       </div>
 
@@ -123,13 +123,14 @@ export function CrabDeckCalculator({ onOutput }: { onOutput: (v: string) => void
 
       {/* 计算结果 */}
       {result && (
-        <div className="space-y-1 rounded-sm bg-field-01 p-3">
-          <p className="text-body-02 text-on-surface-medium">
-            计算总和: <span className="font-mono font-medium text-on-surface">{result.sum}</span>
+        <div className="space-y-1 rounded-sm bg-(--hig-color-field) p-3">
+          <p className="text-body-02 text-(--hig-color-label-secondary)">
+            计算总和:{' '}
+            <span className="font-mono font-medium text-(--hig-color-label)">{result.sum}</span>
           </p>
-          <p className="text-body-02 text-on-surface-medium">
+          <p className="text-body-02 text-(--hig-color-label-secondary)">
             生成指令:{' '}
-            <code className="font-mono font-medium text-on-surface">{result.command}</code>
+            <code className="font-mono font-medium text-(--hig-color-label)">{result.command}</code>
           </p>
         </div>
       )}

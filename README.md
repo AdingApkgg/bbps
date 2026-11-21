@@ -27,15 +27,17 @@ bun dev
 **令牌**（`src/styles/tokens.css`）只有两层：L0 形状/动效/尺寸阶 → L1 语义色与影。
 组件只写语义名与 `--text-*` 阶，不写裸 hex 和裸 px：
 
-- 颜色 `--hig-color-*`：`surface` / `surface-0N` 分层、`on-surface` 四级前景、
-  `outline` / `outline-emphasis` / `outline-variant` 边框、`state-hover|pressed|selected`
-  叠加层、`chip-*`、`error|success|warning|info`、`primary` / `on-primary` / `error-text`
-- 形状 `--hig-shape-*`、影 `--hig-shadow-*`、动效 `--hig-motion-*`、
+- 颜色 `--hig-color-*`：`surface` / `surface-01|02` 分层、`label` 级前景、
+  `separator` / `separator-01|variant|emphasis|field|active` 分隔与描边、
+  `fill-hover|pressed|selected|…` 叠加层、`chip-*`、`error|success|warning|info`、
+  `primary` / `on-primary` / `error-text`
+- 形状 `--hig-shape-*`、影 `--hig-layer-*`、动效 `--hig-motion-*`、
   尺寸 `--hig-size-*`（控件 36–56px、输入框 44px、触达区 44px）
-- 接线在 `src/app/globals.css` 的 `@theme inline`：`bg-surface-01`、`text-on-surface-medium`、
-  `border-outline`、`rounded-pill`、`shadow-raised`。**新增字号必须同时登记到
+- 类名直写任意值：`bg-(--hig-color-surface-01)`、`text-(--hig-color-label-secondary)`、
+  `border-(--hig-color-separator)`、`rounded-pill`、`shadow-raised`。没有 `--color-*`
+  转发层，Tailwind 的配色命名空间是空的。**新增字号必须同时登记到
   `cn` 的 tailwind-merge 白名单**（`src/lib/utils.ts` 的 `extendTailwindMerge`），否则
-  `text-body text-on-surface-medium` 里的字号会被当成颜色吞掉
+  `text-body text-(--hig-color-label-secondary)` 里的字号会被当成颜色吞掉
 
 令牌前缀是 `--hig-*`，直接标示它属于这套 HIG 系统；配色与控件表现按 HIG 走。
 
@@ -128,4 +130,5 @@ BFM 被重新开启时的兜底。
   不要在新代码里写死颜色
 - 阅读偏好的 `--pref-*`（`src/styles/prefs.css`）目前没有切换 UI，改默认值即改全站，与明暗互不干扰
 - 游戏原生 `§` 色码保持原色（对比度不达标是游戏本身行为）
-- 名字只有一套语义（`--hig-*` 前缀与 `bg-surface-02` 这类 Tailwind 别名），没有 shadcn 的 `card` / `muted-foreground` 别名
+- 名字只有一套语义（`--hig-*` 前缀），也没有 shadcn 的 `card` / `muted-foreground` 别名；
+  类名一律 `x-(--hig-*)` 任意值写法

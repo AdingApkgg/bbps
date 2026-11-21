@@ -13,28 +13,28 @@ export function Footer() {
   const { sitePv, siteUv, pagePv } = useVisitorStats()
 
   const linkClass =
-    'text-body-02 text-on-surface-medium transition-colors duration-fast-01 hover:text-on-surface'
+    'text-body-02 text-(--hig-color-label-secondary) transition-colors duration-fast-01 hover:text-(--hig-color-label)'
 
   return (
     <footer className="border-t">
       <div className="container-page py-8 md:py-12">
-        <div className="text-center text-body-02 text-on-surface-medium">
+        <div className="text-center text-body-02 text-(--hig-color-label-secondary)">
           <div className="mb-3 flex items-center justify-center gap-6">
             <span className="inline-flex items-center gap-1">
               <Eye className="h-3.5 w-3.5" />
-              <span className="font-medium tabular-nums text-on-surface">
+              <span className="font-medium tabular-nums text-(--hig-color-label)">
                 {sitePv !== null ? sitePv.toLocaleString() : '-'}
               </span>
             </span>
             <span className="inline-flex items-center gap-1">
               <Users className="h-3.5 w-3.5" />
-              <span className="font-medium tabular-nums text-on-surface">
+              <span className="font-medium tabular-nums text-(--hig-color-label)">
                 {siteUv !== null ? siteUv.toLocaleString() : '-'}
               </span>
             </span>
             <span className="inline-flex items-center gap-1">
               <FileText className="h-3.5 w-3.5" />
-              <span className="font-medium tabular-nums text-on-surface">
+              <span className="font-medium tabular-nums text-(--hig-color-label)">
                 {pagePv !== null ? pagePv.toLocaleString() : '-'}
               </span>
             </span>
@@ -46,7 +46,7 @@ export function Footer() {
               href={dict.footer.fanContentPolicyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline transition-colors duration-fast-01 hover:text-on-surface"
+              className="underline transition-colors duration-fast-01 hover:text-(--hig-color-label)"
             >
               {dict.footer.fanContentPolicy}
             </a>

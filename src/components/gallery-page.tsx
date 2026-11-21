@@ -68,7 +68,9 @@ export function GalleryPage({ images }: GalleryPageProps) {
     <div className="container-page pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{dict.gallery.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{dict.gallery.description}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">
+          {dict.gallery.description}
+        </p>
       </FadeIn>
 
       {/* Masonry grid */}
@@ -79,7 +81,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
               <button
                 key={img.src}
                 type="button"
-                className="group relative w-full overflow-hidden border bg-surface-variant-01 transition-colors duration-fast-01 hover:border-outline-emphasis focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                className="group relative w-full overflow-hidden border bg-(--hig-color-fill-subtle) transition-colors duration-fast-01 hover:border-(--hig-color-separator-emphasis) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)"
                 style={{ aspectRatio: `${img.width} / ${img.height}` }}
                 onClick={() => setLightboxIndex(idx)}
               >
@@ -107,7 +109,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-scrim"
+          className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-(--hig-color-scrim)"
           role="dialog"
           aria-modal="true"
           aria-label={dict.gallery.viewer}
@@ -125,7 +127,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
           <button
             type="button"
             aria-label={dict.gallery.prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-surface p-2 text-on-surface transition-colors duration-fast-01 hover:bg-surface-hover-01"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-(--hig-color-surface) p-2 text-(--hig-color-label) transition-colors duration-fast-01 hover:bg-(--hig-color-fill-secondary)"
             onClick={() => setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length)}
           >
             <svg
@@ -156,7 +158,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
               alt={`${dict.gallery.title} ${lightboxIndex + 1}`}
               className="max-h-[85vh] max-w-[90vw] object-contain"
             />
-            <p className="mt-2 text-center text-body-02 text-on-primary/70">
+            <p className="mt-2 text-center text-body-02 text-(--hig-color-on-primary)/70">
               {lightboxIndex + 1} / {images.length}
             </p>
           </div>
@@ -164,7 +166,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
           <button
             type="button"
             aria-label={dict.gallery.next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-surface p-2 text-on-surface transition-colors duration-fast-01 hover:bg-surface-hover-01"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-(--hig-color-surface) p-2 text-(--hig-color-label) transition-colors duration-fast-01 hover:bg-(--hig-color-fill-secondary)"
             onClick={() => setLightboxIndex((prev) => (prev! + 1) % images.length)}
           >
             <svg
@@ -186,7 +188,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
           <button
             type="button"
             aria-label={dict.gallery.close}
-            className="absolute right-4 top-4 bg-surface p-2 text-on-surface transition-colors duration-fast-01 hover:bg-surface-hover-01"
+            className="absolute right-4 top-4 bg-(--hig-color-surface) p-2 text-(--hig-color-label) transition-colors duration-fast-01 hover:bg-(--hig-color-fill-secondary)"
             onClick={() => setLightboxIndex(null)}
           >
             <svg

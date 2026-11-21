@@ -17,7 +17,7 @@ const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWi
     <ol
       ref={ref}
       className={cn(
-        'flex flex-wrap items-center gap-(--hig-cmp-breadcrumb-gap,0.5rem) text-body-02 text-(--hig-cmp-breadcrumb-fg,var(--hig-color-on-surface-medium))',
+        'flex flex-wrap items-center gap-(--hig-cmp-breadcrumb-gap,0.5rem) text-body-02 text-(--hig-cmp-breadcrumb-fg,var(--hig-color-label-secondary))',
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ const BreadcrumbLink = React.forwardRef<
       ref={ref}
       className={cn(
         'text-(--hig-cmp-breadcrumb-link-fg,var(--hig-color-link)) underline-offset-4 transition-colors duration-fast-01 hover:text-(--hig-cmp-breadcrumb-link-fg-hover,var(--hig-color-link-hover)) hover:underline',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
         className
       )}
       {...props}
@@ -65,10 +65,7 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
     <span
       ref={ref}
       aria-current="page"
-      className={cn(
-        'text-(--hig-cmp-breadcrumb-current-fg,var(--hig-color-on-surface))',
-        className
-      )}
+      className={cn('text-(--hig-cmp-breadcrumb-current-fg,var(--hig-color-label))', className)}
       {...props}
     />
   )
@@ -79,7 +76,7 @@ const BreadcrumbSeparator = ({ children, className, ...props }: React.ComponentP
   <li
     role="presentation"
     aria-hidden="true"
-    className={cn('text-on-surface [&>svg]:size-4', className)}
+    className={cn('text-(--hig-color-label) [&>svg]:size-4', className)}
     {...props}
   >
     {/* 分隔符是斜杠，不是箭头 */}

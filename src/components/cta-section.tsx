@@ -86,29 +86,29 @@ export function CtaSection() {
     <section className="container-page py-16 md:py-24">
       <FadeIn>
         <h2 className="text-title-lg">{dict.cta.title}</h2>
-        <p className="mt-1 text-body-02 text-on-surface-medium">{dict.hero.subtitle}</p>
+        <p className="mt-1 text-body-02 text-(--hig-color-label-secondary)">{dict.hero.subtitle}</p>
       </FadeIn>
 
       <FadeIn delay={0.1} className="mt-6">
-        <ul data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+        <ul data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
           {features.map((feature) => {
             const inner = (
               <>
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01 text-on-surface">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-(--hig-color-fill-subtle) text-(--hig-color-label)">
                   {feature.icon}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-01 font-semibold">{feature.title}</span>
-                  <span className="block truncate text-label text-on-surface-medium">
+                  <span className="block truncate text-label text-(--hig-color-label-secondary)">
                     {feature.description}
                   </span>
                 </span>
-                <ChevronRight className="h-4 w-4 shrink-0 text-on-surface-medium" />
+                <ChevronRight className="h-4 w-4 shrink-0 text-(--hig-color-label-secondary)" />
               </>
             )
 
             const rowClass =
-              'flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01'
+              'flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02 hover:bg-(--hig-color-fill-secondary) active:bg-(--hig-color-fill-pressed)'
 
             return (
               <li key={feature.href} data-list-item>

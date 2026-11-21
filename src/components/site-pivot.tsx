@@ -18,7 +18,7 @@ export function SitePivot() {
   const isActive = (href: string) => pathname === href || pathname === `${href}/`
 
   return (
-    <div data-pivot className="hidden w-full border-b bg-surface-01">
+    <div data-pivot className="hidden w-full border-b bg-(--hig-color-surface-01)">
       <nav className="container-page flex h-11 items-stretch gap-1 overflow-x-auto">
         {items.map((item) => (
           <Link
@@ -26,8 +26,8 @@ export function SitePivot() {
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             className={cn(
-              'relative flex shrink-0 items-center px-3 text-body-02 text-on-surface-medium',
-              isActive(item.href) && 'font-semibold text-on-surface'
+              'relative flex shrink-0 items-center px-3 text-body-02 text-(--hig-color-label-secondary)',
+              isActive(item.href) && 'font-semibold text-(--hig-color-label)'
             )}
           >
             {item.label}

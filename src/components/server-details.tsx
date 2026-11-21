@@ -69,7 +69,7 @@ export function ServerDetails() {
   return (
     <section>
       <div className="mb-2 flex items-center justify-between gap-3 px-4">
-        <h2 className="flex items-center gap-2 text-label font-semibold text-on-surface-medium">
+        <h2 className="flex items-center gap-2 text-label font-semibold text-(--hig-color-label-secondary)">
           <Server className="h-4 w-4" />
           {t.detailsTitle}
         </h2>
@@ -80,7 +80,7 @@ export function ServerDetails() {
         )}
       </div>
 
-      <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+      <div data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
         {loading && (
           <div className="grid gap-3 px-4 py-4 sm:grid-cols-2">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -90,7 +90,7 @@ export function ServerDetails() {
         )}
 
         {!loading && error && (
-          <p className="px-4 py-6 text-center text-body-02 text-error">{t.error}</p>
+          <p className="px-4 py-6 text-center text-body-02 text-(--hig-color-error)">{t.error}</p>
         )}
 
         {!loading && !error && stats && (
@@ -101,7 +101,9 @@ export function ServerDetails() {
                 data-list-item
                 className="flex items-baseline justify-between gap-4 px-4 py-2"
               >
-                <dt className="shrink-0 text-body-02 text-on-surface-medium">{row.label}</dt>
+                <dt className="shrink-0 text-body-02 text-(--hig-color-label-secondary)">
+                  {row.label}
+                </dt>
                 <dd className="truncate text-body-02 font-semibold tabular-nums">{row.value}</dd>
               </div>
             ))}

@@ -93,7 +93,7 @@ export function CustomBaseSheet({
                   key={row.label}
                   className="flex items-baseline justify-between gap-3 border-b py-2"
                 >
-                  <dt className="text-body-02 text-on-surface-medium">{row.label}</dt>
+                  <dt className="text-body-02 text-(--hig-color-label-secondary)">{row.label}</dt>
                   <dd className="text-body-02 font-medium tabular-nums">{row.value}</dd>
                 </div>
               ))}
@@ -110,7 +110,7 @@ export function CustomBaseSheet({
                   {t.download}
                 </a>
               </Button>
-              <p className="text-label text-on-surface-medium">{t.downloadHint}</p>
+              <p className="text-label text-(--hig-color-label-secondary)">{t.downloadHint}</p>
             </div>
           </div>
         )}

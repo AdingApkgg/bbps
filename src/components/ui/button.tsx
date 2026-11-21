@@ -25,46 +25,46 @@ const buttonVariants = cva(
     'text-(length:--hig-cmp-button-font-size,1.0625rem) font-(--hig-cmp-button-font-weight,600) leading-(--hig-cmp-button-line-height,1.2941) tracking-(--hig-cmp-button-tracking,-0.011em) no-underline select-none',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard',
     'disabled:pointer-events-none disabled:cursor-not-allowed',
-    'aria-pressed:shadow-[inset_0_0_0_2px_var(--hig-color-link)] aria-pressed:text-link',
+    'aria-pressed:shadow-[inset_0_0_0_2px_var(--hig-color-link)] aria-pressed:text-(--hig-color-link)',
     '[&_svg]:pointer-events-none [&_svg]:size-(--hig-cmp-button-icon,1.125rem) [&_svg]:shrink-0'
   ].join(' '),
   {
     variants: {
       variant: {
-        /* contained：唯一的实心主色按钮 */
+        /* filled：唯一的实心主色按钮 */
         default: [
-          'bg-(--hig-cmp-button-filled-bg,var(--hig-color-button-contained)) text-(--hig-cmp-button-filled-fg,var(--hig-color-on-button-contained))',
-          'hover:enabled:bg-(--hig-cmp-button-filled-bg-hover,var(--hig-color-button-contained-hover))',
-          'active:enabled:bg-(--hig-cmp-button-filled-bg-active,var(--hig-color-button-contained-active))',
-          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
+          'bg-(--hig-cmp-button-filled-bg,var(--hig-color-button-filled)) text-(--hig-cmp-button-filled-fg,var(--hig-color-on-button-filled))',
+          'hover:enabled:bg-(--hig-cmp-button-filled-bg-hover,var(--hig-color-button-filled-hover))',
+          'active:enabled:bg-(--hig-cmp-button-filled-bg-active,var(--hig-color-button-filled-active))',
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-filled-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-label-disabled))'
         ].join(' '),
         /* 中性容器色的次级填充按钮，文字用 primary */
         secondary: [
-          'bg-(--hig-cmp-button-tonal-bg,var(--hig-color-button-outlined)) text-(--hig-cmp-button-tonal-fg,var(--hig-color-on-button-outlined))',
-          'hover:enabled:bg-(--hig-cmp-button-tonal-bg-hover,var(--hig-color-button-outlined-hover))',
-          'active:enabled:bg-(--hig-cmp-button-tonal-bg-active,var(--hig-color-button-outlined-active))',
-          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
+          'bg-(--hig-cmp-button-tonal-bg,var(--hig-color-button-tonal)) text-(--hig-cmp-button-tonal-fg,var(--hig-color-on-button-tonal))',
+          'hover:enabled:bg-(--hig-cmp-button-tonal-bg-hover,var(--hig-color-button-tonal-hover))',
+          'active:enabled:bg-(--hig-cmp-button-tonal-bg-active,var(--hig-color-button-tonal-active))',
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-filled-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-label-disabled))'
         ].join(' '),
         /* bordered：42% 描边，无底，hover 叠 4% primary */
         outline: [
-          'border-(length:--hig-cmp-button-outline-width,1px) border-(--hig-cmp-button-outline-color,var(--hig-color-outline-emphasis-01)) bg-transparent text-(--hig-cmp-button-outline-fg,var(--hig-color-link))',
-          'hover:enabled:bg-(--hig-cmp-button-outline-bg-hover,var(--hig-color-state-hover))',
-          'active:enabled:bg-(--hig-cmp-button-outline-bg-active,var(--hig-color-state-selected))',
-          'disabled:border-(--hig-cmp-button-disabled-border,var(--hig-color-outline-disabled)) disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
+          'border-(length:--hig-cmp-button-outline-width,1px) border-(--hig-cmp-button-outline-color,var(--hig-color-separator-emphasis)) bg-transparent text-(--hig-cmp-button-outline-fg,var(--hig-color-link))',
+          'hover:enabled:bg-(--hig-cmp-button-outline-bg-hover,var(--hig-color-fill-hover))',
+          'active:enabled:bg-(--hig-cmp-button-outline-bg-active,var(--hig-color-fill-selected))',
+          'disabled:border-(--hig-cmp-button-disabled-border,var(--hig-color-separator-disabled)) disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-label-disabled))'
         ].join(' '),
         /* text：无底无边，hover 叠 4% primary */
         ghost: [
           'bg-transparent text-(--hig-cmp-button-ghost-fg,var(--hig-color-link))',
-          'hover:enabled:bg-(--hig-cmp-button-ghost-bg-hover,var(--hig-color-state-hover))',
-          'active:enabled:bg-(--hig-cmp-button-ghost-bg-active,var(--hig-color-state-selected))',
-          'disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
+          'hover:enabled:bg-(--hig-cmp-button-ghost-bg-hover,var(--hig-color-fill-hover))',
+          'active:enabled:bg-(--hig-cmp-button-ghost-bg-active,var(--hig-color-fill-selected))',
+          'disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-label-disabled))'
         ].join(' '),
-        /* contained destructive */
+        /* filled destructive */
         destructive: [
-          'bg-(--hig-cmp-button-error-bg,var(--hig-color-button-contained-error)) text-(--hig-cmp-button-error-fg,var(--hig-color-on-primary))',
+          'bg-(--hig-cmp-button-error-bg,var(--hig-color-button-filled-error)) text-(--hig-cmp-button-error-fg,var(--hig-color-on-primary))',
           'hover:enabled:bg-(--hig-cmp-button-error-bg-hover,var(--hig-color-button-error-hover))',
           'active:enabled:bg-(--hig-cmp-button-error-bg-active,var(--hig-color-button-error-active))',
-          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-filled-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-label-disabled))'
         ].join(' '),
         link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-(--hig-cmp-button-link-fg,var(--hig-color-link)) hover:enabled:text-(--hig-cmp-button-link-fg-hover,var(--hig-color-link-hover)) hover:enabled:underline'
       },

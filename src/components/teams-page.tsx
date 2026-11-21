@@ -20,10 +20,12 @@ export function TeamsPage() {
     <section className="container-page max-w-4xl pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{dict.teams.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{dict.teams.subtitle}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">
+          {dict.teams.subtitle}
+        </p>
       </FadeIn>
 
-      <ul data-list-group className="mt-6 overflow-hidden rounded-sm bg-surface-02">
+      <ul data-list-group className="mt-6 overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
         {teamData.map((member) => {
           const info = dict.teams.members[member.id as keyof typeof dict.teams.members]
           if (!info) return null
@@ -34,25 +36,28 @@ export function TeamsPage() {
                 href={member.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01 sm:gap-4"
+                className="flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02 hover:bg-(--hig-color-fill-secondary) active:bg-(--hig-color-fill-pressed) sm:gap-4"
               >
-                <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-surface-variant-01">
+                <span className="relative size-11 shrink-0 overflow-hidden rounded-full bg-(--hig-color-fill-subtle)">
                   <Image src={member.avatar} alt="" fill className="object-cover" sizes="44px" />
                 </span>
 
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-body-01 font-semibold">{info.name}</span>
-                  <span className="mt-0.5 block text-label text-on-surface-medium">
+                  <span className="mt-0.5 block text-label text-(--hig-color-label-secondary)">
                     {info.role}
                     <span className="mx-2 opacity-50">·</span>
                     {member.platform === 'bilibili' ? 'Bilibili' : 'QQ'}
                   </span>
-                  <span className="mt-1 line-clamp-2 text-body-02 sm:line-clamp-1 text-on-surface-medium">
+                  <span className="mt-1 line-clamp-2 text-body-02 sm:line-clamp-1 text-(--hig-color-label-secondary)">
                     {info.description}
                   </span>
                 </span>
 
-                <ChevronRight className="size-4 shrink-0 text-on-surface-medium" aria-hidden />
+                <ChevronRight
+                  className="size-4 shrink-0 text-(--hig-color-label-secondary)"
+                  aria-hidden
+                />
               </a>
             </li>
           )

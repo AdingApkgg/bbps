@@ -96,7 +96,7 @@ export function CustomBasesPage() {
     <div className="container-page pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{t.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{t.description}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">{t.description}</p>
         <Button asChild className="mt-4">
           <a href={EDITOR_URL} target="_blank" rel="noopener noreferrer">
             <SquarePen className="mr-2 h-4 w-4" />
@@ -110,7 +110,7 @@ export function CustomBasesPage() {
         {/* 工具条 */}
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--hig-color-label-secondary)" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -158,11 +158,13 @@ export function CustomBasesPage() {
               ))}
             </div>
           ) : error ? (
-            <p className="py-12 text-center text-body-02 text-error">
+            <p className="py-12 text-center text-body-02 text-(--hig-color-error)">
               {error === 'rate' ? t.rateLimited : t.error}
             </p>
           ) : !items.length ? (
-            <p className="py-12 text-center text-body-02 text-on-surface-medium">{t.empty}</p>
+            <p className="py-12 text-center text-body-02 text-(--hig-color-label-secondary)">
+              {t.empty}
+            </p>
           ) : (
             <Table>
               <TableHeader>
@@ -190,7 +192,7 @@ export function CustomBasesPage() {
                       <span className="flex items-center gap-2">
                         <span className="line-clamp-1 break-all">{base.name}</span>
                         {base.locked && (
-                          <Lock className="h-3 w-3 shrink-0 text-on-surface-medium" />
+                          <Lock className="h-3 w-3 shrink-0 text-(--hig-color-label-secondary)" />
                         )}
                       </span>
                     </TableCell>
@@ -209,7 +211,7 @@ export function CustomBasesPage() {
                       {formatBytes(base.byte_size)}
                     </TableCell>
                     <TableCell className="text-right tabular-nums">{base.download_count}</TableCell>
-                    <TableCell className="hidden text-right text-on-surface-medium lg:table-cell">
+                    <TableCell className="hidden text-right text-(--hig-color-label-secondary) lg:table-cell">
                       {formatServerTime(base.updated_at, locale)}
                     </TableCell>
                     <TableCell>
@@ -235,7 +237,7 @@ export function CustomBasesPage() {
         {/* 翻页。首次加载还没有总数，先不渲染，免得闪一下「共 0 座」 */}
         {!error && !(loading && total === 0) && (
           <div className="mt-4 flex items-center justify-between gap-4">
-            <p className="text-body-02 text-on-surface-medium">
+            <p className="text-body-02 text-(--hig-color-label-secondary)">
               {t.totalCount.replace('{n}', total.toLocaleString())}
             </p>
             <div className="flex items-center gap-2">
@@ -248,7 +250,7 @@ export function CustomBasesPage() {
                 <ChevronLeft className="mr-1 h-4 w-4" />
                 {t.previous}
               </Button>
-              <span className="text-body-02 tabular-nums text-on-surface-medium">
+              <span className="text-body-02 tabular-nums text-(--hig-color-label-secondary)">
                 {t.pageInfo.replace('{page}', String(page)).replace('{total}', String(totalPages))}
               </span>
               <Button

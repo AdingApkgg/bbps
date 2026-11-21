@@ -84,7 +84,9 @@ export function MusicPage() {
       {/* Header */}
       <FadeIn eager>
         <h1 className="text-display-lg">{dict.music.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{dict.music.description}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">
+          {dict.music.description}
+        </p>
       </FadeIn>
 
       {/* Settings toggle */}
@@ -92,7 +94,7 @@ export function MusicPage() {
         <button
           type="button"
           onClick={() => setShowSettings(!showSettings)}
-          className="flex w-full items-center gap-2 px-3 py-2 text-body-02 font-medium text-on-surface-medium transition-colors duration-fast-01 hover:bg-surface-hover-01 hover:text-on-surface"
+          className="flex w-full items-center gap-2 px-3 py-2 text-body-02 font-medium text-(--hig-color-label-secondary) transition-colors duration-fast-01 hover:bg-(--hig-color-fill-secondary) hover:text-(--hig-color-label)"
         >
           <Settings className="size-4" />
           {dict.music.settings}
@@ -119,7 +121,7 @@ export function MusicPage() {
               }}
               className="overflow-hidden"
             >
-              <div className="mt-2 space-y-4 rounded-sm bg-surface-02 p-4">
+              <div className="mt-2 space-y-4 rounded-sm bg-(--hig-color-surface-02) p-4">
                 {/* API endpoint */}
                 <div className="space-y-2">
                   <label htmlFor="music-api-endpoint" className="text-body-02 font-medium">
@@ -146,11 +148,11 @@ export function MusicPage() {
                     {playlists.map((p, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-2 bg-surface-01 px-3 py-2 text-body-02"
+                        className="flex items-center gap-2 bg-(--hig-color-surface-01) px-3 py-2 text-body-02"
                       >
                         <span className="font-medium">{p.label}</span>
-                        <span className="text-on-surface-medium">—</span>
-                        <span className="truncate font-mono text-label text-on-surface-medium">
+                        <span className="text-(--hig-color-label-secondary)">—</span>
+                        <span className="truncate font-mono text-label text-(--hig-color-label-secondary)">
                           {p.server}/{p.type}/{p.id}
                         </span>
                         <Button
@@ -169,7 +171,7 @@ export function MusicPage() {
                       <div className="min-w-(--hig-size-chip-min) flex-1">
                         <label
                           htmlFor="music-new-label"
-                          className="mb-1 block text-label text-on-surface-medium"
+                          className="mb-1 block text-label text-(--hig-color-label-secondary)"
                         >
                           {dict.music.tabName}
                         </label>
@@ -182,7 +184,7 @@ export function MusicPage() {
                         />
                       </div>
                       <div className="w-28">
-                        <p className="mb-1 block text-label text-on-surface-medium">
+                        <p className="mb-1 block text-label text-(--hig-color-label-secondary)">
                           {dict.music.server}
                         </p>
                         <Select value={newServer} onValueChange={setNewServer}>
@@ -199,7 +201,7 @@ export function MusicPage() {
                         </Select>
                       </div>
                       <div className="w-28">
-                        <p className="mb-1 block text-label text-on-surface-medium">
+                        <p className="mb-1 block text-label text-(--hig-color-label-secondary)">
                           {dict.music.type}
                         </p>
                         <Select value={newType} onValueChange={setNewType}>
@@ -218,7 +220,7 @@ export function MusicPage() {
                       <div className="min-w-(--hig-size-control-min) flex-1">
                         <label
                           htmlFor="music-new-id"
-                          className="mb-1 block text-label text-on-surface-medium"
+                          className="mb-1 block text-label text-(--hig-color-label-secondary)"
                         >
                           ID
                         </label>
@@ -252,12 +254,12 @@ export function MusicPage() {
       {/* Tabbed track list */}
       <FadeIn delay={0.2} className="mt-6">
         {loading ? (
-          <div className="flex flex-col items-center gap-3 py-16 text-on-surface-medium">
+          <div className="flex flex-col items-center gap-3 py-16 text-(--hig-color-label-secondary)">
             <Loader2 className="size-6 animate-spin" />
             <span className="text-body-02">{dict.music.loading}</span>
           </div>
         ) : error ? (
-          <div className="flex flex-col items-center gap-3 py-16 text-on-surface-medium">
+          <div className="flex flex-col items-center gap-3 py-16 text-(--hig-color-label-secondary)">
             <AlertCircle className="size-6" />
             <span className="text-body-02">{dict.music.loadError}</span>
             <Button variant="outline" size="sm" onClick={player.retry}>
@@ -266,7 +268,7 @@ export function MusicPage() {
             </Button>
           </div>
         ) : totalTracks === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-16 text-on-surface-medium">
+          <div className="flex flex-col items-center gap-3 py-16 text-(--hig-color-label-secondary)">
             <Music className="size-6" />
             <span className="text-body-02">{dict.music.noTracks}</span>
           </div>
@@ -276,7 +278,7 @@ export function MusicPage() {
               {playlists.map((p, i) => (
                 <TabsTrigger key={i} value={String(i)} className="gap-2">
                   {p.label}
-                  <span className="text-label text-on-surface-medium">
+                  <span className="text-label text-(--hig-color-label-secondary)">
                     {playlistTracks[i]?.length ?? 0}
                   </span>
                 </TabsTrigger>
@@ -288,12 +290,15 @@ export function MusicPage() {
               return (
                 <TabsContent key={pIdx} value={String(pIdx)}>
                   {tracks.length === 0 ? (
-                    <div className="flex flex-col items-center gap-3 py-12 text-on-surface-medium">
+                    <div className="flex flex-col items-center gap-3 py-12 text-(--hig-color-label-secondary)">
                       <Music className="size-6" />
                       <span className="text-body-02">{dict.music.noTracks}</span>
                     </div>
                   ) : (
-                    <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+                    <div
+                      data-list-group
+                      className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)"
+                    >
                       {tracks.map((track, tIdx) => {
                         const isActive = playingPlaylist === pIdx && currentTrackIdx === tIdx
                         return (
@@ -303,11 +308,11 @@ export function MusicPage() {
                             data-list-item
                             onClick={() => player.playTrack(pIdx, tIdx)}
                             className={cn(
-                              'flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-01 hover:bg-surface-hover-01',
-                              isActive && 'bg-surface-hover-01'
+                              'flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-01 hover:bg-(--hig-color-fill-secondary)',
+                              isActive && 'bg-(--hig-color-fill-secondary)'
                             )}
                           >
-                            <div className="relative size-10 flex-shrink-0 overflow-hidden bg-surface-variant-01">
+                            <div className="relative size-10 flex-shrink-0 overflow-hidden bg-(--hig-color-fill-subtle)">
                               {track.pic ? (
                                 /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                                 <img
@@ -318,16 +323,16 @@ export function MusicPage() {
                                 />
                               ) : (
                                 <div className="flex size-full items-center justify-center">
-                                  <Music className="size-4 text-on-surface-medium" />
+                                  <Music className="size-4 text-(--hig-color-label-secondary)" />
                                 </div>
                               )}
                               {isActive && playing && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-scrim">
+                                <div className="absolute inset-0 flex items-center justify-center bg-(--hig-color-scrim)">
                                   <div className="flex items-end gap-0.5">
                                     {[0, 1, 2].map((j) => (
                                       <span
                                         key={j}
-                                        className="inline-block w-0.5 animate-pulse rounded-full bg-on-primary"
+                                        className="inline-block w-0.5 animate-pulse rounded-full bg-(--hig-color-on-primary)"
                                         style={{
                                           height: `${8 + j * 4}px`,
                                           animationDelay: `${j * 150}ms`
@@ -343,17 +348,17 @@ export function MusicPage() {
                               <p
                                 className={cn(
                                   'truncate text-body-02 font-medium',
-                                  isActive && 'text-on-surface'
+                                  isActive && 'text-(--hig-color-label)'
                                 )}
                               >
                                 {track.name}
                               </p>
-                              <p className="truncate text-label text-on-surface-medium">
+                              <p className="truncate text-label text-(--hig-color-label-secondary)">
                                 {track.artist}
                               </p>
                             </div>
 
-                            <span className="text-label tabular-nums text-on-surface-medium">
+                            <span className="text-label tabular-nums text-(--hig-color-label-secondary)">
                               {tIdx + 1}
                             </span>
                           </button>

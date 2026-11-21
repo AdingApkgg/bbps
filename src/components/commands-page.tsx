@@ -48,12 +48,12 @@ export function CommandsPage() {
     <div className="container-page max-w-4xl pt-10 pb-16 md:pt-16 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{t.title}</h1>
-        <p className="mt-2 text-body-02 text-on-surface-medium">{t.subtitle}</p>
+        <p className="mt-2 text-body-02 text-(--hig-color-label-secondary)">{t.subtitle}</p>
       </FadeIn>
 
       {/* 常驻提示：指令结果只回游戏内 */}
       <FadeIn delay={0.05}>
-        <p className="mt-5 flex gap-2 text-label leading-relaxed text-on-surface-medium">
+        <p className="mt-5 flex gap-2 text-label leading-relaxed text-(--hig-color-label-secondary)">
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           {t.resultInGameOnly}
         </p>
@@ -98,7 +98,7 @@ export function CommandsPage() {
                   {locale === 'en' ? group.labelEn : group.labelZh}
                 </p>
                 {(group.noteZh || group.noteEn) && (
-                  <p className="mt-0.5 text-label text-on-surface-medium">
+                  <p className="mt-0.5 text-label text-(--hig-color-label-secondary)">
                     {locale === 'en' ? group.noteEn : group.noteZh}
                   </p>
                 )}
@@ -142,8 +142,8 @@ export function CommandsPage() {
         </div>
 
         {/* 参数记号图例 */}
-        <div className="mt-3 space-y-1 rounded-sm bg-field-01 p-3 text-label leading-relaxed text-on-surface-medium">
-          <p className="font-semibold text-on-surface">{t.paramNotationTitle}</p>
+        <div className="mt-3 space-y-1 rounded-sm bg-(--hig-color-field) p-3 text-label leading-relaxed text-(--hig-color-label-secondary)">
+          <p className="font-semibold text-(--hig-color-label)">{t.paramNotationTitle}</p>
           <p>{t.notationPlayer}</p>
           <p>{t.notationData}</p>
         </div>
@@ -161,7 +161,7 @@ export function CommandsPage() {
               <CardTitle className="text-body-02">{t.browserTitle}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <p className="text-label text-on-surface-medium">{t.copyHint}</p>
+              <p className="text-label text-(--hig-color-label-secondary)">{t.copyHint}</p>
               <CommandBrowser canRun={runner.canRun} onRun={run} />
             </CardContent>
           </Card>
@@ -173,7 +173,7 @@ export function CommandsPage() {
             <CardContent className="space-y-3">
               <CrabDeckCalculator onOutput={setCalcOutput} />
               {calcOutput && (
-                <div className="flex flex-wrap items-center gap-2 rounded-sm bg-surface-01 p-3 shadow-sm">
+                <div className="flex flex-wrap items-center gap-2 rounded-sm bg-(--hig-color-surface-01) p-3 shadow-sm">
                   <code className="flex-1 break-all font-mono text-label">{calcOutput}</code>
                   <Button
                     variant="outline"
@@ -225,7 +225,7 @@ export function CommandsPage() {
                   <span className="ml-2 hidden sm:inline">{dict.console.send}</span>
                 </Button>
               </form>
-              <p className="text-label text-on-surface-medium">{t.repeatHint}</p>
+              <p className="text-label text-(--hig-color-label-secondary)">{t.repeatHint}</p>
               <CommandHistory
                 items={history.items}
                 canRun={runner.canRun}
@@ -239,7 +239,7 @@ export function CommandsPage() {
       </FadeIn>
 
       <FadeIn delay={0.3}>
-        <p className="mt-8 text-label leading-relaxed text-on-surface-medium">
+        <p className="mt-8 text-label leading-relaxed text-(--hig-color-label-secondary)">
           {dict.console.permissionNote}
         </p>
       </FadeIn>

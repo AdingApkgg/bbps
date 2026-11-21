@@ -33,11 +33,11 @@ export function ShellError({ error, reset, lang }: ShellErrorProps) {
       id="main"
       className="mx-auto flex min-h-[60svh] max-w-(--hig-container-narrow) flex-col items-center justify-center gap-4 px-6 py-16 text-center"
     >
-      <p className="font-mono text-caption text-on-surface-helper">500</p>
-      <h1 className="text-headline-lg text-on-surface">
+      <p className="font-mono text-caption text-(--hig-color-label-tertiary)">500</p>
+      <h1 className="text-headline-lg text-(--hig-color-label)">
         {isEn ? 'Something went wrong' : '页面出错了'}
       </h1>
-      <p className="text-body-02 text-on-surface-medium">
+      <p className="text-body-02 text-(--hig-color-label-secondary)">
         {isEn
           ? 'This page failed to render. Retrying usually helps.'
           : '这个页面渲染失败了，重试一次通常就好了。'}
@@ -49,7 +49,9 @@ export function ShellError({ error, reset, lang }: ShellErrorProps) {
         </Button>
       </div>
       {error.digest ? (
-        <p className="mt-4 font-mono text-caption text-on-surface-helper">{error.digest}</p>
+        <p className="mt-4 font-mono text-caption text-(--hig-color-label-tertiary)">
+          {error.digest}
+        </p>
       ) : null}
     </main>
   )

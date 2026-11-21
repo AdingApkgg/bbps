@@ -75,8 +75,8 @@ function CatalogItem({
     <ul
       className={cn(
         'ml-4 border-l pl-3',
-        item.danger === 'destructive' && 'border-error',
-        item.danger === 'warn' && 'border-warning',
+        item.danger === 'destructive' && 'border-(--hig-color-error)',
+        item.danger === 'warn' && 'border-(--hig-color-warning)',
         !item.danger && 'border-transparent'
       )}
     >
@@ -102,14 +102,14 @@ function CatalogItem({
             </div>
             {/* 说明来自 src/content/command-notes.zh.md（可由 AI 维护），
            commands.ts 的 desc 仅作兜底。语法与危险标记不在 md 里。 */}
-            <p className="mt-1 text-body-02 text-on-surface-medium">
+            <p className="mt-1 text-body-02 text-(--hig-color-label-secondary)">
               {commandNote(item.cmd) ?? item.desc}
             </p>
             {item.aliases.length > 0 && (
-              <p className="mt-1 flex flex-wrap items-center gap-1 text-label text-on-surface-medium">
+              <p className="mt-1 flex flex-wrap items-center gap-1 text-label text-(--hig-color-label-secondary)">
                 <span>{t.aliases}</span>
                 {item.aliases.map((a) => (
-                  <code key={a} className="bg-surface-variant-01 px-1 font-mono">
+                  <code key={a} className="bg-(--hig-color-fill-subtle) px-1 font-mono">
                     {a}
                   </code>
                 ))}
@@ -156,19 +156,19 @@ function CatalogItem({
         </div>
 
         {item.inGameOnly && (
-          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-2 text-label text-on-surface-medium">
+          <p className="mt-2 rounded-xs bg-(--hig-color-fill-subtle) px-2 py-2 text-label text-(--hig-color-label-secondary)">
             {t.inGameOnly}
           </p>
         )}
         {item.advancedOnly && (
-          <p className="mt-2 rounded-xs bg-surface-variant-01 px-2 py-2 text-label text-on-surface-medium">
+          <p className="mt-2 rounded-xs bg-(--hig-color-fill-subtle) px-2 py-2 text-label text-(--hig-color-label-secondary)">
             {t.advancedOnlyHint}
           </p>
         )}
 
         {/* 带参数的指令：展开小表单，而不是直接发一条缺参数的指令 */}
         {params.length > 0 && formOpen && !item.inGameOnly && !item.advancedOnly && (
-          <div className="mt-2 ml-2 space-y-2 border-l border-outline-variant-01 pl-3">
+          <div className="mt-2 ml-2 space-y-2 border-l border-(--hig-color-separator-variant) pl-3">
             {params.map((p) => {
               const hint = paramHint(p.value, locale)
               const label2 = (o: { value: string; labelZh: string; labelEn: string }) => ({
@@ -200,7 +200,7 @@ function CatalogItem({
                 : (entityParamLabel(p.value, locale) ?? p.value)
               return (
                 <div key={p.value} className="flex flex-wrap items-center gap-2">
-                  <span className="w-20 shrink-0 text-label text-on-surface-medium">
+                  <span className="w-20 shrink-0 text-label text-(--hig-color-label-secondary)">
                     {label}
                     {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
                   </span>
@@ -223,14 +223,14 @@ function CatalogItem({
                     />
                   )}
                   {hint && (
-                    <span className="w-full text-caption text-on-surface-medium sm:w-auto sm:flex-1">
+                    <span className="w-full text-caption text-(--hig-color-label-secondary) sm:w-auto sm:flex-1">
                       {hint}
                     </span>
                   )}
                 </div>
               )
             })}
-            <code className="block break-all bg-surface-variant-01 px-2 py-1 font-mono text-label">
+            <code className="block break-all bg-(--hig-color-fill-subtle) px-2 py-1 font-mono text-label">
               {final}
             </code>
           </div>
@@ -264,9 +264,9 @@ export function CommandCatalog({
     <div className="space-y-4">
       {/* 搜索框吸在顶栏下：目录很长，滚到一半也能直接改词，不必先滚回去
        *  顶栏高度由 hig.css 钉在 --hig-size-lg（44px），这里跟着走 */}
-      <div className="sticky top-(--hig-size-lg) z-10 -mx-1 bg-surface px-1 py-1">
+      <div className="sticky top-(--hig-size-lg) z-10 -mx-1 bg-(--hig-color-surface) px-1 py-1">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--hig-color-label-secondary)" />
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -279,7 +279,7 @@ export function CommandCatalog({
               type="button"
               onClick={() => setQuery('')}
               aria-label={t.clearSearch}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
             >
               <X className="h-4 w-4" />
             </button>
@@ -287,7 +287,7 @@ export function CommandCatalog({
         </div>
       </div>
 
-      <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+      <div data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
         {COMMANDS_BY_GROUP.map(({ meta, items }) => {
           const visible = items.filter((i) => matched.has(i))
           if (visible.length === 0) return null
@@ -309,14 +309,14 @@ export function CommandCatalog({
                     <Badge variant="secondary">{visible.length}</Badge>
                   </span>
                   {(meta.noteZh || meta.noteEn) && (
-                    <span className="mt-1 block text-label text-on-surface-medium">
+                    <span className="mt-1 block text-label text-(--hig-color-label-secondary)">
                       {locale === 'en' ? meta.noteEn : meta.noteZh}
                     </span>
                   )}
                 </span>
                 <ChevronDown
                   className={cn(
-                    'h-4 w-4 shrink-0 text-on-surface-medium transition-transform duration-fast-01',
+                    'h-4 w-4 shrink-0 text-(--hig-color-label-secondary) transition-transform duration-fast-01',
                     expanded && 'rotate-180'
                   )}
                 />
@@ -333,7 +333,7 @@ export function CommandCatalog({
         })}
 
         {matched.size === 0 && (
-          <p className="rounded-sm bg-surface-02 py-10 text-center text-body-02 text-on-surface-medium">
+          <p className="rounded-sm bg-(--hig-color-surface-02) py-10 text-center text-body-02 text-(--hig-color-label-secondary)">
             {t.noResults}
           </p>
         )}

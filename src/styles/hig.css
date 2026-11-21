@@ -22,12 +22,12 @@
  * ========================================================================= */
 
 @layer components {
-  /* ── 兜底：base 层的 `*{border-color: outline-01}` 换成 HIG 的分隔线色。
+  /* ── 兜底：base 层的 `*{border-color: outline-(--hig-color-separator-01)}` 换成 HIG 的分隔线色。
    `:where()` 把权重压到 0，`border-*` 工具类仍可覆盖 ───────────────── */
   :where(:root) *,
   :where(:root) ::before,
   :where(:root) ::after {
-    border-color: var(--hig-color-outline-01);
+    border-color: var(--hig-color-separator-01);
   }
 
   /* ── 字体：SF Pro 栈（中文落到苹方，系统缺字形时继续降级） ──────────── */
@@ -162,14 +162,14 @@
   :root header.sticky {
     background-color: var(--hig-color-material-bar);
     backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 0.5px solid var(--hig-color-outline-01);
+    border-bottom: 0.5px solid var(--hig-color-separator-01);
     box-shadow: none;
   }
   :root .fixed.inset-x-0.bottom-0.border-t {
     background-color: var(--hig-color-material-bar);
     backdrop-filter: blur(20px) saturate(180%);
-    border-top: 0.5px solid var(--hig-color-outline-01);
-    border-color: var(--hig-color-outline-01);
+    border-top: 0.5px solid var(--hig-color-separator-01);
+    border-color: var(--hig-color-separator-01);
   }
 
   /* ── 浮层：材质 + 14 圆角 + 单层淡影（HIG 只给浮层投影） ────────────────
@@ -182,7 +182,7 @@
     background-color: var(--hig-color-material-sheet);
     backdrop-filter: blur(24px) saturate(180%);
     border-radius: var(--hig-shape-overlay);
-    border: 0.5px solid var(--hig-color-outline-01);
+    border: 0.5px solid var(--hig-color-separator-01);
     box-shadow: var(--hig-shadow-overlay);
   }
   /* 浮层内部再套一层 role=listbox 时，描边/圆角/影只由外层面板承担 */
@@ -255,18 +255,18 @@
 
   /* ── 卡片与列表行：白卡 + 16 圆角 + 缩进分隔线，零影 ───────────────────
  * 只用 data-slot="card"（分组区段）和 data-list-item（列表行）两个钩子。
- * 以前还认 .rounded-sm.bg-surface-01 / li.bg-surface-01，但那是类名拼写，
+ * 以前还认 .rounded-sm.bg-\(--hig-color-surface-01\) / li.bg-\(--hig-color-surface-01\)，但那是类名拼写，
  * 任何换了底色的行都会漏掉；现在组件自己声明语义。 */
   :root [data-slot="card"],
   :root [data-list-item] {
     background-color: var(--hig-color-surface-01);
-    border: 0.5px solid var(--hig-color-outline-01);
+    border: 0.5px solid var(--hig-color-separator-01);
     border-radius: var(--hig-shape-container);
     box-shadow: none;
   }
   :root [data-list-item]:hover,
   :root [data-slot="card"]:hover {
-    background-color: var(--hig-color-surface-hover-01);
+    background-color: var(--hig-color-fill-secondary);
     box-shadow: none;
   }
   :root [data-list-item] + [data-list-item] {
@@ -274,7 +274,7 @@
   }
 
   /* ── 原生按钮兜底：组件会用自己的 utilities 盖掉，这里只保证裸 <button> 也有
-     HIG 的控件圆角与字重，且不会因为写了 border 就继承 outline-01 硬边 ──────── */
+     HIG 的控件圆角与字重，且不会因为写了 border 就继承 outline-(--hig-color-separator-01) 硬边 ──────── */
   :root button {
     border-radius: var(--hig-shape-control);
     box-shadow: none;
@@ -282,7 +282,7 @@
   }
   :root button.border {
     border-color: transparent;
-    color: var(--hig-color-on-button-outlined);
+    color: var(--hig-color-on-button-tonal);
   }
   :root button.border:hover:enabled {
     border-color: transparent;
@@ -302,7 +302,7 @@
   :root hr,
   :root .border-t,
   :root .border-b {
-    border-color: var(--hig-color-outline-01);
+    border-color: var(--hig-color-separator-01);
   }
   :root strong,
   :root b {
@@ -321,7 +321,7 @@
   /* ── 第三方评论 Artalk：把 globals.css 里的表单形态改成 HIG 口径 ────── */
   :root .atk-main-editor.atk-main-editor {
     border-radius: var(--hig-shape-container) var(--hig-shape-container) 0 0;
-    border-bottom: 0.5px solid var(--hig-color-outline-01);
+    border-bottom: 0.5px solid var(--hig-color-separator-01);
   }
   :root .atk-main-editor.atk-main-editor:focus-within {
     border-bottom: 0.5px solid var(--hig-color-primary);
@@ -349,7 +349,7 @@
   :root .atk-pagination.atk-pagination > .atk-btn,
   :root .atk-pagination.atk-pagination > .atk-input {
     border-radius: var(--hig-shape-control);
-    border: 0.5px solid var(--hig-color-outline-01);
+    border: 0.5px solid var(--hig-color-separator-01);
   }
   :root .atk-layer-wrap .atk-popup,
   :root .atk-layer-wrap .atk-layer-body {
@@ -364,26 +364,27 @@
   /* 选中态 chip：亮色 #0066cc 落在选中底（#e9e9eb）只有 4.59:1，贴边且受 antialias 影响，
    压到 7.10:1 更稳；暗色底 6.25:1 本来够，保持 iOS 亮蓝。
    浅色下压深这条只在「真的是浅色」时成立 —— 系统亮色但手动选了深色时要跟着走暗。 */
+  /* 选择器里的任意值类名要转义括号，否则 CSS 解析器在 `(` 处断掉（同 `.h-\[72px\]`）。 */
   @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) .bg-state-selected.text-link {
+    :root:not([data-theme="dark"]) .bg-\(--hig-color-fill-selected\).text-\(--hig-color-link\) {
       color: #004a99;
     }
   }
   /* 手动选浅色但系统是深色 */
-  :root[data-theme="light"] .bg-state-selected.text-link {
+  :root[data-theme="light"] .bg-\(--hig-color-fill-selected\).text-\(--hig-color-link\) {
     color: #004a99;
   }
 
   /* 滚动条：轨道透明、拇指用描边色、圆角随形状令牌 */
   :root ::-webkit-scrollbar-thumb {
-    background: var(--hig-color-outline-01);
+    background: var(--hig-color-separator-01);
     border-radius: var(--hig-shape-control);
   }
   :root ::-webkit-scrollbar-thumb:hover {
-    background: var(--hig-color-outline-emphasis-01);
+    background: var(--hig-color-separator-emphasis);
   }
   :root * {
-    scrollbar-color: var(--hig-color-outline-01) transparent;
+    scrollbar-color: var(--hig-color-separator-01) transparent;
   }
 
   /* ── 结构：分组列表 + 底部 tab bar ───────────────────────────────────────
@@ -437,7 +438,7 @@
     background: color-mix(in srgb, var(--hig-color-surface-01) 82%, transparent);
     backdrop-filter: blur(20px) saturate(180%);
     box-shadow: none;
-    border-bottom: 0.5px solid var(--hig-color-outline-01);
+    border-bottom: 0.5px solid var(--hig-color-separator-01);
   }
   :root header.sticky .container-page {
     padding-inline: 1rem;
@@ -495,7 +496,7 @@
       block-size: calc(100dvh - var(--rail-top));
       width: 15rem;
       padding-inline: 0.75rem;
-      border-inline-end: 0.5px solid var(--hig-color-outline-01);
+      border-inline-end: 0.5px solid var(--hig-color-separator-01);
       background: color-mix(in srgb, var(--hig-color-surface) 70%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
     }
@@ -507,14 +508,14 @@
       border-radius: var(--hig-shape-08);
       margin-inline: 0;
       padding: 0.5rem 0.75rem;
-      color: var(--hig-color-on-surface);
+      color: var(--hig-color-label);
     }
     :root [data-rail] a[aria-current="page"] {
-      background: var(--hig-color-surface-selected-01);
+      background: var(--hig-color-fill-selected-solid);
       font-weight: 600;
     }
     :root [data-rail] a:hover:not([aria-current="page"]) {
-      background: var(--hig-color-surface-hover-01);
+      background: var(--hig-color-fill-secondary);
     }
     /* source list 行间距只有 1px：焦点环改内嵌 tint，不压上下行 */
     :root [data-rail] a:focus-visible {
@@ -548,7 +549,7 @@
     background: var(--hig-color-surface-02);
   }
   /* 分隔线只由 ::after 画（border 会顶到贴边，缩进只能靠伪元素）。
- * 圆角与描边归容器，行本身是直边透明，按压态用 --hig-color-surface-variant-01。 */
+ * 圆角与描边归容器，行本身是直边透明，按压态用 --hig-color-fill-subtle。 */
   :root [data-list-group] [data-list-item] {
     position: relative;
     border-radius: 0;
@@ -567,7 +568,7 @@
     inset-inline-end: 0;
     bottom: 0;
     height: 0.5px;
-    background: var(--hig-color-outline-variant-01);
+    background: var(--hig-color-separator-variant);
   }
   :root [data-list-group] [data-list-item]:last-child::after {
     content: none;
@@ -582,12 +583,12 @@
     letter-spacing: -0.022em;
   }
   :root [data-list-group] [data-list-item]:active {
-    background: var(--hig-color-surface-variant-01);
+    background: var(--hig-color-fill-subtle);
   }
 
   /* 指标条：2 列（窄）/ 4 列（宽）的等分块，列间 0.5px 竖线。
  * 不用 Tailwind 的 divide-x：它生成 `:where(...)` 零特异性选择器，
- * border-color 会被 @layer base 的 `*` 改回 outline-01，淡不下来。 */
+ * border-color 会被 @layer base 的 `*` 改回 outline-(--hig-color-separator-01)，淡不下来。 */
   :root [data-divider] > * {
     position: relative;
   }
@@ -597,7 +598,7 @@
     inset-block: 0.75rem;
     inset-inline-start: 0;
     width: 0.5px;
-    background: var(--hig-color-outline-variant-01);
+    background: var(--hig-color-separator-variant);
   }
   /* 2 列时每行首格不画线 */
   :root [data-divider] > *:nth-child(2n + 1)::before {
@@ -669,7 +670,7 @@
     width: 1.125rem;
     border-width: 1px;
     border-radius: var(--hig-shape-08);
-    border-color: var(--hig-color-outline-01);
+    border-color: var(--hig-color-separator-01);
     background: var(--hig-color-surface-01);
   }
   :root [data-slot="checkbox"][data-state="checked"],
@@ -685,7 +686,7 @@
   :root [data-slot="select-trigger"] {
     height: var(--hig-size-control-lg);
     border-radius: var(--hig-shape-control);
-    background: var(--hig-color-field-01);
+    background: var(--hig-color-field);
     box-shadow: none;
     padding-inline: 1rem 0.75rem;
     font-size: 1.0625rem;
@@ -697,7 +698,7 @@
   }
   :root [data-slot="select-content"] {
     border-radius: var(--hig-shape-overlay);
-    border: 0.5px solid var(--hig-color-outline-01);
+    border: 0.5px solid var(--hig-color-separator-01);
     background: var(--hig-color-material-sheet);
     backdrop-filter: blur(20px) saturate(180%);
     padding-block: 0.375rem;
@@ -733,7 +734,7 @@
     max-width: 88vw;
     background: var(--hig-color-material-sheet);
     backdrop-filter: blur(20px) saturate(180%);
-    border-inline-end: 0.5px solid var(--hig-color-outline-01);
+    border-inline-end: 0.5px solid var(--hig-color-separator-01);
     border-start-end-radius: var(--hig-shape-overlay);
     border-end-end-radius: var(--hig-shape-overlay);
     /* dock 压在抽屉之上（见 tokens.css 层叠顺序），所以抽屉自己要让出它的高度，
@@ -823,7 +824,7 @@
   :root [data-slot="checkbox"][data-state="checked"],
   :root [data-slot="checkbox"][data-state="indeterminate"],
   :root [data-slot="slider-range"],
-  :root [data-slot="button"][data-variant="contained"] {
+  :root [data-slot="button"][data-variant="filled"] {
     background-color: Highlight;
     forced-color-adjust: none;
     color: HighlightText;

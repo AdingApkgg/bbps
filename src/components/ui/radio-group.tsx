@@ -29,7 +29,7 @@ function RadioGroup({
       className={cn(
         'group grid gap-2',
         variant === 'segmented' &&
-          'inline-flex w-fit items-stretch gap-0.5 rounded-(--hig-cmp-segmented-radius,var(--hig-shape-control)) bg-(--hig-cmp-segmented-track-bg,var(--hig-color-surface-variant-01)) p-0.5',
+          'inline-flex w-fit items-stretch gap-0.5 rounded-(--hig-cmp-segmented-radius,var(--hig-shape-control)) bg-(--hig-cmp-segmented-track-bg,var(--hig-color-fill-subtle)) p-0.5',
         className
       )}
       {...props}
@@ -47,14 +47,14 @@ function RadioGroupItem({
       data-slot="radio-group-item"
       className={cn(
         'peer relative inline-flex size-(--hig-cmp-radio-size,1.25rem) shrink-0 items-center justify-center gap-2 rounded-full',
-        'border-(length:--hig-cmp-radio-border-width,var(--hig-size-border-thin)) border-(--hig-cmp-radio-border,var(--hig-color-outline-01)) bg-transparent',
+        'border-(length:--hig-cmp-radio-border-width,var(--hig-size-border-thin)) border-(--hig-cmp-radio-border,var(--hig-color-separator-01)) bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
         'before:absolute before:-inset-(--hig-size-hit-halo) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
-        'hover:enabled:before:bg-on-surface/4',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-        'focus-visible:before:bg-primary/12',
-        'active:enabled:before:bg-primary/12',
+        'hover:enabled:before:bg-(--hig-color-label)/4',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
+        'focus-visible:before:bg-(--hig-color-primary)/12',
+        'active:enabled:before:bg-(--hig-color-primary)/12',
         'data-[state=checked]:border-(--hig-cmp-radio-border-checked,var(--hig-color-primary))',
         'disabled:cursor-not-allowed disabled:opacity-45',
         // 分段按钮形态：2rem 高、8px 圆角、选中抬起的面
@@ -64,11 +64,11 @@ function RadioGroupItem({
         'group-data-[variant=segmented]:text-body-02 group-data-[variant=segmented]:font-medium',
         'group-data-[variant=segmented]:gap-0',
         'group-data-[variant=segmented]:before:hidden',
-        'group-data-[variant=segmented]:text-on-surface-medium',
-        'group-data-[variant=segmented]:hover:enabled:text-on-surface',
+        'group-data-[variant=segmented]:text-(--hig-color-label-secondary)',
+        'group-data-[variant=segmented]:hover:enabled:text-(--hig-color-label)',
         'group-data-[variant=segmented]:data-[state=checked]:bg-(--hig-cmp-segmented-item-bg-checked,var(--hig-color-surface-01))',
         'group-data-[variant=segmented]:data-[state=checked]:font-semibold',
-        'group-data-[variant=segmented]:data-[state=checked]:text-on-surface',
+        'group-data-[variant=segmented]:data-[state=checked]:text-(--hig-color-label)',
         'group-data-[variant=segmented]:data-[state=checked]:shadow-[var(--hig-shadow-hairline),var(--hig-shadow-raised-small)]',
         className
       )}
@@ -77,7 +77,7 @@ function RadioGroupItem({
       {children}
       <RadioGroupPrimitive.Indicator
         data-slot="radio-group-indicator"
-        className="block size-2 rounded-full bg-(--hig-cmp-radio-dot,var(--hig-color-primary)) peer-disabled:bg-on-surface-disabled group-data-[variant=segmented]:hidden"
+        className="block size-2 rounded-full bg-(--hig-cmp-radio-dot,var(--hig-color-primary)) peer-disabled:bg-(--hig-color-label-disabled) group-data-[variant=segmented]:hidden"
       />
     </RadioGroupPrimitive.Item>
   )

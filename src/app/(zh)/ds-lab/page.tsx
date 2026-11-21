@@ -102,13 +102,13 @@ export default function DsPage() {
             <TabsTrigger value="2">第二次</TabsTrigger>
             <TabsTrigger value="3">第三次</TabsTrigger>
           </TabsList>
-          <TabsContent value="1" className="text-body-02 text-on-surface-medium">
+          <TabsContent value="1" className="text-body-02 text-(--hig-color-label-secondary)">
             内容一
           </TabsContent>
-          <TabsContent value="2" className="text-body-02 text-on-surface-medium">
+          <TabsContent value="2" className="text-body-02 text-(--hig-color-label-secondary)">
             内容二
           </TabsContent>
-          <TabsContent value="3" className="text-body-02 text-on-surface-medium">
+          <TabsContent value="3" className="text-body-02 text-(--hig-color-label-secondary)">
             内容三
           </TabsContent>
         </Tabs>

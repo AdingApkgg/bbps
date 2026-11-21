@@ -38,15 +38,15 @@ const mdxComponents = {
     <h2 className="mt-10 text-title-lg font-medium" {...props} />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="mt-3 leading-relaxed text-on-surface-medium" {...props} />
+    <p className="mt-3 leading-relaxed text-(--hig-color-label-secondary)" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="mt-3 list-disc space-y-1 pl-6 text-on-surface-medium" {...props} />
+    <ul className="mt-3 list-disc space-y-1 pl-6 text-(--hig-color-label-secondary)" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="leading-relaxed" {...props} />,
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className="text-link underline underline-offset-4 hover:text-link-hover transition-colors duration-fast-01"
+      className="text-(--hig-color-link) underline underline-offset-4 hover:text-(--hig-color-link-hover) transition-colors duration-fast-01"
       target="_blank"
       rel="noopener noreferrer"
       {...props}
@@ -87,7 +87,7 @@ export async function LegalMdxPage({ locale, legalKey }: LegalMdxPageProps) {
 
       <h1 className="mt-8 text-headline-md font-normal">{frontmatter.title}</h1>
       <div className="mt-10">{content}</div>
-      <p className="mt-10 text-body-02 text-on-surface-medium">
+      <p className="mt-10 text-body-02 text-(--hig-color-label-secondary)">
         {lastUpdatedLabel}
         {frontmatter.lastUpdated}
       </p>

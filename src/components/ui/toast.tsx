@@ -44,7 +44,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
       data-slot="toast"
       className={cn(
         toastVariants,
-        'min-h-(--hig-cmp-toast-min-h,var(--hig-size-row)) max-w-full bg-(--hig-cmp-toast-bg,var(--hig-color-inverse-surface)) text-(--hig-cmp-toast-fg,var(--hig-color-on-inverse-surface)) sm:max-w-(--hig-cmp-toast-max-w,var(--hig-size-toast-width))',
+        'min-h-(--hig-cmp-toast-min-h,var(--hig-size-row)) max-w-full bg-(--hig-cmp-toast-bg,var(--hig-color-inverse-surface)) text-(--hig-cmp-toast-fg,var(--hig-color-label-inverse)) sm:max-w-(--hig-cmp-toast-max-w,var(--hig-size-toast-width))',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:slide-in-from-bottom-full data-[state=closed]:slide-out-to-bottom-full',
@@ -76,7 +76,7 @@ function ToastDescription({
     <ToastPrimitive.Description
       data-slot="toast-description"
       className={cn(
-        'text-body-02 text-(--hig-cmp-toast-desc-fg,var(--hig-color-on-inverse-surface)/70)',
+        'text-body-02 text-(--hig-cmp-toast-desc-fg,var(--hig-color-label-inverse)/70)',
         className
       )}
       {...props}
@@ -92,7 +92,7 @@ function ToastAction({ className, ...props }: React.ComponentProps<typeof ToastP
       className={cn(
         'ms-auto shrink-0 rounded-(--hig-cmp-toast-action-radius,var(--hig-shape-control)) px-(--hig-cmp-toast-action-px,0.5rem) py-2 text-(length:--hig-cmp-toast-action-size,0.9375rem) font-(--hig-cmp-toast-action-weight,600) tracking-(--hig-cmp-toast-action-tracking,0.02em) uppercase text-(--hig-cmp-toast-action-fg,var(--hig-color-on-inverse-primary))',
         'transition-colors duration-fast-02 ease-standard',
-        'hover:bg-on-inverse-surface/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-inverse-surface',
+        'hover:bg-(--hig-color-label-inverse)/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-label-inverse)',
         className
       )}
       {...props}
@@ -106,9 +106,9 @@ function ToastClose({ className, ...props }: React.ComponentProps<typeof ToastPr
       data-slot="toast-close"
       aria-label="关闭"
       className={cn(
-        'shrink-0 rounded-sm p-1 text-(--hig-cmp-toast-close-fg,var(--hig-color-on-inverse-surface)/70) transition-colors duration-fast-02 ease-standard',
-        'hover:bg-(--hig-cmp-toast-hover-bg,var(--hig-color-on-inverse-surface)/8) hover:text-(--hig-cmp-toast-close-fg-hover,var(--hig-color-on-inverse-surface))',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-inverse-surface',
+        'shrink-0 rounded-sm p-1 text-(--hig-cmp-toast-close-fg,var(--hig-color-label-inverse)/70) transition-colors duration-fast-02 ease-standard',
+        'hover:bg-(--hig-cmp-toast-hover-bg,var(--hig-color-label-inverse)/8) hover:text-(--hig-cmp-toast-close-fg-hover,var(--hig-color-label-inverse))',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-label-inverse)',
         className
       )}
       {...props}

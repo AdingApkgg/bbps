@@ -77,7 +77,7 @@ export function CommentsSection() {
   return (
     <section className="container-page max-w-4xl pt-8 pb-16 md:pt-12 md:pb-24">
       <h1 className="text-display-lg">{dict.comments.title}</h1>
-      <div className="mt-6 rounded-sm bg-surface-02 p-4 sm:p-6">
+      <div className="mt-6 rounded-sm bg-(--hig-color-surface-02) p-4 sm:p-6">
         <ArtalkPanel key={locale} lang={locale} />
       </div>
     </section>

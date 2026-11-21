@@ -122,14 +122,14 @@ export function PlayerBaseSheet({
 
         <div className="px-4 pb-6">
           {loading && (
-            <div className="flex items-center justify-center gap-2 py-12 text-body-02 text-on-surface-medium">
+            <div className="flex items-center justify-center gap-2 py-12 text-body-02 text-(--hig-color-label-secondary)">
               <Loader2 className="h-4 w-4 animate-spin" />
               {t.loading}
             </div>
           )}
 
           {!loading && errorKind && (
-            <p className="py-12 text-center text-body-02 text-error">
+            <p className="py-12 text-center text-body-02 text-(--hig-color-error)">
               {errorKind === 'rate' ? t.baseRateLimited : t.baseError}
             </p>
           )}
@@ -161,7 +161,7 @@ export function PlayerBaseSheet({
                     key={row.label}
                     className="flex items-baseline justify-between gap-3 border-b py-2"
                   >
-                    <dt className="text-body-02 text-on-surface-medium">{row.label}</dt>
+                    <dt className="text-body-02 text-(--hig-color-label-secondary)">{row.label}</dt>
                     <dd className="text-body-02 font-medium tabular-nums">{row.value}</dd>
                   </div>
                 ))}
@@ -176,12 +176,12 @@ export function PlayerBaseSheet({
                         key={b.id}
                         className="flex items-baseline justify-between gap-3 border-b py-2 text-body-02"
                       >
-                        <span className="truncate text-on-surface-medium">
+                        <span className="truncate text-(--hig-color-label-secondary)">
                           {buildingName(b.id)}
                         </span>
                         <span className="shrink-0 tabular-nums">
                           ×{b.count}
-                          <span className="ml-2 text-label text-on-surface-medium">
+                          <span className="ml-2 text-label text-(--hig-color-label-secondary)">
                             Lv.{b.maxLvl}
                           </span>
                         </span>

@@ -31,7 +31,7 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
   `border-color`、`::placeholder`）。
 
 （历史：2026-11 之前 `hig.css` 在层外，`*` 的 `border-color` 与输入段曾把
-`input.tsx` 的 `border-outline-field`、`hover:bg-field-hover-01`、焦点 `shadow-[...]`
+`input.tsx` 的 `border-(--hig-color-separator-field)`、`hover:bg-(--hig-color-field-hover)`、焦点 `shadow-[...]`
 整片抹掉。收入 `@layer components` 后这一类静默失效才消失。）
 
 ## 一、三层令牌，只准单向引用
@@ -39,12 +39,15 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 | 层 | 位置 | 示例 | 谁可以引用 |
 | --- | --- | --- | --- |
 | L0 原子 | `src/styles/tokens.css` 的 `--hig-shape-*`、`--hig-motion-*`、`--hig-size-*`；`src/app/globals.css` 的 `--text-*`、`--spacing`、`--radius-*` | `--hig-shape-04`、`--hig-motion-short-3`、`--text-body-02` | 只有 L1 |
-| L1 语义 | `src/styles/tokens.css` 的 `--hig-color-*`、`--hig-elevation-*`、`--hig-shadow-*` | `--hig-color-primary`、`--hig-elevation-02` | 组件、`hig.css`（层内基样式） |
-| L2 组件 | 组件自身（Tailwind 主题别名的 `bg-surface-02` / `text-on-surface` 等） | `bg-surface-hover-01` | 只在本组件内 |
+| L1 语义 | `src/styles/tokens.css` 的 `--hig-color-*`、`--hig-layer-*`、`--hig-shadow-*` | `--hig-color-primary`、`--hig-layer-02` | 组件、`hig.css`（层内基样式） |
+| L2 组件 | 组件自身（类名直写 `x-(--hig-*)` 任意值） | `bg-(--hig-color-fill-hover)` | 只在本组件内 |
 
 规则：
 
-- 组件里写语义名或 Tailwind 别名，**不写裸 hex、不写 `rgba()` 字面量**（除非是在定义令牌）。
+- 组件里写语义名，**不写裸 hex、不写 `rgba()` 字面量**（除非是在定义令牌）。
+  类名用任意值写法 `bg-(--hig-color-surface-02)`、`text-(--hig-color-label)`；`globals.css` 里没有
+  `--color-*` 转发层，所以 `bg-surface-02` / `text-on-surface` 这类简写不存在。
+  CSS 里把带括号的类名当选择器时要转义：`.bg-\(--hig-color-surface-01\)`。
 - 字号只用 `--text-*` 阶（`text-body-02`、`text-headline-sm`…），禁止 `text-[13px]` 这类裸 px；行高与字重随阶走。
   字阶表本身镜像 iOS 动态字体，改字号就是改 HIG，须同时改 `hig.css` 头注释里的对照表。
 - 间距只走刻度。`--spacing` 在 `src/app/globals.css` 的 `@theme` 里钉为 `0.25rem`，长度工具按它相乘，
@@ -64,13 +67,13 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 | 语义 | 用途 | 不变量 |
 | --- | --- | --- |
 | `--hig-color-on-primary` / `-primary-container` | 实底按钮、徽标前景 | 对 primary ≥ 4.5:1；不足时补白/黑内衬 |
-| `--hig-color-on-surface` | 正文 | 对 surface 系列 ≥ 4.5:1 |
-| `--hig-color-on-surface-medium` / `-light` | 次级/说明文字 | 对大字号 ≥ 3:1，正文 ≥ 4.5:1；**材质面板下要按合成后的底色复核** |
+| `--hig-color-label` | 正文 | 对 surface 系列 ≥ 4.5:1 |
+| `--hig-color-label-secondary` / `-tertiary` | 次级/说明文字 | 对大字号 ≥ 3:1，正文 ≥ 4.5:1；**材质面板下要按合成后的底色复核** |
 | `--hig-color-highlight` | 焦点环 | 对相邻两个 layer 都 ≥ 3:1 |
-| `--hig-color-outline-01` / `-variant-01` | 分隔线、浮层描边 | 可见即可，不承载文字 |
+| `--hig-color-separator-01` / `-variant` | 分隔线、浮层描边 | 可见即可，不承载文字 |
 
 已知陷阱：材质面板（`--hig-material-sheet` = `blur(20px) saturate(180%)`）透出下层后，
-`on-surface-medium` 会掉到 4.02:1——所以抽屉/侧栏条目统一用主前景，靠 `aria-current` 与底色表示激活，不靠压暗文字。
+`label-secondary` 会掉到 4.02:1——所以抽屉/侧栏条目统一用主前景，靠 `aria-current` 与底色表示激活，不靠压暗文字。
 
 ## 三、布局语汇：组，不是卡
 
@@ -78,30 +81,30 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 1. 页头左对齐：`text-display-lg` 标题 + `text-headline-sm` 副题，`pt-8 pb-16 md:pt-12 md:pb-24`。
    全站页面的页头间距就是这个值，新页面照抄 `music-page.tsx` / `server-stats.tsx` 那几处，不要自创 `pt-10`。
-2. 区块抬头在容器外：`mb-2 px-4 text-label font-semibold text-on-surface-medium`，可有右侧 `aside`（计数 Badge、开关、刷新按钮）。
-3. 容器：`rounded-sm bg-surface-02`，**零边框零阴影**。
+2. 区块抬头在容器外：`mb-2 px-4 text-label font-semibold text-(--hig-color-label-secondary)`，可有右侧 `aside`（计数 Badge、开关、刷新按钮）。
+3. 容器：`rounded-sm bg-(--hig-color-surface-02)`，**零边框零阴影**。
 4. 容器内的行一律 `data-list-item`；容器本身 `data-list-group`。分隔线与缩进由 `hig.css` 的 `[data-list-item]::after` 统一画（从 1rem 缩进、末项自动消失），**不要在行上手写 `border-b … last:border-b-0`**。
-5. 行内：图标/头像在左，标题 + 说明两行在左对齐的 `min-w-0 flex-1` 里，行尾是 chevron 或数值；`hover:bg-surface-hover-01 active:bg-surface-pressed-01` 加 `duration-fast-02`。
+5. 行内：图标/头像在左，标题 + 说明两行在左对齐的 `min-w-0 flex-1` 里，行尾是 chevron 或数值；`hover:bg-(--hig-color-fill-hover) active:bg-(--hig-color-fill-pressed)` 加 `duration-fast-02`。
 
 可用的现成件：
 
 - `Card` / `CardHeader` / `CardTitle` / `CardContent` —— 一个组就是一张 `Card`（内部已带 `data-slot="card"` 与 `data-list-group`），行用 `CardRow` 或 `data-list-item`。
-  `card.tsx:18` 自身就是 `overflow-hidden rounded-sm bg-surface-02` 的一块填充容器：叫 Card 只是沿用旧名，形制是 iOS 分组区段，不是带边框投影的卡片。
+  `card.tsx:18` 自身就是 `overflow-hidden rounded-sm bg-(--hig-color-surface-02)` 的一块填充容器：叫 Card 只是沿用旧名，形制是 iOS 分组区段，不是带边框投影的卡片。
 - `ListRow` 式行（`<li data-list-item>` + 上面的行内结构）用于纯链接/按钮列表。
-- 表格：`Table` 自带底色/圆角/横向滚动，**不要再套 `overflow-x-auto rounded-sm bg-surface-02` 的 div**（会叠两层底、两个滚动盒）；行分隔线已统一到 0.5px `outline-variant-01`，表头 13px/600 不放大写。
-- 指标：`grid` + `data-divider`（`src/styles/hig.css` 画 0.5px 竖线，2 列时每行首格自动不画），**不要用 Tailwind 的 `divide-x`**：它生成 `:where(...)` 零特异性选择器，`border-color` 会被 `@layer base` 的 `*` 改回 `outline-01`，颜色淡不下来。
-- 第三方面板（评论、地图这类接管 DOM 的）：外壳用一块裸 `rounded-sm bg-surface-02`，不强行套 `data-list-group`。
+- 表格：`Table` 自带底色/圆角/横向滚动，**不要再套 `overflow-x-auto rounded-sm bg-(--hig-color-surface-02)` 的 div**（会叠两层底、两个滚动盒）；行分隔线已统一到 0.5px `separator-variant`，表头 13px/600 不放大写。
+- 指标：`grid` + `data-divider`（`src/styles/hig.css` 画 0.5px 竖线，2 列时每行首格自动不画），**不要用 Tailwind 的 `divide-x`**：它生成 `:where(...)` 零特异性选择器，`border-color` 会被 `@layer base` 的 `*` 改回 `separator-01`，颜色淡不下来。
+- 第三方面板（评论、地图这类接管 DOM 的）：外壳用一块裸 `rounded-sm bg-(--hig-color-surface-02)`，不强行套 `data-list-group`。
 - 分组多而独立时，每组各给一块 `linked` 或独立容器（组之间留 `space-y-6`），小标题始终留在容器外。
 
 分组容器的 `data-slot="card"` / `data-list-item` 也是 HIG 样式表的挂点：`hig.css` 不再靠 `article`、
-`.rounded-sm.bg-surface-01` 这类类名拼写认容器——换了底色的行不会漏，但组件必须自己声明语义属性。
+`.rounded-sm.bg-\(--hig-color-surface-01\)` 这类类名拼写认容器——换了底色的行不会漏，但组件必须自己声明语义属性。
 
 ## 四、浮层
 
 浮层是唯一允许投影、材质、描边的地方，且只挂在语义钩子上：
 
 - 菜单 `[role='menu']`、对话框 `[role='dialog']`、`[data-slot='sheet']`、`[data-slot='popover']`、`[data-slot='select-content']`。
-- 新建自绘浮层必须补 `data-slot="popover"`；不要再写 `.rounded-sm.bg-surface-02` 这种类名选择器当浮层判据（分组容器会被误伤）。
+- 新建自绘浮层必须补 `data-slot="popover"`；不要再写 `.rounded-sm.bg-\(--hig-color-surface-02\)` 这种类名选择器当浮层判据（分组容器会被误伤）。
 - 内层下拉面板（listbox）不重复描边与影，由外层面板承担。
 
 ## 五、层叠
@@ -197,12 +200,12 @@ bun scripts/shots.mjs    # 明暗 × 1280/390 × 跟随系统/手动选，含四
 | --- | --- | --- |
 | 试验 | `/* @experimental */` | 名字可以随时改，不承诺兼容。用的人自己认风险；`check:deprecations` 只报数量不拦。 |
 | 稳定 | 无标记 | 默认状态。改名要先走弃用。 |
-| 弃用 | `/* @deprecated YYYY-MM-DD --旧名 → --新名 \| remove */` | 定义保留，新代码禁用；引用清零满 30 天即删。 |
+| 弃用 | `/* @deprecated YYYY-MM-DD → --新名 */` | 定义保留，新代码禁用；引用清零满 30 天即删。 |
 
 弃用注释写在被弃的令牌定义**行尾**（组件槽位写在 `--hig-cmp-*` 声明同行），格式固定，`scripts/check-deprecations.mjs` 按它解析：
 
 ```css
---hig-color-surface-hover-01: var(--hig-color-fill-hover); /* @deprecated 2026-11-21 → --hig-color-fill-hover */
+--hig-color-interactive: var(--hig-palette-blue-600); /* @deprecated 2026-11-21 → --hig-color-primary */
 ```
 
 `check:deprecations` 把「`src/` 里还有引用」变成构建失败，并逐条列出前几处位置。所以**弃用不是写完注释就完**，得同一次改掉调用点。文档里的弃用表、迁移示例不算残留。
@@ -215,6 +218,9 @@ bun scripts/migrate-token.mjs --from --hig-color-foo            # 只弃用＋�
 bun scripts/migrate-token.mjs --from --hig-color-foo --delete  # 直接删定义（须先清空引用）
 ```
 
+弃用标记只有一个硬前提，忘了就等于没写：**格式对** —— `/* @deprecated YYYY-MM-DD → --新名 */`，
+必须带 `→ 新名` 与日期，`check:deprecations` 按这个正则解析；令牌定义行尾、组件槽位 `--hig-cmp-*` 声明行尾都适用。
+
 脚本做的事：全仓 `src/` `docs/` 文本替换（`--hig-` 前缀安全，词边界不误伤 `-01`/`-2` 后缀）、把替换掉的令牌定义标成弃用、打印每个文件的替换条数；`--delete` 连带删掉定义行。
 
 组件同理：删组件前先在本节下方的「已弃用」表登记，导出名保留为转发别名，30 天后再删。
@@ -222,23 +228,29 @@ bun scripts/migrate-token.mjs --from --hig-color-foo --delete  # 直接删定义
 | 已弃用 | 替身 | 起始 |
 | --- | --- | --- |
 | `--hig-color-interactive` | `--hig-color-primary` | 2026-11-21 |
-| `--hig-color-outline-active` | `--hig-color-primary` | 2026-11-21 |
+| `--hig-color-separator-active` | `--hig-color-primary` | 2026-11-21 |
 | `--hig-color-on-info` | `--hig-color-on-primary` | 2026-11-21 |
 | `--hig-color-on-success` | `--hig-color-on-primary` | 2026-11-21 |
 | `--hig-color-chip-background-cool-gray` | `--hig-color-chip-background-gray` | 2026-11-21 |
 | `--hig-color-chip-color-cool-gray` | `--hig-color-chip-color-gray` | 2026-11-21 |
-| `--hig-color-outline-emphasis` | `--hig-color-outline-emphasis-01` | 2026-11-21 |
 
-这七条都是「亮暗同值的重复项」：`interactive`/`outline-active` 等于 `primary`，`on-info`/`on-success` 等于 `on-primary`，cool-gray 对等于 gray 对，`outline-emphasis` 等于 `outline-emphasis-01`。替身没有增删语义，只消灭同值异名。
+这六条都是「亮暗同值的重复项」：`interactive`/`separator-active` 等于 `primary`，`on-info`/`on-success` 等于 `on-primary`，cool-gray 对等于 gray 对。替身没有增删语义，只消灭同值异名。
+
+第七对新旧同名到只差后缀（`separator-emphasis` / `-01`）的已经合并完成（2026-11-21）：
+旧名定义删掉，保留 `--hig-color-separator-emphasis` 一条；它的注释额外说明「必须与外部描边同值且明显深于
+`separator-field`」——改它的值前先读那段注释。
 
 ## 十一、从 CLI 拉组件（shadcn）
 
-仓库有 `components.json`，可直接 `npx shadcn@latest add <name>`。三点注意：
+仓库有 `components.json`，可直接 `npx shadcn@latest add <name>`。注意事项：
 
-- CLI 产物写的是 shadcn 词汇（`bg-card` / `border-input` / `text-muted-foreground`）。这些别名在
-  `src/app/globals.css` 的「shadcn/ui 词汇别名」段映射到同义 HIG 令牌，能渲染但语义偏粗，
-  **拉进来只是起点，须按本文重写成 `--hig-*` / `bg-surface-02` 口径**。
+- CLI 产物写的是 shadcn 词汇（`bg-card` / `border-input` / `text-muted-foreground`），而 `globals.css`
+  里**已经没有 `--color-*` 转发层**，这些简写不会自己生成。拉进来先做一遍机械替换：
+  `bg-card`→`bg-(--hig-color-surface-02)`、`border-input`→`border-(--hig-color-separator-field)`、
+  `text-muted-foreground`→`text-(--hig-color-label-secondary)`、`bg-background`→`bg-(--hig-color-surface)`、
+  `text-foreground`→`text-(--hig-color-label)`、`ring-ring`→`ring-(--hig-color-highlight)`、
+  `bg-accent`→`bg-(--hig-color-fill-hover)`、`text-destructive`→`text-(--hig-color-error)`。
 - v4 产物固定 `import { cn } from "cn"` 与 `import { Label } from "radix-ui"`（单体包）——
   与仓库 15 个 `@radix-ui/*` 分包不一致，改回 `@/lib/utils` 与对应分包。
 - `add` 撞上同名文件会问覆盖；`--overwrite` 会整份替换，原文件里的 HIG 钩子（如
-  `separator.tsx` 的 `bg-outline`）会丢，覆盖后必须重读 diff 把钩子补回去。
+  `separator.tsx` 的 `border-(--hig-color-separator)`）会丢，覆盖后必须重读 diff 把钩子补回去。

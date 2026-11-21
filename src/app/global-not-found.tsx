@@ -23,23 +23,26 @@ export default function GlobalNotFound() {
         id="main"
         className="mx-auto flex min-h-svh max-w-(--hig-container-narrow) flex-col items-center justify-center gap-4 px-6 text-center"
       >
-        <p className="font-mono text-label text-secondary">404</p>
-        <h1 className="text-title1 text-primary">页面不存在</h1>
-        <p className="text-body text-secondary">
+        <p className="font-mono text-label text-(--hig-color-label-secondary)">404</p>
+        <h1 className="text-title1 text-(--hig-color-primary)">页面不存在</h1>
+        <p className="text-body text-(--hig-color-label-secondary)">
           链接可能已经失效，或者站点改过路径。下面是几个常去的地方。
         </p>
         <div className="mt-2 flex flex-wrap justify-center gap-2">
-          <Link href="/" className="rounded-sm bg-primary px-4 py-2 text-button text-on-primary">
+          <Link
+            href="/"
+            className="rounded-sm bg-(--hig-color-primary) px-4 py-2 text-button text-(--hig-color-on-primary)"
+          >
             回到首页
           </Link>
           <Link
             href="/downloads/"
-            className="rounded-sm bg-secondary-container px-4 py-2 text-button text-on-secondary-container"
+            className="rounded-sm bg-(--hig-color-fill-secondary) px-4 py-2 text-button text-(--hig-color-label)"
           >
             下载客户端
           </Link>
         </div>
-        <p className="mt-6 text-caption text-tertiary">
+        <p className="mt-6 text-caption text-(--hig-color-label-tertiary)">
           <span lang="en">Page not found.</span>{' '}
           <Link href="/en/" className="underline">
             Go to the English site

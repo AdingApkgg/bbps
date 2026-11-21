@@ -27,7 +27,7 @@ const badgeVariants = cva(
           'bg-(--hig-cmp-badge-neutral-bg,var(--hig-color-chip-background-gray)) text-(--hig-cmp-badge-neutral-fg,var(--hig-color-chip-color-gray))',
         /* assist chip：1px 42% 描边、透明底 */
         outline:
-          'bg-transparent text-(--hig-cmp-badge-outline-fg,var(--hig-color-on-surface)) shadow-[inset_0_0_0_1px_var(--hig-cmp-badge-outline-border,var(--hig-color-outline-emphasis-01))]',
+          'bg-transparent text-(--hig-cmp-badge-outline-fg,var(--hig-color-label)) shadow-[inset_0_0_0_1px_var(--hig-cmp-badge-outline-border,var(--hig-color-separator-emphasis))]',
         destructive:
           'bg-(--hig-cmp-badge-danger-bg,var(--hig-color-chip-background-red)) text-(--hig-cmp-badge-danger-fg,var(--hig-color-chip-color-red))',
         green:

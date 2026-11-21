@@ -31,7 +31,7 @@ function FieldLegend({
       data-slot="field-legend"
       data-variant={variant}
       className={cn(
-        'mb-3 font-(--hig-cmp-field-legend-weight,500) text-(--hig-cmp-field-legend-fg,var(--hig-color-on-surface))',
+        'mb-3 font-(--hig-cmp-field-legend-weight,500) text-(--hig-cmp-field-legend-fg,var(--hig-color-label))',
         'data-[variant=legend]:text-(length:--hig-cmp-field-legend-size,1.0625rem)',
         'data-[variant=label]:text-(length:--hig-cmp-field-legend-size-sm,0.9375rem)',
         className
@@ -113,7 +113,7 @@ function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>)
       className={cn(
         'group/field-label peer/field-label flex w-fit gap-(--hig-cmp-field-label-gap,0.5rem) leading-snug group-data-[disabled=true]/field:opacity-50',
         'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-(--hig-cmp-field-label-box-radius,var(--hig-shape-08)) has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-(--hig-cmp-field-label-box-p,1rem)',
-        'has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10',
+        'has-data-[state=checked]:border-(--hig-color-primary) has-data-[state=checked]:bg-(--hig-color-primary)/5 dark:has-data-[state=checked]:bg-(--hig-color-primary)/10',
         className
       )}
       {...props}
@@ -126,7 +126,7 @@ function FieldTitle({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="field-label"
       className={cn(
-        'flex w-fit items-center gap-(--hig-cmp-field-label-gap,0.5rem) text-(length:--hig-cmp-field-title-size,0.9375rem) leading-snug font-(--hig-cmp-field-title-weight,500) text-(--hig-cmp-field-title-fg,var(--hig-color-on-surface)) group-data-[disabled=true]/field:opacity-50',
+        'flex w-fit items-center gap-(--hig-cmp-field-label-gap,0.5rem) text-(length:--hig-cmp-field-title-size,0.9375rem) leading-snug font-(--hig-cmp-field-title-weight,500) text-(--hig-cmp-field-title-fg,var(--hig-color-label)) group-data-[disabled=true]/field:opacity-50',
         className
       )}
       {...props}
@@ -139,7 +139,7 @@ function FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="field-description"
       className={cn(
-        'text-(length:--hig-cmp-field-desc-size,0.9375rem) leading-normal font-normal text-(--hig-cmp-field-desc-fg,var(--hig-color-on-surface-medium)) group-has-[[data-orientation=horizontal]]/field:text-balance',
+        'text-(length:--hig-cmp-field-desc-size,0.9375rem) leading-normal font-normal text-(--hig-cmp-field-desc-fg,var(--hig-color-label-secondary)) group-has-[[data-orientation=horizontal]]/field:text-balance',
         'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-2',
         '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-(--hig-cmp-field-desc-link-fg,var(--hig-color-primary))',
         className
@@ -169,7 +169,7 @@ function FieldSeparator({
       <Separator className="absolute inset-0 top-1/2" />
       {children && (
         <span
-          className="relative mx-auto block w-fit bg-(--hig-cmp-field-sep-bg,var(--hig-color-surface)) px-2 text-(--hig-cmp-field-sep-fg,var(--hig-color-on-surface-medium))"
+          className="relative mx-auto block w-fit bg-(--hig-cmp-field-sep-bg,var(--hig-color-surface)) px-2 text-(--hig-cmp-field-sep-fg,var(--hig-color-label-secondary))"
           data-slot="field-separator-content"
         >
           {children}

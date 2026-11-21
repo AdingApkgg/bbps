@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 /* 分隔线
  *
- * 横竖两向都走 `bg-outline-01`（HIG 0.5px 分隔线口径），不写在制内用 `bg-outline`。
+ * 横竖两向都走 `bg-(--hig-color-separator-01)`（HIG 0.5px 分隔线口径），不写在制内用 `bg-(--hig-color-separator)`。
  * 放在列表容器里时 `hig.css` 的 `[data-list-item]::after` 会另画线，别与本组件叠用。
  * 颜色过 `--hig-cmp-separator` 槽，父级赋值即覆盖。
  */
@@ -20,7 +20,7 @@ const Separator = React.forwardRef<
     decorative={decorative}
     orientation={orientation}
     className={cn(
-      'shrink-0 bg-(--hig-cmp-separator,var(--hig-color-outline-01))',
+      'shrink-0 bg-(--hig-cmp-separator,var(--hig-color-separator-01))',
       orientation === 'horizontal'
         ? 'h-(--hig-size-hairline) w-full'
         : 'h-full w-(--hig-size-hairline)',

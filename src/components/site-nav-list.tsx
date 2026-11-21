@@ -24,9 +24,9 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
   const isActive = (href: string) => pathname === href || pathname === `${href}/`
   const cls = (active: boolean) =>
     cn(
-      'flex items-center gap-3 px-4 py-2 text-body-02 text-on-surface-medium',
-      'hover:bg-surface-hover-01',
-      active && 'bg-surface-selected-02 text-on-surface'
+      'flex items-center gap-3 px-4 py-2 text-body-02 text-(--hig-color-label-secondary)',
+      'hover:bg-(--hig-color-fill-secondary)',
+      active && 'bg-(--hig-color-fill-selected-solid-strong) text-(--hig-color-label)'
     )
 
   return (
@@ -43,7 +43,7 @@ export function SiteNavList({ onNavigate }: { onNavigate?: () => void }) {
           {item.label}
         </Link>
       ))}
-      <div className="my-2 h-px bg-outline-01" />
+      <div className="my-2 h-px bg-(--hig-color-separator-01)" />
       {external.map((item) => (
         <a
           key={item.href}

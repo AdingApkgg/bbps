@@ -15,7 +15,7 @@ const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableE
   ({ className, ...props }, ref) => (
     <div
       data-slot="table-wrap"
-      className="relative w-full overflow-auto rounded-(--hig-cmp-table-radius,var(--hig-shape-control)) border-(length:--hig-size-hairline) border-(--hig-cmp-table-border,var(--hig-color-outline-01)) bg-(--hig-cmp-table-bg,var(--hig-color-surface-02))"
+      className="relative w-full overflow-auto rounded-(--hig-cmp-table-radius,var(--hig-shape-control)) border-(length:--hig-size-hairline) border-(--hig-cmp-table-border,var(--hig-color-separator-01)) bg-(--hig-cmp-table-bg,var(--hig-color-surface-02))"
     >
       <table
         ref={ref}
@@ -47,7 +47,7 @@ const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn('bg-surface-variant-01 font-medium [&>tr]:last:border-b-0', className)}
+    className={cn('bg-(--hig-color-fill-subtle) font-medium [&>tr]:last:border-b-0', className)}
     {...props}
   />
 ))
@@ -59,8 +59,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
       ref={ref}
       data-slot="table-row"
       className={cn(
-        'border-b-(length:--hig-size-hairline) border-(--hig-cmp-table-row-border,var(--hig-color-outline-variant-01)) transition-colors duration-fast-02',
-        'last:border-b-0 hover:bg-(--hig-cmp-table-row-bg-hover,var(--hig-color-surface-hover-01)) data-[state=selected]:bg-(--hig-cmp-table-row-bg-selected,var(--hig-color-surface-selected-01))',
+        'border-b-(length:--hig-size-hairline) border-(--hig-cmp-table-row-border,var(--hig-color-separator-variant)) transition-colors duration-fast-02',
+        'last:border-b-0 hover:bg-(--hig-cmp-table-row-bg-hover,var(--hig-color-fill-secondary)) data-[state=selected]:bg-(--hig-cmp-table-row-bg-selected,var(--hig-color-fill-selected-solid))',
         className
       )}
       {...props}
@@ -76,7 +76,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'h-(--hig-cmp-table-row-h,3.25rem) bg-(--hig-cmp-table-head-bg,var(--hig-color-surface-variant-01)) px-(--hig-cmp-table-cell-px,1rem) text-start align-middle text-label font-semibold text-(--hig-cmp-table-head-fg,var(--hig-color-on-surface-medium)) tracking-normal',
+      'h-(--hig-cmp-table-row-h,3.25rem) bg-(--hig-cmp-table-head-bg,var(--hig-color-fill-subtle)) px-(--hig-cmp-table-cell-px,1rem) text-start align-middle text-label font-semibold text-(--hig-cmp-table-head-fg,var(--hig-color-label-secondary)) tracking-normal',
       '[&:has([role=checkbox])]:pe-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
@@ -108,7 +108,7 @@ const TableCaption = React.forwardRef<
   <caption
     ref={ref}
     className={cn(
-      'mt-4 text-caption text-(--hig-cmp-table-caption-fg,var(--hig-color-on-surface-medium))',
+      'mt-4 text-caption text-(--hig-cmp-table-caption-fg,var(--hig-color-label-secondary))',
       className
     )}
     {...props}

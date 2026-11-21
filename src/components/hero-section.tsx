@@ -23,7 +23,7 @@ function HeroPoster({ className, onPlay }: { className?: string; onPlay: () => v
       <button
         type="button"
         onClick={onPlay}
-        className="group relative block w-full overflow-hidden rounded-sm bg-surface-variant-01 "
+        className="group relative block w-full overflow-hidden rounded-sm bg-(--hig-color-fill-subtle) "
       >
         {/*
  priority：这张图在首屏正中，多半就是 LCP 元素。next/image 默认
@@ -42,8 +42,8 @@ function HeroPoster({ className, onPlay }: { className?: string; onPlay: () => v
         />
         {/* 播放图标 */}
         <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-16 w-16 items-center justify-center bg-surface transition-transform duration-fast-02 ease-standard group-hover:scale-110">
-            <Play className="h-7 w-7 fill-current text-on-surface" />
+          <span className="flex h-16 w-16 items-center justify-center bg-(--hig-color-surface) transition-transform duration-fast-02 ease-standard group-hover:scale-110">
+            <Play className="h-7 w-7 fill-current text-(--hig-color-label)" />
           </span>
         </span>
       </button>
@@ -73,7 +73,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <m.div
-      className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-scrim"
+      className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-(--hig-color-scrim)"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: overlayMs, ease: EASE_EXIT } }}
@@ -84,7 +84,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center bg-scrim/60 text-on-primary transition-colors duration-fast-01 hover:bg-scrim"
+        className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center bg-(--hig-color-scrim)/60 text-(--hig-color-on-primary) transition-colors duration-fast-01 hover:bg-(--hig-color-scrim)"
       >
         <X className="h-5 w-5" />
       </button>
@@ -132,14 +132,14 @@ export function HeroSection() {
     <>
       <section className="relative overflow-hidden border-b">
         {/* 网格底纹：用 8% 的分隔色逐格 1 格 1 线 */}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--hig-color-outline-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--hig-color-outline-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-surface via-surface to-surface-01" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--hig-color-separator-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--hig-color-separator-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-(--hig-color-surface) via-(--hig-color-surface) to-(--hig-color-surface-01)" />
 
         <div className="container-page py-12 md:py-20 lg:py-24">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12">
             <div>
               <m.p
-                className="text-body-02 font-medium text-on-surface-medium"
+                className="text-body-02 font-medium text-(--hig-color-label-secondary)"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE }}
@@ -157,7 +157,7 @@ export function HeroSection() {
               </m.h1>
 
               <m.p
-                className="mt-3 max-w-prose text-title-lg text-on-surface-medium"
+                className="mt-3 max-w-prose text-title-lg text-(--hig-color-label-secondary)"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.08 }}
@@ -187,7 +187,7 @@ export function HeroSection() {
 
               {/* 站点统计 */}
               <m.div
-                className="mt-6 flex items-center gap-6 text-body-02 text-on-surface-medium"
+                className="mt-6 flex items-center gap-6 text-body-02 text-(--hig-color-label-secondary)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: revealMs, ease: EASE_ENTRANCE, delay: 0.16 }}
@@ -195,14 +195,14 @@ export function HeroSection() {
                 <span className="inline-flex items-center gap-2">
                   <Eye className="h-3.5 w-3.5" />
                   <span>{locale === 'zh' ? '访问' : 'Visits'}</span>
-                  <span className="font-semibold tabular-nums text-on-surface">
+                  <span className="font-semibold tabular-nums text-(--hig-color-label)">
                     {sitePv !== null ? sitePv.toLocaleString() : '-'}
                   </span>
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Users className="h-3.5 w-3.5" />
                   <span>{locale === 'zh' ? '访客' : 'Visitors'}</span>
-                  <span className="font-semibold tabular-nums text-on-surface">
+                  <span className="font-semibold tabular-nums text-(--hig-color-label)">
                     {siteUv !== null ? siteUv.toLocaleString() : '-'}
                   </span>
                 </span>

@@ -46,7 +46,7 @@ const GROUPS: { id: string; keys: string[] }[] = [
 function StatRow({ label, value }: { label: string; value: string }) {
   return (
     <div data-list-item className="flex items-baseline justify-between gap-4 px-4 py-2">
-      <dt className="shrink-0 text-body-02 text-on-surface-medium">{label}</dt>
+      <dt className="shrink-0 text-body-02 text-(--hig-color-label-secondary)">{label}</dt>
       <dd className="text-body-02 font-semibold tabular-nums">{value}</dd>
     </div>
   )
@@ -88,7 +88,7 @@ export function GlobalStats() {
 
   const heading = (
     <div className="mb-2 flex items-center justify-between gap-3 px-4">
-      <h2 className="flex items-center gap-2 text-label font-semibold text-on-surface-medium">
+      <h2 className="flex items-center gap-2 text-label font-semibold text-(--hig-color-label-secondary)">
         <BarChart3 className="h-4 w-4" />
         {t.globalTitle}
       </h2>
@@ -113,7 +113,7 @@ export function GlobalStats() {
     return (
       <section>
         {heading}
-        <div className="grid gap-2 rounded-sm bg-surface-02 p-4 sm:grid-cols-2">
+        <div className="grid gap-2 rounded-sm bg-(--hig-color-surface-02) p-4 sm:grid-cols-2">
           {Array.from({ length: 8 }).map((_, i) => (
             <Skeleton key={i} className="h-9 w-full" />
           ))}
@@ -126,7 +126,7 @@ export function GlobalStats() {
     return (
       <section>
         {heading}
-        <p className="rounded-sm bg-surface-02 px-4 py-8 text-center text-body-02 text-error">
+        <p className="rounded-sm bg-(--hig-color-surface-02) px-4 py-8 text-center text-body-02 text-(--hig-color-error)">
           {t.error}
         </p>
       </section>
@@ -148,10 +148,13 @@ export function GlobalStats() {
           if (rows.length === 0) return null
           return (
             <div key={group.id}>
-              <h3 className="mb-1 px-4 text-label font-semibold text-on-surface-medium">
+              <h3 className="mb-1 px-4 text-label font-semibold text-(--hig-color-label-secondary)">
                 {statLabels[group.id] ?? group.id}
               </h3>
-              <dl data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+              <dl
+                data-list-group
+                className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)"
+              >
                 {rows.map((row) => (
                   <StatRow
                     key={row.key}
@@ -166,10 +169,10 @@ export function GlobalStats() {
 
         {loot.length > 0 && (
           <div>
-            <h3 className="mb-1 px-4 text-label font-semibold text-on-surface-medium">
+            <h3 className="mb-1 px-4 text-label font-semibold text-(--hig-color-label-secondary)">
               {t.globalLoot}
             </h3>
-            <dl data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+            <dl data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
               {loot.map((r) => (
                 <StatRow key={r.id} label={r.name} value={formatCompact(r.value, locale)} />
               ))}
@@ -179,16 +182,16 @@ export function GlobalStats() {
 
         {topCommands.length > 0 && (
           <div>
-            <h3 className="mb-1 flex items-center gap-2 px-4 text-label font-semibold text-on-surface-medium">
+            <h3 className="mb-1 flex items-center gap-2 px-4 text-label font-semibold text-(--hig-color-label-secondary)">
               <Terminal className="h-3.5 w-3.5" />
               {t.globalTopCommands}
             </h3>
-            <ul data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+            <ul data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
               {topCommands.map((cmd, i) => {
                 const max = topCommands[0].count || 1
                 return (
                   <li key={cmd.name} data-list-item className="flex items-center gap-3 px-4 py-2">
-                    <span className="w-5 shrink-0 text-label text-on-surface-medium tabular-nums">
+                    <span className="w-5 shrink-0 text-label text-(--hig-color-label-secondary) tabular-nums">
                       {i + 1}
                     </span>
                     <code className="w-32 shrink-0 truncate font-mono text-label">/{cmd.name}</code>
@@ -197,7 +200,7 @@ export function GlobalStats() {
                       aria-label={`/${cmd.name}`}
                       className="flex-1"
                     />
-                    <span className="w-16 shrink-0 text-right text-label tabular-nums text-on-surface-medium">
+                    <span className="w-16 shrink-0 text-right text-label tabular-nums text-(--hig-color-label-secondary)">
                       {cmd.count.toLocaleString()}
                     </span>
                   </li>

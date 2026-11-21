@@ -180,23 +180,23 @@ export function SearchableSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={ariaLabel}
-        className="flex h-(--hig-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-sm border border-outline-field bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-none transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard outline-none hover:border-outline-emphasis-01 hover:bg-field-hover-01 focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--hig-color-highlight)] aria-expanded:border-primary aria-expanded:bg-surface-01 aria-expanded:shadow-[0_0_0_3px_var(--hig-color-highlight)]"
+        className="flex h-(--hig-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-sm border border-(--hig-color-separator-field) bg-(--hig-color-field) pl-4 pr-3 text-body-01 text-(--hig-color-label) shadow-none transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard outline-none hover:border-(--hig-color-separator-emphasis) hover:bg-(--hig-color-field-hover) focus:border-(--hig-color-primary) focus:bg-(--hig-color-surface-01) focus:shadow-[0_0_0_3px_var(--hig-color-highlight)] aria-expanded:border-(--hig-color-primary) aria-expanded:bg-(--hig-color-surface-01) aria-expanded:shadow-[0_0_0_3px_var(--hig-color-highlight)]"
       >
         <span className="truncate">{current?.label ?? ''}</span>
-        <ChevronsUpDown className="size-4 shrink-0 text-on-surface-medium" />
+        <ChevronsUpDown className="size-4 shrink-0 text-(--hig-color-label-secondary)" />
       </button>
 
       {open && (
         <div
           data-slot="popover"
           className={cn(
-            'absolute left-0 z-(--hig-layer-popover) w-full min-w-[14rem] overflow-hidden rounded-sm bg-surface-02 py-2',
+            'absolute left-0 z-(--hig-layer-popover) w-full min-w-[14rem] overflow-hidden rounded-sm bg-(--hig-color-surface-02) py-2',
             placement === 'above' ? 'bottom-[calc(100%+4px)]' : 'top-[calc(100%+4px)]'
           )}
         >
           {showSearch && (
-            <div className="mx-2 mb-1 flex items-center gap-2 border-b border-outline pl-2 focus-within:border-primary">
-              <Search className="pointer-events-none size-4 shrink-0 text-on-surface-medium" />
+            <div className="mx-2 mb-1 flex items-center gap-2 border-b border-(--hig-color-separator) pl-2 focus-within:border-(--hig-color-primary)">
+              <Search className="pointer-events-none size-4 shrink-0 text-(--hig-color-label-secondary)" />
               <input
                 ref={inputRef}
                 value={query}
@@ -206,14 +206,14 @@ export function SearchableSelect({
                 }}
                 placeholder={searchPlaceholder}
                 aria-label={searchPlaceholder}
-                className="h-10 min-h-0 w-full border-0 bg-transparent pr-2 text-body-02 text-on-surface caret-on-surface outline-none placeholder:text-on-surface-placeholder"
+                className="h-10 min-h-0 w-full border-0 bg-transparent pr-2 text-body-02 text-(--hig-color-label) caret-(--hig-color-label) outline-none placeholder:text-(--hig-color-label-quaternary)"
               />
             </div>
           )}
 
           <div className="overflow-y-auto" style={{ maxHeight: listMaxHeight }}>
             {visible.length === 0 ? (
-              <p className="px-4 py-3 text-center text-body-02 text-on-surface-medium">
+              <p className="px-4 py-3 text-center text-body-02 text-(--hig-color-label-secondary)">
                 {emptyText}
               </p>
             ) : (
@@ -233,7 +233,7 @@ export function SearchableSelect({
                     onClick={() => commit(o.value)}
                     className={cn(
                       'flex h-(--hig-size-row) w-full items-center gap-2 pl-4 pr-2 text-left text-body-01 transition-colors duration-fast-02',
-                      i === active && 'bg-state-pressed'
+                      i === active && 'bg-(--hig-color-fill-pressed)'
                     )}
                   >
                     <Check
@@ -249,7 +249,7 @@ export function SearchableSelect({
             )}
 
             {filtered.length > visible.length && (
-              <p className="border-t px-2 py-2 text-center text-label text-on-surface-medium">
+              <p className="border-t px-2 py-2 text-center text-label text-(--hig-color-label-secondary)">
                 {filtered.length - visible.length}+
               </p>
             )}

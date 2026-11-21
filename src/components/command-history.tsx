@@ -107,7 +107,7 @@ export function CommandHistory({
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">
-        <p className="flex items-center gap-2 text-label font-medium text-on-surface-medium">
+        <p className="flex items-center gap-2 text-label font-medium text-(--hig-color-label-secondary)">
           <History className="h-3.5 w-3.5" />
           {t.historyTitle}
         </p>
@@ -115,7 +115,7 @@ export function CommandHistory({
           <button
             type="button"
             onClick={() => setSelected(items.slice())}
-            className="flex items-center gap-1 text-label text-on-surface-medium hover:text-on-surface"
+            className="flex items-center gap-1 text-label text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
           >
             <CheckSquare className="h-3 w-3" />
             {t.historySelectAll}
@@ -128,7 +128,7 @@ export function CommandHistory({
                   onRemove(selected)
                   setSelected([])
                 }}
-                className="flex items-center gap-1 text-label text-error"
+                className="flex items-center gap-1 text-label text-(--hig-color-error)"
               >
                 <Trash2 className="h-3 w-3" />
                 {t.historyDelete}
@@ -136,7 +136,7 @@ export function CommandHistory({
               <button
                 type="button"
                 onClick={() => setSelected([])}
-                className="text-label text-on-surface-medium hover:text-on-surface"
+                className="text-label text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
               >
                 {t.historyExitSelect}
               </button>
@@ -145,7 +145,7 @@ export function CommandHistory({
             <button
               type="button"
               onClick={onClear}
-              className="flex items-center gap-1 text-label text-on-surface-medium hover:text-on-surface"
+              className="flex items-center gap-1 text-label text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
             >
               <Trash2 className="h-3 w-3" />
               {t.historyClear}
@@ -164,7 +164,7 @@ export function CommandHistory({
             />
             <label
               htmlFor={`history-${cmd}`}
-              className="min-w-0 flex-1 cursor-pointer truncate bg-surface-variant-01 px-2 py-1 font-mono text-label"
+              className="min-w-0 flex-1 cursor-pointer truncate bg-(--hig-color-fill-subtle) px-2 py-1 font-mono text-label"
             >
               {cmd}
             </label>

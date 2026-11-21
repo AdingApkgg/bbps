@@ -25,7 +25,7 @@ export function SiteTabBar() {
     <nav
       data-tabbar
       data-dock
-      className="pointer-events-auto hidden fixed inset-x-0 bottom-0 z-(--hig-layer-dock) border-t bg-surface-01/90 backdrop-blur"
+      className="pointer-events-auto hidden fixed inset-x-0 bottom-0 z-(--hig-layer-dock) border-t bg-(--hig-color-surface-01)/90 backdrop-blur"
       aria-label={dict.nav.toggleMenu}
     >
       <div className="flex h-14 items-stretch">
@@ -35,8 +35,8 @@ export function SiteTabBar() {
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             className={cn(
-              'flex flex-1 flex-col items-center justify-center gap-0.5 text-label text-on-surface-medium',
-              isActive(item.href) && 'text-link'
+              'flex flex-1 flex-col items-center justify-center gap-0.5 text-label text-(--hig-color-label-secondary)',
+              isActive(item.href) && 'text-(--hig-color-link)'
             )}
           >
             <item.icon className="h-5 w-5" />

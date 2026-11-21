@@ -13,7 +13,7 @@ function Label({ className, ...props }: React.ComponentProps<typeof LabelPrimiti
     <LabelPrimitive.Root
       data-slot="label"
       className={cn(
-        'flex items-center gap-(--hig-cmp-label-gap,0.5rem) text-(length:--hig-cmp-label-size,0.8125rem) leading-none font-(--hig-cmp-label-weight,500) text-(--hig-cmp-label-fg,var(--hig-color-on-surface-medium)) select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+        'flex items-center gap-(--hig-cmp-label-gap,0.5rem) text-(length:--hig-cmp-label-size,0.8125rem) leading-none font-(--hig-cmp-label-weight,500) text-(--hig-cmp-label-fg,var(--hig-color-label-secondary)) select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
         className
       )}
       {...props}

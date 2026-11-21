@@ -38,7 +38,11 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 /** 分组抬头：13px 次要色，缩进与行内容对齐 */
 function GroupTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-2 px-4 text-label font-semibold text-on-surface-medium">{children}</h2>
+  return (
+    <h2 className="mb-2 px-4 text-label font-semibold text-(--hig-color-label-secondary)">
+      {children}
+    </h2>
+  )
 }
 
 export function DownloadsSection() {
@@ -50,13 +54,13 @@ export function DownloadsSection() {
     <div className="container-page max-w-2xl pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{d.title}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">{d.subtitle}</p>
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">{d.subtitle}</p>
       </FadeIn>
 
       {/* 安装教程 */}
       <FadeIn delay={0.1} className="mt-8">
         <GroupTitle>{d.guideTitle}</GroupTitle>
-        <p className="mb-3 px-4 text-label text-on-surface-medium">{d.guideSubtitle}</p>
+        <p className="mb-3 px-4 text-label text-(--hig-color-label-secondary)">{d.guideSubtitle}</p>
 
         <Tabs defaultValue="android" className="w-full">
           <TabsList className="mx-4 grid w-[calc(100%-2rem)] grid-cols-3">
@@ -79,13 +83,16 @@ export function DownloadsSection() {
 
           {(['android', 'apple', 'windows'] as const).map((platform) => (
             <TabsContent key={platform} value={platform}>
-              <ol data-list-group className="mt-3 overflow-hidden rounded-sm bg-surface-02">
+              <ol
+                data-list-group
+                className="mt-3 overflow-hidden rounded-sm bg-(--hig-color-surface-02)"
+              >
                 {d.guide[platform].steps.map((step: string, i: number) => (
                   <li key={i} data-list-item className="flex gap-3 px-4 py-3">
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-variant-01 text-label font-semibold">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-(--hig-color-fill-subtle) text-label font-semibold">
                       {i + 1}
                     </span>
-                    <span className="text-body-02 leading-relaxed text-on-surface-medium">
+                    <span className="text-body-02 leading-relaxed text-(--hig-color-label-secondary)">
                       {step}
                     </span>
                   </li>
@@ -102,19 +109,19 @@ export function DownloadsSection() {
         {/* 行就是 FadeIn 本身：motion.div 夹在 ul>li 之间会让 `[data-list-group] [data-list-item]`
             选不到行、分隔线失效（display:contents 又会让 opacity/位移动画失效），
             所以这里用 div 当列表容器，行类直接挂在 FadeIn 上。 */}
-        <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+        <div data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
           <FadeIn
             data-list-item
             delay={0.15}
             className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="flex items-center gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-(--hig-color-fill-subtle)">
                 <Download className="h-5 w-5" />
               </span>
               <div>
                 <p className="text-body-02 font-semibold">{d.primary}</p>
-                <p className="text-label text-on-surface-medium">
+                <p className="text-label text-(--hig-color-label-secondary)">
                   {locale === 'zh' ? '蚕豆私服推荐客户端' : 'Recommended client'}
                 </p>
               </div>
@@ -137,12 +144,12 @@ export function DownloadsSection() {
                 className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                    <Icon className="h-5 w-5 text-on-surface-medium" />
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-(--hig-color-fill-subtle)">
+                    <Icon className="h-5 w-5 text-(--hig-color-label-secondary)" />
                   </span>
                   <div>
                     <p className="text-body-02 font-semibold">{meta.name}</p>
-                    <p className="text-label text-on-surface-medium">{meta.desc}</p>
+                    <p className="text-label text-(--hig-color-label-secondary)">{meta.desc}</p>
                   </div>
                 </div>
                 <Button variant="outline" className="w-full shrink-0 sm:w-auto" asChild>
@@ -160,12 +167,12 @@ export function DownloadsSection() {
             className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="flex items-center gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-variant-01">
-                <HardDrive className="h-5 w-5 text-on-surface-medium" />
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-(--hig-color-fill-subtle)">
+                <HardDrive className="h-5 w-5 text-(--hig-color-label-secondary)" />
               </span>
               <div>
                 <p className="text-body-02 font-semibold">{d.moreServers}</p>
-                <p className="text-label text-on-surface-medium">
+                <p className="text-label text-(--hig-color-label-secondary)">
                   {locale === 'zh' ? '网盘与其它服务器' : 'Drive & other servers'}
                 </p>
               </div>

@@ -25,7 +25,7 @@ import { PlayerBaseSheet, type PlayerBaseTarget } from '@/components/player-base
 function GroupTitle({ children, aside }: { children: React.ReactNode; aside?: React.ReactNode }) {
   return (
     <div className="mb-2 flex items-center justify-between gap-3 px-4">
-      <h2 className="text-label font-semibold text-on-surface-medium">{children}</h2>
+      <h2 className="text-label font-semibold text-(--hig-color-label-secondary)">{children}</h2>
       {aside}
     </div>
   )
@@ -66,17 +66,20 @@ export function ServerStats() {
     <section className="container-page max-w-4xl pt-8 pb-16 md:pt-12 md:pb-24">
       <FadeIn eager>
         <h1 className="text-display-lg">{dict.stats.onlinePlayers}</h1>
-        <p className="mt-1 text-headline-sm text-on-surface-medium">
+        <p className="mt-1 text-headline-sm text-(--hig-color-label-secondary)">
           {locale === 'zh' ? '服务器实时状态' : 'Live server status'}
         </p>
       </FadeIn>
 
       {/* 关键数值：一块容器、四个等分列，列间竖线 */}
       <FadeIn delay={0.05} className="mt-6">
-        <dl data-divider className="grid grid-cols-2 rounded-sm bg-surface-02 sm:grid-cols-4">
+        <dl
+          data-divider
+          className="grid grid-cols-2 rounded-sm bg-(--hig-color-surface-02) sm:grid-cols-4"
+        >
           {metrics.map((m) => (
             <div key={m.label} className="px-4 py-3">
-              <dt className="flex items-center gap-2 text-label text-on-surface-medium">
+              <dt className="flex items-center gap-2 text-label text-(--hig-color-label-secondary)">
                 {m.icon}
                 {m.label}
               </dt>
@@ -100,7 +103,7 @@ export function ServerStats() {
           {dict.stats.onlinePlayers}
         </GroupTitle>
 
-        <div data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+        <div data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
           {loading && (
             <div className="space-y-3 px-4 py-3">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -114,18 +117,20 @@ export function ServerStats() {
           )}
 
           {!loading && error && (
-            <p className="px-4 py-8 text-center text-body-02 text-error">{dict.stats.error}</p>
+            <p className="px-4 py-8 text-center text-body-02 text-(--hig-color-error)">
+              {dict.stats.error}
+            </p>
           )}
 
           {!loading && !error && players.length === 0 && (
-            <p className="px-4 py-8 text-center text-body-02 text-on-surface-medium">
+            <p className="px-4 py-8 text-center text-body-02 text-(--hig-color-label-secondary)">
               {dict.stats.noPlayers}
             </p>
           )}
 
           {!loading && players.length > 0 && (
             <>
-              <p className="px-4 py-2 text-label text-on-surface-medium">
+              <p className="px-4 py-2 text-label text-(--hig-color-label-secondary)">
                 {dict.stats.baseViewHint}
               </p>
               <ul className="max-h-(--hig-size-log-height) overflow-y-auto">
@@ -134,15 +139,15 @@ export function ServerStats() {
                     <button
                       type="button"
                       onClick={() => setTarget({ id: player.id, name: player.name })}
-                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-02 hover:bg-surface-hover-01 active:bg-surface-pressed-01"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors duration-fast-02 hover:bg-(--hig-color-fill-secondary) active:bg-(--hig-color-fill-pressed)"
                     >
-                      <span className="w-5 shrink-0 text-label text-on-surface-medium tabular-nums">
+                      <span className="w-5 shrink-0 text-label text-(--hig-color-label-secondary) tabular-nums">
                         {index + 1}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-body-02">
                         <PlayerName name={player.name} />
                       </span>
-                      <span className="shrink-0 text-label text-on-surface-medium tabular-nums">
+                      <span className="shrink-0 text-label text-(--hig-color-label-secondary) tabular-nums">
                         {player.id}
                       </span>
                     </button>

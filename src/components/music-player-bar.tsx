@@ -136,7 +136,7 @@ export function MusicPlayerBar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: overlayMs, ease: EASE_EXIT } }}
             transition={{ duration: overlayMs, ease: EASE_ENTRANCE }}
-            className="fixed inset-0 z-(--hig-layer-modal-full) flex flex-col bg-surface"
+            className="fixed inset-0 z-(--hig-layer-modal-full) flex flex-col bg-(--hig-color-surface)"
           >
             <div className="flex items-center justify-end p-4">
               <Button variant="ghost" size="icon" onClick={player.toggleLyrics}>
@@ -146,13 +146,13 @@ export function MusicPlayerBar() {
 
             <div className="flex flex-1 flex-col items-center gap-4 overflow-hidden px-4">
               {/* Cover */}
-              <div className="size-40 flex-shrink-0 overflow-hidden bg-surface-variant-01 md:size-56">
+              <div className="size-40 flex-shrink-0 overflow-hidden bg-(--hig-color-fill-subtle) md:size-56">
                 {currentTrack.pic ? (
                   /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                   <img src={currentTrack.pic} alt="" className="size-full object-cover" />
                 ) : (
                   <div className="flex size-full items-center justify-center">
-                    <Music className="size-12 text-on-surface-medium" />
+                    <Music className="size-12 text-(--hig-color-label-secondary)" />
                   </div>
                 )}
               </div>
@@ -160,17 +160,21 @@ export function MusicPlayerBar() {
               {/* Track info */}
               <div className="text-center">
                 <h2 className="text-title-lg font-normal">{currentTrack.name}</h2>
-                <p className="text-body-02 text-on-surface-medium">{currentTrack.artist}</p>
+                <p className="text-body-02 text-(--hig-color-label-secondary)">
+                  {currentTrack.artist}
+                </p>
               </div>
 
               {/* Lyrics scroll area */}
               <div className="flex-1 w-full max-w-lg overflow-y-auto mask-y-from-80% mask-y-to-80%">
                 {lyricsLoading ? (
                   <div className="flex justify-center py-8">
-                    <Loader2 className="size-5 animate-spin text-on-surface-medium" />
+                    <Loader2 className="size-5 animate-spin text-(--hig-color-label-secondary)" />
                   </div>
                 ) : lyrics.length === 0 ? (
-                  <p className="py-8 text-center text-on-surface-medium">{dict.music.noLyrics}</p>
+                  <p className="py-8 text-center text-(--hig-color-label-secondary)">
+                    {dict.music.noLyrics}
+                  </p>
                 ) : (
                   <div className="space-y-5 py-16 text-center">
                     {lyrics.map((line, i) => (
@@ -181,8 +185,8 @@ export function MusicPlayerBar() {
                         className={cn(
                           'w-full cursor-pointer transition-[background,box-shadow] duration-fast-02',
                           i === currentLyricIdx
-                            ? 'text-body-02 font-medium text-on-surface'
-                            : 'text-body-02 text-on-surface-medium/40 hover:text-on-surface-medium/70'
+                            ? 'text-body-02 font-medium text-(--hig-color-label)'
+                            : 'text-body-02 text-(--hig-color-label-secondary)/40 hover:text-(--hig-color-label-secondary)/70'
                         )}
                         onClick={() => player.seek(line.time)}
                       >
@@ -204,7 +208,7 @@ export function MusicPlayerBar() {
                 className="mb-4"
               />
               <div className="flex items-center justify-center gap-4">
-                <span className="w-12 text-right text-label tabular-nums text-on-surface-medium">
+                <span className="w-12 text-right text-label tabular-nums text-(--hig-color-label-secondary)">
                   {formatTime(time)}
                 </span>
                 <Button variant="ghost" size="icon" className="size-10" onClick={player.prevTrack}>
@@ -226,7 +230,7 @@ export function MusicPlayerBar() {
                 <Button variant="ghost" size="icon" className="size-10" onClick={player.nextTrack}>
                   <SkipForward className="size-5" />
                 </Button>
-                <span className="w-12 text-label tabular-nums text-on-surface-medium">
+                <span className="w-12 text-label tabular-nums text-(--hig-color-label-secondary)">
                   {formatTime(duration)}
                 </span>
               </div>
@@ -241,7 +245,7 @@ export function MusicPlayerBar() {
         animate={{ y: 0 }}
         transition={{ duration: overlayMs, ease: EASE_ENTRANCE }}
         data-dock
-        className="pointer-events-auto fixed inset-x-0 bottom-0 z-(--hig-layer-dock-player) border-t bg-surface"
+        className="pointer-events-auto fixed inset-x-0 bottom-0 z-(--hig-layer-dock-player) border-t bg-(--hig-color-surface)"
       >
         <SeekBar
           value={time}
@@ -258,19 +262,21 @@ export function MusicPlayerBar() {
             className="flex min-w-0 flex-1 items-center gap-3 text-left"
             onClick={player.toggleLyrics}
           >
-            <div className="relative size-12 flex-shrink-0 overflow-hidden bg-surface-variant-01">
+            <div className="relative size-12 flex-shrink-0 overflow-hidden bg-(--hig-color-fill-subtle)">
               {currentTrack.pic ? (
                 /* biome-ignore lint/performance/noImgElement: 远程封面来自任意主机，next/image 在静态导出下不适用 */
                 <img src={currentTrack.pic} alt="" className="size-full object-cover" />
               ) : (
                 <div className="flex size-full items-center justify-center">
-                  <Music className="size-5 text-on-surface-medium" />
+                  <Music className="size-5 text-(--hig-color-label-secondary)" />
                 </div>
               )}
             </div>
             <div className="min-w-0">
               <p className="truncate text-body-02 font-medium">{currentTrack.name}</p>
-              <p className="truncate text-label text-on-surface-medium">{currentTrack.artist}</p>
+              <p className="truncate text-label text-(--hig-color-label-secondary)">
+                {currentTrack.artist}
+              </p>
             </div>
           </button>
 
@@ -312,7 +318,7 @@ export function MusicPlayerBar() {
           </div>
 
           {/* Time */}
-          <span className="hidden text-label tabular-nums text-on-surface-medium md:block">
+          <span className="hidden text-label tabular-nums text-(--hig-color-label-secondary) md:block">
             {formatTime(time)} / {formatTime(duration)}
           </span>
 
@@ -320,7 +326,7 @@ export function MusicPlayerBar() {
           <Button
             variant="ghost"
             size="icon"
-            className={cn('hidden size-8 md:inline-flex', showLyrics && 'text-on-surface')}
+            className={cn('hidden size-8 md:inline-flex', showLyrics && 'text-(--hig-color-label)')}
             onClick={player.toggleLyrics}
             title={dict.music.lyrics}
           >
@@ -333,7 +339,7 @@ export function MusicPlayerBar() {
             size="icon"
             className={cn(
               'hidden size-8 md:inline-flex',
-              mode !== 'sequential' && 'text-on-surface'
+              mode !== 'sequential' && 'text-(--hig-color-label)'
             )}
             onClick={player.cycleMode}
             title={modeLabel}

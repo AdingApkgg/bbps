@@ -62,7 +62,7 @@ export function ThemeToggle() {
             <DropdownMenuItem
               key={option}
               onClick={() => choose(option)}
-              className={cn(current === option && 'font-medium text-link')}
+              className={cn(current === option && 'font-medium text-(--hig-color-link)')}
             >
               <OptionIcon className="mr-2 h-4 w-4" />
               {dict.nav[LABELS[option]]}

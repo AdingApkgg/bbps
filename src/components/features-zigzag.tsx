@@ -55,11 +55,11 @@ function FeatureRow({
       >
         <div className={reverse ? 'md:pr-4 lg:pr-12 xl:pr-16' : 'md:pl-4 lg:pl-12 xl:pl-16'}>
           <h3 className="mb-2 text-title-lg">{item.heading}</h3>
-          <p className="mb-3 text-body-02 text-on-surface-medium">{item.description}</p>
-          <ul className="space-y-2 text-on-surface-medium">
+          <p className="mb-3 text-body-02 text-(--hig-color-label-secondary)">{item.description}</p>
+          <ul className="space-y-2 text-(--hig-color-label-secondary)">
             {item.bullets.map((bullet, i) => (
               <li key={i} className="flex items-center gap-2">
-                <Check className="h-4 w-4 shrink-0 text-success" />
+                <Check className="h-4 w-4 shrink-0 text-(--hig-color-success)" />
                 <span>{bullet}</span>
               </li>
             ))}
@@ -81,7 +81,9 @@ export function FeaturesZigzag() {
         {/* 标题 */}
         <FadeIn className="pb-10 md:pb-16">
           <h2 className="text-title-lg">{dict.features.title}</h2>
-          <p className="mt-1 text-body-02 text-on-surface-medium">{dict.features.subtitle}</p>
+          <p className="mt-1 text-body-02 text-(--hig-color-label-secondary)">
+            {dict.features.subtitle}
+          </p>
         </FadeIn>
 
         {/* 交错排列的 feature 行 */}

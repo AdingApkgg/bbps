@@ -25,11 +25,11 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
         'data-[state=checked]:bg-(--hig-cmp-switch-track-bg-on,var(--hig-color-success))',
         'before:absolute before:-inset-x-(--hig-size-switch-halo-x) before:-inset-y-(--hig-size-switch-halo-y) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
-        'hover:enabled:before:bg-on-surface/4',
-        'data-[state=checked]:hover:enabled:before:bg-primary/4',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-        'focus-visible:before:bg-primary/12',
-        'active:enabled:before:bg-primary/12',
+        'hover:enabled:before:bg-(--hig-color-label)/4',
+        'data-[state=checked]:hover:enabled:before:bg-(--hig-color-primary)/4',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
+        'focus-visible:before:bg-(--hig-color-primary)/12',
+        'active:enabled:before:bg-(--hig-color-primary)/12',
         'disabled:cursor-not-allowed disabled:opacity-45',
         className
       )}
@@ -41,9 +41,9 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
           'transition-[translate,background-color] duration-moderate-01 ease-standard',
           'data-[state=unchecked]:translate-x-(--hig-cmp-switch-offset-off,2px)',
           'data-[state=checked]:translate-x-(--hig-cmp-switch-offset-on,22px)',
-          'data-[state=checked]:bg-(--hig-cmp-switch-thumb-bg-on,var(--hig-color-on-button-contained))',
+          'data-[state=checked]:bg-(--hig-cmp-switch-thumb-bg-on,var(--hig-color-on-button-filled))',
           'peer-disabled:shadow-none',
-          'peer-disabled:data-[state=unchecked]:bg-on-surface-disabled'
+          'peer-disabled:data-[state=unchecked]:bg-(--hig-color-label-disabled)'
         )}
       />
     </SwitchPrimitive.Root>

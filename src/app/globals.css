@@ -11,17 +11,17 @@
  * 与 Tailwind 的接线
  *
  * 设计基准是 Apple Human Interface Guidelines（iOS 系统外观）。只有一套名字，
- * 全是语义分层（surface 分层 / on-surface 前景 / outline / chip / state-*），
- * 前缀 --hig-*。没有 shadcn 那套 card / muted-foreground 别名。
+ * 全是 HIG 语义：label 前景 / separator 分隔 / fill 状态层 / surface 画布分层。
  *
- * 前缀约定：--hig-color-* 颜色、--hig-shape-* 圆角、--hig-motion-* 时长与曲线、
- * --hig-elevation-* 影、--hig-size-* 尺寸、--hig-type-* 字阶；靠 Tailwind
- * 命名空间接入的是 --color-* / --radius-* / --text-* / --transition-duration-* / --ease-*。
+ * 类名直写任意值 `bg-(--hig-color-surface-01)`，没有 `--color-*` 转发层；
+ * Tailwind 的配色命名空间因此空着，颜色一律显式取令牌。
+ *
+ * 前缀约定：--hig-color-* 颜色、--hig-shape-* 圆角、--hig-layer-* 影、
+ * --hig-motion-* 时长与曲线、--hig-size-* 尺寸、--hig-type-* 字阶；
+ * 靠 Tailwind 命名空间接入的只剩 --radius-* / --text-* /
+ * --transition-duration-* / --ease-*。
  *
  * 取值全部是 HIG：56 的场高、4/8/12 的圆角、只给浮层的影、不用全大写按钮。
- *
- * 唯一还带 shadcn 味道的是 field-*：它同时是输入框的填充层名字，也是 input 组件的
- * 底座；改名会牵动所有表单控件，先留着。
  * ========================================================================= */
 @theme inline {
   /* ── 字体：HIG 的 SF Pro 栈，中文落苹方，系统无字形时才继续降级 ── */
@@ -49,11 +49,9 @@
 
   /* ── 圆角：HIG 形状刻度（控件 10、卡片/容器 16、浮层 14、胶囊 max） ── */
   --radius: var(--hig-shape-control);
-  --radius-xs: var(--hig-shape-04);
   --radius-sm: var(--hig-shape-control);
   --radius-md: var(--hig-shape-control);
   --radius-lg: var(--hig-shape-container);
-  --radius-xl: var(--hig-shape-container);
   --radius-2xl: var(--hig-shape-container);
   --radius-3xl: var(--hig-shape-container);
   --radius-full: var(--hig-shape-max);
@@ -69,121 +67,18 @@
 
   /* ── 阴影：HIG 不用影分层。卡片零影，影只给浮层（sheet / popover / dialog） ──
    * 所以 shadow-xs/sm 极淡到近乎不可见。 */
-  --shadow-2xs: var(--hig-elevation-01);
-  --shadow-xs: var(--hig-elevation-01);
-  --shadow-sm: var(--hig-elevation-02);
-  --shadow: var(--hig-elevation-04);
-  --shadow-md: var(--hig-elevation-04);
+  --shadow-2xs: var(--hig-layer-01);
+  --shadow-xs: var(--hig-layer-01);
+  --shadow-sm: var(--hig-layer-02);
+  --shadow: var(--hig-layer-04);
+  --shadow-md: var(--hig-layer-04);
   /* 交互元素浮起（分段控件滑块、被按住的卡）用最小实体影 */
   --shadow-raised: var(--hig-shadow-raised-small);
-  --shadow-snackbar: var(--hig-elevation-06);
+  --shadow-snackbar: var(--hig-layer-06);
   /* 浮层：popover 8 级、抽屉 16 级、对话框 24 级 */
-  --shadow-lg: var(--hig-elevation-16);
-  --shadow-xl: var(--hig-elevation-24);
-  --shadow-2xl: var(--hig-elevation-24);
-
-  /* ── 语义名 ── */
-  /* 页面底（surface）：与 background-* 状态色区分开 */
-  --color-surface: var(--hig-color-surface);
-  --color-surface-01: var(--hig-color-surface-01);
-  --color-surface-02: var(--hig-color-surface-02);
-  --color-surface-hover-01: var(--hig-color-surface-hover-01);
-  --color-surface-hover-02: var(--hig-color-surface-hover-02);
-  --color-surface-selected-01: var(--hig-color-surface-selected-01);
-  --color-surface-selected-02: var(--hig-color-surface-selected-02);
-  --color-surface-variant-01: var(--hig-color-surface-variant-01);
-  --color-field-01: var(--hig-color-field-01);
-  --color-field-hover-01: var(--hig-color-field-hover-01);
-  --color-outline-field: var(--hig-color-outline-field);
-  --color-outline: var(--hig-color-outline);
-  --color-outline-00: var(--hig-color-outline-00);
-  --color-outline-01: var(--hig-color-outline-01);
-  --color-outline-variant-01: var(--hig-color-outline-variant-01);
-  --color-outline-emphasis: var(--hig-color-outline-emphasis-01);
-  --color-outline-emphasis-01: var(--hig-color-outline-emphasis-01);
-  --color-outline-disabled: var(--hig-color-outline-disabled);
-  --color-on-surface: var(--hig-color-on-surface);
-  --color-on-surface-medium: var(--hig-color-on-surface-medium);
-  --color-on-surface-helper: var(--hig-color-on-surface-helper);
-  --color-on-surface-placeholder: var(--hig-color-on-surface-placeholder);
-  --color-on-surface-disabled: var(--hig-color-on-surface-disabled);
-  --color-on-inverse-surface: var(--hig-color-on-inverse-surface);
-  --color-on-inverse-primary: var(--hig-color-on-inverse-primary);
-  --color-on-primary: var(--hig-color-on-primary);
-  --color-on-warning: var(--hig-color-on-warning);
-  --color-link: var(--hig-color-link);
-  --color-link-hover: var(--hig-color-link-hover);
-  --color-surface-disabled-01: var(--hig-color-surface-disabled-01);
-  --color-state-pressed: var(--hig-color-state-pressed);
-  --color-button-contained-disabled: var(--hig-color-button-contained-disabled);
-
-  /* Tag 成对色 */
-  --color-chip-background-blue: var(--hig-color-chip-background-blue);
-  --color-chip-color-blue: var(--hig-color-chip-color-blue);
-  --color-chip-background-cyan: var(--hig-color-chip-background-cyan);
-  --color-chip-color-cyan: var(--hig-color-chip-color-cyan);
-  --color-chip-background-gray: var(--hig-color-chip-background-gray);
-  --color-chip-color-gray: var(--hig-color-chip-color-gray);
-  --color-chip-background-green: var(--hig-color-chip-background-green);
-  --color-chip-color-green: var(--hig-color-chip-color-green);
-  --color-chip-background-magenta: var(--hig-color-chip-background-magenta);
-  --color-chip-color-magenta: var(--hig-color-chip-color-magenta);
-  --color-chip-background-purple: var(--hig-color-chip-background-purple);
-  --color-chip-color-purple: var(--hig-color-chip-color-purple);
-  --color-chip-background-red: var(--hig-color-chip-background-red);
-  --color-chip-color-red: var(--hig-color-chip-color-red);
-  --color-chip-background-teal: var(--hig-color-chip-background-teal);
-  --color-chip-color-teal: var(--hig-color-chip-color-teal);
-  --color-chip-background-warm-gray: var(--hig-color-chip-background-warm-gray);
-  --color-chip-color-warm-gray: var(--hig-color-chip-color-warm-gray);
-
-  --color-error: var(--hig-color-error);
-  --color-success: var(--hig-color-success);
-  --color-warning: var(--hig-color-warning);
-  --color-info: var(--hig-color-info);
-  --color-focus: var(--hig-color-focus);
-  --color-highlight: var(--hig-color-highlight);
-  --color-scrim: var(--hig-color-scrim);
-  --color-primary: var(--hig-color-primary);
-  --color-inverse-surface: var(--hig-color-inverse-surface);
-  --color-state-hover: var(--hig-color-state-hover);
-  --color-state-selected: var(--hig-color-state-selected);
-  --color-skeleton-background: var(--hig-color-skeleton-background);
-  --color-skeleton-element: var(--hig-color-skeleton-element);
-  --color-button-contained: var(--hig-color-button-contained);
-  --color-button-contained-hover: var(--hig-color-button-contained-hover);
-  --color-button-contained-active: var(--hig-color-button-contained-active);
-  --color-button-outlined: var(--hig-color-button-outlined);
-  --color-button-outlined-hover: var(--hig-color-button-outlined-hover);
-  --color-button-outlined-active: var(--hig-color-button-outlined-active);
-  --color-button-contained-error: var(--hig-color-button-contained-error);
-  --color-button-error-hover: var(--hig-color-button-error-hover);
-  --color-button-error-active: var(--hig-color-button-error-active);
-  --color-on-button-contained: var(--hig-color-on-button-contained);
-  --color-on-button-outlined: var(--hig-color-on-button-outlined);
-
-  /* ── shadcn/ui 词汇别名 ──────────────────────────────────────────────
-   * `npx shadcn add` 产出的组件写的是 background / card / input / ring /
-   * muted-foreground / destructive 这套词。这里把它们逐一映射到 HIG 令牌，
-   * 语义真源仍是 tokens.css —— 别在这一段写新的 hex，也别让组件改吃这边。
-   * 用途仅限「从 CLI 拉进来、还来不及改造」的组件。 */
-  --color-background: var(--hig-color-surface);
-  --color-foreground: var(--hig-color-on-surface);
-  --color-card: var(--hig-color-surface-02);
-  --color-card-foreground: var(--hig-color-on-surface);
-  --color-popover: var(--hig-color-surface-02);
-  --color-popover-foreground: var(--hig-color-on-surface);
-  --color-primary-foreground: var(--hig-color-on-primary);
-  --color-secondary: var(--hig-color-button-outlined);
-  --color-secondary-foreground: var(--hig-color-on-surface);
-  --color-muted: var(--hig-color-surface-variant-01);
-  --color-muted-foreground: var(--hig-color-on-surface-medium);
-  --color-accent: var(--hig-color-surface-hover-01);
-  --color-accent-foreground: var(--hig-color-on-surface);
-  --color-destructive: var(--hig-color-error);
-  --color-border: var(--hig-color-outline-01);
-  --color-input: var(--hig-color-outline-field);
-  --color-ring: var(--hig-color-focus);
+  --shadow-lg: var(--hig-layer-16);
+  --shadow-xl: var(--hig-layer-24);
+  --shadow-2xl: var(--hig-layer-24);
 
   /* ── 字阶：iOS 动态字体表（大标题 34/41 700、正文 17/22、脚注 13/18） ──
    * 档位取自 HIG 的 Dynamic Type：
@@ -283,7 +178,7 @@
   *,
   ::before,
   ::after {
-    border-color: var(--hig-color-outline-01);
+    border-color: var(--hig-color-separator-01);
   }
 
   html {
@@ -294,7 +189,7 @@
 
   body {
     background-color: var(--hig-color-surface);
-    color: var(--hig-color-on-surface);
+    color: var(--hig-color-label);
     /* HIG body：17/22（1.2941），负字距收紧，不加正字距 */
     font-family: var(--font-sans);
     font-size: var(--text-body-01);
@@ -361,11 +256,11 @@
 
   ::selection {
     background-color: var(--hig-color-highlight);
-    color: var(--hig-color-on-surface);
+    color: var(--hig-color-label);
   }
 
   ::placeholder {
-    color: var(--hig-color-on-surface-placeholder);
+    color: var(--hig-color-label-quaternary);
     opacity: 1;
   }
 
@@ -380,13 +275,13 @@
   }
 
   hr {
-    border-color: var(--hig-color-outline-01);
+    border-color: var(--hig-color-separator-01);
   }
 
   /* 禁用态统一到 text-disabled，而不是整体半透明 */
   :disabled,
   [aria-disabled="true"] {
-    color: var(--hig-color-on-surface-disabled);
+    color: var(--hig-color-label-disabled);
   }
 }
 
@@ -603,16 +498,16 @@
    否则它后插入的同权重规则会赢，暗色还会拿到它的浅色值 */
 .artalk.artalk,
 .atk-layer-wrap.atk-layer-wrap {
-  --at-color-font: var(--hig-color-on-surface);
-  --at-color-deep: var(--hig-color-on-surface);
+  --at-color-font: var(--hig-color-label);
+  --at-color-deep: var(--hig-color-label);
   --at-color-main: var(--hig-color-link);
-  --at-color-sub: var(--hig-color-on-surface-medium);
-  --at-color-grey: var(--hig-color-on-surface-helper);
-  --at-color-meta: var(--hig-color-on-surface-helper);
+  --at-color-sub: var(--hig-color-label-secondary);
+  --at-color-grey: var(--hig-color-label-tertiary);
+  --at-color-meta: var(--hig-color-label-tertiary);
   --at-color-border: var(--hig-color-separator);
   --at-color-bg: var(--hig-color-surface-01);
-  --at-color-bg-grey: var(--hig-color-field-01);
-  --at-color-bg-grey-transl: var(--hig-color-field-01);
+  --at-color-bg-grey: var(--hig-color-field);
+  --at-color-bg-grey-transl: var(--hig-color-field);
   --at-color-bg-light: var(--hig-color-surface-01);
   --at-color-bg-transl: var(--hig-color-surface-01);
   --at-color-light: var(--hig-color-link);
@@ -629,7 +524,7 @@
 .atk-main-editor.atk-main-editor {
   border: 0;
   border-radius: var(--hig-shape-container);
-  background: var(--hig-color-field-01);
+  background: var(--hig-color-field);
   transition: box-shadow var(--hig-motion-duration-fast-02) var(--hig-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor:focus-within {
@@ -652,7 +547,7 @@
   outline-color: var(--hig-color-highlight);
 }
 .atk-main-editor.atk-main-editor > .atk-header input::placeholder {
-  color: var(--hig-color-on-surface-placeholder);
+  color: var(--hig-color-label-quaternary);
 }
 
 /* 正文输入：同一种面，高度由 min-block-size 兜住 */
@@ -677,9 +572,9 @@
   border-radius: var(--hig-shape-control);
   block-size: var(--hig-size-control);
   padding-inline: 1rem;
-  background: var(--hig-color-button-contained);
+  background: var(--hig-color-button-filled);
   box-shadow: none;
-  color: var(--hig-color-on-button-contained);
+  color: var(--hig-color-on-button-filled);
   font-size: var(--text-button);
   font-weight: 600;
   letter-spacing: -0.011em;
@@ -687,12 +582,12 @@
   transition: background-color var(--hig-motion-duration-fast-02) var(--hig-motion-ease-standard);
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:hover {
-  background: var(--hig-color-button-contained-hover);
+  background: var(--hig-color-button-filled-hover);
   box-shadow: none;
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-send-btn:active {
   opacity: 1;
-  background: var(--hig-color-button-contained-active);
+  background: var(--hig-color-button-filled-active);
   box-shadow: none;
 }
 
@@ -701,7 +596,7 @@
   border-radius: var(--hig-shape-max);
 }
 .atk-main-editor.atk-main-editor > .atk-bottom .atk-plug-btn:hover {
-  background: var(--hig-color-surface-hover-01);
+  background: var(--hig-color-fill-secondary);
 }
 .atk-pagination.atk-pagination > .atk-btn,
 .atk-pagination.atk-pagination > .atk-input {
@@ -740,9 +635,9 @@
 
 /* 引用块：iOS 的引用是左侧 3px 灰竖线 + 浅灰底，圆角只给右侧 */
 .atk-comment.atk-comment > .atk-main > .atk-body > .atk-reply-to {
-  border-left: 3px solid var(--hig-color-outline-01);
+  border-left: 3px solid var(--hig-color-separator-01);
   border-radius: 0 var(--hig-shape-control) var(--hig-shape-control) 0;
-  background: var(--hig-color-field-01);
+  background: var(--hig-color-field);
   padding: 0.5rem 0.75rem;
 }
 
@@ -750,7 +645,7 @@
 .atk-layer-wrap .atk-popup,
 .atk-layer-wrap .atk-layer-body {
   border-radius: var(--hig-shape-overlay);
-  box-shadow: var(--hig-elevation-24);
+  box-shadow: var(--hig-layer-24);
 }
 
 /* ============================================================================
@@ -809,7 +704,7 @@
 /* 滚动条：iOS 的细拇指（8px、半透明灰），不占内容宽度 */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--hig-color-outline-00) transparent;
+  scrollbar-color: var(--hig-color-separator-strong) transparent;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -819,11 +714,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--hig-color-on-surface-placeholder);
+  background: var(--hig-color-label-quaternary);
   border-radius: var(--hig-shape-max);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--hig-color-outline-emphasis-01);
+  background: var(--hig-color-separator-emphasis);
 }
 
 /* ── 浏览器能力降级 ─────────────────────────────────────────────────────

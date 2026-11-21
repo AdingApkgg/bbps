@@ -42,7 +42,7 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 const sheetVariants = cva(
   [
     // 抽屉：表层材质（hig.css 钩 popover/dialog 给材质与影）、面板自身滑入
-    'fixed z-(--hig-layer-modal) flex flex-col gap-4 bg-(--hig-cmp-sheet-bg,var(--hig-color-surface-01)) p-(--hig-cmp-sheet-p,1rem) shadow-scrim',
+    'fixed z-(--hig-layer-modal) flex flex-col gap-4 bg-(--hig-cmp-sheet-bg,var(--hig-color-surface-01)) p-(--hig-cmp-sheet-p,1rem) shadow-(--hig-color-scrim)',
     'data-[state=open]:animate-in data-[state=closed]:animate-out',
     'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
     'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
@@ -85,9 +85,9 @@ const SheetContent = React.forwardRef<
     >
       <SheetPrimitive.Close
         className={cn(
-          'absolute top-0 end-(--hig-cmp-sheet-close-inset,0) flex size-(--hig-cmp-sheet-close-size,3rem) items-center justify-center text-(--hig-cmp-sheet-close-fg,var(--hig-color-on-surface))',
-          'transition-colors duration-fast-01 ease-standard hover:bg-surface-hover-01',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+          'absolute top-0 end-(--hig-cmp-sheet-close-inset,0) flex size-(--hig-cmp-sheet-close-size,3rem) items-center justify-center text-(--hig-cmp-sheet-close-fg,var(--hig-color-label))',
+          'transition-colors duration-fast-01 ease-standard hover:bg-(--hig-color-fill-secondary)',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
           'disabled:pointer-events-none'
         )}
       >
@@ -119,7 +119,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('text-title-lg font-normal text-on-surface', className)}
+    className={cn('text-title-lg font-normal text-(--hig-color-label)', className)}
     {...props}
   />
 ))
@@ -132,7 +132,7 @@ const SheetDescription = React.forwardRef<
   <SheetPrimitive.Description
     ref={ref}
     className={cn(
-      'text-body-02 text-(--hig-cmp-sheet-desc-fg,var(--hig-color-on-surface-medium))',
+      'text-body-02 text-(--hig-cmp-sheet-desc-fg,var(--hig-color-label-secondary))',
       className
     )}
     {...props}

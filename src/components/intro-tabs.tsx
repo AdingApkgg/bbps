@@ -30,12 +30,14 @@ export function IntroTabs() {
   const ctaHrefs = [`${prefix}/downloads`, `${prefix}/commands`, `${prefix}/downloads`]
 
   return (
-    <section className="border-b bg-surface-01">
+    <section className="border-b bg-(--hig-color-surface-01)">
       <div className="container-page py-12 md:py-20">
         {/* 标题 */}
         <FadeIn>
           <h2 className="text-title-lg">{dict.intro.title}</h2>
-          <p className="mt-1 text-body-02 text-on-surface-medium">{dict.intro.subtitle}</p>
+          <p className="mt-1 text-body-02 text-(--hig-color-label-secondary)">
+            {dict.intro.subtitle}
+          </p>
         </FadeIn>
 
         {/* Tab 按钮 */}
@@ -50,8 +52,8 @@ export function IntroTabs() {
                 onClick={() => setActive(i)}
                 className={`flex h-(--hig-size-control-lg) items-center gap-2 rounded-pill border px-4 text-button uppercase transition-colors duration-fast-02 ${
                   isActive
-                    ? 'border-transparent bg-state-selected text-link-hover'
-                    : 'border-outline-emphasis bg-transparent text-on-surface-medium hover:bg-state-hover hover:text-on-surface'
+                    ? 'border-transparent bg-(--hig-color-fill-selected) text-(--hig-color-link-hover)'
+                    : 'border-(--hig-color-separator-emphasis) bg-transparent text-(--hig-color-label-secondary) hover:bg-(--hig-color-fill-hover) hover:text-(--hig-color-label)'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -74,9 +76,9 @@ export function IntroTabs() {
                 ease: EASE_ENTRANCE
               }}
             >
-              <div className="rounded-sm bg-surface-01 p-5">
+              <div className="rounded-sm bg-(--hig-color-surface-01) p-5">
                 <h3 className="text-body-01 font-semibold">{tabs[active].heading}</h3>
-                <div className="mt-2 space-y-2 text-body-02 text-on-surface-medium">
+                <div className="mt-2 space-y-2 text-body-02 text-(--hig-color-label-secondary)">
                   {(tabs[active].content as string).split('\n').map((line: string, j: number) => (
                     <p key={j}>{line}</p>
                   ))}

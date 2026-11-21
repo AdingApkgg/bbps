@@ -71,7 +71,7 @@ export function SiteHtml({ lang, children }: { lang: string; children: React.Rea
         <a
           href="#main"
           data-skip-link
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--hig-layer-skip) focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-button focus:text-on-primary"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--hig-layer-skip) focus:rounded-sm focus:bg-(--hig-color-primary) focus:px-3 focus:py-2 focus:text-button focus:text-(--hig-color-on-primary)"
         >
           {lang === 'en' ? 'Skip to main content' : '跳至主内容'}
         </a>

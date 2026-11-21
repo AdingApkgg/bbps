@@ -23,26 +23,26 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
       data-slot="checkbox"
       className={cn(
         'group peer relative inline-flex size-(--hig-cmp-checkbox-size,1.1875rem) shrink-0 items-center justify-center rounded-(--hig-cmp-checkbox-radius,var(--hig-shape-08))',
-        'border-(length:--hig-cmp-checkbox-border-width,var(--hig-size-border-thin)) border-(--hig-cmp-checkbox-border,var(--hig-color-outline-01)) bg-(--hig-cmp-checkbox-bg,var(--hig-color-surface-01))',
+        'border-(length:--hig-cmp-checkbox-border-width,var(--hig-size-border-thin)) border-(--hig-cmp-checkbox-border,var(--hig-color-separator-01)) bg-(--hig-cmp-checkbox-bg,var(--hig-color-surface-01))',
         'transition-colors duration-fast-01 ease-standard',
         'before:absolute before:-inset-(--hig-size-hit-halo) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
-        'hover:enabled:before:bg-on-surface/4',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-        'focus-visible:before:bg-primary/12',
-        'active:enabled:before:bg-primary/12',
+        'hover:enabled:before:bg-(--hig-color-label)/4',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
+        'focus-visible:before:bg-(--hig-color-primary)/12',
+        'active:enabled:before:bg-(--hig-color-primary)/12',
         'data-[state=checked]:border-(--hig-cmp-checkbox-checked-bg,var(--hig-color-success)) data-[state=checked]:bg-(--hig-cmp-checkbox-checked-bg,var(--hig-color-success))',
         'data-[state=indeterminate]:border-(--hig-cmp-checkbox-checked-bg,var(--hig-color-success)) data-[state=indeterminate]:bg-(--hig-cmp-checkbox-checked-bg,var(--hig-color-success))',
-        'disabled:cursor-not-allowed disabled:opacity-45 disabled:border-on-surface-disabled',
-        'disabled:data-[state=checked]:border-transparent disabled:data-[state=checked]:bg-on-surface-disabled/38',
-        'disabled:data-[state=indeterminate]:border-transparent disabled:data-[state=indeterminate]:bg-on-surface-disabled/38',
+        'disabled:cursor-not-allowed disabled:opacity-45 disabled:border-(--hig-color-label-disabled)',
+        'disabled:data-[state=checked]:border-transparent disabled:data-[state=checked]:bg-(--hig-color-label-disabled)/38',
+        'disabled:data-[state=indeterminate]:border-transparent disabled:data-[state=indeterminate]:bg-(--hig-color-label-disabled)/38',
         className
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="flex items-center justify-center text-(--hig-cmp-checkbox-mark,var(--hig-color-on-button-contained))"
+        className="flex items-center justify-center text-(--hig-cmp-checkbox-mark,var(--hig-color-on-button-filled))"
       >
         <Check
           aria-hidden

@@ -56,10 +56,10 @@ function Slider({
             'transition-[box-shadow,transform] duration-fast-01 ease-standard',
             'before:absolute before:-inset-2 before:rounded-full before:content-[""]',
             'before:transition-colors before:duration-fast-01 before:ease-standard',
-            'hover:before:bg-primary/4',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-            'focus-visible:before:bg-primary/12',
-            'active:before:bg-primary/12',
+            'hover:before:bg-(--hig-color-primary)/4',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--hig-color-focus)',
+            'focus-visible:before:bg-(--hig-color-primary)/12',
+            'active:before:bg-(--hig-color-primary)/12',
             'data-[disabled]:shadow-none'
           )}
         />

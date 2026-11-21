@@ -50,7 +50,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
     <h2
       ref={ref}
       className={cn(
-        'text-label font-semibold text-(--hig-cmp-card-title-fg,var(--hig-color-on-surface-medium))',
+        'text-label font-semibold text-(--hig-cmp-card-title-fg,var(--hig-color-label-secondary))',
         className
       )}
       data-slot="card-title"
@@ -67,7 +67,7 @@ const CardDescription = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'text-label text-(--hig-cmp-card-desc-fg,var(--hig-color-on-surface-medium))',
+      'text-label text-(--hig-cmp-card-desc-fg,var(--hig-color-label-secondary))',
       className
     )}
     data-slot="card-description"
@@ -112,7 +112,7 @@ const CardRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
       ref={ref}
       className={cn(
         'flex items-center gap-3 px-(--hig-cmp-card-px,1rem) py-(--hig-cmp-card-row-py,0.75rem) transition-colors duration-fast-02',
-        'hover:bg-(--hig-cmp-card-row-bg-hover,var(--hig-color-surface-hover-01)) active:bg-(--hig-cmp-card-row-bg-active,var(--hig-color-surface-pressed-01))',
+        'hover:bg-(--hig-cmp-card-row-bg-hover,var(--hig-color-fill-secondary)) active:bg-(--hig-cmp-card-row-bg-active,var(--hig-color-fill-pressed))',
         className
       )}
       data-list-item

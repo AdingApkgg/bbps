@@ -24,7 +24,7 @@ export function Navbar() {
   const donate = getDonateItem(locale === 'en' ? '/en' : '', dict)
 
   return (
-    <header className="sticky top-0 z-(--hig-layer-header) h-14 w-full bg-surface-01 shadow-sm">
+    <header className="sticky top-0 z-(--hig-layer-header) h-14 w-full bg-(--hig-color-surface-01) shadow-sm">
       {/* 导航在左侧栏（[data-rail]），顶栏只留 logo、语言开关和窄屏菜单 */}
       <div className="container-page flex h-full items-center">
         {/* Logo */}
@@ -49,8 +49,8 @@ export function Navbar() {
             aria-label={donate.label}
             className={cn(
               'inline-flex size-(--hig-size-control-xl) items-center justify-center rounded-sm',
-              'text-error transition-colors duration-fast-02 ease-standard',
-              'hover:bg-chip-background-red active:bg-chip-background-red'
+              'text-(--hig-color-error) transition-colors duration-fast-02 ease-standard',
+              'hover:bg-(--hig-color-chip-background-red) active:bg-(--hig-color-chip-background-red)'
             )}
           >
             <Heart className="h-[1.35rem] w-[1.35rem] fill-current" />
@@ -70,14 +70,14 @@ export function Navbar() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => setPref('zh')}
-                className={cn(pref === 'zh' && 'font-medium text-link')}
+                className={cn(pref === 'zh' && 'font-medium text-(--hig-color-link)')}
               >
                 <Languages className="mr-2 h-4 w-4" />
                 中文
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setPref('en')}
-                className={cn(pref === 'en' && 'font-medium text-link')}
+                className={cn(pref === 'en' && 'font-medium text-(--hig-color-link)')}
               >
                 <Languages className="mr-2 h-4 w-4" />
                 English

@@ -115,21 +115,21 @@ export function RunFeedback({ feedback }: { feedback: Feedback }) {
   if (!feedback) return null
   // 结果是暂态的一条，不是多行内容：用分组底 + 状态色图标，不描边
   return (
-    <div className="flex gap-2 rounded-sm bg-surface-02 p-3" role="status">
+    <div className="flex gap-2 rounded-sm bg-(--hig-color-surface-02) p-3" role="status">
       {feedback.kind === 'ok' ? (
-        <Check className="h-4 w-4 shrink-0 text-success" />
+        <Check className="h-4 w-4 shrink-0 text-(--hig-color-success)" />
       ) : (
         <AlertCircle
-          className={`h-4 w-4 shrink-0 ${feedback.kind === 'warn' ? 'text-warning' : 'text-error'}`}
+          className={`h-4 w-4 shrink-0 ${feedback.kind === 'warn' ? 'text-(--hig-color-warning)' : 'text-(--hig-color-error)'}`}
         />
       )}
       <p
         className={`text-body-02 ${
           feedback.kind === 'ok'
-            ? 'text-success'
+            ? 'text-(--hig-color-success)'
             : feedback.kind === 'warn'
-              ? 'text-warning'
-              : 'text-error'
+              ? 'text-(--hig-color-warning)'
+              : 'text-(--hig-color-error)'
         }`}
       >
         {feedback.text}
@@ -183,34 +183,34 @@ export function VerifyPanel({
         {/* 流程方向：玩家在游戏里主动给自己要码，网页没有「发送验证码」这种接口 */}
         <ol className="space-y-3 text-body-02">
           <li className="flex gap-3">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-variant-01 text-label font-semibold">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-(--hig-color-fill-subtle) text-label font-semibold">
               1
             </span>
-            <span className="text-on-surface-medium">
+            <span className="text-(--hig-color-label-secondary)">
               {t.step1Prefix}{' '}
-              <code className="bg-surface-variant-01 px-2 py-0.5 font-mono text-on-surface">
+              <code className="bg-(--hig-color-fill-subtle) px-2 py-0.5 font-mono text-(--hig-color-label)">
                 /webcode
               </code>
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-variant-01 text-label font-semibold">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-(--hig-color-fill-subtle) text-label font-semibold">
               2
             </span>
-            <span className="text-on-surface-medium">{t.step2}</span>
+            <span className="text-(--hig-color-label-secondary)">{t.step2}</span>
           </li>
           <li className="flex gap-3">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-variant-01 text-label font-semibold">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-(--hig-color-fill-subtle) text-label font-semibold">
               3
             </span>
-            <span className="text-on-surface-medium">{t.step3}</span>
+            <span className="text-(--hig-color-label-secondary)">{t.step3}</span>
           </li>
         </ol>
 
         {/* 防诈骗提示 —— 与游戏内发码时的提示对齐 */}
         <div className="flex gap-2 rounded-sm bg-[color-mix(in_srgb,var(--hig-color-error)_10%,transparent)] p-3">
-          <ShieldAlert className="h-4 w-4 shrink-0 text-error" />
-          <p className="text-label leading-relaxed text-error">{t.scamWarning}</p>
+          <ShieldAlert className="h-4 w-4 shrink-0 text-(--hig-color-error)" />
+          <p className="text-label leading-relaxed text-(--hig-color-error)">{t.scamWarning}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -245,7 +245,7 @@ export function VerifyPanel({
           </div>
 
           {error && (
-            <p className="flex items-start gap-2 text-body-02 text-error">
+            <p className="flex items-start gap-2 text-body-02 text-(--hig-color-error)">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               {error}
             </p>
@@ -263,7 +263,7 @@ export function VerifyPanel({
           </Button>
         </form>
 
-        <p className="text-label text-on-surface-medium">{t.codeRules}</p>
+        <p className="text-label text-(--hig-color-label-secondary)">{t.codeRules}</p>
       </CardContent>
     </Card>
   )
@@ -334,7 +334,7 @@ export function SessionBar({
         </CardRow>
       </Card>
 
-      <p className="text-label text-on-surface-medium">{t.onlineIsHint}</p>
+      <p className="text-label text-(--hig-color-label-secondary)">{t.onlineIsHint}</p>
     </div>
   )
 }

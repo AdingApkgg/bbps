@@ -75,12 +75,12 @@ function CommandItem({
   return (
     <li
       data-list-item
-      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01"
+      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-(--hig-color-fill-secondary)"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-body-02 font-medium">{label}</p>
-          <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
+          <code className="mt-0.5 block break-all font-mono text-label text-(--hig-color-label-secondary)">
             {isColorSnippet ? <PlayerName name={cmd.command} /> : final}
           </code>
         </div>
@@ -90,7 +90,7 @@ function CommandItem({
             <button
               type="button"
               onClick={() => setNumbers(originalNumbers)}
-              className="text-label text-on-surface-medium hover:text-on-surface"
+              className="text-label text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
             >
               {t.resetValues}
             </button>
@@ -108,7 +108,7 @@ function CommandItem({
       </div>
 
       {runnable && cmd.copyOnly && (
-        <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
+        <p className="mt-1 text-label text-(--hig-color-label-secondary)">{t.copyOnlyHint}</p>
       )}
 
       {/* 家族数值：把写死的数量/等级/坐标开放成输入框，实体位保持不动 */}
@@ -120,7 +120,7 @@ function CommandItem({
               const listId = `${cmd.id}-${a.index}`
               return (
                 <label key={a.index} className="flex items-center gap-2">
-                  <span className="text-label text-on-surface-medium">
+                  <span className="text-label text-(--hig-color-label-secondary)">
                     {locale === 'en' ? a.labelEn : a.labelZh}
                   </span>
                   <Input
@@ -148,7 +148,7 @@ function CommandItem({
         <div className="mt-2 flex flex-wrap gap-2">
           {params.map((p) => (
             <label key={p.value} className="flex items-center gap-2">
-              <span className="text-label text-on-surface-medium">
+              <span className="text-label text-(--hig-color-label-secondary)">
                 {p.value}
                 {p.optional && <span className="ml-0.5 opacity-60">({t.optional})</span>}
               </span>
@@ -221,7 +221,7 @@ function GroupItem({
   return (
     <li
       data-list-item
-      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-surface-hover-01"
+      className="px-4 py-3 transition-colors duration-fast-02 hover:bg-(--hig-color-fill-secondary)"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
@@ -231,7 +231,7 @@ function GroupItem({
             </p>
             <Badge variant="secondary">{t.groupCount.replace('{n}', String(options.length))}</Badge>
           </div>
-          <code className="mt-0.5 block break-all font-mono text-label text-on-surface-medium">
+          <code className="mt-0.5 block break-all font-mono text-label text-(--hig-color-label-secondary)">
             {final}
           </code>
         </div>
@@ -241,7 +241,7 @@ function GroupItem({
             <button
               type="button"
               onClick={() => setNumbers([])}
-              className="text-label text-on-surface-medium hover:text-on-surface"
+              className="text-label text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
             >
               {t.resetValues}
             </button>
@@ -254,7 +254,7 @@ function GroupItem({
       </div>
 
       {group.family.copyOnly && (
-        <p className="mt-1 text-label text-on-surface-medium">{t.copyOnlyHint}</p>
+        <p className="mt-1 text-label text-(--hig-color-label-secondary)">{t.copyOnlyHint}</p>
       )}
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -278,7 +278,7 @@ function GroupItem({
             const listId = `${group.id}-${a.index}`
             return (
               <label key={a.index} className="flex items-center gap-2">
-                <span className="text-label text-on-surface-medium">
+                <span className="text-label text-(--hig-color-label-secondary)">
                   {locale === 'en' ? a.labelEn : a.labelZh}
                 </span>
                 <Input
@@ -335,7 +335,7 @@ export function CommandBrowser({
     <div className="space-y-4">
       {/* 搜索 —— 1042 条指令的主要入口 */}
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--hig-color-label-secondary)" />
         <Input
           value={query}
           onChange={(e) => reset(() => setQuery(e.target.value))}
@@ -348,7 +348,7 @@ export function CommandBrowser({
             type="button"
             onClick={() => reset(() => setQuery(''))}
             aria-label={t.clearSearch}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-medium hover:text-on-surface"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-(--hig-color-label-secondary) hover:text-(--hig-color-label)"
           >
             <X className="h-4 w-4" />
           </button>
@@ -363,8 +363,8 @@ export function CommandBrowser({
           className={cn(
             'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
             category === 'all'
-              ? 'border-transparent bg-state-selected text-link-hover'
-              : 'border-outline-emphasis hover:bg-state-hover'
+              ? 'border-transparent bg-(--hig-color-fill-selected) text-(--hig-color-link-hover)'
+              : 'border-(--hig-color-separator-emphasis) hover:bg-(--hig-color-fill-hover)'
           )}
         >
           {t.filterAll}
@@ -377,8 +377,8 @@ export function CommandBrowser({
             className={cn(
               'h-8 rounded-pill border px-3 text-label transition-colors duration-fast-02',
               category === c.id
-                ? 'border-transparent bg-state-selected text-link-hover'
-                : 'border-outline-emphasis hover:bg-state-hover'
+                ? 'border-transparent bg-(--hig-color-fill-selected) text-(--hig-color-link-hover)'
+                : 'border-(--hig-color-separator-emphasis) hover:bg-(--hig-color-fill-hover)'
             )}
           >
             {locale === 'en' ? c.nameEn : c.nameZh}
@@ -386,10 +386,10 @@ export function CommandBrowser({
         ))}
       </div>
 
-      <p className="text-label text-on-surface-medium">{t.collapsedHint}</p>
+      <p className="text-label text-(--hig-color-label-secondary)">{t.collapsedHint}</p>
 
       <div className="flex items-center justify-between">
-        <p className="text-label text-on-surface-medium">
+        <p className="text-label text-(--hig-color-label-secondary)">
           {t.resultCount
             .replace('{shown}', String(visible.length))
             .replace('{total}', String(filtered.length))}
@@ -402,12 +402,12 @@ export function CommandBrowser({
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-sm bg-surface-02 py-12 text-center text-body-02 text-on-surface-medium">
+        <p className="rounded-sm bg-(--hig-color-surface-02) py-12 text-center text-body-02 text-(--hig-color-label-secondary)">
           {t.noResults}
         </p>
       ) : (
         <>
-          <ul data-list-group className="overflow-hidden rounded-sm bg-surface-02">
+          <ul data-list-group className="overflow-hidden rounded-sm bg-(--hig-color-surface-02)">
             {visible.map((entry) =>
               entry.kind === 'group' ? (
                 <GroupItem
