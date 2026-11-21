@@ -40,7 +40,7 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 | --- | --- | --- | --- |
 | L0 原子 | `src/styles/tokens.css` 的 `--hig-shape-*`、`--hig-motion-*`、`--hig-size-*`；`src/app/globals.css` 的 `--text-*`、`--spacing`、`--radius-*` | `--hig-shape-04`、`--hig-motion-short-3`、`--text-body-02` | 只有 L1 |
 | L1 语义 | `src/styles/tokens.css` 的 `--hig-color-*`、`--hig-layer-*`、`--hig-shadow-*` | `--hig-color-primary`、`--hig-layer-02` | 组件、`hig.css`（层内基样式） |
-| L2 组件 | 组件自身（类名直写 `x-(--hig-*)` 任意值） | `bg-(--hig-color-fill-hover)` | 只在本组件内 |
+| L2 组件 | 组件自身：内联槽位 `var(--hig-cmp-*, 默认值)`，外部用 `[--hig-cmp-*:值]` 覆盖 | `--hig-cmp-field-bg`、`bg-(--hig-color-fill-hover)` | 只在本组件内，父级可覆盖槽位 |
 
 规则：
 
@@ -59,6 +59,8 @@ HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 - 断点只用 `sm` / `md` / `lg` / `xl` / `2xl`，值在 `globals.css` 的 `@theme` 里声明（40/48/64/80/96rem）。
   CSS 原生媒体查询写 rem 字面量，改断点值时要一起改，不能只改令牌。
 - 圆角只用 `--hig-shape-*`、`--radius-*` 别名，或 `rounded-sm`（=`--hig-shape-control`，10px；分组容器）/ `rounded-full`（胶囊与图标圈）。
+- 槽位清单在 `docs/component-tokens.md`（每个 `--hig-cmp-*` 的默认值与使用处），由
+  `bun run gen:cmp` 从代码生成、`bun run check:cmp` 校验。加删槽位后必须重新生成，否则 CI 红。
 
 ## 二、语义色契约
 

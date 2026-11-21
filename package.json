@@ -23,13 +23,15 @@
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
     "typecheck": "tsc --noEmit",
-    "check": "biome check && bun run typecheck && bun run check:theme && bun run check:spacing && bun run check:deprecations",
+    "check": "biome check && bun run typecheck && bun run check:theme && bun run check:spacing && bun run check:deprecations && bun run check:cmp",
     "download-assets": "node scripts/download-assets.mjs",
     "migrate-blog": "node scripts/migrate-blog.mjs",
     "check:data": "node scripts/gen-entities.mjs --check && node scripts/gen-command-notes.mjs --check",
     "check:theme": "node scripts/check-theme-parity.mjs",
     "check:spacing": "node scripts/check-spacing.mjs",
     "check:deprecations": "node scripts/check-deprecations.mjs",
+    "check:cmp": "node scripts/gen-cmp-tokens.mjs --check",
+    "gen:cmp": "node scripts/gen-cmp-tokens.mjs --write",
     "format": "biome format --write"
   },
   "dependencies": {

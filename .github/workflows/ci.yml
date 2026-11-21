@@ -37,6 +37,10 @@ jobs:
       - name: Theme parity
         run: bun run check:theme
 
+      # 组件槽位索引是生成的：代码里加了槽位却没重新生成，文档就会撒谎
+      - name: Component token index
+        run: bun run check:cmp
+
       # 构建会抓 blog.30hb.cn：src/lib/http.ts 已带 IPv4 优先 + 退避重试，
       # 仍失败就说明上游真挂了，让它红是想要的信号
       - name: Build
