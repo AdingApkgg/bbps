@@ -76,6 +76,26 @@ bun run build
 本地产物预览用 `bun run start`（`serve out`，会自动带上 `public/_headers` 里的规则），
 不要用 `bun dev` 当线上行为参照 —— 开发态有 rewrites 代理 API，线上是浏览器直连。
 
+### Pages 的构建命令必须是 `bun run build`
+
+`package.json` 声明了 `packageManager: bun@1.4.4`，Pages 构建镜像据此用 `bun install`
+装依赖；此时构建命令若写成 `pnpm build`，corepack 会直接拒绝：
+
+```
+Executing user command: pnpm build
+Unsupported package manager specification (bun@1.4.4)
+```
+
+项目 `bbps-web`（账号 2003dujialin@gmail.com）的 `build_config` 现在是
+`{"build_command":"bun run build","destination_dir":"out"}`。这个坑不会在 CI 暴露：
+CI 本来就跑 `bun run build`，所以 CI 全绿而 Pages 连续失败（2026-11-21 起 12 次全红）。
+改回去的命令：
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=a205738aa4bd8dbc04ae55bb4ca80d9b \
+  cf pages edit bbps-web --body '{"build_config":{"build_command":"pnpm build","destination_dir":"out","root_dir":""}}'
+```
+
 ### 合并前必查
 
 `bun run check` = `biome check` + `tsc --noEmit` + `check:theme`（暗色两条通路要一致），
