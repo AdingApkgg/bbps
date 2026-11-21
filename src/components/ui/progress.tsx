@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
  * 用 keyframes 写在 globals.css 的 .progress-indeterminate。
  *
  * 轨道本身没有 min-height，高度由 --hig-size-progress-height 决定，附着在 body 顶部时可设得更细。
+ * 外观过 `--hig-cmp-progress-*` 槽，父级赋值即覆盖。
  */
 function Progress({
   className,
@@ -23,7 +24,7 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        'relative h-(--hig-size-progress-height) w-full overflow-hidden rounded-full bg-primary/24',
+        'relative h-(--hig-cmp-progress-h,var(--hig-size-progress-height)) w-full overflow-hidden rounded-full bg-(--hig-cmp-progress-track,var(--hig-color-primary)/24)',
         className
       )}
       value={value}
@@ -31,7 +32,7 @@ function Progress({
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="h-full rounded-full bg-primary transition-[width] duration-moderate-01 ease-decelerate"
+        className="h-full rounded-full bg-(--hig-cmp-progress-indicator,var(--hig-color-primary)) transition-[width] duration-moderate-01 ease-decelerate"
         style={{ width: `${pct}%` }}
       />
     </ProgressPrimitive.Root>
@@ -47,13 +48,13 @@ function ProgressIndeterminate({ className, ...props }: React.ComponentProps<'di
       role="progressbar"
       aria-valuetext="loading"
       className={cn(
-        'relative h-(--hig-size-progress-height) w-full overflow-hidden rounded-full bg-primary/24',
+        'relative h-(--hig-cmp-progress-h,var(--hig-size-progress-height)) w-full overflow-hidden rounded-full bg-(--hig-cmp-progress-track,var(--hig-color-primary)/24)',
         className
       )}
       {...props}
     >
-      <span className="progress-indeterminate-1 absolute inset-y-0 w-full bg-primary" />
-      <span className="progress-indeterminate-2 absolute inset-y-0 w-full bg-primary" />
+      <span className="progress-indeterminate-1 absolute inset-y-0 w-full bg-(--hig-cmp-progress-indicator,var(--hig-color-primary))" />
+      <span className="progress-indeterminate-2 absolute inset-y-0 w-full bg-(--hig-cmp-progress-indicator,var(--hig-color-primary))" />
     </div>
   )
 }

@@ -8,16 +8,18 @@ import { cn } from '@/lib/utils'
  * 圆角 div，否则底色与圆角叠两层、出现两个滚动盒。
  * 行分隔线与分组列表同一档（0.5px、outline-variant-01），零竖线、零影；
  * 表头不放大写、13px/600、中性色。外观全在本文件，`hig.css` 不再复述。
+ *
+ * 外观过 `--hig-cmp-table-*` 槽，父级赋值即覆盖。
  */
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
     <div
       data-slot="table-wrap"
-      className="relative w-full overflow-auto rounded-sm border-(--hig-size-hairline) border-outline-01 bg-surface-02"
+      className="relative w-full overflow-auto rounded-(--hig-cmp-table-radius,var(--hig-shape-control)) border-(length:--hig-size-hairline) border-(--hig-cmp-table-border,var(--hig-color-outline-01)) bg-(--hig-cmp-table-bg,var(--hig-color-surface-02))"
     >
       <table
         ref={ref}
-        className={cn('w-full border-collapse text-left text-body-02', className)}
+        className={cn('w-full border-collapse text-start text-body-02', className)}
         {...props}
       />
     </div>
@@ -57,8 +59,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
       ref={ref}
       data-slot="table-row"
       className={cn(
-        'border-b-[0.5px] border-outline-variant-01 transition-colors duration-fast-02',
-        'last:border-b-0 hover:bg-surface-hover-01 data-[state=selected]:bg-surface-selected-01',
+        'border-b-(length:--hig-size-hairline) border-(--hig-cmp-table-row-border,var(--hig-color-outline-variant-01)) transition-colors duration-fast-02',
+        'last:border-b-0 hover:bg-(--hig-cmp-table-row-bg-hover,var(--hig-color-surface-hover-01)) data-[state=selected]:bg-(--hig-cmp-table-row-bg-selected,var(--hig-color-surface-selected-01))',
         className
       )}
       {...props}
@@ -74,8 +76,8 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'h-13 bg-surface-variant-01 px-4 text-left align-middle text-label font-semibold text-on-surface-medium tracking-normal',
-      '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      'h-(--hig-cmp-table-row-h,3.25rem) bg-(--hig-cmp-table-head-bg,var(--hig-color-surface-variant-01)) px-(--hig-cmp-table-cell-px,1rem) text-start align-middle text-label font-semibold text-(--hig-cmp-table-head-fg,var(--hig-color-on-surface-medium)) tracking-normal',
+      '[&:has([role=checkbox])]:pe-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
     {...props}
@@ -90,8 +92,8 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      'h-13 px-4 align-middle',
-      '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      'h-(--hig-cmp-table-row-h,3.25rem) px-(--hig-cmp-table-cell-px,1rem) align-middle',
+      '[&:has([role=checkbox])]:pe-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
     {...props}
@@ -105,7 +107,10 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn('mt-4 text-caption text-on-surface-medium', className)}
+    className={cn(
+      'mt-4 text-caption text-(--hig-cmp-table-caption-fg,var(--hig-color-on-surface-medium))',
+      className
+    )}
     {...props}
   />
 ))

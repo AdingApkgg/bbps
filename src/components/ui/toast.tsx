@@ -13,9 +13,11 @@ import { cn } from '@/lib/utils'
  *
  * 用 Radix Toast 承载：它给 role=status/alert、F6 跳转、swipe 关闭与 live region，
  * 这些无障碍语义必须保留。Toaster 是视口，挂一次即可。
+ *
+ * 槽位 `--hig-cmp-toast-*`，父级赋值即覆盖。
  */
 const toastVariants =
-  'pointer-events-auto flex w-full items-center gap-2 rounded-sm px-4 text-body-02 shadow-snackbar'
+  'pointer-events-auto flex w-full items-center gap-2 rounded-(--hig-cmp-toast-radius,var(--hig-shape-overlay)) px-(--hig-cmp-toast-px,1rem) text-body-02 shadow-snackbar'
 
 function ToastProvider(props: React.ComponentProps<typeof ToastPrimitive.Provider>) {
   return <ToastPrimitive.Provider duration={4000} swipeDirection="down" {...props} />
@@ -28,7 +30,7 @@ function Toaster({ className, ...props }: React.ComponentProps<typeof ToastPrimi
       className={cn(
         'fixed inset-x-0 bottom-0 z-(--hig-layer-toast) m-0 flex w-full list-none flex-col gap-2 p-4',
         // 桌面端右下角一列，固定最大宽度，不铺满
-        'sm:inset-x-auto sm:right-0 sm:bottom-0 sm:max-w-sm',
+        'sm:inset-x-auto sm:end-0 sm:bottom-0 sm:max-w-sm',
         className
       )}
       {...props}
@@ -42,7 +44,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
       data-slot="toast"
       className={cn(
         toastVariants,
-        'min-h-(--hig-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-(--hig-size-toast-width)',
+        'min-h-(--hig-cmp-toast-min-h,var(--hig-size-row)) max-w-full bg-(--hig-cmp-toast-bg,var(--hig-color-inverse-surface)) text-(--hig-cmp-toast-fg,var(--hig-color-on-inverse-surface)) sm:max-w-(--hig-cmp-toast-max-w,var(--hig-size-toast-width))',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:slide-in-from-bottom-full data-[state=closed]:slide-out-to-bottom-full',
@@ -73,7 +75,10 @@ function ToastDescription({
   return (
     <ToastPrimitive.Description
       data-slot="toast-description"
-      className={cn('text-body-02 text-on-inverse-surface/70', className)}
+      className={cn(
+        'text-body-02 text-(--hig-cmp-toast-desc-fg,var(--hig-color-on-inverse-surface)/70)',
+        className
+      )}
       {...props}
     />
   )
@@ -85,7 +90,7 @@ function ToastAction({ className, ...props }: React.ComponentProps<typeof ToastP
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        'ml-auto shrink-0 rounded-sm px-2 py-2 text-button text-on-inverse-primary uppercase',
+        'ms-auto shrink-0 rounded-(--hig-cmp-toast-action-radius,var(--hig-shape-control)) px-(--hig-cmp-toast-action-px,0.5rem) py-2 text-(length:--hig-cmp-toast-action-size,0.9375rem) font-(--hig-cmp-toast-action-weight,600) tracking-(--hig-cmp-toast-action-tracking,0.02em) uppercase text-(--hig-cmp-toast-action-fg,var(--hig-color-on-inverse-primary))',
         'transition-colors duration-fast-02 ease-standard',
         'hover:bg-on-inverse-surface/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-inverse-surface',
         className
@@ -101,8 +106,8 @@ function ToastClose({ className, ...props }: React.ComponentProps<typeof ToastPr
       data-slot="toast-close"
       aria-label="关闭"
       className={cn(
-        'shrink-0 rounded-sm p-1 text-on-inverse-surface/70 transition-colors duration-fast-02 ease-standard',
-        'hover:bg-on-inverse-surface/8 hover:text-on-inverse-surface',
+        'shrink-0 rounded-sm p-1 text-(--hig-cmp-toast-close-fg,var(--hig-color-on-inverse-surface)/70) transition-colors duration-fast-02 ease-standard',
+        'hover:bg-(--hig-cmp-toast-hover-bg,var(--hig-color-on-inverse-surface)/8) hover:text-(--hig-cmp-toast-close-fg-hover,var(--hig-color-on-inverse-surface))',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-inverse-surface',
         className
       )}

@@ -14,67 +14,70 @@ import { cn } from '@/lib/utils'
  *
  * 组件里若直写了「拉丁大写 + 0.089em 字距」，由 `hig.css` 的 `:root .text-button` 压掉。
  * 一屏只留一个 default(filled primary)。
+ *
+ * 所有外观都过 `--hig-cmp-button-*` 槽，父级（或 `hig.css` 里更靠外的作用域）赋值即覆盖，
+ * 不赋值就落到写死的兜底值上。
  */
 const buttonVariants = cva(
   [
-    'relative inline-flex max-w-80 shrink-0 items-center justify-center gap-2 whitespace-nowrap',
-    'overflow-hidden rounded-sm border-0 font-semibold',
-    'text-button no-underline select-none',
+    'relative inline-flex max-w-(--hig-cmp-button-max-w,20rem) shrink-0 items-center justify-center gap-(--hig-cmp-button-gap,0.5rem) whitespace-nowrap',
+    'overflow-hidden rounded-(--hig-cmp-button-radius,var(--hig-shape-control)) border-0 font-semibold',
+    'text-(length:--hig-cmp-button-font-size,1.0625rem) font-(--hig-cmp-button-font-weight,600) leading-(--hig-cmp-button-line-height,1.2941) tracking-(--hig-cmp-button-tracking,-0.011em) no-underline select-none',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard',
     'disabled:pointer-events-none disabled:cursor-not-allowed',
     'aria-pressed:shadow-[inset_0_0_0_2px_var(--hig-color-link)] aria-pressed:text-link',
-    '[&_svg]:pointer-events-none [&_svg]:size-[1.125rem] [&_svg]:shrink-0'
+    '[&_svg]:pointer-events-none [&_svg]:size-(--hig-cmp-button-icon,1.125rem) [&_svg]:shrink-0'
   ].join(' '),
   {
     variants: {
       variant: {
         /* contained：唯一的实心主色按钮 */
         default: [
-          'bg-button-contained text-on-button-contained',
-          'hover:enabled:bg-button-contained-hover',
-          'active:enabled:bg-button-contained-active',
-          'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
+          'bg-(--hig-cmp-button-filled-bg,var(--hig-color-button-contained)) text-(--hig-cmp-button-filled-fg,var(--hig-color-on-button-contained))',
+          'hover:enabled:bg-(--hig-cmp-button-filled-bg-hover,var(--hig-color-button-contained-hover))',
+          'active:enabled:bg-(--hig-cmp-button-filled-bg-active,var(--hig-color-button-contained-active))',
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
         ].join(' '),
         /* 中性容器色的次级填充按钮，文字用 primary */
         secondary: [
-          'bg-button-outlined text-on-button-outlined',
-          'hover:enabled:bg-button-outlined-hover',
-          'active:enabled:bg-button-outlined-active',
-          'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
+          'bg-(--hig-cmp-button-tonal-bg,var(--hig-color-button-outlined)) text-(--hig-cmp-button-tonal-fg,var(--hig-color-on-button-outlined))',
+          'hover:enabled:bg-(--hig-cmp-button-tonal-bg-hover,var(--hig-color-button-outlined-hover))',
+          'active:enabled:bg-(--hig-cmp-button-tonal-bg-active,var(--hig-color-button-outlined-active))',
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
         ].join(' '),
         /* bordered：42% 描边，无底，hover 叠 4% primary */
         outline: [
-          'border border-outline-emphasis bg-transparent text-link',
-          'hover:enabled:bg-state-hover',
-          'active:enabled:bg-state-selected',
-          'disabled:border-outline-disabled disabled:bg-transparent disabled:text-on-surface-disabled'
+          'border-(length:--hig-cmp-button-outline-width,1px) border-(--hig-cmp-button-outline-color,var(--hig-color-outline-emphasis-01)) bg-transparent text-(--hig-cmp-button-outline-fg,var(--hig-color-link))',
+          'hover:enabled:bg-(--hig-cmp-button-outline-bg-hover,var(--hig-color-state-hover))',
+          'active:enabled:bg-(--hig-cmp-button-outline-bg-active,var(--hig-color-state-selected))',
+          'disabled:border-(--hig-cmp-button-disabled-border,var(--hig-color-outline-disabled)) disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
         ].join(' '),
         /* text：无底无边，hover 叠 4% primary */
         ghost: [
-          'bg-transparent text-link',
-          'hover:enabled:bg-state-hover',
-          'active:enabled:bg-state-selected',
-          'disabled:bg-transparent disabled:text-on-surface-disabled'
+          'bg-transparent text-(--hig-cmp-button-ghost-fg,var(--hig-color-link))',
+          'hover:enabled:bg-(--hig-cmp-button-ghost-bg-hover,var(--hig-color-state-hover))',
+          'active:enabled:bg-(--hig-cmp-button-ghost-bg-active,var(--hig-color-state-selected))',
+          'disabled:bg-transparent disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
         ].join(' '),
         /* contained destructive */
         destructive: [
-          'bg-button-contained-error text-on-primary',
-          'hover:enabled:bg-button-error-hover',
-          'active:enabled:bg-button-error-active',
-          'disabled:bg-button-contained-disabled disabled:text-on-surface-disabled'
+          'bg-(--hig-cmp-button-error-bg,var(--hig-color-button-contained-error)) text-(--hig-cmp-button-error-fg,var(--hig-color-on-primary))',
+          'hover:enabled:bg-(--hig-cmp-button-error-bg-hover,var(--hig-color-button-error-hover))',
+          'active:enabled:bg-(--hig-cmp-button-error-bg-active,var(--hig-color-button-error-active))',
+          'disabled:bg-(--hig-cmp-button-disabled-bg,var(--hig-color-button-contained-disabled)) disabled:text-(--hig-cmp-button-disabled-fg,var(--hig-color-on-surface-disabled))'
         ].join(' '),
-        link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-link hover:enabled:text-link-hover hover:enabled:underline'
+        link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-(--hig-cmp-button-link-fg,var(--hig-color-link)) hover:enabled:text-(--hig-cmp-button-link-fg-hover,var(--hig-color-link-hover)) hover:enabled:underline'
       },
       /* 高度档位接令牌：改 --hig-size-lg 即整体缩放；图标按钮是 48px 触达区 */
       size: {
-        xs: 'h-(--hig-size-control-xs) px-2 text-caption',
-        sm: 'h-(--hig-size-control-sm) px-3',
-        default: 'h-(--hig-size-control) px-4',
-        lg: 'h-(--hig-size-control-lg) px-6',
-        xl: 'h-(--hig-size-control-xl) px-8',
-        icon: 'size-(--hig-size-control-xl) p-0',
-        'icon-sm': 'size-(--hig-size-control) p-0',
-        'icon-lg': 'size-(--hig-size-control-2xl) p-0'
+        xs: 'h-(--hig-cmp-button-h-xs,var(--hig-size-control-xs)) px-(--hig-cmp-button-px-xs,0.5rem) text-caption',
+        sm: 'h-(--hig-cmp-button-h-sm,var(--hig-size-control-sm)) px-(--hig-cmp-button-px-sm,0.75rem)',
+        default: 'h-(--hig-cmp-button-h,var(--hig-size-control)) px-(--hig-cmp-button-px,1rem)',
+        lg: 'h-(--hig-cmp-button-h-lg,var(--hig-size-control-lg)) px-(--hig-cmp-button-px-lg,1.5rem)',
+        xl: 'h-(--hig-cmp-button-h-xl,var(--hig-size-control-xl)) px-(--hig-cmp-button-px-xl,2rem)',
+        icon: 'size-(--hig-cmp-button-size-icon,var(--hig-size-control-xl)) p-0',
+        'icon-sm': 'size-(--hig-cmp-button-size-icon-sm,var(--hig-size-control)) p-0',
+        'icon-lg': 'size-(--hig-cmp-button-size-icon-lg,var(--hig-size-control-2xl)) p-0'
       }
     },
     defaultVariants: {

@@ -27,16 +27,16 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      'flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-      'hover:bg-surface-hover-02 focus:bg-state-pressed data-[state=open]:bg-state-pressed',
+      'flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 ps-(--hig-cmp-menu-item-ps,1rem) pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed)) data-[state=open]:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
-      inset && 'pl-12',
+      inset && 'ps-12',
       className
     )}
     {...props}
   >
     {children}
-    <ChevronRight className="ml-auto" />
+    <ChevronRight className="ms-auto" />
   </DropdownMenuPrimitive.SubTrigger>
 ))
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName
@@ -48,7 +48,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-(--hig-layer-popover) min-w-[11.5rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+      'z-(--hig-layer-popover) min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-outline-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-on-surface',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
       'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -69,7 +69,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'relative z-(--hig-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[11.5rem] overflow-y-auto overflow-x-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+        'relative z-(--hig-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-(--hig-cmp-menu-min-w,11.5rem) overflow-y-auto overflow-x-hidden rounded-(--hig-cmp-menu-radius,var(--hig-shape-08)) border-(length:--hig-size-hairline) border-(--hig-cmp-menu-border,var(--hig-color-outline-01)) bg-(--hig-cmp-menu-bg,var(--hig-color-surface-02)) py-2 text-on-surface',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
         'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -91,10 +91,10 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
-      'hover:bg-surface-hover-02 focus:bg-state-pressed',
+      'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center gap-2 ps-(--hig-cmp-menu-item-ps,1rem) pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
-      inset && 'pl-12',
+      inset && 'ps-12',
       className
     )}
     {...props}
@@ -109,15 +109,15 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
-      'hover:bg-surface-hover-02 focus:bg-state-pressed',
+      'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center ps-12 pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className
     )}
     checked={checked}
     {...props}
   >
-    <span className="absolute left-4 flex size-4 items-center justify-center">
+    <span className="absolute start-(--hig-cmp-menu-item-ps,1rem) flex size-4 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <Check className="size-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -134,14 +134,14 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
-      'hover:bg-surface-hover-02 focus:bg-state-pressed',
+      'relative flex h-(--hig-cmp-menu-item-h,var(--hig-size-row)) cursor-pointer select-none items-center ps-12 pe-(--hig-cmp-menu-item-pe,0.5rem) text-body-01 outline-none transition-colors duration-fast-02',
+      'hover:bg-(--hig-cmp-menu-item-bg-hover,var(--hig-color-surface-hover-02)) focus:bg-(--hig-cmp-menu-item-bg-focus,var(--hig-color-state-pressed))',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className
     )}
     {...props}
   >
-    <span className="absolute left-4 flex size-4 items-center justify-center">
+    <span className="absolute start-(--hig-cmp-menu-item-ps,1rem) flex size-4 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <Circle className="size-2 fill-current focus:size-2" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -160,8 +160,8 @@ const DropdownMenuLabel = React.forwardRef<
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
-      'flex h-8 items-center px-4 text-label font-medium text-on-surface-medium',
-      inset && 'pl-12',
+      'flex h-8 items-center px-(--hig-cmp-menu-item-ps,1rem) text-label font-medium text-on-surface-medium',
+      inset && 'ps-12',
       className
     )}
     {...props}
@@ -175,7 +175,7 @@ const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('h-px bg-outline', className)}
+    className={cn('h-px bg-(--hig-cmp-menu-separator,var(--hig-color-outline))', className)}
     {...props}
   />
 ))
@@ -183,7 +183,7 @@ DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
-    <span className={cn('ml-auto text-caption text-on-surface-medium', className)} {...props} />
+    <span className={cn('ms-auto text-caption text-on-surface-medium', className)} {...props} />
   )
 }
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'

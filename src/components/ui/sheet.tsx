@@ -7,6 +7,11 @@ import { X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
+/* Sheet（抽屉/底部面板）
+ *
+ * 槽位 `--hig-cmp-sheet-*`、`--hig-cmp-scrim`，父级赋值即覆盖。
+ */
+
 const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
@@ -22,7 +27,7 @@ const SheetOverlay = React.forwardRef<
   <SheetPrimitive.Overlay
     className={cn(
       // 遮罩：32% scrim，淡入，不位移
-      'fixed inset-0 z-(--hig-layer-modal) bg-scrim',
+      'fixed inset-0 z-(--hig-layer-modal) bg-(--hig-cmp-scrim,var(--hig-color-scrim))',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
       'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
@@ -37,7 +42,7 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 const sheetVariants = cva(
   [
     // 抽屉：表层材质（hig.css 钩 popover/dialog 给材质与影）、面板自身滑入
-    'fixed z-(--hig-layer-modal) flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
+    'fixed z-(--hig-layer-modal) flex flex-col gap-4 bg-(--hig-cmp-sheet-bg,var(--hig-color-surface-01)) p-(--hig-cmp-sheet-p,1rem) shadow-scrim',
     'data-[state=open]:animate-in data-[state=closed]:animate-out',
     'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
     'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
@@ -49,10 +54,10 @@ const sheetVariants = cva(
       side: {
         top: 'inset-x-0 top-0 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',
         bottom:
-          'inset-x-0 bottom-0 rounded-t-xl data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
-        left: 'inset-y-0 left-0 h-full w-3/4 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
+          'inset-x-0 bottom-0 rounded-t-(--hig-cmp-sheet-radius,var(--hig-shape-container)) data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
+        left: 'inset-y-0 start-0 h-full w-3/4 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-(--hig-cmp-sheet-max-w,24rem)',
         right:
-          'inset-y-0 right-0 h-full w-3/4 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm'
+          'inset-y-0 end-0 h-full w-3/4 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-(--hig-cmp-sheet-max-w,24rem)'
       }
     },
     defaultVariants: {
@@ -80,7 +85,7 @@ const SheetContent = React.forwardRef<
     >
       <SheetPrimitive.Close
         className={cn(
-          'absolute top-0 right-0 flex size-12 items-center justify-center text-on-surface',
+          'absolute top-0 end-(--hig-cmp-sheet-close-inset,0) flex size-(--hig-cmp-sheet-close-size,3rem) items-center justify-center text-(--hig-cmp-sheet-close-fg,var(--hig-color-on-surface))',
           'transition-colors duration-fast-01 ease-standard hover:bg-surface-hover-01',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
           'disabled:pointer-events-none'
@@ -96,7 +101,7 @@ const SheetContent = React.forwardRef<
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
 const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col gap-1 pr-12 text-left', className)} {...props} />
+  <div className={cn('flex flex-col gap-1 pe-12 text-start', className)} {...props} />
 )
 SheetHeader.displayName = 'SheetHeader'
 
@@ -126,7 +131,10 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('text-body-02 text-on-surface-medium', className)}
+    className={cn(
+      'text-body-02 text-(--hig-cmp-sheet-desc-fg,var(--hig-color-on-surface-medium))',
+      className
+    )}
     {...props}
   />
 ))

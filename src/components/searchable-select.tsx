@@ -195,7 +195,7 @@ export function SearchableSelect({
           )}
         >
           {showSearch && (
-            <div className="mx-2 mb-1 flex items-center gap-2 border-b border-outline pl-2 focus-within:border-outline-active">
+            <div className="mx-2 mb-1 flex items-center gap-2 border-b border-outline pl-2 focus-within:border-primary">
               <Search className="pointer-events-none size-4 shrink-0 text-on-surface-medium" />
               <input
                 ref={inputRef}

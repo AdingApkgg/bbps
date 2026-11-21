@@ -12,8 +12,8 @@ function FieldSet({ className, ...props }: React.ComponentProps<'fieldset'>) {
     <fieldset
       data-slot="field-set"
       className={cn(
-        'flex flex-col gap-6',
-        'has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
+        'flex flex-col gap-(--hig-cmp-field-set-gap,1.5rem)',
+        'has-[>[data-slot=checkbox-group]]:gap-(--hig-cmp-field-set-gap-tight,0.75rem) has-[>[data-slot=radio-group]]:gap-(--hig-cmp-field-set-gap-tight,0.75rem)',
         className
       )}
       {...props}
@@ -31,9 +31,9 @@ function FieldLegend({
       data-slot="field-legend"
       data-variant={variant}
       className={cn(
-        'mb-3 font-medium',
-        'data-[variant=legend]:text-base',
-        'data-[variant=label]:text-sm',
+        'mb-3 font-(--hig-cmp-field-legend-weight,500) text-(--hig-cmp-field-legend-fg,var(--hig-color-on-surface))',
+        'data-[variant=legend]:text-(length:--hig-cmp-field-legend-size,1.0625rem)',
+        'data-[variant=label]:text-(length:--hig-cmp-field-legend-size-sm,0.9375rem)',
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="field-group"
       className={cn(
-        'group/field-group @container/field-group flex w-full flex-col gap-8 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4',
+        'group/field-group @container/field-group flex w-full flex-col gap-(--hig-cmp-field-group-gap,2rem) data-[slot=checkbox-group]:gap-(--hig-cmp-field-group-gap-tight,0.75rem) [&>[data-slot=field-group]]:gap-(--hig-cmp-field-group-gap-nested,1rem)',
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 const fieldVariants = cva(
-  'group/field flex w-full min-w-0 gap-3 data-[invalid=true]:text-destructive',
+  'group/field flex w-full min-w-0 gap-(--hig-cmp-field-gap,0.75rem) data-[invalid=true]:text-(--hig-cmp-field-invalid-fg,var(--hig-color-error))',
   {
     variants: {
       orientation: {
@@ -97,7 +97,10 @@ function FieldContent({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="field-content"
-      className={cn('group/field-content flex flex-1 flex-col gap-2 leading-snug', className)}
+      className={cn(
+        'group/field-content flex flex-1 flex-col gap-(--hig-cmp-field-content-gap,0.5rem) leading-snug',
+        className
+      )}
       {...props}
     />
   )
@@ -108,8 +111,8 @@ function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>)
     <Label
       data-slot="field-label"
       className={cn(
-        'group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50',
-        'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4',
+        'group/field-label peer/field-label flex w-fit gap-(--hig-cmp-field-label-gap,0.5rem) leading-snug group-data-[disabled=true]/field:opacity-50',
+        'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-(--hig-cmp-field-label-box-radius,var(--hig-shape-08)) has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-(--hig-cmp-field-label-box-p,1rem)',
         'has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10',
         className
       )}
@@ -123,7 +126,7 @@ function FieldTitle({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="field-label"
       className={cn(
-        'flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50',
+        'flex w-fit items-center gap-(--hig-cmp-field-label-gap,0.5rem) text-(length:--hig-cmp-field-title-size,0.9375rem) leading-snug font-(--hig-cmp-field-title-weight,500) text-(--hig-cmp-field-title-fg,var(--hig-color-on-surface)) group-data-[disabled=true]/field:opacity-50',
         className
       )}
       {...props}
@@ -136,9 +139,9 @@ function FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="field-description"
       className={cn(
-        'text-sm leading-normal font-normal text-muted-foreground group-has-[[data-orientation=horizontal]]/field:text-balance',
+        'text-(length:--hig-cmp-field-desc-size,0.9375rem) leading-normal font-normal text-(--hig-cmp-field-desc-fg,var(--hig-color-on-surface-medium)) group-has-[[data-orientation=horizontal]]/field:text-balance',
         'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-2',
-        '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary',
+        '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-(--hig-cmp-field-desc-link-fg,var(--hig-color-primary))',
         className
       )}
       {...props}
@@ -158,7 +161,7 @@ function FieldSeparator({
       data-slot="field-separator"
       data-content={!!children}
       className={cn(
-        'relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2',
+        'relative -my-(--hig-cmp-field-sep-bleed,0.5rem) h-(--hig-cmp-field-sep-h,1.25rem) text-(length:--hig-cmp-field-sep-size,0.9375rem) group-data-[variant=outline]/field-group:-mb-(--hig-cmp-field-sep-bleed,0.5rem)',
         className
       )}
       {...props}
@@ -166,7 +169,7 @@ function FieldSeparator({
       <Separator className="absolute inset-0 top-1/2" />
       {children && (
         <span
-          className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
+          className="relative mx-auto block w-fit bg-(--hig-cmp-field-sep-bg,var(--hig-color-surface)) px-2 text-(--hig-cmp-field-sep-fg,var(--hig-color-on-surface-medium))"
           data-slot="field-separator-content"
         >
           {children}
@@ -200,7 +203,7 @@ function FieldError({
     }
 
     return (
-      <ul className="ml-4 flex list-disc flex-col gap-1">
+      <ul className="ms-4 flex list-disc flex-col gap-1">
         {uniqueErrors.map((error, index) => error?.message && <li key={index}>{error.message}</li>)}
       </ul>
     )
@@ -214,7 +217,10 @@ function FieldError({
     <div
       role="alert"
       data-slot="field-error"
-      className={cn('text-sm font-normal text-destructive', className)}
+      className={cn(
+        'text-(length:--hig-cmp-field-error-size,0.9375rem) font-normal text-(--hig-cmp-field-error-fg,var(--hig-color-error))',
+        className
+      )}
       {...props}
     >
       {content}

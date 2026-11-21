@@ -10,12 +10,17 @@ import { cn } from '@/lib/utils'
  * 结构语义保留：`data-slot="card"` 同时是列表容器的钩子（hig.css 的
  * `[data-list-group]`），所以区段内的行自动拿分隔线；单独使用时它就是一个
  * 内容块，不再有边框和影。
+ *
+ * 外观过 `--hig-cmp-card-*` 槽，父级赋值即覆盖。
  */
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('overflow-hidden rounded-sm bg-surface-02', className)}
+      className={cn(
+        'overflow-hidden rounded-(--hig-cmp-card-radius,var(--hig-shape-control)) bg-(--hig-cmp-card-bg,var(--hig-color-surface-02))',
+        className
+      )}
       data-slot="card"
       data-list-group
       {...props}
@@ -28,7 +33,10 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex items-center justify-between gap-3 px-4 pt-4 pb-2', className)}
+      className={cn(
+        'flex items-center justify-between gap-3 px-(--hig-cmp-card-px,1rem) pt-4 pb-2',
+        className
+      )}
       data-slot="card-header"
       {...props}
     />
@@ -41,7 +49,10 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
   ({ className, ...props }, ref) => (
     <h2
       ref={ref}
-      className={cn('text-label font-semibold text-on-surface-medium', className)}
+      className={cn(
+        'text-label font-semibold text-(--hig-cmp-card-title-fg,var(--hig-color-on-surface-medium))',
+        className
+      )}
       data-slot="card-title"
       {...props}
     />
@@ -55,7 +66,10 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-label text-on-surface-medium', className)}
+    className={cn(
+      'text-label text-(--hig-cmp-card-desc-fg,var(--hig-color-on-surface-medium))',
+      className
+    )}
     data-slot="card-description"
     {...props}
   />
@@ -64,7 +78,12 @@ CardDescription.displayName = 'CardDescription'
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('px-4 pb-4', className)} data-slot="card-content" {...props} />
+    <div
+      ref={ref}
+      className={cn('px-(--hig-cmp-card-px,1rem) pb-4', className)}
+      data-slot="card-content"
+      {...props}
+    />
   )
 )
 CardContent.displayName = 'CardContent'
@@ -92,8 +111,8 @@ const CardRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     <div
       ref={ref}
       className={cn(
-        'flex items-center gap-3 px-4 py-3 transition-colors duration-fast-02',
-        'hover:bg-surface-hover-01 active:bg-surface-pressed-01',
+        'flex items-center gap-3 px-(--hig-cmp-card-px,1rem) py-(--hig-cmp-card-row-py,0.75rem) transition-colors duration-fast-02',
+        'hover:bg-(--hig-cmp-card-row-bg-hover,var(--hig-color-surface-hover-01)) active:bg-(--hig-cmp-card-row-bg-active,var(--hig-color-surface-pressed-01))',
         className
       )}
       data-list-item

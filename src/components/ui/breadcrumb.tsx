@@ -17,7 +17,7 @@ const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWi
     <ol
       ref={ref}
       className={cn(
-        'flex flex-wrap items-center gap-2 text-body-02 text-on-surface-medium',
+        'flex flex-wrap items-center gap-(--hig-cmp-breadcrumb-gap,0.5rem) text-body-02 text-(--hig-cmp-breadcrumb-fg,var(--hig-color-on-surface-medium))',
         className
       )}
       {...props}
@@ -45,7 +45,7 @@ const BreadcrumbLink = React.forwardRef<
     <Comp
       ref={ref}
       className={cn(
-        'text-link underline-offset-4 transition-colors duration-fast-01 hover:text-link-hover hover:underline',
+        'text-(--hig-cmp-breadcrumb-link-fg,var(--hig-color-link)) underline-offset-4 transition-colors duration-fast-01 hover:text-(--hig-cmp-breadcrumb-link-fg-hover,var(--hig-color-link-hover)) hover:underline',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         className
       )}
@@ -62,7 +62,15 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
       aria-current="page" 本身就足以表达「这是当前所在页」，
       而 role="link" 会让读屏把它读成一个不可用的链接。
     */
-    <span ref={ref} aria-current="page" className={cn('text-on-surface', className)} {...props} />
+    <span
+      ref={ref}
+      aria-current="page"
+      className={cn(
+        'text-(--hig-cmp-breadcrumb-current-fg,var(--hig-color-on-surface))',
+        className
+      )}
+      {...props}
+    />
   )
 )
 BreadcrumbPage.displayName = 'BreadcrumbPage'
@@ -85,7 +93,7 @@ const BreadcrumbEllipsis = ({ className, ...props }: React.ComponentProps<'span'
     role="presentation"
     aria-hidden="true"
     className={cn(
-      'flex size-6 items-center justify-center text-link transition-colors duration-fast-01 hover:text-link-hover',
+      'flex size-(--hig-cmp-breadcrumb-ellipsis,1.5rem) items-center justify-center text-(--hig-cmp-breadcrumb-link-fg,var(--hig-color-link)) transition-colors duration-fast-01 hover:text-(--hig-cmp-breadcrumb-link-fg-hover,var(--hig-color-link-hover))',
       className
     )}
     {...props}

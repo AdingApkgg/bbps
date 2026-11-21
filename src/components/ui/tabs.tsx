@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils'
  * 全圆角胶囊容器、内缩 2px 内边距、段间 2px 缝。
  * 所以不需要下划线指示条，也没有底部分隔线。
  * 高度/字重/未选中色都在本文件，`hig.css` 不再复述。
+ *
+ * 外观过 `--hig-cmp-tabs-*` 槽，父级赋值即覆盖。
  */
 const Tabs = TabsPrimitive.Root
 
@@ -20,7 +22,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'flex w-full items-stretch gap-0.5 overflow-x-auto rounded-sm bg-surface-variant-01',
+      'flex w-full items-stretch gap-0.5 overflow-x-auto rounded-(--hig-cmp-tabs-radius,var(--hig-shape-control)) bg-(--hig-cmp-tabs-track-bg,var(--hig-color-surface-variant-01))',
       'p-0.5 shadow-none',
       className
     )}
@@ -36,10 +38,10 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex h-(--hig-size-control-sm) flex-none items-center justify-center gap-2 whitespace-nowrap rounded-08 px-4 text-body-02 text-on-surface-medium',
+      'inline-flex h-(--hig-cmp-tabs-trigger-h,var(--hig-size-control-sm)) flex-none items-center justify-center gap-2 whitespace-nowrap rounded-(--hig-cmp-tabs-trigger-radius,var(--hig-shape-08)) px-(--hig-cmp-tabs-trigger-px,1rem) text-body-02 text-(--hig-cmp-tabs-trigger-fg,var(--hig-color-on-surface-medium))',
       'shadow-none transition-[color,background-color,box-shadow] duration-fast-02 ease-standard',
-      'hover:bg-state-hover hover:text-on-surface',
-      'data-[state=active]:bg-surface-01 data-[state=active]:font-semibold data-[state=active]:text-on-surface',
+      'hover:bg-(--hig-cmp-tabs-trigger-bg-hover,var(--hig-color-state-hover)) hover:text-(--hig-cmp-tabs-trigger-fg-hover,var(--hig-color-on-surface))',
+      'data-[state=active]:bg-(--hig-cmp-tabs-trigger-bg-active,var(--hig-color-surface-01)) data-[state=active]:font-semibold data-[state=active]:text-(--hig-cmp-tabs-trigger-fg-active,var(--hig-color-on-surface))',
       'data-[state=active]:shadow-[var(--hig-shadow-hairline),var(--hig-shadow-raised-small)]',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
       'disabled:pointer-events-none disabled:text-on-surface-disabled',
