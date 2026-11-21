@@ -19,7 +19,7 @@ export const THEME_STORAGE_KEY = 'bbps-theme'
 export const THEME_EVENT = 'bbps:theme'
 
 /**
- * 浏览器 UI 底色，与 `--md-sys-color-surface`（systemBackground / 纯黑）一致。
+ * 浏览器 UI 底色，与 `--hig-color-surface`（systemBackground / 纯黑）一致。
  * 手写而不是读 CSS 变量：内联脚本要在样式表之前跑，那时变量还取不到。
  */
 export const THEME_COLORS = { light: '#f2f2f7', dark: '#000000' } as const

@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
  *  - focus 走 `:focus-visible` 全局 3px 环（`hig.css`，层内低于 utilities）；
  *  - 切换型按钮（`aria-pressed`）用 2px 内描边 + link 色表示已按下。
  *
- * M2 的「拉丁大写 + 0.089em 字距」由 `hig.css` 的 `:root .text-button` 压掉。
+ * 组件里若直写了「拉丁大写 + 0.089em 字距」，由 `hig.css` 的 `:root .text-button` 压掉。
  * 一屏只留一个 default(filled primary)。
  */
 const buttonVariants = cva(
@@ -22,7 +22,7 @@ const buttonVariants = cva(
     'text-button no-underline select-none',
     'transition-[background-color,box-shadow,color] duration-fast-02 ease-standard',
     'disabled:pointer-events-none disabled:cursor-not-allowed',
-    'aria-pressed:shadow-[inset_0_0_0_2px_var(--md-sys-color-link)] aria-pressed:text-link',
+    'aria-pressed:shadow-[inset_0_0_0_2px_var(--hig-color-link)] aria-pressed:text-link',
     '[&_svg]:pointer-events-none [&_svg]:size-[1.125rem] [&_svg]:shrink-0'
   ].join(' '),
   {
@@ -65,16 +65,16 @@ const buttonVariants = cva(
         ].join(' '),
         link: 'h-auto border-0 bg-transparent p-0 normal-case tracking-normal text-link hover:enabled:text-link-hover hover:enabled:underline'
       },
-      /* 高度档位接令牌：改 --md-sys-size-lg 即整体缩放；图标按钮是 48px 触达区 */
+      /* 高度档位接令牌：改 --hig-size-lg 即整体缩放；图标按钮是 48px 触达区 */
       size: {
-        xs: 'h-(--md-sys-size-control-xs) px-2 text-caption',
-        sm: 'h-(--md-sys-size-control-sm) px-3',
-        default: 'h-(--md-sys-size-control) px-4',
-        lg: 'h-(--md-sys-size-control-lg) px-6',
-        xl: 'h-(--md-sys-size-control-xl) px-8',
-        icon: 'size-(--md-sys-size-control-xl) p-0',
-        'icon-sm': 'size-(--md-sys-size-control) p-0',
-        'icon-lg': 'size-(--md-sys-size-control-2xl) p-0'
+        xs: 'h-(--hig-size-control-xs) px-2 text-caption',
+        sm: 'h-(--hig-size-control-sm) px-3',
+        default: 'h-(--hig-size-control) px-4',
+        lg: 'h-(--hig-size-control-lg) px-6',
+        xl: 'h-(--hig-size-control-xl) px-8',
+        icon: 'size-(--hig-size-control-xl) p-0',
+        'icon-sm': 'size-(--hig-size-control) p-0',
+        'icon-lg': 'size-(--hig-size-control-2xl) p-0'
       }
     },
     defaultVariants: {

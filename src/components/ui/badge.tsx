@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 /* Badge（胶囊 chip）
  *
- * 全圆角胶囊，三档尺寸由 `--md-sys-size-chip-*` 约束，成对的 background / color
+ * 全圆角胶囊，三档尺寸由 `--hig-size-chip-*` 约束，成对的 background / color
  * 令牌保证对比度；assist 形态是 1px 描边 + 透明底。状态用 onSurface 叠加层
  * （hover 加深、pressed 再深一档），不换主色。
  *
@@ -24,7 +24,7 @@ const badgeVariants = cva(
         secondary: 'bg-chip-background-gray text-chip-color-gray',
         /* assist chip：1px 42% 描边、透明底 */
         outline:
-          'bg-transparent text-on-surface shadow-[inset_0_0_0_1px_var(--md-sys-color-outline-emphasis-01)]',
+          'bg-transparent text-on-surface shadow-[inset_0_0_0_1px_var(--hig-color-outline-emphasis-01)]',
         destructive: 'bg-chip-background-red text-chip-color-red',
         green: 'bg-chip-background-green text-chip-color-green',
         teal: 'bg-chip-background-teal text-chip-color-teal',
@@ -33,11 +33,11 @@ const badgeVariants = cva(
         cyan: 'bg-chip-background-cyan text-chip-color-cyan',
         'warm-gray': 'bg-chip-background-warm-gray text-chip-color-warm-gray'
       },
-      /* 24dp 小记号 / 32dp 标准 chip / 40dp 大 chip */
+      /* 24 小记号 / 32 标准 chip / 40 大 chip */
       size: {
-        sm: 'h-(--md-sys-size-chip-sm) px-2 text-caption',
-        md: 'h-(--md-sys-size-control-sm)',
-        lg: 'h-(--md-sys-size-control-lg) px-4'
+        sm: 'h-(--hig-size-chip-sm) px-2 text-caption',
+        md: 'h-(--hig-size-control-sm)',
+        lg: 'h-(--hig-size-control-lg) px-4'
       }
     },
     defaultVariants: {

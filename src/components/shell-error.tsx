@@ -31,7 +31,7 @@ export function ShellError({ error, reset, lang }: ShellErrorProps) {
   return (
     <main
       id="main"
-      className="mx-auto flex min-h-[60svh] max-w-(--md-sys-container-narrow) flex-col items-center justify-center gap-4 px-6 py-16 text-center"
+      className="mx-auto flex min-h-[60svh] max-w-(--hig-container-narrow) flex-col items-center justify-center gap-4 px-6 py-16 text-center"
     >
       <p className="font-mono text-caption text-on-surface-helper">500</p>
       <h1 className="text-headline-lg text-on-surface">

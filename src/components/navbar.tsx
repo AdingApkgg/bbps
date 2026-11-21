@@ -24,7 +24,7 @@ export function Navbar() {
   const donate = getDonateItem(locale === 'en' ? '/en' : '', dict)
 
   return (
-    <header className="sticky top-0 z-(--md-sys-layer-header) h-14 w-full bg-surface-01 shadow-sm">
+    <header className="sticky top-0 z-(--hig-layer-header) h-14 w-full bg-surface-01 shadow-sm">
       {/* 导航在左侧栏（[data-rail]），顶栏只留 logo、语言开关和窄屏菜单 */}
       <div className="container-page flex h-full items-center">
         {/* Logo */}
@@ -48,7 +48,7 @@ export function Navbar() {
             href={donate.href}
             aria-label={donate.label}
             className={cn(
-              'inline-flex size-(--md-sys-size-control-xl) items-center justify-center rounded-sm',
+              'inline-flex size-(--hig-size-control-xl) items-center justify-center rounded-sm',
               'text-error transition-colors duration-fast-02 ease-standard',
               'hover:bg-chip-background-red active:bg-chip-background-red'
             )}

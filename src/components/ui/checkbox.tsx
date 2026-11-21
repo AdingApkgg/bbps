@@ -19,9 +19,9 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
       data-slot="checkbox"
       className={cn(
         'group peer relative inline-flex size-[1.1875rem] shrink-0 items-center justify-center rounded-08',
-        'border-(--md-sys-size-border-thin) border-outline-01 bg-transparent',
+        'border-(--hig-size-border-thin) border-outline-01 bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
-        'before:absolute before:-inset-(--md-sys-size-hit-halo) before:rounded-full before:content-[""]',
+        'before:absolute before:-inset-(--hig-size-hit-halo) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
         'hover:enabled:before:bg-on-surface/4',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',

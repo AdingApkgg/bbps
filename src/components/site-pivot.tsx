@@ -7,10 +7,7 @@ import { getDictionary } from '@/lib/i18n'
 import { getNavItems } from '@/lib/nav-items'
 import { cn } from '@/lib/utils'
 
-/* 顶部枢轴导航（Microsoft Fluent 的 Pivot）
- *
- * 文字横向枢轴，仅窄屏使用（宽屏走常驻侧栏的图标网格）。
- */
+/* 顶部枢轴导航：文字横向分栏切换，仅窄屏使用（宽屏走左侧常驻导航栏） */
 export function SitePivot() {
   const pathname = usePathname()
   const locale = useLocale()

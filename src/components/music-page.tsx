@@ -166,7 +166,7 @@ export function MusicPage() {
 
                     {/* Add new playlist */}
                     <div className="flex flex-wrap items-end gap-2">
-                      <div className="min-w-(--md-sys-size-chip-min) flex-1">
+                      <div className="min-w-(--hig-size-chip-min) flex-1">
                         <label
                           htmlFor="music-new-label"
                           className="mb-1 block text-label text-on-surface-medium"
@@ -215,7 +215,7 @@ export function MusicPage() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="min-w-(--md-sys-size-control-min) flex-1">
+                      <div className="min-w-(--hig-size-control-min) flex-1">
                         <label
                           htmlFor="music-new-id"
                           className="mb-1 block text-label text-on-surface-medium"

@@ -42,7 +42,7 @@ const GROUPS: { id: string; keys: string[] }[] = [
   }
 ]
 
-/* 数值行：iOS inset grouped 里的一行——标签在左、值在右，行间 0.5px 缩进分隔线 */
+/* 数值行：分组列表里的一行——标签在左、值在右，行间 0.5px 缩进分隔线 */
 function StatRow({ label, value }: { label: string; value: string }) {
   return (
     <div data-list-item className="flex items-baseline justify-between gap-4 px-4 py-2">
@@ -139,7 +139,7 @@ export function GlobalStats() {
     <section>
       {heading}
 
-      {/* iOS 的每个分组各是一块：小标题在容器外，容器自带圆角与分隔线 */}
+      {/* 每个分组各是一块：小标题在容器外，容器自带圆角与分隔线 */}
       <div className="space-y-6">
         {GROUPS.map((group) => {
           const rows = group.keys

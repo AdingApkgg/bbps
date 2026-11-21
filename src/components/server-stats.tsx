@@ -128,7 +128,7 @@ export function ServerStats() {
               <p className="px-4 py-2 text-label text-on-surface-medium">
                 {dict.stats.baseViewHint}
               </p>
-              <ul className="max-h-(--md-sys-size-log-height) overflow-y-auto">
+              <ul className="max-h-(--hig-size-log-height) overflow-y-auto">
                 {players.map((player, index) => (
                   <li key={player.id} data-list-item>
                     <button

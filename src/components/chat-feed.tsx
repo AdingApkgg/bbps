@@ -123,7 +123,7 @@ export function ChatFeed() {
               const el = e.currentTarget
               if (hasMore && el.scrollHeight - el.scrollTop - el.clientHeight < 200) loadMore()
             }}
-            className="max-h-(--md-sys-size-feed-height) overflow-y-auto"
+            className="max-h-(--hig-size-feed-height) overflow-y-auto"
           >
             <ul>
               {newestFirst.map((entry) => (

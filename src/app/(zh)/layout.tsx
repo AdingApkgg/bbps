@@ -32,10 +32,10 @@ export default function ZhLayout({ children }: Readonly<{ children: React.ReactN
             <div className="relative flex min-h-svh flex-col">
               <Navbar />
               <LocaleSuggestBar />
-              {/* Fluent 枢轴 / Apple 工具栏分段：常驻 DOM，由皮肤 CSS 决定显示 */}
+              {/* 顶部枢轴：窄屏显示，宽屏由 CSS 隐藏 */}
               <SitePivot />
               <main id="main" tabIndex={-1} className="flex-1 outline-none">
-                {/* 结构壳：Carbon 左栏导航在这里落地；其余皮肤只是普通容器 */}
+                {/* 左侧导航栏：宽屏显示，窄屏由 CSS 隐藏 */}
                 <div data-shell className="flex">
                   <SiteRail />
                   <div data-shell-main className="min-w-0 flex-1">

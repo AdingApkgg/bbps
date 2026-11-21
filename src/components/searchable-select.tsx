@@ -33,7 +33,7 @@ interface Props {
 const RENDER_CAP = 50
 /** 列表最高 256px（约五行半），与旧 max-h-64 一致 */
 const LIST_MAX = 256
-/** 单行估算高度，用于判断放得下几行；实际行高由 --md-sys-size-row 决定 */
+/** 单行估算高度，用于判断放得下几行；实际行高由 --hig-size-row 决定 */
 const ROW_ESTIMATE = 44
 
 export function SearchableSelect({
@@ -180,7 +180,7 @@ export function SearchableSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={ariaLabel}
-        className="flex h-(--md-sys-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-sm border border-outline-field bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-none transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard outline-none hover:border-outline-emphasis-01 hover:bg-field-hover-01 focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] aria-expanded:border-primary aria-expanded:bg-surface-01 aria-expanded:shadow-[0_0_0_3px_var(--md-sys-color-highlight)]"
+        className="flex h-(--hig-size-field) min-h-0 w-full items-center justify-between gap-1 rounded-sm border border-outline-field bg-field-01 pl-4 pr-3 text-body-01 text-on-surface shadow-none transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard outline-none hover:border-outline-emphasis-01 hover:bg-field-hover-01 focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--hig-color-highlight)] aria-expanded:border-primary aria-expanded:bg-surface-01 aria-expanded:shadow-[0_0_0_3px_var(--hig-color-highlight)]"
       >
         <span className="truncate">{current?.label ?? ''}</span>
         <ChevronsUpDown className="size-4 shrink-0 text-on-surface-medium" />
@@ -190,7 +190,7 @@ export function SearchableSelect({
         <div
           data-slot="popover"
           className={cn(
-            'absolute left-0 z-(--md-sys-layer-popover) w-full min-w-[14rem] overflow-hidden rounded-sm bg-surface-02 py-2',
+            'absolute left-0 z-(--hig-layer-popover) w-full min-w-[14rem] overflow-hidden rounded-sm bg-surface-02 py-2',
             placement === 'above' ? 'bottom-[calc(100%+4px)]' : 'top-[calc(100%+4px)]'
           )}
         >
@@ -232,7 +232,7 @@ export function SearchableSelect({
                     onMouseEnter={() => setActive(i)}
                     onClick={() => commit(o.value)}
                     className={cn(
-                      'flex h-(--md-sys-size-row) w-full items-center gap-2 pl-4 pr-2 text-left text-body-01 transition-colors duration-fast-02',
+                      'flex h-(--hig-size-row) w-full items-center gap-2 pl-4 pr-2 text-left text-body-01 transition-colors duration-fast-02',
                       i === active && 'bg-state-pressed'
                     )}
                   >

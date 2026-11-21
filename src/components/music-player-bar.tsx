@@ -69,7 +69,7 @@ function SeekBar({
 /* ── Player Bar + Lyrics ── */
 
 export function MusicPlayerBar() {
-  /* 歌词是全屏浮层，走 M2 模态的 decelerate 进场 / accelerate 退场（长时长）；
+  /* 歌词是全屏浮层，走 decelerate 进场 / accelerate 退场（长时长）；
     底部播放条是固定栏位，按揭幕处理：同样 240ms，但只做位移不淡入 */
   const overlayMs = useMotionDuration(DURATION_REVEAL)
   const locale = useLocale()
@@ -136,7 +136,7 @@ export function MusicPlayerBar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: overlayMs, ease: EASE_EXIT } }}
             transition={{ duration: overlayMs, ease: EASE_ENTRANCE }}
-            className="fixed inset-0 z-(--md-sys-layer-modal-full) flex flex-col bg-surface"
+            className="fixed inset-0 z-(--hig-layer-modal-full) flex flex-col bg-surface"
           >
             <div className="flex items-center justify-end p-4">
               <Button variant="ghost" size="icon" onClick={player.toggleLyrics}>
@@ -212,7 +212,7 @@ export function MusicPlayerBar() {
                 </Button>
                 <Button
                   size="icon"
-                  className="size-(--md-sys-size-control-2xl)"
+                  className="size-(--hig-size-control-2xl)"
                   onClick={player.togglePlay}
                 >
                   {buffering ? (
@@ -241,7 +241,7 @@ export function MusicPlayerBar() {
         animate={{ y: 0 }}
         transition={{ duration: overlayMs, ease: EASE_ENTRANCE }}
         data-dock
-        className="pointer-events-auto fixed inset-x-0 bottom-0 z-(--md-sys-layer-dock-player) border-t bg-surface"
+        className="pointer-events-auto fixed inset-x-0 bottom-0 z-(--hig-layer-dock-player) border-t bg-surface"
       >
         <SeekBar
           value={time}
@@ -368,5 +368,5 @@ export function MusicPlayerBar() {
 
 export function PlayerSpacer() {
   const { currentTrack } = useMusicPlayer()
-  return currentTrack ? <div className="h-(--md-sys-size-player-bar)" /> : null
+  return currentTrack ? <div className="h-(--hig-size-player-bar)" /> : null
 }

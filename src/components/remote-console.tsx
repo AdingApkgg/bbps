@@ -208,7 +208,7 @@ export function VerifyPanel({
         </ol>
 
         {/* 防诈骗提示 —— 与游戏内发码时的提示对齐 */}
-        <div className="flex gap-2 rounded-sm bg-[color-mix(in_srgb,var(--md-sys-color-error)_10%,transparent)] p-3">
+        <div className="flex gap-2 rounded-sm bg-[color-mix(in_srgb,var(--hig-color-error)_10%,transparent)] p-3">
           <ShieldAlert className="h-4 w-4 shrink-0 text-error" />
           <p className="text-label leading-relaxed text-error">{t.scamWarning}</p>
         </div>

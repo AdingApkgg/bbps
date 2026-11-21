@@ -17,7 +17,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<'tex
           'transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard',
           'placeholder:text-on-surface-placeholder',
           'hover:border-outline-emphasis-01 hover:bg-field-hover-01',
-          'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
+          'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--hig-color-highlight)] focus:outline-none',
           'aria-[invalid=true]:border-error',
           'disabled:cursor-not-allowed disabled:border-outline-disabled disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled',
           className

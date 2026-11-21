@@ -45,9 +45,9 @@ function RadioGroupItem({
       data-slot="radio-group-item"
       className={cn(
         'peer relative inline-flex size-5 shrink-0 items-center justify-center gap-2 rounded-full',
-        'border-(--md-sys-size-border-thin) border-outline-01 bg-transparent',
+        'border-(--hig-size-border-thin) border-outline-01 bg-transparent',
         'transition-colors duration-fast-01 ease-standard',
-        'before:absolute before:-inset-(--md-sys-size-hit-halo) before:rounded-full before:content-[""]',
+        'before:absolute before:-inset-(--hig-size-hit-halo) before:rounded-full before:content-[""]',
         'before:transition-colors before:duration-fast-01 before:ease-standard',
         'hover:enabled:before:bg-on-surface/4',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
@@ -67,7 +67,7 @@ function RadioGroupItem({
         'group-data-[variant=segmented]:data-[state=checked]:bg-surface-01',
         'group-data-[variant=segmented]:data-[state=checked]:font-semibold',
         'group-data-[variant=segmented]:data-[state=checked]:text-on-surface',
-        'group-data-[variant=segmented]:data-[state=checked]:shadow-[var(--md-sys-shadow-hairline),var(--md-sys-shadow-raised-small)]',
+        'group-data-[variant=segmented]:data-[state=checked]:shadow-[var(--hig-shadow-hairline),var(--hig-shadow-raised-small)]',
         className
       )}
       {...props}

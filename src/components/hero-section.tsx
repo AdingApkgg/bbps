@@ -54,7 +54,7 @@ function HeroPoster({ className, onPlay }: { className?: string; onPlay: () => v
 /* ── 视口居中的视频播放器遮罩 ── */
 
 function VideoOverlay({ onClose }: { onClose: () => void }) {
-  /* 遮罩与播放器都是模态：M2 的模态用 decelerate 进场、accelerate 退场且走长时长，
+  /* 遮罩与播放器都是模态：进场用 decelerate、退场用 accelerate 且走长时长，
      不用 fast —— 它是整屏浮层，110ms 太快像抽搐 */
   const overlayMs = useMotionDuration(DURATION_REVEAL)
   // ESC 关闭
@@ -73,7 +73,7 @@ function VideoOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <m.div
-      className="fixed inset-0 z-(--md-sys-layer-modal-full) flex items-center justify-center bg-scrim"
+      className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-scrim"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: overlayMs, ease: EASE_EXIT } }}
@@ -132,7 +132,7 @@ export function HeroSection() {
     <>
       <section className="relative overflow-hidden border-b">
         {/* 网格底纹：用 8% 的分隔色逐格 1 格 1 线 */}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--md-sys-color-outline-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,color-mix(in_srgb,var(--hig-color-outline-01)_50%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--hig-color-outline-01)_50%,transparent)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-surface via-surface to-surface-01" />
 
         <div className="container-page py-12 md:py-20 lg:py-24">

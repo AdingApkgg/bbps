@@ -21,7 +21,7 @@ export default function GlobalNotFound() {
     <SiteHtml lang="zh-Hans">
       <main
         id="main"
-        className="mx-auto flex min-h-svh max-w-(--md-sys-container-narrow) flex-col items-center justify-center gap-4 px-6 text-center"
+        className="mx-auto flex min-h-svh max-w-(--hig-container-narrow) flex-col items-center justify-center gap-4 px-6 text-center"
       >
         <p className="font-mono text-label text-secondary">404</p>
         <h1 className="text-title1 text-primary">页面不存在</h1>

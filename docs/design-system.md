@@ -1,14 +1,14 @@
 # 设计系统约定
 
-取向：**Apple Human Interface Guidelines**。一层令牌、一层组件、一层 HIG 布局语汇。
+取向：**Apple Human Interface Guidelines**。一层令牌、一层组件、一层布局语汇。
 新增页面、组件时按本文执行；与本文冲突的写法视为缺陷。
 
-只做 HIG 单皮肤。历史上试过 Apple / M2 / Carbon / Fluent 四皮肤并存的矩阵，2026-11 收敛成一套：
-`src/styles/` 下只剩 `tokens.css`、`hig.css`、`prefs.css`，令牌名仍叫 `--md-sys-*`（历史前缀，与 Material 2 无关），
-`src/components/ui/` 的注释从「M2 规格原文」改写为「HIG 取形 + 哪些 M2 语义还留着」。
-对照别的系统时，把差异写成这里的条目，不再开一套并行样式。
+只做 HIG 单皮肤，令牌前缀 `--hig-*`。2026-11 之前试过 Apple / Material / Carbon / Fluent
+四皮肤并存的矩阵，现在 `src/styles/` 下只有 `tokens.css`、`hig.css`、`prefs.css` 三个文件，
+没有皮肤开关，也没有任何一份按别的系统命名的样式。
+改外观只改这三份文件和组件的工具类；要引外部系统，先在这里写一条差异，不要另开一套并行样式。
 
-iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器，组内每行用缩进分隔线，
+HIG 的版式不是卡片堆：内容分「组」，一组是一块填充容器，组内每行用缩进分隔线，
 小标题永远在容器外、13px、次要色。深色是指纹层级（`#000` 画布 / `#1C1C1E` 组底），
 不是把亮色反相。阴影只属于浮层，平铺内容零影零边框。
 
@@ -38,8 +38,8 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 | 层 | 位置 | 示例 | 谁可以引用 |
 | --- | --- | --- | --- |
-| L0 原子 | `src/styles/tokens.css` 的 `--md-sys-shape-*`、`--md-sys-motion-*`、`--md-sys-size-*`；`src/app/globals.css` 的 `--text-*`、`--spacing`、`--radius-*` | `--md-sys-shape-04`、`--md-sys-motion-short-3`、`--text-body-02` | 只有 L1 |
-| L1 语义 | `src/styles/tokens.css` 的 `--md-sys-color-*`、`--md-sys-elevation-*`、`--md-sys-shadow-*` | `--md-sys-color-primary`、`--md-sys-elevation-02` | 组件、`hig.css`（层内基样式） |
+| L0 原子 | `src/styles/tokens.css` 的 `--hig-shape-*`、`--hig-motion-*`、`--hig-size-*`；`src/app/globals.css` 的 `--text-*`、`--spacing`、`--radius-*` | `--hig-shape-04`、`--hig-motion-short-3`、`--text-body-02` | 只有 L1 |
+| L1 语义 | `src/styles/tokens.css` 的 `--hig-color-*`、`--hig-elevation-*`、`--hig-shadow-*` | `--hig-color-primary`、`--hig-elevation-02` | 组件、`hig.css`（层内基样式） |
 | L2 组件 | 组件自身（Tailwind 主题别名的 `bg-surface-02` / `text-on-surface` 等） | `bg-surface-hover-01` | 只在本组件内 |
 
 规则：
@@ -52,10 +52,10 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
   不成档的 `1.5 / 2.5 / 3.5 / 7 / 9 / 14 / 28` 并到相邻档（`gap-1.5→gap-2`、`pl-9→pl-8`、`py-28→py-24`）。
   `0.5`（2px）是唯一的亚刻度值，只用于描边对齐、图标微调这类 1px 级缝隙（`-mt-px` 的替代）。
 - 上面这条管的是间距（`p* m* gap-* space-* inset-*`）。控件高度与图标不跟间距阶，
-  走 `--md-sys-size-*` 令牌或 `h-4 w-4` 这类固定值，避免改间距时把控件尺寸一起带飞。
+  走 `--hig-size-*` 令牌或 `h-4 w-4` 这类固定值，避免改间距时把控件尺寸一起带飞。
 - 断点只用 `sm` / `md` / `lg` / `xl` / `2xl`，值在 `globals.css` 的 `@theme` 里声明（40/48/64/80/96rem）。
   CSS 原生媒体查询写 rem 字面量，改断点值时要一起改，不能只改令牌。
-- 圆角只用 `--md-sys-shape-*`、`--radius-*` 别名，或 `rounded-sm`（=`--md-sys-shape-control`，10px；分组容器）/ `rounded-full`（胶囊与图标圈）。
+- 圆角只用 `--hig-shape-*`、`--radius-*` 别名，或 `rounded-sm`（=`--hig-shape-control`，10px；分组容器）/ `rounded-full`（胶囊与图标圈）。
 
 ## 二、语义色契约
 
@@ -63,13 +63,13 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 | 语义 | 用途 | 不变量 |
 | --- | --- | --- |
-| `--md-sys-color-on-primary` / `-primary-container` | 实底按钮、徽标前景 | 对 primary ≥ 4.5:1；不足时补白/黑内衬 |
-| `--md-sys-color-on-surface` | 正文 | 对 surface 系列 ≥ 4.5:1 |
-| `--md-sys-color-on-surface-medium` / `-light` | 次级/说明文字 | 对大字号 ≥ 3:1，正文 ≥ 4.5:1；**材质面板下要按合成后的底色复核** |
-| `--md-sys-color-highlight` | 焦点环 | 对相邻两个 layer 都 ≥ 3:1 |
-| `--md-sys-color-outline-01` / `-variant-01` | 分隔线、浮层描边 | 可见即可，不承载文字 |
+| `--hig-color-on-primary` / `-primary-container` | 实底按钮、徽标前景 | 对 primary ≥ 4.5:1；不足时补白/黑内衬 |
+| `--hig-color-on-surface` | 正文 | 对 surface 系列 ≥ 4.5:1 |
+| `--hig-color-on-surface-medium` / `-light` | 次级/说明文字 | 对大字号 ≥ 3:1，正文 ≥ 4.5:1；**材质面板下要按合成后的底色复核** |
+| `--hig-color-highlight` | 焦点环 | 对相邻两个 layer 都 ≥ 3:1 |
+| `--hig-color-outline-01` / `-variant-01` | 分隔线、浮层描边 | 可见即可，不承载文字 |
 
-已知陷阱：材质面板（`--md-sys-material-sheet` = `blur(20px) saturate(180%)`）透出下层后，
+已知陷阱：材质面板（`--hig-material-sheet` = `blur(20px) saturate(180%)`）透出下层后，
 `on-surface-medium` 会掉到 4.02:1——所以抽屉/侧栏条目统一用主前景，靠 `aria-current` 与底色表示激活，不靠压暗文字。
 
 ## 三、布局语汇：组，不是卡
@@ -110,16 +110,16 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 | 令牌 | 值 | 用在哪 |
 | --- | --- | --- |
-| `--md-sys-layer-rail` | 10 | 侧栏，从顶栏底边起算 |
-| `--md-sys-layer-banner` | 20 | 提示条，紧贴顶栏下方 |
-| `--md-sys-layer-header` | 30 | 顶栏 |
-| `--md-sys-layer-modal` | 50 | 抽屉、模态对话框（Radix `Sheet` / `Dialog`） |
-| `--md-sys-layer-dock` | 60 | 手机底栏 `[data-tabbar]`、播放条 |
-| `--md-sys-layer-dock-player` | 61 | 播放条，压在底栏之上 |
-| `--md-sys-layer-modal-full` | 65 | 灯箱、全屏歌词（自带完整控制） |
-| `--md-sys-layer-popover` | 70 | 菜单 / 下拉 / 选择器 |
-| `--md-sys-layer-toast` | 75 | 全局通知 |
-| `--md-sys-layer-skip` | 80 | 跳转链接（只在焦点时出现） |
+| `--hig-layer-rail` | 10 | 侧栏，从顶栏底边起算 |
+| `--hig-layer-banner` | 20 | 提示条，紧贴顶栏下方 |
+| `--hig-layer-header` | 30 | 顶栏 |
+| `--hig-layer-modal` | 50 | 抽屉、模态对话框（Radix `Sheet` / `Dialog`） |
+| `--hig-layer-dock` | 60 | 手机底栏 `[data-tabbar]`、播放条 |
+| `--hig-layer-dock-player` | 61 | 播放条，压在底栏之上 |
+| `--hig-layer-modal-full` | 65 | 灯箱、全屏歌词（自带完整控制） |
+| `--hig-layer-popover` | 70 | 菜单 / 下拉 / 选择器 |
+| `--hig-layer-toast` | 75 | 全局通知 |
+| `--hig-layer-skip` | 80 | 跳转链接（只在焦点时出现） |
 
 两条容易踩反的规则：
 
@@ -130,10 +130,10 @@ iOS 的版式不是卡片堆：内容分「组」，一组是一块填充容器�
 
 | 用途 | 令牌 |
 | --- | --- |
-| 顶栏 / 底栏 | `--md-sys-material-bar`（0.85 + `blur(20px)`），`hig.css` 钩 `header.sticky` 与底部固定条 |
-| 抽屉 / sheet / 弹窗 | `--md-sys-material-sheet`（0.9 + `blur(24px) saturate(180%)`） |
-| 浮层投影 | `--md-sys-shadow-overlay`（单层淡影，暖色推进感） |
-| 实心按钮 / 开关与滑块拇指 | `--md-sys-shadow-thumb`（开关、滑块）；按钮用 `shadow-sm` |
+| 顶栏 / 底栏 | `--hig-material-bar`（0.85 + `blur(20px)`），`hig.css` 钩 `header.sticky` 与底部固定条 |
+| 抽屉 / sheet / 弹窗 | `--hig-material-sheet`（0.9 + `blur(24px) saturate(180%)`） |
+| 浮层投影 | `--hig-shadow-overlay`（单层淡影，暖色推进感） |
+| 实心按钮 / 开关与滑块拇指 | `--hig-shadow-thumb`（开关、滑块）；按钮用 `shadow-sm` |
 
 平铺内容只有一处例外可以用影：实心按钮与滑块拇指这类「抬起的实体」。
 
@@ -160,11 +160,11 @@ JS 侧要判明暗只能走 `usePrefersDark()`（`data-theme` 优先，`auto` �
 
 ## 八、可访问性钩子
 
-- 跳转链接：`[data-skip-link]`，Tab 首焦点，实底块上必须带自身内衬（`box-shadow: inset 0 0 0 2px var(--md-sys-color-on-primary)`），否则焦点环被自己的 primary 底色吃掉。
+- 跳转链接：`[data-skip-link]`，Tab 首焦点，实底块上必须带自身内衬（`box-shadow: inset 0 0 0 2px var(--hig-color-on-primary)`），否则焦点环被自己的 primary 底色吃掉。
 - 侧栏 `[data-rail] nav > a`、抽屉 `[data-drawer] nav > a`、手机底栏 `[data-tabbar] a` 的焦点环一律内收：`outline-offset: -2px`，贴边容器改成 `box-shadow` 内环（外扩环会压到相邻行、被屏幕或抽屉边缘裁掉）。
 - 抽屉用 `SheetTrigger asChild` 包住触发按钮，不要手写 `onClick(() => setOpen(true))`——Radix 需要知道自己被谁触发，Esc/点关闭后焦点才能回落到菜单键。
 - 焦点只能内嵌、不能删：`outline: none` 的规则必须补等价的 `box-shadow`。
-- 触达区 ≥ 44px（`--md-sys-size-touch-target`）；图标按钮给 `size-11`，紧凑行靠 `py-*` 撑到 44 而不是缩图标。
+- 触达区 ≥ 44px（`--hig-size-touch-target`）；图标按钮给 `size-11`，紧凑行靠 `py-*` 撑到 44 而不是缩图标。
 - 语义结构：一个 `<h1>`；导航区 `<nav>` 带 `aria-label`；当前项 `aria-current="page"`；纯图标按钮带 `sr-only` 文案。
 
 ## 九、校验（提交前）
@@ -193,7 +193,7 @@ bun scripts/shots.mjs   # 明暗 × 1280/390 × 跟随系统/手动选，含四�
 
 - CLI 产物写的是 shadcn 词汇（`bg-card` / `border-input` / `text-muted-foreground`）。这些别名在
   `src/app/globals.css` 的「shadcn/ui 词汇别名」段映射到同义 HIG 令牌，能渲染但语义偏粗，
-  **拉进来只是起点，须按本文重写成 `--md-sys-*` / `bg-surface-02` 口径**。
+  **拉进来只是起点，须按本文重写成 `--hig-*` / `bg-surface-02` 口径**。
 - v4 产物固定 `import { cn } from "cn"` 与 `import { Label } from "radix-ui"`（单体包）——
   与仓库 15 个 `@radix-ui/*` 分包不一致，改回 `@/lib/utils` 与对应分包。
 - `add` 撞上同名文件会问覆盖；`--overwrite` 会整份替换，原文件里的 HIG 钩子（如

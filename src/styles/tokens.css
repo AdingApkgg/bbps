@@ -2,14 +2,14 @@
  * Apple Human Interface Guidelines —— 令牌层
  *
  * 取值来源：developer.apple.com/design（iOS 系统色 / 动态字体 / 材质 / 控件尺寸），
- * 语义命名沿用 --md-sys-* 前缀（存量 500+ 处调用），取值全部是 HIG：
+ * 语义命名沿用 --hig-* 前缀（存量 500+ 处调用），取值全部是 HIG：
  *   · 颜色：系统分组底色 #F2F2F7、白卡、系统蓝 #0066CC 只给交互，不铺色块
  *   · 命名：surface 分层 / on-surface 前景 / outline / chip / state-*，
  *     旧的 layer、support、text-*、border-* 名字不再保留
  *   · 形状：控件 10、卡片 16、浮层 14，胶囊/圆头 9999px
  *   · 高度：卡片零影，影只留给浮层，且极淡双层
  *   · 动效：iOS 缩短刻度（120–620ms），进出场用带过冲的缓出
- *   · 尺寸：控件 34、行高 44（HIG 触达下限），不再是 M2 的 56 场高
+ *   · 尺寸：控件 34、行高 44（HIG 触达下限），不是 56 的场高
  *
  * 分层靠「分组底色 + 白卡 + 分隔线」，不靠影；卡片绝不投影。
  * 暗色走系统 Dark：纯黑画布 + #1C1C1E 卡 + #2C2C2E 抬升，不是灰蓝。
@@ -20,107 +20,107 @@
 /* ── 亮色：HIG 系统外观 ───────────────────────────────────────────────── */
 :root {
   /* 材质：顶栏 / 播放条的半透明底与浮层底色（blur 之下用） */
-  --md-sys-color-fill-quaternary: rgba(116, 116, 128, 0.12);
-  --md-sys-color-material-bar: rgba(249, 249, 249, 0.82);
-  --md-sys-color-material-sheet: rgba(255, 255, 255, 0.86);
+  --hig-color-fill-quaternary: rgba(116, 116, 128, 0.12);
+  --hig-color-material-bar: rgba(249, 249, 249, 0.82);
+  --hig-color-material-sheet: rgba(255, 255, 255, 0.86);
 
   /* 画布与层：分组列表底 + 白卡 */
-  --md-sys-color-surface: #f2f2f7;
-  --md-sys-color-surface-01: #ffffff;
-  --md-sys-color-surface-02: #ffffff;
-  --md-sys-color-surface-hover-01: #f4f4f8;
-  --md-sys-color-surface-hover-02: #ebebf0;
-  --md-sys-color-surface-selected-01: #e8e8ed;
-  --md-sys-color-surface-selected-02: #dededf;
-  --md-sys-color-surface-variant-01: #eeeef3;
-  --md-sys-color-surface-disabled-01: #f2f2f7;
+  --hig-color-surface: #f2f2f7;
+  --hig-color-surface-01: #ffffff;
+  --hig-color-surface-02: #ffffff;
+  --hig-color-surface-hover-01: #f4f4f8;
+  --hig-color-surface-hover-02: #ebebf0;
+  --hig-color-surface-selected-01: #e8e8ed;
+  --hig-color-surface-selected-02: #dededf;
+  --hig-color-surface-variant-01: #eeeef3;
+  --hig-color-surface-disabled-01: #f2f2f7;
 
   /* 输入底：必须比页面分组底（surface #f2f2f7）更亮，否则字段在页面上「消失」 */
-  --md-sys-color-field-01: #ffffff;
-  --md-sys-color-field-hover-01: #f4f4f8;
+  --hig-color-field-01: #ffffff;
+  --hig-color-field-hover-01: #f4f4f8;
   /* 字段描边：与分隔线同族但更实 —— 控件靠它被看见，不只靠底色差 */
-  --md-sys-color-outline-field: rgba(60, 60, 67, 0.4);
+  --hig-color-outline-field: rgba(60, 60, 67, 0.4);
 
   /* 描边：HIG 用分隔线，不给控件描边框 */
-  --md-sys-color-outline-disabled: rgba(60, 60, 67, 0.18);
-  --md-sys-color-outline-active: #0066cc;
+  --hig-color-outline-disabled: rgba(60, 60, 67, 0.18);
+  --hig-color-outline-active: #0066cc;
   /* 强调描边：描边型控件（outlined 按钮、渐变卡、原始 <button>.border）用，
      `-01` 是字段专用的同值孪生。两者必须同值且明显深于 outline-field（0.4），
      否则描边与通配继承来的 outline-01（0.29）看不出区别 —— 曾因此漂移过。 */
-  --md-sys-color-outline-emphasis-01: rgba(60, 60, 67, 0.55);
-  --md-sys-color-outline-emphasis: rgba(60, 60, 67, 0.55);
-  --md-sys-color-outline-00: rgba(60, 60, 67, 0.18);
+  --hig-color-outline-emphasis-01: rgba(60, 60, 67, 0.55);
+  --hig-color-outline-emphasis: rgba(60, 60, 67, 0.55);
+  --hig-color-outline-00: rgba(60, 60, 67, 0.18);
   /* 分隔线：比描边再淡一档。列表行只用它，不给行加边框 */
-  --md-sys-color-outline-variant-01: rgba(60, 60, 67, 0.2);
-  --md-sys-color-outline-01: rgba(60, 60, 67, 0.29);
-  --md-sys-color-outline: rgba(60, 60, 67, 0.29);
+  --hig-color-outline-variant-01: rgba(60, 60, 67, 0.2);
+  --hig-color-outline-01: rgba(60, 60, 67, 0.29);
+  --hig-color-outline: rgba(60, 60, 67, 0.29);
 
   /* 前景：label / secondaryLabel / tertiaryLabel / placeholderText */
-  --md-sys-color-on-surface: #000000;
-  --md-sys-color-on-surface-medium: rgba(60, 60, 67, 0.8);
-  --md-sys-color-on-surface-helper: rgba(60, 60, 67, 0.76);
-  --md-sys-color-on-surface-placeholder: rgba(60, 60, 67, 0.72);
-  --md-sys-color-on-surface-disabled: rgba(60, 60, 67, 0.78);
-  --md-sys-color-on-inverse-surface: #ffffff;
-  --md-sys-color-on-inverse-primary: #0a84ff;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-on-warning: #ffffff;
+  --hig-color-on-surface: #000000;
+  --hig-color-on-surface-medium: rgba(60, 60, 67, 0.8);
+  --hig-color-on-surface-helper: rgba(60, 60, 67, 0.76);
+  --hig-color-on-surface-placeholder: rgba(60, 60, 67, 0.72);
+  --hig-color-on-surface-disabled: rgba(60, 60, 67, 0.78);
+  --hig-color-on-inverse-surface: #ffffff;
+  --hig-color-on-inverse-primary: #0a84ff;
+  --hig-color-on-primary: #ffffff;
+  --hig-color-on-warning: #ffffff;
 
-  --md-sys-color-primary: #0066cc;
-  --md-sys-color-link: #0066cc;
-  --md-sys-color-link-hover: #0059b3;
+  --hig-color-primary: #0066cc;
+  --hig-color-link: #0066cc;
+  --hig-color-link-hover: #0059b3;
 
-  --md-sys-color-error: #c02419;
-  --md-sys-color-success: #146c2e;
-  --md-sys-color-warning: #8a4b06;
-  --md-sys-color-info: #0066cc;
+  --hig-color-error: #c02419;
+  --hig-color-success: #146c2e;
+  --hig-color-warning: #8a4b06;
+  --hig-color-info: #0066cc;
 
-  --md-sys-color-focus: #0066cc;
-  --md-sys-color-interactive: #0066cc;
-  --md-sys-color-highlight: rgba(0, 102, 204, 0.14);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.4);
-  --md-sys-color-state-hover: rgba(120, 120, 128, 0.08);
-  --md-sys-color-state-pressed: rgba(120, 120, 128, 0.16);
-  --md-sys-color-state-selected: rgba(120, 120, 128, 0.16);
-  --md-sys-color-inverse-surface: #1c1c1e;
-  --md-sys-color-skeleton-background: #e8e8ed;
-  --md-sys-color-skeleton-element: #dcdce2;
+  --hig-color-focus: #0066cc;
+  --hig-color-interactive: #0066cc;
+  --hig-color-highlight: rgba(0, 102, 204, 0.14);
+  --hig-color-scrim: rgba(0, 0, 0, 0.4);
+  --hig-color-state-hover: rgba(120, 120, 128, 0.08);
+  --hig-color-state-pressed: rgba(120, 120, 128, 0.16);
+  --hig-color-state-selected: rgba(120, 120, 128, 0.16);
+  --hig-color-inverse-surface: #1c1c1e;
+  --hig-color-skeleton-background: #e8e8ed;
+  --hig-color-skeleton-element: #dcdce2;
 
   /* tag / chip：系统色 12% 底 + 同色文字，胶囊形 */
-  --md-sys-color-chip-background-blue: rgba(0, 122, 255, 0.12);
-  --md-sys-color-chip-color-blue: #0059b3;
-  --md-sys-color-chip-background-cool-gray: rgba(120, 120, 128, 0.12);
-  --md-sys-color-chip-color-cool-gray: #5f5f66;
-  --md-sys-color-chip-background-cyan: rgba(50, 173, 230, 0.14);
-  --md-sys-color-chip-color-cyan: #0b6b8a;
-  --md-sys-color-chip-background-gray: rgba(120, 120, 128, 0.12);
-  --md-sys-color-chip-color-gray: #55555c;
-  --md-sys-color-chip-background-green: rgba(52, 199, 89, 0.14);
-  --md-sys-color-chip-color-green: #146c2e;
-  --md-sys-color-chip-background-magenta: rgba(255, 45, 85, 0.12);
-  --md-sys-color-chip-color-magenta: #b81f3f;
-  --md-sys-color-chip-background-purple: rgba(175, 82, 222, 0.14);
-  --md-sys-color-chip-color-purple: #7d3aa8;
-  --md-sys-color-chip-background-red: rgba(255, 59, 48, 0.12);
-  --md-sys-color-chip-color-red: #c02419;
-  --md-sys-color-chip-background-teal: rgba(48, 176, 199, 0.14);
-  --md-sys-color-chip-color-teal: #0a6675;
-  --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.14);
-  --md-sys-color-chip-color-warm-gray: #5f5f66;
+  --hig-color-chip-background-blue: rgba(0, 122, 255, 0.12);
+  --hig-color-chip-color-blue: #0059b3;
+  --hig-color-chip-background-cool-gray: rgba(120, 120, 128, 0.12);
+  --hig-color-chip-color-cool-gray: #5f5f66;
+  --hig-color-chip-background-cyan: rgba(50, 173, 230, 0.14);
+  --hig-color-chip-color-cyan: #0b6b8a;
+  --hig-color-chip-background-gray: rgba(120, 120, 128, 0.12);
+  --hig-color-chip-color-gray: #55555c;
+  --hig-color-chip-background-green: rgba(52, 199, 89, 0.14);
+  --hig-color-chip-color-green: #146c2e;
+  --hig-color-chip-background-magenta: rgba(255, 45, 85, 0.12);
+  --hig-color-chip-color-magenta: #b81f3f;
+  --hig-color-chip-background-purple: rgba(175, 82, 222, 0.14);
+  --hig-color-chip-color-purple: #7d3aa8;
+  --hig-color-chip-background-red: rgba(255, 59, 48, 0.12);
+  --hig-color-chip-color-red: #c02419;
+  --hig-color-chip-background-teal: rgba(48, 176, 199, 0.14);
+  --hig-color-chip-color-teal: #0a6675;
+  --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.14);
+  --hig-color-chip-color-warm-gray: #5f5f66;
 
   /* 按钮：tint 填充主按钮；outlined 变体走浅填充而不是描边 */
-  --md-sys-color-button-contained: #0066cc;
-  --md-sys-color-button-contained-hover: #0059b3;
-  --md-sys-color-button-contained-active: #004a99;
-  --md-sys-color-button-contained-disabled: #e9e9eb;
-  --md-sys-color-button-outlined: rgba(120, 120, 128, 0.12);
-  --md-sys-color-button-outlined-hover: rgba(120, 120, 128, 0.2);
-  --md-sys-color-button-outlined-active: rgba(120, 120, 128, 0.28);
-  --md-sys-color-button-contained-error: #c02419;
-  --md-sys-color-button-error-hover: #a81d14;
-  --md-sys-color-button-error-active: #8f1710;
-  --md-sys-color-on-button-contained: #ffffff;
-  --md-sys-color-on-button-outlined: #0066cc;
+  --hig-color-button-contained: #0066cc;
+  --hig-color-button-contained-hover: #0059b3;
+  --hig-color-button-contained-active: #004a99;
+  --hig-color-button-contained-disabled: #e9e9eb;
+  --hig-color-button-outlined: rgba(120, 120, 128, 0.12);
+  --hig-color-button-outlined-hover: rgba(120, 120, 128, 0.2);
+  --hig-color-button-outlined-active: rgba(120, 120, 128, 0.28);
+  --hig-color-button-contained-error: #c02419;
+  --hig-color-button-error-hover: #a81d14;
+  --hig-color-button-error-active: #8f1710;
+  --hig-color-on-button-contained: #ffffff;
+  --hig-color-on-button-outlined: #0066cc;
 }
 
 /* ── 暗色 ────────────────────────────────────────────────────────────────
@@ -131,322 +131,322 @@
  */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --md-sys-color-fill-quaternary: rgba(118, 118, 128, 0.24);
-    --md-sys-color-material-bar: rgba(28, 28, 30, 0.82);
-    --md-sys-color-material-sheet: rgba(44, 44, 46, 0.88);
+    --hig-color-fill-quaternary: rgba(118, 118, 128, 0.24);
+    --hig-color-material-bar: rgba(28, 28, 30, 0.82);
+    --hig-color-material-sheet: rgba(44, 44, 46, 0.88);
 
     /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
-    --md-sys-color-surface: #000000;
-    --md-sys-color-surface-01: #1c1c1e;
-    --md-sys-color-surface-02: #1c1c1e;
-    --md-sys-color-surface-hover-01: #262628;
-    --md-sys-color-surface-hover-02: #2c2c2e;
-    --md-sys-color-surface-selected-01: #2c2c2e;
-    --md-sys-color-surface-selected-02: #363638;
-    --md-sys-color-surface-variant-01: #2c2c2e;
-    --md-sys-color-surface-disabled-01: #1c1c1e;
+    --hig-color-surface: #000000;
+    --hig-color-surface-01: #1c1c1e;
+    --hig-color-surface-02: #1c1c1e;
+    --hig-color-surface-hover-01: #262628;
+    --hig-color-surface-hover-02: #2c2c2e;
+    --hig-color-surface-selected-01: #2c2c2e;
+    --hig-color-surface-selected-02: #363638;
+    --hig-color-surface-variant-01: #2c2c2e;
+    --hig-color-surface-disabled-01: #1c1c1e;
 
-    --md-sys-color-field-01: #2c2c2e;
-    --md-sys-color-field-hover-01: #363638;
-    --md-sys-color-outline-field: rgba(140, 140, 150, 0.55);
+    --hig-color-field-01: #2c2c2e;
+    --hig-color-field-hover-01: #363638;
+    --hig-color-outline-field: rgba(140, 140, 150, 0.55);
 
-    --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
-    --md-sys-color-outline-active: #4aa3ff;
-    --md-sys-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
-    --md-sys-color-outline-emphasis: rgba(200, 200, 210, 0.85);
-    --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
-    --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);
-    --md-sys-color-outline-01: rgba(84, 84, 88, 0.65);
-    --md-sys-color-outline: rgba(84, 84, 88, 0.65);
+    --hig-color-outline-disabled: rgba(84, 84, 88, 0.48);
+    --hig-color-outline-active: #4aa3ff;
+    --hig-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
+    --hig-color-outline-emphasis: rgba(200, 200, 210, 0.85);
+    --hig-color-outline-00: rgba(84, 84, 88, 0.48);
+    --hig-color-outline-variant-01: rgba(84, 84, 88, 0.4);
+    --hig-color-outline-01: rgba(84, 84, 88, 0.65);
+    --hig-color-outline: rgba(84, 84, 88, 0.65);
 
-    --md-sys-color-on-surface: #ffffff;
-    --md-sys-color-on-surface-medium: rgba(235, 235, 245, 0.6);
-    --md-sys-color-on-surface-helper: rgba(235, 235, 245, 0.55);
-    --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
-    --md-sys-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
-    --md-sys-color-on-inverse-surface: #000000;
-    --md-sys-color-on-inverse-primary: #0066cc;
-    --md-sys-color-on-primary: #ffffff;
-    --md-sys-color-on-warning: #00131f;
+    --hig-color-on-surface: #ffffff;
+    --hig-color-on-surface-medium: rgba(235, 235, 245, 0.6);
+    --hig-color-on-surface-helper: rgba(235, 235, 245, 0.55);
+    --hig-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
+    --hig-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
+    --hig-color-on-inverse-surface: #000000;
+    --hig-color-on-inverse-primary: #0066cc;
+    --hig-color-on-primary: #ffffff;
+    --hig-color-on-warning: #00131f;
 
-    --md-sys-color-primary: #0a72d6;
-    --md-sys-color-link: #4aa3ff;
-    --md-sys-color-link-hover: #79baff;
+    --hig-color-primary: #0a72d6;
+    --hig-color-link: #4aa3ff;
+    --hig-color-link-hover: #79baff;
 
-    --md-sys-color-error: #ff453a;
-    --md-sys-color-success: #2a9d47;
-    --md-sys-color-warning: #ff9f0a;
-    --md-sys-color-info: #4aa3ff;
+    --hig-color-error: #ff453a;
+    --hig-color-success: #2a9d47;
+    --hig-color-warning: #ff9f0a;
+    --hig-color-info: #4aa3ff;
 
-    --md-sys-color-focus: #4aa3ff;
-    --md-sys-color-interactive: #4aa3ff;
-    --md-sys-color-highlight: rgba(10, 132, 255, 0.22);
-    --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
-    --md-sys-color-state-hover: rgba(118, 118, 128, 0.16);
-    --md-sys-color-state-pressed: rgba(118, 118, 128, 0.24);
-    --md-sys-color-state-selected: rgba(118, 118, 128, 0.24);
-    --md-sys-color-inverse-surface: #f2f2f7;
-    --md-sys-color-skeleton-background: #2c2c2e;
-    --md-sys-color-skeleton-element: #363638;
+    --hig-color-focus: #4aa3ff;
+    --hig-color-interactive: #4aa3ff;
+    --hig-color-highlight: rgba(10, 132, 255, 0.22);
+    --hig-color-scrim: rgba(0, 0, 0, 0.6);
+    --hig-color-state-hover: rgba(118, 118, 128, 0.16);
+    --hig-color-state-pressed: rgba(118, 118, 128, 0.24);
+    --hig-color-state-selected: rgba(118, 118, 128, 0.24);
+    --hig-color-inverse-surface: #f2f2f7;
+    --hig-color-skeleton-background: #2c2c2e;
+    --hig-color-skeleton-element: #363638;
 
-    --md-sys-color-chip-background-blue: rgba(10, 132, 255, 0.22);
-    --md-sys-color-chip-color-blue: #8cc4ff;
-    --md-sys-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
-    --md-sys-color-chip-color-cool-gray: #d6d6db;
-    --md-sys-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
-    --md-sys-color-chip-color-cyan: #93e3ff;
-    --md-sys-color-chip-background-gray: rgba(118, 118, 128, 0.24);
-    --md-sys-color-chip-color-gray: #d6d6db;
-    --md-sys-color-chip-background-green: rgba(48, 209, 88, 0.22);
-    --md-sys-color-chip-color-green: #7eeb95;
-    --md-sys-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
-    --md-sys-color-chip-color-magenta: #ff96a8;
-    --md-sys-color-chip-background-purple: rgba(191, 90, 242, 0.24);
-    --md-sys-color-chip-color-purple: #d6a2ff;
-    --md-sys-color-chip-background-red: rgba(255, 69, 58, 0.22);
-    --md-sys-color-chip-color-red: #ff9b91;
-    --md-sys-color-chip-background-teal: rgba(64, 200, 224, 0.22);
-    --md-sys-color-chip-color-teal: #96e8f4;
-    --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
-    --md-sys-color-chip-color-warm-gray: #d6d6db;
+    --hig-color-chip-background-blue: rgba(10, 132, 255, 0.22);
+    --hig-color-chip-color-blue: #8cc4ff;
+    --hig-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
+    --hig-color-chip-color-cool-gray: #d6d6db;
+    --hig-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
+    --hig-color-chip-color-cyan: #93e3ff;
+    --hig-color-chip-background-gray: rgba(118, 118, 128, 0.24);
+    --hig-color-chip-color-gray: #d6d6db;
+    --hig-color-chip-background-green: rgba(48, 209, 88, 0.22);
+    --hig-color-chip-color-green: #7eeb95;
+    --hig-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
+    --hig-color-chip-color-magenta: #ff96a8;
+    --hig-color-chip-background-purple: rgba(191, 90, 242, 0.24);
+    --hig-color-chip-color-purple: #d6a2ff;
+    --hig-color-chip-background-red: rgba(255, 69, 58, 0.22);
+    --hig-color-chip-color-red: #ff9b91;
+    --hig-color-chip-background-teal: rgba(64, 200, 224, 0.22);
+    --hig-color-chip-color-teal: #96e8f4;
+    --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
+    --hig-color-chip-color-warm-gray: #d6d6db;
 
-    --md-sys-color-button-contained: #0a72d6;
-    --md-sys-color-button-contained-hover: #0d6fd0;
-    --md-sys-color-button-contained-active: #0a63bd;
-    --md-sys-color-button-contained-disabled: #2c2c2e;
-    --md-sys-color-button-outlined: rgba(118, 118, 128, 0.24);
-    --md-sys-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
-    --md-sys-color-button-outlined-active: rgba(118, 118, 128, 0.4);
-    --md-sys-color-button-contained-error: #d92f26;
-    --md-sys-color-button-error-hover: #cc332a;
-    --md-sys-color-button-error-active: #b82a22;
-    --md-sys-color-on-button-contained: #ffffff;
-    --md-sys-color-on-button-outlined: #79baff;
+    --hig-color-button-contained: #0a72d6;
+    --hig-color-button-contained-hover: #0d6fd0;
+    --hig-color-button-contained-active: #0a63bd;
+    --hig-color-button-contained-disabled: #2c2c2e;
+    --hig-color-button-outlined: rgba(118, 118, 128, 0.24);
+    --hig-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
+    --hig-color-button-outlined-active: rgba(118, 118, 128, 0.4);
+    --hig-color-button-contained-error: #d92f26;
+    --hig-color-button-error-hover: #cc332a;
+    --hig-color-button-error-active: #b82a22;
+    --hig-color-on-button-contained: #ffffff;
+    --hig-color-on-button-outlined: #79baff;
   }
 }
 
 :root[data-theme="dark"] {
-  --md-sys-color-fill-quaternary: rgba(118, 118, 128, 0.24);
-  --md-sys-color-material-bar: rgba(28, 28, 30, 0.82);
-  --md-sys-color-material-sheet: rgba(44, 44, 46, 0.88);
+  --hig-color-fill-quaternary: rgba(118, 118, 128, 0.24);
+  --hig-color-material-bar: rgba(28, 28, 30, 0.82);
+  --hig-color-material-sheet: rgba(44, 44, 46, 0.88);
 
   /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
-  --md-sys-color-surface: #000000;
-  --md-sys-color-surface-01: #1c1c1e;
-  --md-sys-color-surface-02: #1c1c1e;
-  --md-sys-color-surface-hover-01: #262628;
-  --md-sys-color-surface-hover-02: #2c2c2e;
-  --md-sys-color-surface-selected-01: #2c2c2e;
-  --md-sys-color-surface-selected-02: #363638;
-  --md-sys-color-surface-variant-01: #2c2c2e;
-  --md-sys-color-surface-disabled-01: #1c1c1e;
+  --hig-color-surface: #000000;
+  --hig-color-surface-01: #1c1c1e;
+  --hig-color-surface-02: #1c1c1e;
+  --hig-color-surface-hover-01: #262628;
+  --hig-color-surface-hover-02: #2c2c2e;
+  --hig-color-surface-selected-01: #2c2c2e;
+  --hig-color-surface-selected-02: #363638;
+  --hig-color-surface-variant-01: #2c2c2e;
+  --hig-color-surface-disabled-01: #1c1c1e;
 
-  --md-sys-color-field-01: #2c2c2e;
-  --md-sys-color-field-hover-01: #363638;
-  --md-sys-color-outline-field: rgba(140, 140, 150, 0.55);
+  --hig-color-field-01: #2c2c2e;
+  --hig-color-field-hover-01: #363638;
+  --hig-color-outline-field: rgba(140, 140, 150, 0.55);
 
-  --md-sys-color-outline-disabled: rgba(84, 84, 88, 0.48);
-  --md-sys-color-outline-active: #4aa3ff;
-  --md-sys-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
-  --md-sys-color-outline-emphasis: rgba(200, 200, 210, 0.85);
-  --md-sys-color-outline-00: rgba(84, 84, 88, 0.48);
-  --md-sys-color-outline-variant-01: rgba(84, 84, 88, 0.4);
-  --md-sys-color-outline-01: rgba(84, 84, 88, 0.65);
-  --md-sys-color-outline: rgba(84, 84, 88, 0.65);
+  --hig-color-outline-disabled: rgba(84, 84, 88, 0.48);
+  --hig-color-outline-active: #4aa3ff;
+  --hig-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
+  --hig-color-outline-emphasis: rgba(200, 200, 210, 0.85);
+  --hig-color-outline-00: rgba(84, 84, 88, 0.48);
+  --hig-color-outline-variant-01: rgba(84, 84, 88, 0.4);
+  --hig-color-outline-01: rgba(84, 84, 88, 0.65);
+  --hig-color-outline: rgba(84, 84, 88, 0.65);
 
-  --md-sys-color-on-surface: #ffffff;
-  --md-sys-color-on-surface-medium: rgba(235, 235, 245, 0.6);
-  --md-sys-color-on-surface-helper: rgba(235, 235, 245, 0.55);
-  --md-sys-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
-  --md-sys-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
-  --md-sys-color-on-inverse-surface: #000000;
-  --md-sys-color-on-inverse-primary: #0066cc;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-on-warning: #00131f;
+  --hig-color-on-surface: #ffffff;
+  --hig-color-on-surface-medium: rgba(235, 235, 245, 0.6);
+  --hig-color-on-surface-helper: rgba(235, 235, 245, 0.55);
+  --hig-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
+  --hig-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
+  --hig-color-on-inverse-surface: #000000;
+  --hig-color-on-inverse-primary: #0066cc;
+  --hig-color-on-primary: #ffffff;
+  --hig-color-on-warning: #00131f;
 
-  --md-sys-color-primary: #0a72d6;
-  --md-sys-color-link: #4aa3ff;
-  --md-sys-color-link-hover: #79baff;
+  --hig-color-primary: #0a72d6;
+  --hig-color-link: #4aa3ff;
+  --hig-color-link-hover: #79baff;
 
-  --md-sys-color-error: #ff453a;
-  --md-sys-color-success: #2a9d47;
-  --md-sys-color-warning: #ff9f0a;
-  --md-sys-color-info: #4aa3ff;
+  --hig-color-error: #ff453a;
+  --hig-color-success: #2a9d47;
+  --hig-color-warning: #ff9f0a;
+  --hig-color-info: #4aa3ff;
 
-  --md-sys-color-focus: #4aa3ff;
-  --md-sys-color-interactive: #4aa3ff;
-  --md-sys-color-highlight: rgba(10, 132, 255, 0.22);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
-  --md-sys-color-state-hover: rgba(118, 118, 128, 0.16);
-  --md-sys-color-state-pressed: rgba(118, 118, 128, 0.24);
-  --md-sys-color-state-selected: rgba(118, 118, 128, 0.24);
-  --md-sys-color-inverse-surface: #f2f2f7;
-  --md-sys-color-skeleton-background: #2c2c2e;
-  --md-sys-color-skeleton-element: #363638;
+  --hig-color-focus: #4aa3ff;
+  --hig-color-interactive: #4aa3ff;
+  --hig-color-highlight: rgba(10, 132, 255, 0.22);
+  --hig-color-scrim: rgba(0, 0, 0, 0.6);
+  --hig-color-state-hover: rgba(118, 118, 128, 0.16);
+  --hig-color-state-pressed: rgba(118, 118, 128, 0.24);
+  --hig-color-state-selected: rgba(118, 118, 128, 0.24);
+  --hig-color-inverse-surface: #f2f2f7;
+  --hig-color-skeleton-background: #2c2c2e;
+  --hig-color-skeleton-element: #363638;
 
-  --md-sys-color-chip-background-blue: rgba(10, 132, 255, 0.22);
-  --md-sys-color-chip-color-blue: #8cc4ff;
-  --md-sys-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
-  --md-sys-color-chip-color-cool-gray: #d6d6db;
-  --md-sys-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
-  --md-sys-color-chip-color-cyan: #93e3ff;
-  --md-sys-color-chip-background-gray: rgba(118, 118, 128, 0.24);
-  --md-sys-color-chip-color-gray: #d6d6db;
-  --md-sys-color-chip-background-green: rgba(48, 209, 88, 0.22);
-  --md-sys-color-chip-color-green: #7eeb95;
-  --md-sys-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
-  --md-sys-color-chip-color-magenta: #ff96a8;
-  --md-sys-color-chip-background-purple: rgba(191, 90, 242, 0.24);
-  --md-sys-color-chip-color-purple: #d6a2ff;
-  --md-sys-color-chip-background-red: rgba(255, 69, 58, 0.22);
-  --md-sys-color-chip-color-red: #ff9b91;
-  --md-sys-color-chip-background-teal: rgba(64, 200, 224, 0.22);
-  --md-sys-color-chip-color-teal: #96e8f4;
-  --md-sys-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
-  --md-sys-color-chip-color-warm-gray: #d6d6db;
+  --hig-color-chip-background-blue: rgba(10, 132, 255, 0.22);
+  --hig-color-chip-color-blue: #8cc4ff;
+  --hig-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
+  --hig-color-chip-color-cool-gray: #d6d6db;
+  --hig-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
+  --hig-color-chip-color-cyan: #93e3ff;
+  --hig-color-chip-background-gray: rgba(118, 118, 128, 0.24);
+  --hig-color-chip-color-gray: #d6d6db;
+  --hig-color-chip-background-green: rgba(48, 209, 88, 0.22);
+  --hig-color-chip-color-green: #7eeb95;
+  --hig-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
+  --hig-color-chip-color-magenta: #ff96a8;
+  --hig-color-chip-background-purple: rgba(191, 90, 242, 0.24);
+  --hig-color-chip-color-purple: #d6a2ff;
+  --hig-color-chip-background-red: rgba(255, 69, 58, 0.22);
+  --hig-color-chip-color-red: #ff9b91;
+  --hig-color-chip-background-teal: rgba(64, 200, 224, 0.22);
+  --hig-color-chip-color-teal: #96e8f4;
+  --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
+  --hig-color-chip-color-warm-gray: #d6d6db;
 
-  --md-sys-color-button-contained: #0a72d6;
-  --md-sys-color-button-contained-hover: #0d6fd0;
-  --md-sys-color-button-contained-active: #0a63bd;
-  --md-sys-color-button-contained-disabled: #2c2c2e;
-  --md-sys-color-button-outlined: rgba(118, 118, 128, 0.24);
-  --md-sys-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
-  --md-sys-color-button-outlined-active: rgba(118, 118, 128, 0.4);
-  --md-sys-color-button-contained-error: #d92f26;
-  --md-sys-color-button-error-hover: #cc332a;
-  --md-sys-color-button-error-active: #b82a22;
-  --md-sys-color-on-button-contained: #ffffff;
-  --md-sys-color-on-button-outlined: #79baff;
+  --hig-color-button-contained: #0a72d6;
+  --hig-color-button-contained-hover: #0d6fd0;
+  --hig-color-button-contained-active: #0a63bd;
+  --hig-color-button-contained-disabled: #2c2c2e;
+  --hig-color-button-outlined: rgba(118, 118, 128, 0.24);
+  --hig-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
+  --hig-color-button-outlined-active: rgba(118, 118, 128, 0.4);
+  --hig-color-button-contained-error: #d92f26;
+  --hig-color-button-error-hover: #cc332a;
+  --hig-color-button-error-active: #b82a22;
+  --hig-color-on-button-contained: #ffffff;
+  --hig-color-on-button-outlined: #79baff;
 }
 
 /* ── 圆角：HIG 形状刻度（控件 10、卡片 16、浮层 14、胶囊 max） ─────────── */
 :root {
-  --md-sys-shape-02: 0.125rem;
-  --md-sys-shape-04: 0.25rem;
-  --md-sys-shape-08: 0.5rem;
-  --md-sys-shape-16: 1rem;
-  --md-sys-shape-24: 1.25rem;
-  --md-sys-shape-max: 999999px;
+  --hig-shape-02: 0.125rem;
+  --hig-shape-04: 0.25rem;
+  --hig-shape-08: 0.5rem;
+  --hig-shape-16: 1rem;
+  --hig-shape-24: 1.25rem;
+  --hig-shape-max: 999999px;
   /* 全圆头别名（rail 条目等需要「圆形」语义而非「胶囊」语义时用） */
-  --md-sys-shape-full: 999999px;
+  --hig-shape-full: 999999px;
   /* 组件默认形状：控件 10、容器 16、浮层 14 */
-  --md-sys-shape-control: 0.625rem;
-  --md-sys-shape-container: 1rem;
-  --md-sys-shape-overlay: 0.875rem;
+  --hig-shape-control: 0.625rem;
+  --hig-shape-container: 1rem;
+  --hig-shape-overlay: 0.875rem;
 }
 
 /* ── 深度：卡片零影，影只给浮层，且极淡双层 ──────────────────────────── */
 :root {
-  --md-sys-elevation-01: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
-  --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.06);
-  --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.12);
-  --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.16);
-  --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.18);
-  --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+  --hig-elevation-01: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  --hig-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --hig-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --hig-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hig-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --hig-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.16);
+  --hig-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.18);
+  --hig-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
   /* 手柄/滑块「悬浮实体」影：小件 + 微描边，只给开关与滑块拇指 */
-  --md-sys-shadow-thumb:
+  --hig-shadow-thumb:
     0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
   /* 分段控件选中项的浮起影（比 overlay 小一档，只用在内嵌小件上） */
-  --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.12);
+  --hig-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.12);
   /* 选中项外沿半像素加硬边（分段控件靠这个把片与底拉开） */
-  --md-sys-shadow-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  --hig-shadow-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
 /* 同上：跟系统一块、手动选定一块，值必须一致 */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --md-sys-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
-    --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
-    --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
-    --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
-    --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
-    --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
-    --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
-    --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
-    --md-sys-shadow-thumb:
+    --hig-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+    --hig-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
+    --hig-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
+    --hig-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
+    --hig-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
+    --hig-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
+    --hig-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
+    --hig-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+    --hig-shadow-thumb:
       0 3px 8px rgba(0, 0, 0, 0.6), 0 3px 1px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.4);
-    --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
-    --md-sys-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+    --hig-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
+    --hig-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
   }
 }
 
 :root[data-theme="dark"] {
-  --md-sys-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
-  --md-sys-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
-  --md-sys-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
-  --md-sys-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
-  --md-sys-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
-  --md-sys-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
-  --md-sys-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
-  --md-sys-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
-  --md-sys-shadow-thumb:
+  --hig-elevation-01: 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --hig-elevation-02: 0 1px 4px rgba(0, 0, 0, 0.4);
+  --hig-elevation-04: 0 2px 8px rgba(0, 0, 0, 0.48);
+  --hig-elevation-06: 0 4px 12px rgba(0, 0, 0, 0.54);
+  --hig-elevation-08: 0 6px 20px rgba(0, 0, 0, 0.6);
+  --hig-elevation-16: 0 10px 32px rgba(0, 0, 0, 0.66);
+  --hig-elevation-24: 0 14px 44px rgba(0, 0, 0, 0.7);
+  --hig-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+  --hig-shadow-thumb:
     0 3px 8px rgba(0, 0, 0, 0.6), 0 3px 1px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.4);
-  --md-sys-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
-  --md-sys-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+  --hig-shadow-raised-small: 0 3px 8px rgba(0, 0, 0, 0.5);
+  --hig-shadow-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
 }
 
 /* ── 动效：iOS 缩短刻度，进出场用带过冲的缓出 ─────────────────────────── */
 :root {
-  --md-sys-motion-short-2: 120ms;
-  --md-sys-motion-short-3: 180ms;
-  --md-sys-motion-short-4: 240ms;
-  --md-sys-motion-medium-2: 320ms;
-  --md-sys-motion-long-2: 420ms;
-  --md-sys-motion-long-4: 620ms;
+  --hig-motion-short-2: 120ms;
+  --hig-motion-short-3: 180ms;
+  --hig-motion-short-4: 240ms;
+  --hig-motion-medium-2: 320ms;
+  --hig-motion-long-2: 420ms;
+  --hig-motion-long-4: 620ms;
 
-  --md-sys-motion-duration-fast-01: var(--md-sys-motion-short-2);
-  --md-sys-motion-duration-fast-02: var(--md-sys-motion-short-3);
-  --md-sys-motion-duration-moderate-01: var(--md-sys-motion-short-4);
-  --md-sys-motion-duration-moderate-02: var(--md-sys-motion-medium-2);
-  --md-sys-motion-duration-slow-01: var(--md-sys-motion-long-2);
-  --md-sys-motion-duration-slow-02: var(--md-sys-motion-long-4);
+  --hig-motion-duration-fast-01: var(--hig-motion-short-2);
+  --hig-motion-duration-fast-02: var(--hig-motion-short-3);
+  --hig-motion-duration-moderate-01: var(--hig-motion-short-4);
+  --hig-motion-duration-moderate-02: var(--hig-motion-medium-2);
+  --hig-motion-duration-slow-01: var(--hig-motion-long-2);
+  --hig-motion-duration-slow-02: var(--hig-motion-long-4);
 
-  --md-sys-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --md-sys-motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
-  --md-sys-motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
-  --md-sys-motion-ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  --hig-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --hig-motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --hig-motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --hig-motion-ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 
-  --md-sys-motion-ease-standard-productive: cubic-bezier(0.4, 0, 0.2, 1);
-  --md-sys-motion-ease-standard-expressive: cubic-bezier(0.32, 0.72, 0, 1);
-  --md-sys-motion-ease-entrance-productive: cubic-bezier(0, 0, 0.2, 1);
-  --md-sys-motion-ease-entrance-expressive: cubic-bezier(0.32, 0.72, 0, 1);
-  --md-sys-motion-ease-exit-productive: cubic-bezier(0.4, 0, 1, 1);
-  --md-sys-motion-ease-exit-expressive: cubic-bezier(0.4, 0, 1, 1);
+  --hig-motion-ease-standard-productive: cubic-bezier(0.4, 0, 0.2, 1);
+  --hig-motion-ease-standard-expressive: cubic-bezier(0.32, 0.72, 0, 1);
+  --hig-motion-ease-entrance-productive: cubic-bezier(0, 0, 0.2, 1);
+  --hig-motion-ease-entrance-expressive: cubic-bezier(0.32, 0.72, 0, 1);
+  --hig-motion-ease-exit-productive: cubic-bezier(0.4, 0, 1, 1);
+  --hig-motion-ease-exit-expressive: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* ── 尺寸：控件 34、行高 44（HIG 触达下限，不是 M2 的 56 场高） ────────── */
+/* ── 尺寸：控件 34、行高 44（HIG 触达下限，不是 56 的场高） ────────── */
 :root {
-  --md-sys-size-lg: 2.75rem; /* 44px 主按钮 */
-  /* 控件高度档位：锚在 --md-sys-size-lg 上，改 lg 即可整体缩放 */
-  --md-sys-size-control-xs: calc(var(--md-sys-size-lg) - 0.5rem); /* 36px */
-  --md-sys-size-control-sm: calc(var(--md-sys-size-lg) - 0.375rem); /* 38px */
-  --md-sys-size-control: calc(var(--md-sys-size-lg) - 0.25rem); /* 40px 默认 */
-  --md-sys-size-control-lg: var(--md-sys-size-lg); /* 44px */
-  --md-sys-size-control-xl: calc(var(--md-sys-size-lg) + 0.25rem); /* 48px */
-  --md-sys-size-control-2xl: calc(var(--md-sys-size-lg) + 0.75rem); /* 56px 大图标按钮 */
-  --md-sys-size-field: 2.75rem; /* 44px 输入框 */
-  --md-sys-size-touch-target: 2.75rem; /* 44px 最小触达区 */
-  --md-sys-size-row: 2.75rem; /* 44px 列表/菜单行高 */
-  --md-sys-size-chip-sm: calc(var(--md-sys-size-lg) - 1rem); /* 28px 小记号 */
-  --md-sys-size-switch-track-h: 1.9375rem; /* 31px 开关轨道（HIG） */
-  --md-sys-size-switch-track-w: 3.1875rem; /* 51px 开关轨道（HIG） */
-  --md-sys-size-switch-thumb: 1.6875rem; /* 27px 开关手柄 */
-  --md-sys-size-switch-halo-x: 7px; /* 开关外扩热区，与 -y 合成 65×65 圆 */
-  --md-sys-size-switch-halo-y: 17px;
-  --md-sys-size-hit-halo: 12px; /* 单选 / 复选外扩热区，凑满 44px 触达 */
-  --md-sys-size-slider-pad: 9px; /* 滑杆纵向留白，28+18=46px 触达 */
-  --md-sys-size-hairline: 0.5px; /* 发丝线：分隔线、表格描边，视网膜屏才实 */
-  --md-sys-size-border-thin: 1.5px; /* 单选 / 复选未选描边 */
-  --md-sys-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
-  --md-sys-size-toast-width: 21.5rem; /* 344px 吐司上限 */
-  --md-sys-size-feed-height: 28.75rem; /* 460px 聊天记录视窗 */
-  --md-sys-size-log-height: 25rem; /* 400px 日志视窗 */
-  --md-sys-size-rank-label: 12.5rem; /* 200px 排行姓名列 */
-  --md-sys-size-chip-min: 5rem; /* 80px 标签最小宽 */
-  --md-sys-size-control-min: 6.25rem; /* 100px 控件最小宽 */
-  --md-sys-size-player-bar: 4.5rem; /* 72px 播放条 */
+  --hig-size-lg: 2.75rem; /* 44px 主按钮 */
+  /* 控件高度档位：锚在 --hig-size-lg 上，改 lg 即可整体缩放 */
+  --hig-size-control-xs: calc(var(--hig-size-lg) - 0.5rem); /* 36px */
+  --hig-size-control-sm: calc(var(--hig-size-lg) - 0.375rem); /* 38px */
+  --hig-size-control: calc(var(--hig-size-lg) - 0.25rem); /* 40px 默认 */
+  --hig-size-control-lg: var(--hig-size-lg); /* 44px */
+  --hig-size-control-xl: calc(var(--hig-size-lg) + 0.25rem); /* 48px */
+  --hig-size-control-2xl: calc(var(--hig-size-lg) + 0.75rem); /* 56px 大图标按钮 */
+  --hig-size-field: 2.75rem; /* 44px 输入框 */
+  --hig-size-touch-target: 2.75rem; /* 44px 最小触达区 */
+  --hig-size-row: 2.75rem; /* 44px 列表/菜单行高 */
+  --hig-size-chip-sm: calc(var(--hig-size-lg) - 1rem); /* 28px 小记号 */
+  --hig-size-switch-track-h: 1.9375rem; /* 31px 开关轨道（HIG） */
+  --hig-size-switch-track-w: 3.1875rem; /* 51px 开关轨道（HIG） */
+  --hig-size-switch-thumb: 1.6875rem; /* 27px 开关手柄 */
+  --hig-size-switch-halo-x: 7px; /* 开关外扩热区，与 -y 合成 65×65 圆 */
+  --hig-size-switch-halo-y: 17px;
+  --hig-size-hit-halo: 12px; /* 单选 / 复选外扩热区，凑满 44px 触达 */
+  --hig-size-slider-pad: 9px; /* 滑杆纵向留白，28+18=46px 触达 */
+  --hig-size-hairline: 0.5px; /* 发丝线：分隔线、表格描边，视网膜屏才实 */
+  --hig-size-border-thin: 1.5px; /* 单选 / 复选未选描边 */
+  --hig-size-progress-height: 0.25rem; /* 4px 线性进度轨道 */
+  --hig-size-toast-width: 21.5rem; /* 344px 吐司上限 */
+  --hig-size-feed-height: 28.75rem; /* 460px 聊天记录视窗 */
+  --hig-size-log-height: 25rem; /* 400px 日志视窗 */
+  --hig-size-rank-label: 12.5rem; /* 200px 排行姓名列 */
+  --hig-size-chip-min: 5rem; /* 80px 标签最小宽 */
+  --hig-size-control-min: 6.25rem; /* 100px 控件最小宽 */
+  --hig-size-player-bar: 4.5rem; /* 72px 播放条 */
 }
 
 /* ── 层叠顺序 ──────────────────────────────────────────────────────────
@@ -472,14 +472,14 @@
  *   skip   跳转链接：只在获得焦点时出现，必须高于一切
  */
 :root {
-  --md-sys-layer-rail: 10;
-  --md-sys-layer-banner: 20;
-  --md-sys-layer-header: 30;
-  --md-sys-layer-modal: 50;
-  --md-sys-layer-dock: 60;
-  --md-sys-layer-dock-player: 61;
-  --md-sys-layer-modal-full: 65;
-  --md-sys-layer-popover: 70;
-  --md-sys-layer-toast: 75;
-  --md-sys-layer-skip: 80;
+  --hig-layer-rail: 10;
+  --hig-layer-banner: 20;
+  --hig-layer-header: 30;
+  --hig-layer-modal: 50;
+  --hig-layer-dock: 60;
+  --hig-layer-dock-player: 61;
+  --hig-layer-modal-full: 65;
+  --hig-layer-popover: 70;
+  --hig-layer-toast: 75;
+  --hig-layer-skip: 80;
 }

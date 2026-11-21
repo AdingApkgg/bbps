@@ -25,7 +25,7 @@ export function SiteTabBar() {
     <nav
       data-tabbar
       data-dock
-      className="pointer-events-auto hidden fixed inset-x-0 bottom-0 z-(--md-sys-layer-dock) border-t bg-surface-01/90 backdrop-blur"
+      className="pointer-events-auto hidden fixed inset-x-0 bottom-0 z-(--hig-layer-dock) border-t bg-surface-01/90 backdrop-blur"
       aria-label={dict.nav.toggleMenu}
     >
       <div className="flex h-14 items-stretch">

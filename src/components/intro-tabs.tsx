@@ -48,7 +48,7 @@ export function IntroTabs() {
                 key={i}
                 type="button"
                 onClick={() => setActive(i)}
-                className={`flex h-(--md-sys-size-control-lg) items-center gap-2 rounded-pill border px-4 text-button uppercase transition-colors duration-fast-02 ${
+                className={`flex h-(--hig-size-control-lg) items-center gap-2 rounded-pill border px-4 text-button uppercase transition-colors duration-fast-02 ${
                   isActive
                     ? 'border-transparent bg-state-selected text-link-hover'
                     : 'border-outline-emphasis bg-transparent text-on-surface-medium hover:bg-state-hover hover:text-on-surface'

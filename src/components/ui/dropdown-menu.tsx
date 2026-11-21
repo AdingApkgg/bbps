@@ -27,7 +27,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      'flex h-(--md-sys-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+      'flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
       'hover:bg-surface-hover-02 focus:bg-state-pressed data-[state=open]:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       inset && 'pl-12',
@@ -48,7 +48,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-(--md-sys-layer-popover) min-w-[11.5rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+      'z-(--hig-layer-popover) min-w-[11.5rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
       'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -69,7 +69,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'relative z-(--md-sys-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[11.5rem] overflow-y-auto overflow-x-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+        'relative z-(--hig-layer-popover) max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[11.5rem] overflow-y-auto overflow-x-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
         'data-[state=open]:ease-entrance-expressive data-[state=closed]:ease-exit-expressive',
@@ -91,7 +91,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
+      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center gap-2 pl-4 pr-2 text-body-01 outline-none transition-colors duration-fast-02 [&>svg]:size-4 [&>svg]:shrink-0',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       inset && 'pl-12',
@@ -109,7 +109,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
+      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className
@@ -134,7 +134,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'relative flex h-(--md-sys-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
+      'relative flex h-(--hig-size-row) cursor-pointer select-none items-center pl-12 pr-2 text-body-01 outline-none transition-colors duration-fast-02',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[disabled]:pointer-events-none data-[disabled]:text-on-surface-disabled',
       className

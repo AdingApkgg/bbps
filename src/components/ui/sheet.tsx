@@ -22,7 +22,7 @@ const SheetOverlay = React.forwardRef<
   <SheetPrimitive.Overlay
     className={cn(
       // 遮罩：32% scrim，淡入，不位移
-      'fixed inset-0 z-(--md-sys-layer-modal) bg-scrim',
+      'fixed inset-0 z-(--hig-layer-modal) bg-scrim',
       'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
       'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',
@@ -37,7 +37,7 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 const sheetVariants = cva(
   [
     // 抽屉：表层材质（hig.css 钩 popover/dialog 给材质与影）、面板自身滑入
-    'fixed z-(--md-sys-layer-modal) flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
+    'fixed z-(--hig-layer-modal) flex flex-col gap-4 bg-surface-01 p-4 shadow-scrim',
     'data-[state=open]:animate-in data-[state=closed]:animate-out',
     'data-[state=open]:duration-moderate-01 data-[state=closed]:duration-moderate-01',
     'data-[state=open]:ease-entrance data-[state=closed]:ease-exit',

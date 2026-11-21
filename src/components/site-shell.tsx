@@ -33,7 +33,7 @@ const notoSansSC = Noto_Sans_SC({
 export const OG_IMAGE_WIDTH = 1200
 export const OG_IMAGE_HEIGHT = 630
 
-/* 浏览器 UI 底色 = systemGroupedBackground 的亮/暗值，与 --md-sys-color-surface 一致 */
+/* 浏览器 UI 底色 = systemGroupedBackground 的亮/暗值，与 --hig-color-surface 一致 */
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f2f2f7' },
@@ -70,7 +70,7 @@ export function SiteHtml({ lang, children }: { lang: string; children: React.Rea
         <a
           href="#main"
           data-skip-link
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--md-sys-layer-skip) focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-button focus:text-on-primary"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--hig-layer-skip) focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-button focus:text-on-primary"
         >
           {lang === 'en' ? 'Skip to main content' : '跳至主内容'}
         </a>

@@ -16,7 +16,7 @@ const STRAY_TAG_RE = /<\/?c(?:[0-9A-Fa-f]{6})?>/g
 
 /**
  * 正文实际压住的底色，按「亮, 暗」成对给出：列表是纯白 / #1C1C1E（HIG 的分组列表底），
- * 这两个值必须与 tokens.css 的 --md-sys-color-surface-01 保持一致。
+ * 这两个值必须与 tokens.css 的 --hig-color-surface-01 保持一致。
  */
 const BACKGROUNDS = ['#ffffff', '#1c1c1e'] as const
 

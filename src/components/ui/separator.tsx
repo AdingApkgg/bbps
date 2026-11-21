@@ -21,8 +21,8 @@ const Separator = React.forwardRef<
     className={cn(
       'shrink-0 bg-outline-01',
       orientation === 'horizontal'
-        ? 'h-(--md-sys-size-hairline) w-full'
-        : 'h-full w-(--md-sys-size-hairline)',
+        ? 'h-(--hig-size-hairline) w-full'
+        : 'h-full w-(--hig-size-hairline)',
       className
     )}
     {...props}

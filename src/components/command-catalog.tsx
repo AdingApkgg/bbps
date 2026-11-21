@@ -263,8 +263,8 @@ export function CommandCatalog({
   return (
     <div className="space-y-4">
       {/* 搜索框吸在顶栏下：目录很长，滚到一半也能直接改词，不必先滚回去
-       *  顶栏高度由 hig.css 钉在 --md-sys-size-lg（44px），这里跟着走 */}
-      <div className="sticky top-(--md-sys-size-lg) z-10 -mx-1 bg-surface px-1 py-1">
+       *  顶栏高度由 hig.css 钉在 --hig-size-lg（44px），这里跟着走 */}
+      <div className="sticky top-(--hig-size-lg) z-10 -mx-1 bg-surface px-1 py-1">
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-medium" />
           <Input

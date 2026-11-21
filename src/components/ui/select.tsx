@@ -19,11 +19,11 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     data-slot="select-trigger"
     className={cn(
-      'flex h-(--md-sys-size-field) w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-sm border border-outline-field bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
+      'flex h-(--hig-size-field) w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-sm border border-outline-field bg-field-01 py-0 pl-4 pr-3 text-body-01 text-on-surface',
       'shadow-none',
       'transition-[background-color,border-color,box-shadow] duration-fast-02 ease-standard hover:border-outline-emphasis-01 hover:bg-field-hover-01',
-      'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--md-sys-color-highlight)] focus:outline-none',
-      'data-[state=open]:border-primary data-[state=open]:bg-surface-01 data-[state=open]:shadow-[0_0_0_3px_var(--md-sys-color-highlight)]',
+      'focus:border-primary focus:bg-surface-01 focus:shadow-[0_0_0_3px_var(--hig-color-highlight)] focus:outline-none',
+      'data-[state=open]:border-primary data-[state=open]:bg-surface-01 data-[state=open]:shadow-[0_0_0_3px_var(--hig-color-highlight)]',
       'disabled:cursor-not-allowed disabled:border-outline-disabled disabled:bg-surface-disabled-01 disabled:text-on-surface-disabled',
       'aria-[invalid=true]:border-error',
       '[&>span]:line-clamp-1',
@@ -76,7 +76,7 @@ const SelectContent = React.forwardRef<
       ref={ref}
       data-slot="select-content"
       className={cn(
-        'relative z-(--md-sys-layer-popover) max-h-96 min-w-[8rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
+        'relative z-(--hig-layer-popover) max-h-96 min-w-[8rem] overflow-hidden rounded-sm bg-surface-02 py-2 text-on-surface',
         // 菜单浮层：单层淡影 + 短淡入，位移只有 2px
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:duration-fast-02 data-[state=closed]:duration-fast-02',
@@ -124,7 +124,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex h-(--md-sys-size-row) w-full cursor-pointer select-none items-center pl-4 pr-8 text-body-01',
+      'relative flex h-(--hig-size-row) w-full cursor-pointer select-none items-center pl-4 pr-8 text-body-01',
       'transition-colors duration-fast-02 ease-standard',
       'hover:bg-surface-hover-02 focus:bg-state-pressed',
       'data-[state=checked]:bg-surface-selected-02 data-[state=checked]:font-medium',

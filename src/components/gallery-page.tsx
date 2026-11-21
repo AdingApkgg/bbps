@@ -107,7 +107,7 @@ export function GalleryPage({ images }: GalleryPageProps) {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-(--md-sys-layer-modal-full) flex items-center justify-center bg-scrim"
+          className="fixed inset-0 z-(--hig-layer-modal-full) flex items-center justify-center bg-scrim"
           role="dialog"
           aria-modal="true"
           aria-label={dict.gallery.viewer}

@@ -14,7 +14,7 @@ import {
 /* Snackbar 队列 —— 模块级最小状态机，避免为此套一层 Context。
  *
  * 用法：`const toast = useToast(); toast({ description: t.copied })`。
- * 同一时刻只保留最近一条（M2 规定 Snackbar 不堆叠，新的一条顶掉旧的），
+ * 同一时刻只保留最近一条（Snackbar 不堆叠，新的一条顶掉旧的），
  * 这样也不会把页面底部塞满。需要「撤销」这类动作时传 action。
  */
 type ToastItem = {

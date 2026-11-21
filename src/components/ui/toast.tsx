@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 
 /* Toast（snackbar）
  *
- * 结构沿用 M2 的吐司：反色底、onInverse 文字、操作与关闭在右，
+ * 结构沿用吐司惯例：反色底、onInverse 文字、操作与关闭在右，
  * 从底部进入（入场 decelerate、退场 accelerate），默认 4s 自动消失。
  * 形状按 HIG 收圆（`hig.css` 的 `[data-slot="toast"]` 钩子）：深色胶囊 + 单层淡影。
  *
@@ -26,7 +26,7 @@ function Toaster({ className, ...props }: React.ComponentProps<typeof ToastPrimi
     <ToastPrimitive.Viewport
       data-slot="toast-viewport"
       className={cn(
-        'fixed inset-x-0 bottom-0 z-(--md-sys-layer-toast) m-0 flex w-full list-none flex-col gap-2 p-4',
+        'fixed inset-x-0 bottom-0 z-(--hig-layer-toast) m-0 flex w-full list-none flex-col gap-2 p-4',
         // 桌面端右下角一列，固定最大宽度，不铺满
         'sm:inset-x-auto sm:right-0 sm:bottom-0 sm:max-w-sm',
         className
@@ -42,7 +42,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
       data-slot="toast"
       className={cn(
         toastVariants,
-        'min-h-(--md-sys-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-(--md-sys-size-toast-width)',
+        'min-h-(--hig-size-row) max-w-full bg-inverse-surface text-on-inverse-surface sm:max-w-(--hig-size-toast-width)',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=open]:slide-in-from-bottom-full data-[state=closed]:slide-out-to-bottom-full',

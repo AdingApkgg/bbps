@@ -93,7 +93,7 @@ function RankTable({
               <TableCell>
                 <span className="text-body-02 text-on-surface-medium">{entry.level || '—'}</span>
               </TableCell>
-              <TableCell className="max-w-(--md-sys-size-rank-label) truncate">
+              <TableCell className="max-w-(--hig-size-rank-label) truncate">
                 {entry.playerId ? (
                   <button
                     type="button"

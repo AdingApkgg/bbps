@@ -23,8 +23,8 @@ function Slider({
       data-slot="slider"
       className={cn(
         'relative flex w-full touch-none select-none items-center',
-        // 18dp 触摸区，配合手柄留出上下余量
-        compact ? 'py-2' : 'py-(--md-sys-size-slider-pad)',
+        // 18px 触摸区，配合手柄留出上下余量
+        compact ? 'py-2' : 'py-(--hig-size-slider-pad)',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-45',
         className
       )}
@@ -44,7 +44,7 @@ function Slider({
           key={v}
           data-slot="slider-thumb"
           className={cn(
-            'relative block rounded-full bg-surface-01 shadow-[var(--md-sys-shadow-thumb)]',
+            'relative block rounded-full bg-surface-01 shadow-[var(--hig-shadow-thumb)]',
             compact ? 'size-3' : 'size-7',
             'transition-[box-shadow,transform] duration-fast-01 ease-standard',
             'before:absolute before:-inset-2 before:rounded-full before:content-[""]',
