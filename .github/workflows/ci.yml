@@ -1,6 +1,6 @@
 name: CI
 
-# 合并门禁：类型、lint、构建三件事都在 PR 上跑。
+# 合并门禁：bun run check 的全部闸门 + 构建，都在 PR 上跑。
 #
 # 原先没有任何 CI，`bun run check` 只在提交者本机跑，谁跳过谁就绿。
 # 这里只做验证，不部署 —— 部署仍走 Cloudflare Pages 自己的 Git 集成。
@@ -27,19 +27,11 @@ jobs:
       - name: Install
         run: bun install --frozen-lockfile
 
-      - name: Typecheck
-        run: bun run typecheck
-
-      - name: Lint
-        run: bunx biome check src scripts
-
-      # 暗色写了两份（跟随系统 / 手动选），这个脚本把两份不一致变成红灯
-      - name: Theme parity
-        run: bun run check:theme
-
-      # 组件槽位索引是生成的：代码里加了槽位却没重新生成，文档就会撒谎
-      - name: Component token index
-        run: bun run check:cmp
+      # 直接跑 bun run check，别在这里逐条抄：原先抄了
+      # typecheck / biome / theme / cmp，却漏掉 spacing 和
+      # deprecations —— 本地拦得住、CI 放过。
+      - name: Checks
+        run: bun run check
 
       # 构建会抓 blog.30hb.cn：src/lib/http.ts 已带 IPv4 优先 + 退避重试，
       # 仍失败就说明上游真挂了，让它红是想要的信号
