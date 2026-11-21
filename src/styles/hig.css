@@ -215,10 +215,23 @@
   }
   :root [data-slot="sheet"][data-side="right"],
   :root [data-slot="sheet"][data-side="left"] {
-    border-radius: var(--hig-shape-container) 0 0 var(--hig-shape-container);
+    border-start-start-radius: var(--hig-shape-container);
+    border-start-end-radius: var(--hig-shape-container);
+    border-end-start-radius: var(--hig-shape-container);
+    border-end-end-radius: var(--hig-shape-container);
+    /* 贴边的两角靠 side 判断，故下面用逻辑角名压平内侧 */
+  }
+  :root [data-slot="sheet"][data-side="right"] {
+    border-start-start-radius: var(--hig-shape-container);
+    border-end-start-radius: var(--hig-shape-container);
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
   }
   :root [data-slot="sheet"][data-side="left"] {
-    border-radius: 0 var(--hig-shape-container) var(--hig-shape-container) 0;
+    border-start-end-radius: var(--hig-shape-container);
+    border-end-end-radius: var(--hig-shape-container);
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
   }
   :root [data-slot="sheet"][data-side="bottom"] {
     border-radius: var(--hig-shape-container) var(--hig-shape-container) 0 0;
@@ -343,8 +356,9 @@
     border-radius: var(--hig-shape-container);
   }
   :root .atk-comment.atk-comment > .atk-main > .atk-body > .atk-reply-to {
-    border-left-color: var(--hig-color-primary);
-    border-radius: 0 var(--hig-shape-control) var(--hig-shape-control) 0;
+    border-inline-start-color: var(--hig-color-primary);
+    border-start-end-radius: var(--hig-shape-control);
+    border-end-end-radius: var(--hig-shape-control);
   }
 
   /* 选中态 chip：亮色 #0066cc 落在选中底（#e9e9eb）只有 4.59:1，贴边且受 antialias 影响，
@@ -481,7 +495,7 @@
       block-size: calc(100dvh - var(--rail-top));
       width: 15rem;
       padding-inline: 0.75rem;
-      border-right: 0.5px solid var(--hig-color-outline-01);
+      border-inline-end: 0.5px solid var(--hig-color-outline-01);
       background: color-mix(in srgb, var(--hig-color-surface) 70%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
     }
@@ -719,8 +733,9 @@
     max-width: 88vw;
     background: var(--hig-color-material-sheet);
     backdrop-filter: blur(20px) saturate(180%);
-    border-right: 0.5px solid var(--hig-color-outline-01);
-    border-radius: 0 var(--hig-shape-overlay) var(--hig-shape-overlay) 0;
+    border-inline-end: 0.5px solid var(--hig-color-outline-01);
+    border-start-end-radius: var(--hig-shape-overlay);
+    border-end-end-radius: var(--hig-shape-overlay);
     /* dock 压在抽屉之上（见 tokens.css 层叠顺序），所以抽屉自己要让出它的高度，
      否则矮屏滚到底的末项正好躺在 tab bar / 播放条底下，看得见却点不到 */
     padding-block-end: calc(3.5rem + env(safe-area-inset-bottom));
@@ -735,5 +750,104 @@
   }
   :root body:has(.h-\[72px\]) [data-drawer] {
     padding-block-end: calc(8rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── 打印：去掉一切材质与影，只留黑字白纸 ────────────────────────────────
+ * 屏幕上的半透明材质投影到纸上会变成灰块，固定定位的 rail / dock / toast
+ * 也会在每页重复印一遍，所以一律抹掉。链接要能看出去向，阻抗印刷缓存。
+ * ------------------------------------------------------------------- */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  :root body {
+    background: #fff;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  :root header.sticky,
+  :root .fixed,
+  :root [data-rail],
+  :root [data-drawer],
+  :root [data-slot="toast-viewport"],
+  :root [data-slot="skip-link"] {
+    display: none !important;
+  }
+  :root [data-slot="popover"],
+  :root [data-slot="select-content"],
+  :root [data-slot="drawer"],
+  :root .card,
+  :root [class*="rounded"] {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    border-color: #999 !important;
+  }
+  :root main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  :root a[href^="http"]::after,
+  :root a[href^="/"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #444;
+    word-break: break-all;
+  }
+  :root a[href^="#"]::after {
+    content: "";
+  }
+  :root h1,
+  :root h2,
+  :root h3 {
+    break-after: avoid;
+  }
+  :root img,
+  :root table,
+  :root pre,
+  :root blockquote {
+    break-inside: avoid;
+  }
+}
+
+/* ── 强制颜色（Windows 高对比模式 / forced-colors: active） ───────────────
+ * 系统会用 Canvas / CanvasText / Highlight / ButtonText 替掉作者颜色，
+ * 本系统大量依赖「半透明填充 = 状态」，替完会全变成同一种底色，必须显式还原：
+ * 选中态走 Highlight、勾与拇指走 ButtonText（系统保证与 Highlight 反向）、
+ * 分隔线走 CanvasText。其余交给系统，不逐个钉死。
+ * ------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  :root [data-slot="switch"][data-state="checked"],
+  :root [data-slot="checkbox"][data-state="checked"],
+  :root [data-slot="checkbox"][data-state="indeterminate"],
+  :root [data-slot="slider-range"],
+  :root [data-slot="button"][data-variant="contained"] {
+    background-color: Highlight;
+    forced-color-adjust: none;
+    color: HighlightText;
+  }
+  :root [data-slot="checkbox-indicator"],
+  :root [data-slot="slider-thumb"],
+  :root [data-slot="switch"] span {
+    forced-color-adjust: none;
+    background-color: ButtonText;
+    color: ButtonText;
+  }
+  :root [data-slot="switch"] span,
+  :root [data-slot="slider-thumb"] {
+    border: 1px solid Canvas;
+  }
+  :root [data-slot="slider-track"],
+  :root hr {
+    background-color: CanvasText;
+  }
+  :root [data-slot="toast"] {
+    border: 1px solid CanvasText;
+  }
+  :root [data-slot="switch"][data-disabled],
+  :root [data-slot="checkbox"][data-disabled] {
+    border-color: GrayText;
   }
 }

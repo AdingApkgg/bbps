@@ -11,6 +11,7 @@ import {
   SITE_URL
 } from '@/lib/site'
 import { THEME_SCRIPT } from '@/lib/theme'
+import { SURFACE_DARK, SURFACE_LIGHT } from '@/lib/theme-colors'
 
 /*
  * 中英两套根 layout 的共用外壳。
@@ -33,11 +34,11 @@ const notoSansSC = Noto_Sans_SC({
 export const OG_IMAGE_WIDTH = 1200
 export const OG_IMAGE_HEIGHT = 630
 
-/* 浏览器 UI 底色 = systemGroupedBackground 的亮/暗值，与 --hig-color-surface 一致 */
+/* 浏览器 UI 底色 = systemGroupedBackground 的亮/暗值，与 --hig-color-surface 一致（字面值见 lib/theme-colors.ts） */
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f2f2f7' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' }
+    { media: '(prefers-color-scheme: light)', color: SURFACE_LIGHT },
+    { media: '(prefers-color-scheme: dark)', color: SURFACE_DARK }
   ]
 }
 

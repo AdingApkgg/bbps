@@ -8,6 +8,9 @@
  * 规则：媒体查询里的 `:root:not([data-theme='X']) <suffix>`（X 与介质相反）必须在
  * `:root[data-theme='<介质>'] <suffix>` 有对应块，声明集合相等。注释与缩进不计。
  * 同名的块可以出现多次（令牌块和阴影块就是两段），按 `主题|后缀` 合并后再比。
+ *
+ * 第二件事：`src/lib/theme-colors.ts` 里那几处「只能是字面颜色」的常量，
+ * 必须与 `src/styles/tokens.css` 的调色板同值 —— 那是 JS 侧唯一的套刻。
  */
 import { readFile } from 'node:fs/promises'
 
@@ -96,3 +99,37 @@ if (problems.length > 0) {
   process.exit(1)
 }
 console.log(`[theme-parity] 暗色两条通路一致（${system.size} 组选择器）`)
+
+/* 字面颜色常量 vs 调色板：值必须逐个相同，改一边就必须改另一边 */
+
+const LITERALS = [
+  ['--hig-palette-white', 'PALETTE_WHITE', '#ffffff'],
+  ['--hig-palette-black', 'PALETTE_BLACK', '#000000'],
+  ['--hig-palette-neutral-048', 'PALETTE_NEUTRAL_048', '#f2f2f7'],
+  ['--hig-palette-neutral-820', 'PALETTE_NEUTRAL_820', '#1c1c1e']
+]
+
+const rawTokens = await readFile('src/styles/tokens.css', 'utf8')
+const rawLiterals = await readFile('src/lib/theme-colors.ts', 'utf8')
+const literalProblems = []
+
+for (const [token, constant, expected] of LITERALS) {
+  const found = rawTokens.match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{6})\\s*;`))
+  if (!found) literalProblems.push(`src/styles/tokens.css: 找不到 ${token}`)
+  else if (found[1].toLowerCase() !== expected)
+    literalProblems.push(`src/styles/tokens.css: ${token} 实际是 ${found[1]}`)
+
+  const declared = rawLiterals.match(new RegExp(`export const ${constant} = '(#[0-9a-fA-F]{6})'`))
+  if (!declared) literalProblems.push(`src/lib/theme-colors.ts: 缺 ${constant}（${token}）`)
+  else if (declared[1].toLowerCase() !== expected)
+    literalProblems.push(
+      `src/lib/theme-colors.ts: ${constant} 写成 ${declared[1]}，调色板是 ${expected}`
+    )
+}
+
+if (literalProblems.length > 0) {
+  console.error(`[theme-parity] ${literalProblems.length} 处字面颜色与调色板不一致：`)
+  for (const p of literalProblems) console.error(`  - ${p}`)
+  process.exit(1)
+}
+console.log(`[theme-parity] theme-colors.ts 的 ${LITERALS.length} 个字面常量与调色板一致`)

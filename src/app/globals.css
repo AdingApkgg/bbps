@@ -99,9 +99,8 @@
   --color-outline-00: var(--hig-color-outline-00);
   --color-outline-01: var(--hig-color-outline-01);
   --color-outline-variant-01: var(--hig-color-outline-variant-01);
-  --color-outline-emphasis: var(--hig-color-outline-emphasis);
+  --color-outline-emphasis: var(--hig-color-outline-emphasis-01);
   --color-outline-emphasis-01: var(--hig-color-outline-emphasis-01);
-  --color-outline-active: var(--hig-color-outline-active);
   --color-outline-disabled: var(--hig-color-outline-disabled);
   --color-on-surface: var(--hig-color-on-surface);
   --color-on-surface-medium: var(--hig-color-on-surface-medium);
@@ -121,8 +120,6 @@
   /* Tag 成对色 */
   --color-chip-background-blue: var(--hig-color-chip-background-blue);
   --color-chip-color-blue: var(--hig-color-chip-color-blue);
-  --color-chip-background-cool-gray: var(--hig-color-chip-background-cool-gray);
-  --color-chip-color-cool-gray: var(--hig-color-chip-color-cool-gray);
   --color-chip-background-cyan: var(--hig-color-chip-background-cyan);
   --color-chip-color-cyan: var(--hig-color-chip-color-cyan);
   --color-chip-background-gray: var(--hig-color-chip-background-gray);
@@ -145,7 +142,6 @@
   --color-warning: var(--hig-color-warning);
   --color-info: var(--hig-color-info);
   --color-focus: var(--hig-color-focus);
-  --color-interactive: var(--hig-color-interactive);
   --color-highlight: var(--hig-color-highlight);
   --color-scrim: var(--hig-color-scrim);
   --color-primary: var(--hig-color-primary);
@@ -828,4 +824,27 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--hig-color-outline-emphasis-01);
+}
+
+/* ── 浏览器能力降级 ─────────────────────────────────────────────────────
+ * browserslist 已声明 Safari / iOS 15.4 为下限；15.4 有 backdrop-filter，
+ * 但仍要交代没它时什么样，否则旧 WebView 里浮层直接透明穿帮。
+ * 一律回退成不透明面，不改布局。
+ * ------------------------------------------------------------------- */
+@supports not (backdrop-filter: blur(1px)) {
+  :root header.sticky,
+  :root .fixed.inset-x-0.bottom-0.border-t,
+  :root [data-rail],
+  :root [data-slot="toast"],
+  :root [data-drawer],
+  :root [data-slot="popover"],
+  :root [data-slot="select-content"] {
+    backdrop-filter: none;
+    background-color: var(--hig-color-surface-01);
+  }
+  :root [data-drawer],
+  :root [data-slot="popover"],
+  :root [data-slot="select-content"] {
+    background-color: var(--hig-color-surface-02);
+  }
 }
