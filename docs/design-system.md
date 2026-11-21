@@ -170,9 +170,11 @@ JS 侧要判明暗只能走 `usePrefersDark()`（`data-theme` 优先，`auto` �
 ## 九、校验（提交前）
 
 ```bash
-bun run check          # biome check + tsc --noEmit + check:theme，一起跑
-bun scripts/shots.mjs   # 明暗 × 1280/390 × 跟随系统/手动选，含四道闸门
+bun run check            # biome + tsc + check:theme + check:spacing + check:deprecations + check:data
+bun scripts/shots.mjs    # 明暗 × 1280/390 × 跟随系统/手动选，含四道闸门
 ```
+
+全绿才算完事：biome 管格式与裸 hex，`check:theme` 管暗色双通路与 `theme-colors.ts` 常量，`check:spacing` 管 4px 阶，`check:deprecations` 管弃用没清，`check:data` 管生成物与源数据同步。shots 的 `overflow`/`drawerFail`/`themeFail`/`lowContrast` 四道闸门任一非 0 即失败，`lowContrast` 有「不量边框」盲区，边框对比度只能靠人眼。
 
 `scripts/shots.mjs` 逐页截图并同时输出四道闸门，任一非 0 都要处理：
 - `overflow` —— 横向溢出 px（必须全 0，含抽屉打开态）。
@@ -187,7 +189,49 @@ bun scripts/shots.mjs   # 明暗 × 1280/390 × 跟随系统/手动选，含四�
 
 截图默认落在 `public/_preview/`，`public/preview.html` 可整页速览（目录在 `.gitignore` 里，跑完重生成）。
 
-## 十、从 CLI 拉组件（shadcn）
+## 十、值的生命周期
+
+令牌和组件一律处于三种状态之一，标在定义旁边的注释里，三种状态各自有硬保证。
+
+| 状态 | 标记 | 含义 |
+| --- | --- | --- |
+| 试验 | `/* @experimental */` | 名字可以随时改，不承诺兼容。用的人自己认风险；`check:deprecations` 只报数量不拦。 |
+| 稳定 | 无标记 | 默认状态。改名要先走弃用。 |
+| 弃用 | `/* @deprecated YYYY-MM-DD --旧名 → --新名 \| remove */` | 定义保留，新代码禁用；引用清零满 30 天即删。 |
+
+弃用注释写在被弃的令牌定义**行尾**（组件槽位写在 `--hig-cmp-*` 声明同行），格式固定，`scripts/check-deprecations.mjs` 按它解析：
+
+```css
+--hig-color-surface-hover-01: var(--hig-color-fill-hover); /* @deprecated 2026-11-21 → --hig-color-fill-hover */
+```
+
+`check:deprecations` 把「`src/` 里还有引用」变成构建失败，并逐条列出前几处位置。所以**弃用不是写完注释就完**，得同一次改掉调用点。文档里的弃用表、迁移示例不算残留。
+
+迁移用脚本，别手改：
+
+```bash
+bun scripts/migrate-token.mjs --from --hig-color-surface-hover-01 --to --hig-color-fill-hover
+bun scripts/migrate-token.mjs --from --hig-color-foo            # 只弃用＋标记，留给你逐步迁
+bun scripts/migrate-token.mjs --from --hig-color-foo --delete  # 直接删定义（须先清空引用）
+```
+
+脚本做的事：全仓 `src/` `docs/` 文本替换（`--hig-` 前缀安全，词边界不误伤 `-01`/`-2` 后缀）、把替换掉的令牌定义标成弃用、打印每个文件的替换条数；`--delete` 连带删掉定义行。
+
+组件同理：删组件前先在本节下方的「已弃用」表登记，导出名保留为转发别名，30 天后再删。
+
+| 已弃用 | 替身 | 起始 |
+| --- | --- | --- |
+| `--hig-color-interactive` | `--hig-color-primary` | 2026-11-21 |
+| `--hig-color-outline-active` | `--hig-color-primary` | 2026-11-21 |
+| `--hig-color-on-info` | `--hig-color-on-primary` | 2026-11-21 |
+| `--hig-color-on-success` | `--hig-color-on-primary` | 2026-11-21 |
+| `--hig-color-chip-background-cool-gray` | `--hig-color-chip-background-gray` | 2026-11-21 |
+| `--hig-color-chip-color-cool-gray` | `--hig-color-chip-color-gray` | 2026-11-21 |
+| `--hig-color-outline-emphasis` | `--hig-color-outline-emphasis-01` | 2026-11-21 |
+
+这七条都是「亮暗同值的重复项」：`interactive`/`outline-active` 等于 `primary`，`on-info`/`on-success` 等于 `on-primary`，cool-gray 对等于 gray 对，`outline-emphasis` 等于 `outline-emphasis-01`。替身没有增删语义，只消灭同值异名。
+
+## 十一、从 CLI 拉组件（shadcn）
 
 仓库有 `components.json`，可直接 `npx shadcn@latest add <name>`。三点注意：
 
