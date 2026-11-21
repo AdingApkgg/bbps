@@ -20,8 +20,11 @@ jobs:
         Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
         (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      # 与 ci.yml 一致：按 commit SHA 钉死，checkout 不留下 token
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: 1.4.4
       - run: bun install --frozen-lockfile
