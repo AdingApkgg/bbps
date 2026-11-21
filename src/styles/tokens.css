@@ -17,110 +17,257 @@
  * 状态色是系统 fill 的半透明叠加（hover 8%、pressed/selected 16%），不是换色。
  * ========================================================================= */
 
+/* ── 调色板：唯一定义像素值的地方 ──────────────────────────────────────
+ * 语义令牌只许写 var(--hig-palette-…) —— 换主色、换灰阶只改这里，不动语义层。
+ * 命名：色名 + 强度（000 最浅…1000 最深，取自平均亮度），中性阶与语义色分族；
+ * 半透明色带 aNN（NN = alpha 百分比），scrim 专供遮罩；同族同档而基色不同的
+ * 第二个值加 -2 后缀（如 a12 / a12-2 分别压在白与深灰上）。
+ * 值全部是 HIG 系统色（iOS 系统蓝 / 系统绿 / 系统红 / 系统灰族）。
+ * 新增色先进这里再进语义层；语义层出现第二个字面值即为事故。
+ * ------------------------------------------------------------------- */
+:root {
+  /* black */
+  --hig-palette-black: #000000;
+
+  /* white */
+  --hig-palette-white: #ffffff;
+
+  /* neutral */
+  --hig-palette-neutral-820: #1c1c1e;
+  --hig-palette-neutral-780: #262628;
+  --hig-palette-neutral-730: #2c2c2e;
+  --hig-palette-neutral-600: #363638;
+  --hig-palette-neutral-560: #55555c;
+  --hig-palette-neutral-500: #5f5f66;
+  --hig-palette-neutral-160: #d6d6db;
+  --hig-palette-neutral-140: #dcdce2;
+  --hig-palette-neutral-132: #dededf;
+  --hig-palette-neutral-100: #e8e8ed;
+  --hig-palette-neutral-096: #e9e9eb;
+  --hig-palette-neutral-080: #ebebf0;
+  --hig-palette-neutral-066: #eeeef3;
+  --hig-palette-neutral-048: #f2f2f7;
+  --hig-palette-neutral-040: #f4f4f8;
+  --hig-palette-neutral-a08: rgba(120, 120, 128, 0.08);
+  --hig-palette-neutral-a12: rgba(116, 116, 128, 0.12);
+  --hig-palette-neutral-a12-2: rgba(120, 120, 128, 0.12);
+  --hig-palette-neutral-a14: rgba(142, 142, 147, 0.14);
+  --hig-palette-neutral-a16: rgba(120, 120, 128, 0.16);
+  --hig-palette-neutral-a16-2: rgba(118, 118, 128, 0.16);
+  --hig-palette-neutral-a18: rgba(60, 60, 67, 0.18);
+  --hig-palette-neutral-a20: rgba(60, 60, 67, 0.2);
+  --hig-palette-neutral-a20-2: rgba(120, 120, 128, 0.2);
+  --hig-palette-neutral-a24: rgba(118, 118, 128, 0.24);
+  --hig-palette-neutral-a24-2: rgba(142, 142, 147, 0.24);
+  --hig-palette-neutral-a28: rgba(120, 120, 128, 0.28);
+  --hig-palette-neutral-a29: rgba(60, 60, 67, 0.29);
+  --hig-palette-neutral-a32: rgba(118, 118, 128, 0.32);
+  --hig-palette-neutral-a40: rgba(60, 60, 67, 0.4);
+  --hig-palette-neutral-a40-2: rgba(84, 84, 88, 0.4);
+  --hig-palette-neutral-a40-3: rgba(118, 118, 128, 0.4);
+  --hig-palette-neutral-a48: rgba(84, 84, 88, 0.48);
+  --hig-palette-neutral-a55: rgba(60, 60, 67, 0.55);
+  --hig-palette-neutral-a55-2: rgba(140, 140, 150, 0.55);
+  --hig-palette-neutral-a55-3: rgba(235, 235, 245, 0.55);
+  --hig-palette-neutral-a58: rgba(235, 235, 245, 0.58);
+  --hig-palette-neutral-a60: rgba(235, 235, 245, 0.6);
+  --hig-palette-neutral-a65: rgba(84, 84, 88, 0.65);
+  --hig-palette-neutral-a72: rgba(60, 60, 67, 0.72);
+  --hig-palette-neutral-a76: rgba(60, 60, 67, 0.76);
+  --hig-palette-neutral-a78: rgba(60, 60, 67, 0.78);
+  --hig-palette-neutral-a80: rgba(60, 60, 67, 0.8);
+  --hig-palette-neutral-a82: rgba(249, 249, 249, 0.82);
+  --hig-palette-neutral-a82-2: rgba(28, 28, 30, 0.82);
+  --hig-palette-neutral-a85: rgba(200, 200, 210, 0.85);
+  --hig-palette-neutral-a86: rgba(255, 255, 255, 0.86);
+  --hig-palette-neutral-a88: rgba(44, 44, 46, 0.88);
+
+  /* scrim */
+  --hig-palette-scrim-a40: rgba(0, 0, 0, 0.4);
+  --hig-palette-scrim-a60: rgba(0, 0, 0, 0.6);
+
+  /* red */
+  --hig-palette-red-762: #8f1710;
+  --hig-palette-red-716: #a81d14;
+  --hig-palette-red-669: #c02419;
+  --hig-palette-red-660: #b82a22;
+  --hig-palette-red-637: #b81f3f;
+  --hig-palette-red-612: #cc332a;
+  --hig-palette-red-605: #d92f26;
+  --hig-palette-red-501: #ff453a;
+  --hig-palette-red-275: #ff9b91;
+  --hig-palette-red-251: #ff96a8;
+  --hig-palette-red-a12: rgba(255, 45, 85, 0.12);
+  --hig-palette-red-a12-2: rgba(255, 59, 48, 0.12);
+  --hig-palette-red-a22: rgba(255, 55, 95, 0.22);
+  --hig-palette-red-a22-2: rgba(255, 69, 58, 0.22);
+
+  /* amber */
+  --hig-palette-amber-714: #8a4b06;
+  --hig-palette-amber-446: #ff9f0a;
+
+  /* green */
+  --hig-palette-green-773: #146c2e;
+  --hig-palette-green-647: #2a9d47;
+  --hig-palette-green-333: #7eeb95;
+  --hig-palette-green-a14: rgba(52, 199, 89, 0.14);
+  --hig-palette-green-a22: rgba(48, 209, 88, 0.22);
+
+  /* cyan */
+  --hig-palette-cyan-701: #0a6675;
+  --hig-palette-cyan-665: #0b6b8a;
+  --hig-palette-cyan-182: #96e8f4;
+  --hig-palette-cyan-178: #93e3ff;
+  --hig-palette-cyan-a14: rgba(50, 173, 230, 0.14);
+  --hig-palette-cyan-a14-2: rgba(48, 176, 199, 0.14);
+  --hig-palette-cyan-a22: rgba(100, 210, 255, 0.22);
+  --hig-palette-cyan-a22-2: rgba(64, 200, 224, 0.22);
+
+  /* blue */
+  --hig-palette-blue-935: #00131f;
+  --hig-palette-blue-703: #004a99;
+  --hig-palette-blue-650: #0059b3;
+  --hig-palette-blue-610: #0a63bd;
+  --hig-palette-blue-600: #0066cc;
+  --hig-palette-blue-566: #0d6fd0;
+  --hig-palette-blue-558: #0a72d6;
+  --hig-palette-blue-481: #0a84ff;
+  --hig-palette-blue-357: #4aa3ff;
+  --hig-palette-blue-265: #79baff;
+  --hig-palette-blue-227: #8cc4ff;
+  --hig-palette-blue-a12: rgba(0, 122, 255, 0.12);
+  --hig-palette-blue-a14: rgba(0, 102, 204, 0.14);
+  --hig-palette-blue-a22: rgba(10, 132, 255, 0.22);
+
+  /* purple */
+  --hig-palette-purple-541: #7d3aa8;
+  --hig-palette-purple-175: #d6a2ff;
+  --hig-palette-purple-a14: rgba(175, 82, 222, 0.14);
+  --hig-palette-purple-a24: rgba(191, 90, 242, 0.24);
+}
+
 /* ── 亮色：HIG 系统外观 ───────────────────────────────────────────────── */
 :root {
   /* 材质：顶栏 / 播放条的半透明底与浮层底色（blur 之下用） */
-  --hig-color-fill-quaternary: rgba(116, 116, 128, 0.12);
-  --hig-color-material-bar: rgba(249, 249, 249, 0.82);
-  --hig-color-material-sheet: rgba(255, 255, 255, 0.86);
+  --hig-color-fill-quaternary: var(--hig-palette-neutral-a12);
+  --hig-color-material-bar: var(--hig-palette-neutral-a82);
+  --hig-color-material-sheet: var(--hig-palette-neutral-a86);
 
   /* 画布与层：分组列表底 + 白卡 */
-  --hig-color-surface: #f2f2f7;
-  --hig-color-surface-01: #ffffff;
-  --hig-color-surface-02: #ffffff;
-  --hig-color-surface-hover-01: #f4f4f8;
-  --hig-color-surface-hover-02: #ebebf0;
-  --hig-color-surface-selected-01: #e8e8ed;
-  --hig-color-surface-selected-02: #dededf;
-  --hig-color-surface-variant-01: #eeeef3;
-  --hig-color-surface-disabled-01: #f2f2f7;
+  --hig-color-surface: var(--hig-palette-neutral-048);
+  --hig-color-surface-01: var(--hig-palette-white);
+  --hig-color-surface-02: var(--hig-palette-white);
+  --hig-color-surface-hover-01: var(--hig-palette-neutral-040);
+  --hig-color-surface-hover-02: var(--hig-palette-neutral-080);
+  --hig-color-surface-selected-01: var(--hig-palette-neutral-100);
+  --hig-color-surface-selected-02: var(--hig-palette-neutral-132);
+  /* 选中 + hover：选中底上再进一档，否则选中行悬停毫无反馈 */
+  --hig-color-surface-selected-hover-01: var(--hig-palette-neutral-140);
+  --hig-color-surface-selected-hover-02: var(--hig-palette-neutral-160);
+  --hig-color-surface-variant-01: var(--hig-palette-neutral-066);
+  --hig-color-surface-disabled-01: var(--hig-palette-neutral-048);
 
   /* 输入底：必须比页面分组底（surface #f2f2f7）更亮，否则字段在页面上「消失」 */
-  --hig-color-field-01: #ffffff;
-  --hig-color-field-hover-01: #f4f4f8;
+  --hig-color-field-01: var(--hig-palette-white);
+  --hig-color-field-hover-01: var(--hig-palette-neutral-040);
   /* 字段描边：与分隔线同族但更实 —— 控件靠它被看见，不只靠底色差 */
-  --hig-color-outline-field: rgba(60, 60, 67, 0.4);
+  --hig-color-outline-field: var(--hig-palette-neutral-a40);
 
   /* 描边：HIG 用分隔线，不给控件描边框 */
-  --hig-color-outline-disabled: rgba(60, 60, 67, 0.18);
-  --hig-color-outline-active: #0066cc;
+  --hig-color-outline-disabled: var(--hig-palette-neutral-a18);
+  --hig-color-outline-active: var(
+    --hig-palette-blue-600
+  ); /* @deprecated 2026-11-21 → --hig-color-primary */
   /* 强调描边：描边型控件（outlined 按钮、渐变卡、原始 <button>.border）用，
      `-01` 是字段专用的同值孪生。两者必须同值且明显深于 outline-field（0.4），
      否则描边与通配继承来的 outline-01（0.29）看不出区别 —— 曾因此漂移过。 */
-  --hig-color-outline-emphasis-01: rgba(60, 60, 67, 0.55);
-  --hig-color-outline-emphasis: rgba(60, 60, 67, 0.55);
-  --hig-color-outline-00: rgba(60, 60, 67, 0.18);
+  --hig-color-outline-emphasis: var(
+    --hig-palette-neutral-a55
+  ); /* @deprecated 2026-11-21 → --hig-color-outline-emphasis-01 */
+  --hig-color-outline-emphasis-01: var(--hig-palette-neutral-a55);
   /* 分隔线：比描边再淡一档。列表行只用它，不给行加边框 */
-  --hig-color-outline-variant-01: rgba(60, 60, 67, 0.2);
-  --hig-color-outline-01: rgba(60, 60, 67, 0.29);
-  --hig-color-outline: rgba(60, 60, 67, 0.29);
+  --hig-color-outline-variant-01: var(--hig-palette-neutral-a20);
+  --hig-color-outline-01: var(--hig-palette-neutral-a29);
+  --hig-color-outline: var(--hig-palette-neutral-a29);
 
   /* 前景：label / secondaryLabel / tertiaryLabel / placeholderText */
-  --hig-color-on-surface: #000000;
-  --hig-color-on-surface-medium: rgba(60, 60, 67, 0.8);
-  --hig-color-on-surface-helper: rgba(60, 60, 67, 0.76);
-  --hig-color-on-surface-placeholder: rgba(60, 60, 67, 0.72);
-  --hig-color-on-surface-disabled: rgba(60, 60, 67, 0.78);
-  --hig-color-on-inverse-surface: #ffffff;
-  --hig-color-on-inverse-primary: #0a84ff;
-  --hig-color-on-primary: #ffffff;
-  --hig-color-on-warning: #ffffff;
+  --hig-color-on-surface: var(--hig-palette-black);
+  --hig-color-on-surface-medium: var(--hig-palette-neutral-a80);
+  --hig-color-on-surface-helper: var(--hig-palette-neutral-a76);
+  --hig-color-on-surface-placeholder: var(--hig-palette-neutral-a72);
+  --hig-color-on-surface-disabled: var(--hig-palette-neutral-a78);
+  --hig-color-on-inverse-surface: var(--hig-palette-white);
+  --hig-color-on-inverse-primary: var(--hig-palette-blue-481);
+  --hig-color-on-primary: var(--hig-palette-white);
+  --hig-color-on-warning: var(--hig-palette-white);
+  --hig-color-on-success: var(
+    --hig-palette-white
+  ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
+  --hig-color-on-info: var(
+    --hig-palette-white
+  ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
 
-  --hig-color-primary: #0066cc;
-  --hig-color-link: #0066cc;
-  --hig-color-link-hover: #0059b3;
+  --hig-color-primary: var(--hig-palette-blue-600);
+  --hig-color-link: var(--hig-palette-blue-600);
+  --hig-color-link-hover: var(--hig-palette-blue-650);
 
-  --hig-color-error: #c02419;
-  --hig-color-success: #146c2e;
-  --hig-color-warning: #8a4b06;
-  --hig-color-info: #0066cc;
+  --hig-color-error: var(--hig-palette-red-669);
+  --hig-color-success: var(--hig-palette-green-773);
+  --hig-color-warning: var(--hig-palette-amber-714);
+  --hig-color-info: var(--hig-palette-blue-600);
 
-  --hig-color-focus: #0066cc;
-  --hig-color-interactive: #0066cc;
-  --hig-color-highlight: rgba(0, 102, 204, 0.14);
-  --hig-color-scrim: rgba(0, 0, 0, 0.4);
-  --hig-color-state-hover: rgba(120, 120, 128, 0.08);
-  --hig-color-state-pressed: rgba(120, 120, 128, 0.16);
-  --hig-color-state-selected: rgba(120, 120, 128, 0.16);
-  --hig-color-inverse-surface: #1c1c1e;
-  --hig-color-skeleton-background: #e8e8ed;
-  --hig-color-skeleton-element: #dcdce2;
+  --hig-color-focus: var(--hig-palette-blue-600);
+  --hig-color-interactive: var(
+    --hig-palette-blue-600
+  ); /* @deprecated 2026-11-21 → --hig-color-primary */
+  --hig-color-highlight: var(--hig-palette-blue-a14);
+  --hig-color-scrim: var(--hig-palette-scrim-a40);
+  --hig-color-state-hover: var(--hig-palette-neutral-a08);
+  --hig-color-state-pressed: var(--hig-palette-neutral-a16);
+  --hig-color-state-selected: var(--hig-palette-neutral-a16);
+  --hig-color-inverse-surface: var(--hig-palette-neutral-820);
+  --hig-color-skeleton-background: var(--hig-palette-neutral-100);
+  --hig-color-skeleton-element: var(--hig-palette-neutral-140);
 
   /* tag / chip：系统色 12% 底 + 同色文字，胶囊形 */
-  --hig-color-chip-background-blue: rgba(0, 122, 255, 0.12);
-  --hig-color-chip-color-blue: #0059b3;
-  --hig-color-chip-background-cool-gray: rgba(120, 120, 128, 0.12);
-  --hig-color-chip-color-cool-gray: #5f5f66;
-  --hig-color-chip-background-cyan: rgba(50, 173, 230, 0.14);
-  --hig-color-chip-color-cyan: #0b6b8a;
-  --hig-color-chip-background-gray: rgba(120, 120, 128, 0.12);
-  --hig-color-chip-color-gray: #55555c;
-  --hig-color-chip-background-green: rgba(52, 199, 89, 0.14);
-  --hig-color-chip-color-green: #146c2e;
-  --hig-color-chip-background-magenta: rgba(255, 45, 85, 0.12);
-  --hig-color-chip-color-magenta: #b81f3f;
-  --hig-color-chip-background-purple: rgba(175, 82, 222, 0.14);
-  --hig-color-chip-color-purple: #7d3aa8;
-  --hig-color-chip-background-red: rgba(255, 59, 48, 0.12);
-  --hig-color-chip-color-red: #c02419;
-  --hig-color-chip-background-teal: rgba(48, 176, 199, 0.14);
-  --hig-color-chip-color-teal: #0a6675;
-  --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.14);
-  --hig-color-chip-color-warm-gray: #5f5f66;
+  --hig-color-chip-background-blue: var(--hig-palette-blue-a12);
+  --hig-color-chip-color-blue: var(--hig-palette-blue-650);
+  --hig-color-chip-background-cool-gray: var(
+    --hig-palette-neutral-a12-2
+  ); /* @deprecated 2026-11-21 → --hig-color-chip-background-gray */
+  --hig-color-chip-color-cool-gray: var(
+    --hig-palette-neutral-500
+  ); /* @deprecated 2026-11-21 → --hig-color-chip-color-gray */
+  --hig-color-chip-background-cyan: var(--hig-palette-cyan-a14);
+  --hig-color-chip-color-cyan: var(--hig-palette-cyan-665);
+  --hig-color-chip-background-gray: var(--hig-palette-neutral-a12-2);
+  --hig-color-chip-color-gray: var(--hig-palette-neutral-560);
+  --hig-color-chip-background-green: var(--hig-palette-green-a14);
+  --hig-color-chip-color-green: var(--hig-palette-green-773);
+  --hig-color-chip-background-magenta: var(--hig-palette-red-a12);
+  --hig-color-chip-color-magenta: var(--hig-palette-red-637);
+  --hig-color-chip-background-purple: var(--hig-palette-purple-a14);
+  --hig-color-chip-color-purple: var(--hig-palette-purple-541);
+  --hig-color-chip-background-red: var(--hig-palette-red-a12-2);
+  --hig-color-chip-color-red: var(--hig-palette-red-669);
+  --hig-color-chip-background-teal: var(--hig-palette-cyan-a14-2);
+  --hig-color-chip-color-teal: var(--hig-palette-cyan-701);
+  --hig-color-chip-background-warm-gray: var(--hig-palette-neutral-a14);
+  --hig-color-chip-color-warm-gray: var(--hig-palette-neutral-500);
 
   /* 按钮：tint 填充主按钮；outlined 变体走浅填充而不是描边 */
-  --hig-color-button-contained: #0066cc;
-  --hig-color-button-contained-hover: #0059b3;
-  --hig-color-button-contained-active: #004a99;
-  --hig-color-button-contained-disabled: #e9e9eb;
-  --hig-color-button-outlined: rgba(120, 120, 128, 0.12);
-  --hig-color-button-outlined-hover: rgba(120, 120, 128, 0.2);
-  --hig-color-button-outlined-active: rgba(120, 120, 128, 0.28);
-  --hig-color-button-contained-error: #c02419;
-  --hig-color-button-error-hover: #a81d14;
-  --hig-color-button-error-active: #8f1710;
-  --hig-color-on-button-contained: #ffffff;
-  --hig-color-on-button-outlined: #0066cc;
+  --hig-color-button-contained: var(--hig-palette-blue-600);
+  --hig-color-button-contained-hover: var(--hig-palette-blue-650);
+  --hig-color-button-contained-active: var(--hig-palette-blue-703);
+  --hig-color-button-contained-disabled: var(--hig-palette-neutral-096);
+  --hig-color-button-outlined: var(--hig-palette-neutral-a12-2);
+  --hig-color-button-outlined-hover: var(--hig-palette-neutral-a20-2);
+  --hig-color-button-outlined-active: var(--hig-palette-neutral-a28);
+  --hig-color-button-contained-error: var(--hig-palette-red-669);
+  --hig-color-button-error-hover: var(--hig-palette-red-716);
+  --hig-color-button-error-active: var(--hig-palette-red-762);
+  --hig-color-on-button-contained: var(--hig-palette-white);
+  --hig-color-on-button-outlined: var(--hig-palette-blue-600);
 }
 
 /* ── 暗色 ────────────────────────────────────────────────────────────────
@@ -131,192 +278,226 @@
  */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --hig-color-fill-quaternary: rgba(118, 118, 128, 0.24);
-    --hig-color-material-bar: rgba(28, 28, 30, 0.82);
-    --hig-color-material-sheet: rgba(44, 44, 46, 0.88);
+    --hig-color-fill-quaternary: var(--hig-palette-neutral-a24);
+    --hig-color-material-bar: var(--hig-palette-neutral-a82-2);
+    --hig-color-material-sheet: var(--hig-palette-neutral-a88);
 
     /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
-    --hig-color-surface: #000000;
-    --hig-color-surface-01: #1c1c1e;
-    --hig-color-surface-02: #1c1c1e;
-    --hig-color-surface-hover-01: #262628;
-    --hig-color-surface-hover-02: #2c2c2e;
-    --hig-color-surface-selected-01: #2c2c2e;
-    --hig-color-surface-selected-02: #363638;
-    --hig-color-surface-variant-01: #2c2c2e;
-    --hig-color-surface-disabled-01: #1c1c1e;
+    --hig-color-surface: var(--hig-palette-black);
+    --hig-color-surface-01: var(--hig-palette-neutral-820);
+    --hig-color-surface-02: var(--hig-palette-neutral-820);
+    --hig-color-surface-hover-01: var(--hig-palette-neutral-780);
+    --hig-color-surface-hover-02: var(--hig-palette-neutral-730);
+    --hig-color-surface-selected-01: var(--hig-palette-neutral-730);
+    --hig-color-surface-selected-02: var(--hig-palette-neutral-600);
+    --hig-color-surface-selected-hover-01: var(--hig-palette-neutral-600);
+    --hig-color-surface-selected-hover-02: var(--hig-palette-neutral-560);
+    --hig-color-surface-variant-01: var(--hig-palette-neutral-730);
+    --hig-color-surface-disabled-01: var(--hig-palette-neutral-820);
 
-    --hig-color-field-01: #2c2c2e;
-    --hig-color-field-hover-01: #363638;
-    --hig-color-outline-field: rgba(140, 140, 150, 0.55);
+    --hig-color-field-01: var(--hig-palette-neutral-730);
+    --hig-color-field-hover-01: var(--hig-palette-neutral-600);
+    --hig-color-outline-field: var(--hig-palette-neutral-a55-2);
 
-    --hig-color-outline-disabled: rgba(84, 84, 88, 0.48);
-    --hig-color-outline-active: #4aa3ff;
-    --hig-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
-    --hig-color-outline-emphasis: rgba(200, 200, 210, 0.85);
-    --hig-color-outline-00: rgba(84, 84, 88, 0.48);
-    --hig-color-outline-variant-01: rgba(84, 84, 88, 0.4);
-    --hig-color-outline-01: rgba(84, 84, 88, 0.65);
-    --hig-color-outline: rgba(84, 84, 88, 0.65);
+    --hig-color-outline-disabled: var(--hig-palette-neutral-a48);
+    --hig-color-outline-active: var(
+      --hig-palette-blue-357
+    ); /* @deprecated 2026-11-21 → --hig-color-primary */
+    --hig-color-outline-emphasis: var(
+      --hig-palette-neutral-a85
+    ); /* @deprecated 2026-11-21 → --hig-color-outline-emphasis-01 */
+    --hig-color-outline-emphasis-01: var(--hig-palette-neutral-a85);
+    --hig-color-outline-variant-01: var(--hig-palette-neutral-a40-2);
+    --hig-color-outline-01: var(--hig-palette-neutral-a65);
+    --hig-color-outline: var(--hig-palette-neutral-a65);
 
-    --hig-color-on-surface: #ffffff;
-    --hig-color-on-surface-medium: rgba(235, 235, 245, 0.6);
-    --hig-color-on-surface-helper: rgba(235, 235, 245, 0.55);
-    --hig-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
-    --hig-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
-    --hig-color-on-inverse-surface: #000000;
-    --hig-color-on-inverse-primary: #0066cc;
-    --hig-color-on-primary: #ffffff;
-    --hig-color-on-warning: #00131f;
+    --hig-color-on-surface: var(--hig-palette-white);
+    --hig-color-on-surface-medium: var(--hig-palette-neutral-a60);
+    --hig-color-on-surface-helper: var(--hig-palette-neutral-a55-3);
+    --hig-color-on-surface-placeholder: var(--hig-palette-neutral-a58);
+    --hig-color-on-surface-disabled: var(--hig-palette-neutral-a55-3);
+    --hig-color-on-inverse-surface: var(--hig-palette-black);
+    --hig-color-on-inverse-primary: var(--hig-palette-blue-600);
+    --hig-color-on-primary: var(--hig-palette-white);
+    --hig-color-on-warning: var(--hig-palette-blue-935);
+    --hig-color-on-success: var(
+      --hig-palette-blue-935
+    ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
+    --hig-color-on-info: var(
+      --hig-palette-blue-935
+    ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
 
-    --hig-color-primary: #0a72d6;
-    --hig-color-link: #4aa3ff;
-    --hig-color-link-hover: #79baff;
+    --hig-color-primary: var(--hig-palette-blue-558);
+    --hig-color-link: var(--hig-palette-blue-357);
+    --hig-color-link-hover: var(--hig-palette-blue-265);
 
-    --hig-color-error: #ff453a;
-    --hig-color-success: #2a9d47;
-    --hig-color-warning: #ff9f0a;
-    --hig-color-info: #4aa3ff;
+    --hig-color-error: var(--hig-palette-red-501);
+    --hig-color-success: var(--hig-palette-green-647);
+    --hig-color-warning: var(--hig-palette-amber-446);
+    --hig-color-info: var(--hig-palette-blue-357);
 
-    --hig-color-focus: #4aa3ff;
-    --hig-color-interactive: #4aa3ff;
-    --hig-color-highlight: rgba(10, 132, 255, 0.22);
-    --hig-color-scrim: rgba(0, 0, 0, 0.6);
-    --hig-color-state-hover: rgba(118, 118, 128, 0.16);
-    --hig-color-state-pressed: rgba(118, 118, 128, 0.24);
-    --hig-color-state-selected: rgba(118, 118, 128, 0.24);
-    --hig-color-inverse-surface: #f2f2f7;
-    --hig-color-skeleton-background: #2c2c2e;
-    --hig-color-skeleton-element: #363638;
+    --hig-color-focus: var(--hig-palette-blue-357);
+    --hig-color-interactive: var(
+      --hig-palette-blue-357
+    ); /* @deprecated 2026-11-21 → --hig-color-primary */
+    --hig-color-highlight: var(--hig-palette-blue-a22);
+    --hig-color-scrim: var(--hig-palette-scrim-a60);
+    --hig-color-state-hover: var(--hig-palette-neutral-a16-2);
+    --hig-color-state-pressed: var(--hig-palette-neutral-a24);
+    --hig-color-state-selected: var(--hig-palette-neutral-a24);
+    --hig-color-inverse-surface: var(--hig-palette-neutral-048);
+    --hig-color-skeleton-background: var(--hig-palette-neutral-730);
+    --hig-color-skeleton-element: var(--hig-palette-neutral-600);
 
-    --hig-color-chip-background-blue: rgba(10, 132, 255, 0.22);
-    --hig-color-chip-color-blue: #8cc4ff;
-    --hig-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
-    --hig-color-chip-color-cool-gray: #d6d6db;
-    --hig-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
-    --hig-color-chip-color-cyan: #93e3ff;
-    --hig-color-chip-background-gray: rgba(118, 118, 128, 0.24);
-    --hig-color-chip-color-gray: #d6d6db;
-    --hig-color-chip-background-green: rgba(48, 209, 88, 0.22);
-    --hig-color-chip-color-green: #7eeb95;
-    --hig-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
-    --hig-color-chip-color-magenta: #ff96a8;
-    --hig-color-chip-background-purple: rgba(191, 90, 242, 0.24);
-    --hig-color-chip-color-purple: #d6a2ff;
-    --hig-color-chip-background-red: rgba(255, 69, 58, 0.22);
-    --hig-color-chip-color-red: #ff9b91;
-    --hig-color-chip-background-teal: rgba(64, 200, 224, 0.22);
-    --hig-color-chip-color-teal: #96e8f4;
-    --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
-    --hig-color-chip-color-warm-gray: #d6d6db;
+    --hig-color-chip-background-blue: var(--hig-palette-blue-a22);
+    --hig-color-chip-color-blue: var(--hig-palette-blue-227);
+    --hig-color-chip-background-cool-gray: var(
+      --hig-palette-neutral-a24
+    ); /* @deprecated 2026-11-21 → --hig-color-chip-background-gray */
+    --hig-color-chip-color-cool-gray: var(
+      --hig-palette-neutral-160
+    ); /* @deprecated 2026-11-21 → --hig-color-chip-color-gray */
+    --hig-color-chip-background-cyan: var(--hig-palette-cyan-a22);
+    --hig-color-chip-color-cyan: var(--hig-palette-cyan-178);
+    --hig-color-chip-background-gray: var(--hig-palette-neutral-a24);
+    --hig-color-chip-color-gray: var(--hig-palette-neutral-160);
+    --hig-color-chip-background-green: var(--hig-palette-green-a22);
+    --hig-color-chip-color-green: var(--hig-palette-green-333);
+    --hig-color-chip-background-magenta: var(--hig-palette-red-a22);
+    --hig-color-chip-color-magenta: var(--hig-palette-red-251);
+    --hig-color-chip-background-purple: var(--hig-palette-purple-a24);
+    --hig-color-chip-color-purple: var(--hig-palette-purple-175);
+    --hig-color-chip-background-red: var(--hig-palette-red-a22-2);
+    --hig-color-chip-color-red: var(--hig-palette-red-275);
+    --hig-color-chip-background-teal: var(--hig-palette-cyan-a22-2);
+    --hig-color-chip-color-teal: var(--hig-palette-cyan-182);
+    --hig-color-chip-background-warm-gray: var(--hig-palette-neutral-a24-2);
+    --hig-color-chip-color-warm-gray: var(--hig-palette-neutral-160);
 
-    --hig-color-button-contained: #0a72d6;
-    --hig-color-button-contained-hover: #0d6fd0;
-    --hig-color-button-contained-active: #0a63bd;
-    --hig-color-button-contained-disabled: #2c2c2e;
-    --hig-color-button-outlined: rgba(118, 118, 128, 0.24);
-    --hig-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
-    --hig-color-button-outlined-active: rgba(118, 118, 128, 0.4);
-    --hig-color-button-contained-error: #d92f26;
-    --hig-color-button-error-hover: #cc332a;
-    --hig-color-button-error-active: #b82a22;
-    --hig-color-on-button-contained: #ffffff;
-    --hig-color-on-button-outlined: #79baff;
+    --hig-color-button-contained: var(--hig-palette-blue-558);
+    --hig-color-button-contained-hover: var(--hig-palette-blue-566);
+    --hig-color-button-contained-active: var(--hig-palette-blue-610);
+    --hig-color-button-contained-disabled: var(--hig-palette-neutral-730);
+    --hig-color-button-outlined: var(--hig-palette-neutral-a24);
+    --hig-color-button-outlined-hover: var(--hig-palette-neutral-a32);
+    --hig-color-button-outlined-active: var(--hig-palette-neutral-a40-3);
+    --hig-color-button-contained-error: var(--hig-palette-red-605);
+    --hig-color-button-error-hover: var(--hig-palette-red-612);
+    --hig-color-button-error-active: var(--hig-palette-red-660);
+    --hig-color-on-button-contained: var(--hig-palette-white);
+    --hig-color-on-button-outlined: var(--hig-palette-blue-265);
   }
 }
 
 :root[data-theme="dark"] {
-  --hig-color-fill-quaternary: rgba(118, 118, 128, 0.24);
-  --hig-color-material-bar: rgba(28, 28, 30, 0.82);
-  --hig-color-material-sheet: rgba(44, 44, 46, 0.88);
+  --hig-color-fill-quaternary: var(--hig-palette-neutral-a24);
+  --hig-color-material-bar: var(--hig-palette-neutral-a82-2);
+  --hig-color-material-sheet: var(--hig-palette-neutral-a88);
 
   /* 纯黑画布、#1C1C1E 卡、#2C2C2E 抬升 */
-  --hig-color-surface: #000000;
-  --hig-color-surface-01: #1c1c1e;
-  --hig-color-surface-02: #1c1c1e;
-  --hig-color-surface-hover-01: #262628;
-  --hig-color-surface-hover-02: #2c2c2e;
-  --hig-color-surface-selected-01: #2c2c2e;
-  --hig-color-surface-selected-02: #363638;
-  --hig-color-surface-variant-01: #2c2c2e;
-  --hig-color-surface-disabled-01: #1c1c1e;
+  --hig-color-surface: var(--hig-palette-black);
+  --hig-color-surface-01: var(--hig-palette-neutral-820);
+  --hig-color-surface-02: var(--hig-palette-neutral-820);
+  --hig-color-surface-hover-01: var(--hig-palette-neutral-780);
+  --hig-color-surface-hover-02: var(--hig-palette-neutral-730);
+  --hig-color-surface-selected-01: var(--hig-palette-neutral-730);
+  --hig-color-surface-selected-02: var(--hig-palette-neutral-600);
+  --hig-color-surface-selected-hover-01: var(--hig-palette-neutral-600);
+  --hig-color-surface-selected-hover-02: var(--hig-palette-neutral-560);
+  --hig-color-surface-variant-01: var(--hig-palette-neutral-730);
+  --hig-color-surface-disabled-01: var(--hig-palette-neutral-820);
 
-  --hig-color-field-01: #2c2c2e;
-  --hig-color-field-hover-01: #363638;
-  --hig-color-outline-field: rgba(140, 140, 150, 0.55);
+  --hig-color-field-01: var(--hig-palette-neutral-730);
+  --hig-color-field-hover-01: var(--hig-palette-neutral-600);
+  --hig-color-outline-field: var(--hig-palette-neutral-a55-2);
 
-  --hig-color-outline-disabled: rgba(84, 84, 88, 0.48);
-  --hig-color-outline-active: #4aa3ff;
-  --hig-color-outline-emphasis-01: rgba(200, 200, 210, 0.85);
-  --hig-color-outline-emphasis: rgba(200, 200, 210, 0.85);
-  --hig-color-outline-00: rgba(84, 84, 88, 0.48);
-  --hig-color-outline-variant-01: rgba(84, 84, 88, 0.4);
-  --hig-color-outline-01: rgba(84, 84, 88, 0.65);
-  --hig-color-outline: rgba(84, 84, 88, 0.65);
+  --hig-color-outline-disabled: var(--hig-palette-neutral-a48);
+  --hig-color-outline-active: var(
+    --hig-palette-blue-357
+  ); /* @deprecated 2026-11-21 → --hig-color-primary */
+  --hig-color-outline-emphasis: var(
+    --hig-palette-neutral-a85
+  ); /* @deprecated 2026-11-21 → --hig-color-outline-emphasis-01 */
+  --hig-color-outline-emphasis-01: var(--hig-palette-neutral-a85);
+  --hig-color-outline-variant-01: var(--hig-palette-neutral-a40-2);
+  --hig-color-outline-01: var(--hig-palette-neutral-a65);
+  --hig-color-outline: var(--hig-palette-neutral-a65);
 
-  --hig-color-on-surface: #ffffff;
-  --hig-color-on-surface-medium: rgba(235, 235, 245, 0.6);
-  --hig-color-on-surface-helper: rgba(235, 235, 245, 0.55);
-  --hig-color-on-surface-placeholder: rgba(235, 235, 245, 0.58);
-  --hig-color-on-surface-disabled: rgba(235, 235, 245, 0.55);
-  --hig-color-on-inverse-surface: #000000;
-  --hig-color-on-inverse-primary: #0066cc;
-  --hig-color-on-primary: #ffffff;
-  --hig-color-on-warning: #00131f;
+  --hig-color-on-surface: var(--hig-palette-white);
+  --hig-color-on-surface-medium: var(--hig-palette-neutral-a60);
+  --hig-color-on-surface-helper: var(--hig-palette-neutral-a55-3);
+  --hig-color-on-surface-placeholder: var(--hig-palette-neutral-a58);
+  --hig-color-on-surface-disabled: var(--hig-palette-neutral-a55-3);
+  --hig-color-on-inverse-surface: var(--hig-palette-black);
+  --hig-color-on-inverse-primary: var(--hig-palette-blue-600);
+  --hig-color-on-primary: var(--hig-palette-white);
+  --hig-color-on-warning: var(--hig-palette-blue-935);
+  --hig-color-on-success: var(
+    --hig-palette-blue-935
+  ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
+  --hig-color-on-info: var(
+    --hig-palette-blue-935
+  ); /* @deprecated 2026-11-21 → --hig-color-on-primary */
 
-  --hig-color-primary: #0a72d6;
-  --hig-color-link: #4aa3ff;
-  --hig-color-link-hover: #79baff;
+  --hig-color-primary: var(--hig-palette-blue-558);
+  --hig-color-link: var(--hig-palette-blue-357);
+  --hig-color-link-hover: var(--hig-palette-blue-265);
 
-  --hig-color-error: #ff453a;
-  --hig-color-success: #2a9d47;
-  --hig-color-warning: #ff9f0a;
-  --hig-color-info: #4aa3ff;
+  --hig-color-error: var(--hig-palette-red-501);
+  --hig-color-success: var(--hig-palette-green-647);
+  --hig-color-warning: var(--hig-palette-amber-446);
+  --hig-color-info: var(--hig-palette-blue-357);
 
-  --hig-color-focus: #4aa3ff;
-  --hig-color-interactive: #4aa3ff;
-  --hig-color-highlight: rgba(10, 132, 255, 0.22);
-  --hig-color-scrim: rgba(0, 0, 0, 0.6);
-  --hig-color-state-hover: rgba(118, 118, 128, 0.16);
-  --hig-color-state-pressed: rgba(118, 118, 128, 0.24);
-  --hig-color-state-selected: rgba(118, 118, 128, 0.24);
-  --hig-color-inverse-surface: #f2f2f7;
-  --hig-color-skeleton-background: #2c2c2e;
-  --hig-color-skeleton-element: #363638;
+  --hig-color-focus: var(--hig-palette-blue-357);
+  --hig-color-interactive: var(
+    --hig-palette-blue-357
+  ); /* @deprecated 2026-11-21 → --hig-color-primary */
+  --hig-color-highlight: var(--hig-palette-blue-a22);
+  --hig-color-scrim: var(--hig-palette-scrim-a60);
+  --hig-color-state-hover: var(--hig-palette-neutral-a16-2);
+  --hig-color-state-pressed: var(--hig-palette-neutral-a24);
+  --hig-color-state-selected: var(--hig-palette-neutral-a24);
+  --hig-color-inverse-surface: var(--hig-palette-neutral-048);
+  --hig-color-skeleton-background: var(--hig-palette-neutral-730);
+  --hig-color-skeleton-element: var(--hig-palette-neutral-600);
 
-  --hig-color-chip-background-blue: rgba(10, 132, 255, 0.22);
-  --hig-color-chip-color-blue: #8cc4ff;
-  --hig-color-chip-background-cool-gray: rgba(118, 118, 128, 0.24);
-  --hig-color-chip-color-cool-gray: #d6d6db;
-  --hig-color-chip-background-cyan: rgba(100, 210, 255, 0.22);
-  --hig-color-chip-color-cyan: #93e3ff;
-  --hig-color-chip-background-gray: rgba(118, 118, 128, 0.24);
-  --hig-color-chip-color-gray: #d6d6db;
-  --hig-color-chip-background-green: rgba(48, 209, 88, 0.22);
-  --hig-color-chip-color-green: #7eeb95;
-  --hig-color-chip-background-magenta: rgba(255, 55, 95, 0.22);
-  --hig-color-chip-color-magenta: #ff96a8;
-  --hig-color-chip-background-purple: rgba(191, 90, 242, 0.24);
-  --hig-color-chip-color-purple: #d6a2ff;
-  --hig-color-chip-background-red: rgba(255, 69, 58, 0.22);
-  --hig-color-chip-color-red: #ff9b91;
-  --hig-color-chip-background-teal: rgba(64, 200, 224, 0.22);
-  --hig-color-chip-color-teal: #96e8f4;
-  --hig-color-chip-background-warm-gray: rgba(142, 142, 147, 0.24);
-  --hig-color-chip-color-warm-gray: #d6d6db;
+  --hig-color-chip-background-blue: var(--hig-palette-blue-a22);
+  --hig-color-chip-color-blue: var(--hig-palette-blue-227);
+  --hig-color-chip-background-cool-gray: var(
+    --hig-palette-neutral-a24
+  ); /* @deprecated 2026-11-21 → --hig-color-chip-background-gray */
+  --hig-color-chip-color-cool-gray: var(
+    --hig-palette-neutral-160
+  ); /* @deprecated 2026-11-21 → --hig-color-chip-color-gray */
+  --hig-color-chip-background-cyan: var(--hig-palette-cyan-a22);
+  --hig-color-chip-color-cyan: var(--hig-palette-cyan-178);
+  --hig-color-chip-background-gray: var(--hig-palette-neutral-a24);
+  --hig-color-chip-color-gray: var(--hig-palette-neutral-160);
+  --hig-color-chip-background-green: var(--hig-palette-green-a22);
+  --hig-color-chip-color-green: var(--hig-palette-green-333);
+  --hig-color-chip-background-magenta: var(--hig-palette-red-a22);
+  --hig-color-chip-color-magenta: var(--hig-palette-red-251);
+  --hig-color-chip-background-purple: var(--hig-palette-purple-a24);
+  --hig-color-chip-color-purple: var(--hig-palette-purple-175);
+  --hig-color-chip-background-red: var(--hig-palette-red-a22-2);
+  --hig-color-chip-color-red: var(--hig-palette-red-275);
+  --hig-color-chip-background-teal: var(--hig-palette-cyan-a22-2);
+  --hig-color-chip-color-teal: var(--hig-palette-cyan-182);
+  --hig-color-chip-background-warm-gray: var(--hig-palette-neutral-a24-2);
+  --hig-color-chip-color-warm-gray: var(--hig-palette-neutral-160);
 
-  --hig-color-button-contained: #0a72d6;
-  --hig-color-button-contained-hover: #0d6fd0;
-  --hig-color-button-contained-active: #0a63bd;
-  --hig-color-button-contained-disabled: #2c2c2e;
-  --hig-color-button-outlined: rgba(118, 118, 128, 0.24);
-  --hig-color-button-outlined-hover: rgba(118, 118, 128, 0.32);
-  --hig-color-button-outlined-active: rgba(118, 118, 128, 0.4);
-  --hig-color-button-contained-error: #d92f26;
-  --hig-color-button-error-hover: #cc332a;
-  --hig-color-button-error-active: #b82a22;
-  --hig-color-on-button-contained: #ffffff;
-  --hig-color-on-button-outlined: #79baff;
+  --hig-color-button-contained: var(--hig-palette-blue-558);
+  --hig-color-button-contained-hover: var(--hig-palette-blue-566);
+  --hig-color-button-contained-active: var(--hig-palette-blue-610);
+  --hig-color-button-contained-disabled: var(--hig-palette-neutral-730);
+  --hig-color-button-outlined: var(--hig-palette-neutral-a24);
+  --hig-color-button-outlined-hover: var(--hig-palette-neutral-a32);
+  --hig-color-button-outlined-active: var(--hig-palette-neutral-a40-3);
+  --hig-color-button-contained-error: var(--hig-palette-red-605);
+  --hig-color-button-error-hover: var(--hig-palette-red-612);
+  --hig-color-button-error-active: var(--hig-palette-red-660);
+  --hig-color-on-button-contained: var(--hig-palette-white);
+  --hig-color-on-button-outlined: var(--hig-palette-blue-265);
 }
 
 /* ── 圆角：HIG 形状刻度（控件 10、卡片 16、浮层 14、胶囊 max） ─────────── */
@@ -414,6 +595,30 @@
   --hig-motion-ease-entrance-expressive: cubic-bezier(0.32, 0.72, 0, 1);
   --hig-motion-ease-exit-productive: cubic-bezier(0.4, 0, 1, 1);
   --hig-motion-ease-exit-expressive: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── 间距：8px mini unit 网格 ───────────────────────────────────────────
+ * 几何基准是 8px 方块（Carbon 2x Grid 的底座），列 / 行 / 内外边距 / 控件尺寸
+ * 全部取 mini unit 的整数倍：分频得 2/4/8、倍频得 40/48/64，两套在断点上重合。
+ * 命名 --hig-space-NN（NN = px），与 --hig-size-* 共用同一刻度：不许 6/10/14/28
+ * 这类离格值，离格只能由 mini unit 的 calc 派生，不得另写像素。
+ * 1px / 2px 发丝例外单列，不算离格。
+ * ------------------------------------------------------------------- */
+:root {
+  --hig-mini-unit: 8px;
+
+  --hig-space-02: 2px;
+  --hig-space-04: 4px;
+  --hig-space-08: 8px;
+  --hig-space-12: 12px;
+  --hig-space-16: 16px;
+  --hig-space-24: 24px;
+  --hig-space-32: 32px;
+  --hig-space-40: 40px;
+  --hig-space-48: 48px;
+  --hig-space-64: 64px;
+  --hig-space-80: 80px;
+  --hig-space-96: 96px;
 }
 
 /* ── 尺寸：控件 34、行高 44（HIG 触达下限，不是 56 的场高） ────────── */
