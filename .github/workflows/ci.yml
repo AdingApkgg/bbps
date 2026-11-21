@@ -16,14 +16,22 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    # 只读仓库内容，别的都不需要；不写就会拿到默认的宽权限
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      # 两个 action 都按 commit SHA 钉死，tag 被挪走也换不掉跑的东西。
+      # actions/checkout v4.4.0
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
-      # 锁文件在库里，--frozen-lockfile 才能挡住「本地装了但没提交」
-      - uses: oven-sh/setup-bun@v2
+      # oven-sh/setup-bun v2.2.0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: 1.4.4
 
+      # 锁文件在库里，--frozen-lockfile 才能挡住「本地装了但没提交」
       - name: Install
         run: bun install --frozen-lockfile
 
